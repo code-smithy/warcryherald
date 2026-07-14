@@ -9,7 +9,7 @@ deployment with Supabase Auth and PostgreSQL added through later phases.
 ## Prerequisites
 
 - Node.js 20 or newer.
-- pnpm 9 or newer.
+- pnpm 10.x when using Node.js 20.
 
 ## Setup
 

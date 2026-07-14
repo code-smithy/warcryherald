@@ -816,6 +816,7 @@ Record durable decisions here.
 - 2026-07-14: Supabase frontend configuration is validated with Zod and missing values render a user-facing configuration notice.
 - 2026-07-14: Recorded the official Warhammer Community Warcry downloads page as the discovery source for public PDFs across supported languages.
 - 2026-07-14: Recorded Warcrier as a community rules reference and clarified that rules text and table descriptions may be imported when needed, while artwork, logos, images, layouts, and publication presentation remain out of scope.
+- 2026-07-14: Pinned pnpm to 10.17.1 for Node.js 20 compatibility in GitHub Pages CI. pnpm 11 requires Node.js 22.13 or newer.
 
 ## Phase Completion Log
 

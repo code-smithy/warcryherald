@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { AppRoutes } from "../src/app/AppRoutes";
 
 function renderRoute(initialEntry: string) {
@@ -15,6 +15,10 @@ function renderRoute(initialEntry: string) {
 }
 
 describe("Warcry Herald shell", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
   it("renders the project foundation home page", () => {
     renderRoute("/");
 
@@ -27,6 +31,9 @@ describe("Warcry Herald shell", () => {
   });
 
   it("shows a useful configuration error when Supabase is missing", () => {
+    vi.stubEnv("VITE_SUPABASE_URL", "");
+    vi.stubEnv("VITE_SUPABASE_ANON_KEY", "");
+
     renderRoute("/campaigns");
 
     expect(
