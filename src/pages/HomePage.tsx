@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { SignInPanel } from "../components/SignInPanel";
+import { useAuth } from "../lib/auth-context";
 
 export function HomePage() {
+  const { user } = useAuth();
+
   return (
     <main className="page">
       <section className="hero">
@@ -8,35 +12,39 @@ export function HomePage() {
           <p className="eyebrow">Narrative campaign command</p>
           <h1>Track the warbands, battles, and scars that shape a campaign.</h1>
           <p>
-            Warcry Herald will manage campaign membership, versioned reference
-            data, warband rosters, aftermath, and chronicle entries with
-            authorization enforced by Supabase Row-Level Security.
+            Sign in with Discord to keep your player profile ready for campaign
+            membership, rosters, battles, aftermath, and chronicle entries.
           </p>
-          <Link className="button" to="/campaigns">
-            Open campaign ledger
-          </Link>
+          <div className="hero-actions">
+            <SignInPanel />
+            {user ? (
+              <Link className="button button--secondary" to="/campaigns">
+                Open campaign ledger
+              </Link>
+            ) : null}
+          </div>
         </div>
       </section>
       <section className="foundation-grid" aria-label="Project foundation">
         <article>
-          <h2>Campaign security boundary</h2>
+          <h2>Discord authentication</h2>
           <p>
-            Campaign membership and role checks are the core tenancy model for
-            all private player data.
+            Supabase Auth handles Discord login, persistent browser sessions,
+            and sign out.
           </p>
         </article>
         <article>
-          <h2>Versioned rules data</h2>
+          <h2>Player profiles</h2>
           <p>
-            Fighter profiles and other reference records will be tied to rules
-            releases so older rosters and battles remain understandable.
+            Profiles store Discord metadata plus editable display name,
+            language, and timezone settings.
           </p>
         </article>
         <article>
-          <h2>Static deployment</h2>
+          <h2>Database authorization</h2>
           <p>
-            The frontend is built as a static application that can be hosted on
-            GitHub Pages.
+            Row-Level Security keeps users scoped to their own profile until
+            campaign data arrives in Phase 2.
           </p>
         </article>
       </section>

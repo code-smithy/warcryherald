@@ -8,9 +8,19 @@ functions where appropriate.
 
 - Campaign data is private to campaign members.
 - Campaign role checks must happen in database policies or functions.
+- Profiles are private to their owning authenticated user.
 - Reference data is public read-mostly data, but ordinary users cannot mutate it.
 - Supabase service-role keys and other secrets must never be exposed to the
   frontend.
+
+## Phase 1 Profile Rules
+
+- `profiles.id` is owned by `auth.users`.
+- Profiles are created and refreshed by a database trigger on `auth.users`.
+- Users can select only their own profile.
+- Users can update only `display_name`, `preferred_language`, and `timezone`.
+- Discord identifiers, avatar URLs, timestamps, and `is_site_admin` are not
+  frontend-editable columns.
 
 ## Sensitive Operations
 

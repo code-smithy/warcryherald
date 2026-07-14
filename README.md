@@ -2,9 +2,9 @@
 
 Warcry Herald is a campaign manager for Warcry narrative play.
 
-The project is currently in Phase 0: repository and design foundation. The app
-is a Vite, React, and TypeScript static frontend intended for GitHub Pages
-deployment with Supabase Auth and PostgreSQL added through later phases.
+The project is currently in Phase 1: Discord authentication and profiles. The
+app is a Vite, React, and TypeScript static frontend intended for GitHub Pages
+deployment with Supabase Auth and PostgreSQL.
 
 ## Prerequisites
 
@@ -26,6 +26,19 @@ VITE_SUPABASE_ANON_KEY=your-anon-key
 
 The app intentionally runs without those values and shows a configuration error
 instead of failing silently.
+
+Apply Supabase migrations before testing authentication:
+
+```bash
+supabase db push
+```
+
+Configure Discord OAuth in Supabase Auth and allow the app URL as a redirect
+target. The local development callback is:
+
+```text
+http://127.0.0.1:5173/#/auth/callback
+```
 
 ## Scripts
 

@@ -31,9 +31,9 @@ Stay inquisitive. If a rule, table shape, workflow, copyright boundary, or UI be
 
 ## Current Status
 
-- Project stage: Phase 0 complete.
-- Current phase: ready for Phase 1.
-- Last completed phase: Phase 0 - Repository And Design Foundation.
+- Project stage: Phase 1 complete.
+- Current phase: ready for Phase 2.
+- Last completed phase: Phase 1 - Authentication And Profiles.
 - MVP target: complete after `WH-018 Chronicle and audit history`.
 - Broader readiness target: complete after `WH-020 Security review and production deployment`.
 
@@ -817,6 +817,7 @@ Record durable decisions here.
 - 2026-07-14: Recorded the official Warhammer Community Warcry downloads page as the discovery source for public PDFs across supported languages.
 - 2026-07-14: Recorded Warcrier as a community rules reference and clarified that rules text and table descriptions may be imported when needed, while artwork, logos, images, layouts, and publication presentation remain out of scope.
 - 2026-07-14: Pinned pnpm to 10.17.1 for Node.js 20 compatibility in GitHub Pages CI. pnpm 11 requires Node.js 22.13 or newer.
+- 2026-07-14: Phase 1 profile edits are limited through column-level grants to `display_name`, `preferred_language`, and `timezone`; Discord metadata is maintained by the auth trigger.
 
 ## Phase Completion Log
 
@@ -828,4 +829,11 @@ Record completed phases and verification results here.
   - Added placeholder directories for app code, scripts, Supabase functions, migrations, seed data, and tests.
   - Verification: `pnpm lint` passed.
   - Verification: `pnpm test` passed with 3 tests.
+  - Verification: `pnpm build` passed.
+- 2026-07-14: Completed Phase 1 - Authentication And Profiles.
+  - Added Discord OAuth sign-in, sign-out, callback handling, persisted Supabase session loading, protected routes, user menu, and profile settings UI.
+  - Added `profiles` migration with auth trigger, RLS policies, and column-level grants limiting frontend profile edits to display name, preferred language, and timezone.
+  - Updated Supabase setup and security documentation with Discord redirect and profile authorization requirements.
+  - Verification: `pnpm lint` passed.
+  - Verification: `pnpm test` passed with 5 tests.
   - Verification: `pnpm build` passed.
