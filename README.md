@@ -95,8 +95,9 @@ credentials. To import reviewed data, run the import script with
 `SUPABASE_SERVICE_ROLE_KEY` set in the local process environment.
 
 GitHub Actions also has a manual **Reference Data Import** workflow. Run it in
-`dry-run` mode first, then choose `import` only after reviewing the JSON input
-files and confirming the target Supabase project.
+`dry-run` mode first. That mode validates local JSON and performs a read-only
+remote configuration check against Supabase. Choose `import` only after
+reviewing the JSON input files and confirming the target Supabase project.
 
 ## Project Docs
 

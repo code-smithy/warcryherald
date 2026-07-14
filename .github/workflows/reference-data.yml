@@ -49,6 +49,13 @@ jobs:
         if: inputs.operation == 'dry-run'
         run: pnpm import:reference-data -- --dry-run
 
+      - name: Check remote reference configuration
+        if: inputs.operation == 'dry-run'
+        run: pnpm import:reference-data -- --check-remote
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
       - name: Import reference data
         if: inputs.operation == 'import'
         run: pnpm import:reference-data

@@ -135,10 +135,12 @@ expects:
 - Environment or repository variable `VITE_SUPABASE_URL`.
 - Environment or repository secret `SUPABASE_SERVICE_ROLE_KEY`.
 
-Run the workflow with `operation: dry-run` first. Use `operation: import` only
-after the JSON files under `data/reference/` have been reviewed and the target
-Supabase project has the Phase 3 migration applied. The service-role key is not
-used by the normal GitHub Pages deploy workflow.
+Run the workflow with `operation: dry-run` first. Dry-run validates local JSON
+and performs a read-only remote check against the `rules_releases` table using
+the configured secret. Use `operation: import` only after the JSON files under
+`data/reference/` have been reviewed and the target Supabase project has the
+Phase 3 migration applied. The service-role key is not used by the normal
+GitHub Pages deploy workflow.
 
 ## Phase 2 Verification
 

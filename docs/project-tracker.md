@@ -853,6 +853,7 @@ Record durable decisions here.
 - 2026-07-14: Started Phase 3 with public read-only reference tables, empty reviewed-input JSON scaffolds, and service-role-only import tooling.
 - 2026-07-14: Phase 3 foundation local verification passed `pnpm validate:reference-data`, `pnpm import:reference-data -- --dry-run`, `pnpm lint`, `pnpm test` with 15 tests, and `pnpm build`.
 - 2026-07-14: Added a manual `Reference Data Import` GitHub Actions workflow with `dry-run` as the default and `import` as an explicit operation using `SUPABASE_SERVICE_ROLE_KEY`.
+- 2026-07-14: Tightened the reference-data workflow dry-run so it also performs a read-only remote configuration check against `rules_releases` with the configured Supabase secret.
 
 ## Phase Completion Log
 

@@ -189,10 +189,10 @@ function validateReferenceDataset(value) {
   };
 }
 
-async function importReferenceDataset(value, validationResult, isDryRun) {
+async function importReferenceDataset(value, validationResult, mode) {
   printValidationSummary(validationResult);
 
-  if (isDryRun) {
+  if (mode === "local-dry-run") {
     console.log("ok - dry run complete; no remote data changed");
     return;
   }
@@ -200,6 +200,13 @@ async function importReferenceDataset(value, validationResult, isDryRun) {
   const supabaseUrl = getRequiredEnv("VITE_SUPABASE_URL").replace(/\/$/, "");
   const serviceRoleKey = getRequiredEnv("SUPABASE_SERVICE_ROLE_KEY");
   const client = createRestClient(supabaseUrl, serviceRoleKey);
+
+  if (mode === "remote-check") {
+    await client.selectStableKeys("rules_releases");
+    console.log("ok - remote reference-data configuration is reachable");
+    return;
+  }
+
   const importSummary = [];
 
   const sourceDocuments = await upsertStableRows(
@@ -690,6 +697,7 @@ const referenceDatasetSchema = z.object({
 async function main() {
   const command = process.argv[2] ?? "validate";
   const dryRun = process.argv.includes("--dry-run");
+  const checkRemote = process.argv.includes("--check-remote");
   const dataset = loadReferenceDataset();
   const validation = validateReferenceDataset(dataset);
 
@@ -703,9 +711,15 @@ async function main() {
   if (command === "validate") {
     printValidationSummary(validation);
   } else if (command === "import") {
-    await importReferenceDataset(dataset, validation, dryRun);
+    await importReferenceDataset(
+      dataset,
+      validation,
+      checkRemote ? "remote-check" : dryRun ? "local-dry-run" : "import"
+    );
   } else {
-    console.error("Usage: node scripts/reference-data.mjs validate|import [--dry-run]");
+    console.error(
+      "Usage: node scripts/reference-data.mjs validate|import [--dry-run|--check-remote]"
+    );
     process.exit(1);
   }
 }
