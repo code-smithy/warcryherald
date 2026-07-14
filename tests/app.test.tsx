@@ -7,6 +7,7 @@ import {
   normalizeInviteDraft,
   validateCampaignDraft
 } from "../src/lib/campaigns";
+import { getErrorMessage } from "../src/lib/errors";
 import { normalizeProfileUpdate } from "../src/lib/profiles";
 import { parseOAuthCallbackParams } from "../src/lib/supabase";
 
@@ -96,6 +97,23 @@ describe("Warcry Herald shell", () => {
       preferred_language: "de",
       timezone: "UTC"
     });
+  });
+
+  it("extracts messages from plain Supabase error objects", () => {
+    expect(
+      getErrorMessage(
+        {
+          message: "new row violates row-level security policy",
+          details: "Failing row contains campaign data.",
+          code: "42501"
+        },
+        "Fallback"
+      )
+    ).toBe(
+      "new row violates row-level security policy Failing row contains campaign data. 42501"
+    );
+
+    expect(getErrorMessage(null, "Fallback")).toBe("Fallback");
   });
 
   it("parses Supabase OAuth callback codes from hash-router URLs", () => {

@@ -148,8 +148,7 @@ export async function listCampaigns(client: SupabaseClient) {
 
 export async function createCampaign(
   client: SupabaseClient,
-  draft: CampaignDraft,
-  userId: string
+  draft: CampaignDraft
 ) {
   const { normalized, errors } = validateCampaignDraft(draft);
 
@@ -157,16 +156,11 @@ export async function createCampaign(
     throw new Error(errors.join(" "));
   }
 
-  const { data, error } = await client
-    .from("campaigns")
-    .insert({
-      name: normalized.name,
-      description: normalized.description,
-      status: normalized.status,
-      created_by: userId
-    })
-    .select("*")
-    .single();
+  const { data, error } = await client.rpc("create_campaign", {
+    campaign_name: normalized.name,
+    campaign_description: normalized.description,
+    campaign_status: normalized.status
+  });
 
   if (error) {
     throw error;

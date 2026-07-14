@@ -9,6 +9,7 @@ import {
   type CampaignStatus
 } from "../lib/campaigns";
 import { useAuth } from "../lib/auth-context";
+import { getErrorMessage } from "../lib/errors";
 import { getSupabaseClient } from "../lib/supabase";
 
 const initialDraft: CampaignDraft = {
@@ -47,9 +48,7 @@ export function CampaignsPage() {
       } catch (loadError) {
         if (active) {
           setError(
-            loadError instanceof Error
-              ? loadError.message
-              : "Campaigns could not be loaded."
+            getErrorMessage(loadError, "Campaigns could not be loaded.")
           );
         }
       } finally {
@@ -77,14 +76,12 @@ export function CampaignsPage() {
     setError(null);
 
     try {
-      const campaign = await createCampaign(client, draft, user.id);
+      const campaign = await createCampaign(client, draft);
       setDraft(initialDraft);
       navigate(`/campaigns/${campaign.id}`);
     } catch (createError) {
       setError(
-        createError instanceof Error
-          ? createError.message
-          : "Campaign could not be created."
+        getErrorMessage(createError, "Campaign could not be created.")
       );
     } finally {
       setSaving(false);

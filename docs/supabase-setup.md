@@ -43,6 +43,22 @@ functions, and Row-Level Security policies:
 supabase db push
 ```
 
+If the Supabase CLI is not available, run the migration SQL files in order from
+the Supabase Dashboard SQL Editor:
+
+1. `supabase/migrations/202607140001_phase_1_profiles.sql`
+2. `supabase/migrations/202607140002_phase_2_campaigns.sql`
+
+Then reload the PostgREST schema cache:
+
+```sql
+notify pgrst, 'reload schema';
+```
+
+The browser error `Could not find the table 'public.profiles' in the schema
+cache` means the target Supabase project has not received the migrations or the
+PostgREST schema cache has not reloaded after migration.
+
 The auth trigger creates or refreshes a profile whenever Supabase receives
 Discord metadata for a user. Frontend clients can update only these profile
 columns:
@@ -65,6 +81,20 @@ The Phase 2 migration adds:
 
 Invitation acceptance should call `accept_campaign_invite()` through Supabase
 RPC. Do not insert campaign membership directly from the frontend.
+
+## Phase 2 Verification
+
+Before marking Phase 2 complete, verify against the target Supabase project:
+
+- Discord login creates or refreshes a `profiles` row.
+- A signed-in user can create a campaign and is inserted as `owner`.
+- A second signed-in user can join through an active invite.
+- Reusing the same invite as an existing member is rejected.
+- Disabled, expired, and exhausted invites are rejected.
+- A non-member cannot select campaign rows through direct Supabase requests.
+- Players cannot promote themselves or manage invites.
+- Campaign administrators can create and disable invites.
+- The sole owner cannot leave or be removed.
 
 ## Future Setup Work
 

@@ -31,8 +31,8 @@ Stay inquisitive. If a rule, table shape, workflow, copyright boundary, or UI be
 
 ## Current Status
 
-- Project stage: Phase 2 implementation added; live Supabase RLS verification pending.
-- Current phase: Phase 2 verification.
+- Project stage: Phase 2 implementation in progress; database deployment and live RLS verification pending.
+- Current phase: Phase 2 closeout.
 - Last completed phase: Phase 1 - Authentication And Profiles.
 - MVP target: complete after `WH-018 Chronicle and audit history`.
 - Broader readiness target: complete after `WH-020 Security review and production deployment`.
@@ -332,6 +332,22 @@ Acceptance criteria:
 - Expired, disabled, and exhausted invites are rejected.
 - Membership changes are covered by tests.
 - Campaign switching works without leaking data between campaigns.
+
+Closeout checklist:
+
+- Apply `202607140001_phase_1_profiles.sql` and
+  `202607140002_phase_2_campaigns.sql` to the target Supabase project.
+- Reload the PostgREST schema cache after migration.
+- Confirm Discord login creates or refreshes a profile row.
+- Confirm an authenticated user can create a campaign and becomes owner.
+- Confirm a second authenticated user can join through an open invite.
+- Confirm repeated, disabled, expired, and exhausted invites are rejected.
+- Confirm a non-member cannot select campaign, member, or invite data through
+  direct Supabase requests.
+- Confirm campaign administrators can manage invites and member roles, while
+  players cannot self-promote.
+- Confirm the sole owner cannot leave or be removed.
+- Run `pnpm lint`, `pnpm test`, and `pnpm build` after any closeout fixes.
 
 ### Phase 3 - Versioned Warcry Reference Data
 
@@ -840,12 +856,14 @@ Record completed phases and verification results here.
   - Verification: `pnpm lint` passed.
   - Verification: `pnpm test` passed with 5 tests.
   - Verification: `pnpm build` passed.
-- 2026-07-14: Implemented Phase 2 - Campaigns, Members, And Invitations.
+- 2026-07-14: Implemented Phase 2 - Campaigns, Members, And Invitations; phase closeout remains pending.
   - Added campaign, member, and invite tables with RLS, role helper functions, owner membership trigger, invite acceptance RPC, and guard triggers for archiving, owner removal, and owner role changes.
   - Replaced the campaign placeholder with campaign list/create, campaign overview, member management, invite management, join-by-invite, campaign settings, and owner archive UI.
   - Updated setup and security documentation for Phase 2 tables, policies, and invitation workflow.
   - Added TypeScript tests for campaign draft validation, invite normalization, and invite state classification.
+  - Added callback fixes for both PKCE `code` and implicit `access_token` OAuth redirects.
+  - Added campaign creation RPC and shared Supabase error-message extraction after production testing exposed missing database objects and masked errors.
   - Verification: `pnpm lint` passed.
-  - Verification: `pnpm test` passed with 9 tests.
+  - Verification: `pnpm test` passed with 11 tests.
   - Verification: `pnpm build` passed.
-  - Pending verification: apply migrations to a live/local Supabase project and run two-user RLS acceptance checks for non-member reads, invite consumption, repeated invite rejection, and cross-campaign isolation.
+  - Pending closeout: Supabase CLI is not installed in this environment, and production/local database credentials are not available here. Apply migrations and run the Phase 2 closeout checklist before marking Phase 2 complete.

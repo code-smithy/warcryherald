@@ -318,6 +318,43 @@ begin
 end;
 $$;
 
+create or replace function public.create_campaign(
+  campaign_name text,
+  campaign_description text default '',
+  campaign_status public.campaign_status default 'draft'
+)
+returns public.campaigns
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  actor uuid;
+  created_campaign public.campaigns%rowtype;
+begin
+  actor := auth.uid();
+
+  if actor is null then
+    raise exception 'Authentication is required to create a campaign.';
+  end if;
+
+  if campaign_status = 'archived' then
+    raise exception 'New campaigns cannot start archived.';
+  end if;
+
+  insert into public.profiles (id)
+  values (actor)
+  on conflict (id) do nothing;
+
+  insert into public.campaigns (name, description, status, created_by)
+  values (trim(campaign_name), trim(coalesce(campaign_description, '')), campaign_status, actor)
+  returning *
+  into created_campaign;
+
+  return created_campaign;
+end;
+$$;
+
 drop policy if exists "Campaigns are readable by members" on public.campaigns;
 create policy "Campaigns are readable by members"
 on public.campaigns
@@ -412,3 +449,4 @@ grant execute on function public.is_campaign_admin(uuid, uuid) to authenticated;
 grant execute on function public.is_campaign_owner(uuid, uuid) to authenticated;
 grant execute on function public.shares_campaign_with_user(uuid, uuid) to authenticated;
 grant execute on function public.accept_campaign_invite(text) to authenticated;
+grant execute on function public.create_campaign(text, text, public.campaign_status) to authenticated;

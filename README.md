@@ -2,9 +2,10 @@
 
 Warcry Herald is a campaign manager for Warcry narrative play.
 
-The project is currently in Phase 2: campaigns, members, and invitations. The
-app is a Vite, React, and TypeScript static frontend intended for GitHub Pages
-deployment with Supabase Auth and PostgreSQL.
+The project currently has the Phase 2 campaign implementation in progress. The
+frontend code and migrations exist, but Phase 2 is not complete until the
+Supabase migrations are applied to the target project and the two-user RLS
+acceptance checks pass.
 
 ## Prerequisites
 
@@ -27,10 +28,23 @@ VITE_SUPABASE_ANON_KEY=your-anon-key
 The app intentionally runs without those values and shows a configuration error
 instead of failing silently.
 
-Apply Supabase migrations before testing authentication:
+Apply Supabase migrations before testing authenticated profile or campaign
+features:
 
 ```bash
 supabase db push
+```
+
+If the Supabase CLI is unavailable, run the SQL migration files in order from
+the Supabase Dashboard SQL Editor:
+
+1. `supabase/migrations/202607140001_phase_1_profiles.sql`
+2. `supabase/migrations/202607140002_phase_2_campaigns.sql`
+
+Then reload the PostgREST schema cache:
+
+```sql
+notify pgrst, 'reload schema';
 ```
 
 Configure Discord OAuth in Supabase Auth and allow the app URL as a redirect
@@ -58,6 +72,10 @@ pnpm build
 - Campaign invitation links with optional expiration and usage limits.
 - Invite acceptance through `#/join/<token>`.
 - Campaign settings and owner-only archiving.
+
+These features require the database migrations above. A production app connected
+to a Supabase project without those migrations will sign in successfully but
+fail when loading profiles or campaigns.
 
 ## Project Docs
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { acceptCampaignInvite } from "../lib/campaigns";
+import { getErrorMessage } from "../lib/errors";
 import { getSupabaseClient } from "../lib/supabase";
 
 export function JoinInvitePage() {
@@ -23,7 +24,7 @@ export function JoinInvitePage() {
       setCampaignId(result.campaign_id);
     } catch (joinError) {
       setError(
-        joinError instanceof Error ? joinError.message : "Campaign invitation could not be accepted."
+        getErrorMessage(joinError, "Campaign invitation could not be accepted.")
       );
     } finally {
       setJoining(false);

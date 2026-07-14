@@ -23,6 +23,7 @@ import {
   type InviteDraft
 } from "../lib/campaigns";
 import { useAuth } from "../lib/auth-context";
+import { getErrorMessage } from "../lib/errors";
 import { getSupabaseClient } from "../lib/supabase";
 
 const emptyInviteDraft: InviteDraft = {
@@ -87,7 +88,7 @@ export function CampaignDetailPage() {
       });
     } catch (loadError) {
       setError(
-        loadError instanceof Error ? loadError.message : "Campaign could not be loaded."
+        getErrorMessage(loadError, "Campaign could not be loaded.")
       );
     } finally {
       setLoading(false);
@@ -115,7 +116,7 @@ export function CampaignDetailPage() {
       setMessage("Campaign settings saved.");
     } catch (saveError) {
       setError(
-        saveError instanceof Error ? saveError.message : "Campaign settings could not be saved."
+        getErrorMessage(saveError, "Campaign settings could not be saved.")
       );
     } finally {
       setSaving(false);
@@ -137,7 +138,7 @@ export function CampaignDetailPage() {
       setMessage("Campaign archived.");
     } catch (archiveError) {
       setError(
-        archiveError instanceof Error ? archiveError.message : "Campaign could not be archived."
+        getErrorMessage(archiveError, "Campaign could not be archived.")
       );
     } finally {
       setSaving(false);
@@ -162,7 +163,7 @@ export function CampaignDetailPage() {
       setMessage("Invite link created.");
     } catch (inviteError) {
       setError(
-        inviteError instanceof Error ? inviteError.message : "Invite link could not be created."
+        getErrorMessage(inviteError, "Invite link could not be created.")
       );
     } finally {
       setSaving(false);
@@ -184,7 +185,7 @@ export function CampaignDetailPage() {
       setMessage("Invite link disabled.");
     } catch (inviteError) {
       setError(
-        inviteError instanceof Error ? inviteError.message : "Invite link could not be disabled."
+        getErrorMessage(inviteError, "Invite link could not be disabled.")
       );
     } finally {
       setSaving(false);
@@ -206,7 +207,7 @@ export function CampaignDetailPage() {
       setMessage("Member role updated.");
     } catch (roleError) {
       setError(
-        roleError instanceof Error ? roleError.message : "Member role could not be updated."
+        getErrorMessage(roleError, "Member role could not be updated.")
       );
     } finally {
       setSaving(false);
@@ -228,7 +229,7 @@ export function CampaignDetailPage() {
       setMessage(userId === user?.id ? "You left the campaign." : "Member removed.");
     } catch (removeError) {
       setError(
-        removeError instanceof Error ? removeError.message : "Member could not be removed."
+        getErrorMessage(removeError, "Member could not be removed.")
       );
     } finally {
       setSaving(false);
