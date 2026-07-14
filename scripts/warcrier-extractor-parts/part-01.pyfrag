@@ -1,0 +1,80 @@
+  out.extend(str(x).replace("-"," ").replace("_"," ") for x in (n.get("class") or []))
+ return out
+
+def marks(texts,extra=""):
+ hay=(" | ".join(texts)+" "+extra).lower().replace("-"," "); out=set()
+ for n in FIGHTER_MARKS:
+  if re.search(rf"(?<![a-z]){re.escape(n.lower()).replace(r'\ ',r'\s+')}(?=$|[^a-z])",hay):out.add(n)
+ return out
+
+def previous_name(card):
+ h=card.find_previous(["h2","h3","h4"])
+ while h and norm(h.get_text(" ",strip=True)).lower() in {"reaction","reactions","abilities","ability","fighters","heroes","monsters"}:h=h.find_previous(["h2","h3","h4"])
+ return h,norm(h.get_text(" ",strip=True) if h else "")
+
+def fragment(h,fallback):return str(h.get("id")) if h and h.get("id") else slug(fallback)
+
+def parse_card(card,p,fkey,rkey,dkey,warn):
+ h,name=previous_name(card); t=norm(card.get_text(" ",strip=True))
+ sm=re.search(r"(?P<points>\d+)\s+Move\s+(?P<movement>\d+)\s+Toughness\s+(?P<toughness>\d+)\s+Wounds\s+(?P<wounds>\d+)",t,re.I)
+ if not sm:
+  warn.append(f"{p['url']}#{fragment(h,name)}: stats not parsed for {name}"); return None,[]
+ st={k:int(v) for k,v in sm.groupdict().items()}; year=(p["updated"] or str(date.today()))[:4]
+ fighter_key=f"{slug(p['title'])}-{slug(name)}-{year}-en"; ms=marks(labels(card),t); path=urlparse(p["url"]).path.lower()
+ if "allies" in path:ms.add("Ally")
+ if "monsters" in path:ms.add("Monster")
+ if "thralls" in path:ms.add("Thrall")
+ group=h.find_previous("h2") if h else None
+ if group and norm(group.get_text(" ",strip=True)).lower() in {"hero","heroes"}:ms.add("Hero")
+ fighter={"stableKey":fighter_key,"rulesReleaseStableKey":rkey,"factionStableKey":fkey,"name":name,"movement":st["movement"],"toughness":st["toughness"],"wounds":st["wounds"],"points":st["points"],"baseSizeMm":None,"isLeader":"Hero" in ms,"isCurrent":True,"runemarkStableKeys":sorted({f"{slug(x)}-en" for x in ms}|{fkey}),"sourceDocumentStableKey":dkey,"sourcePage":f"#{fragment(h,name)}"}
+ wp=re.compile(r"(?P<name>[A-Za-z][A-Za-z0-9' ,+&()/.-]{0,100}?)\s+Range\s+(?P<range>\d+(?:\s*-\s*\d+)?)\s+Attacks\s+(?P<attacks>\d+)\s+Strength\s+(?P<strength>\d+)\s+Damage\s*\(normal/crit\)\s+(?P<damage>\d+)\s*/\s*(?P<critical>\d+)",re.I)
+ weapons=[]
+ for i,m in enumerate(wp.finditer(t),1):
+  n=norm(m.group("name")).strip(" -"); vals=[int(x) for x in re.findall(r"\d+",m.group("range"))]; rmin,rmax=(vals[0],vals[-1])
+  k=f"{fighter_key}-{slug(n)}"; k=f"{k}-{i}" if any(x["stableKey"]==k for x in weapons) else k
+  weapons.append({"stableKey":k,"fighterStableKey":fighter_key,"name":n[:120],"rangeMin":rmin,"rangeMax":rmax,"attacks":int(m.group("attacks")),"strength":int(m.group("strength")),"damage":int(m.group("damage")),"criticalDamage":int(m.group("critical"))})
+ if not weapons:warn.append(f"{p['url']}#{fragment(h,name)}: no weapon parsed")
+ return fighter,weapons
+
+def container(node,article):
+ cur=node.parent
+ x=cur.find_parent(["tr","li","p"]) if isinstance(cur,Tag) else None
+ if x and article in x.parents:return x
+ while isinstance(cur,Tag) and cur is not article:
+  if any(q in " ".join(cur.get("class") or []).lower() for q in ("ability","reaction","row")):return cur
+  cur=cur.parent
+ return node.parent
+
+def clean_ability_name(raw,ms,faction):
+ v=norm(raw)
+ for prefix in sorted({*ms,faction},key=len,reverse=True):
+  while re.match(rf"^{re.escape(prefix)}\s+",v,re.I):v=re.sub(rf"^{re.escape(prefix)}\s+","",v,count=1,flags=re.I).strip()
+ return v
+
+def ability_candidates(p):
+ out=[]; seen=set(); pat=re.compile(r"\[(Double|Triple|Quad|Reaction)\]",re.I)
+ for node in p["article"].find_all(string=pat):
+  c=container(node,p["article"])
+  if id(c) in seen:continue
+  seen.add(id(c)); cells=c.find_all(["td","th"],recursive=False); body=norm((cells[-1] if cells else c).get_text(" ",strip=True))
+  m=re.search(r"\[(Double|Triple|Quad|Reaction)\]\s*([^:]{1,140}):\s*(.+)",body,re.I)
+  if not m:
+   body=norm(c.get_text(" ",strip=True)); m=re.search(r"\[(Double|Triple|Quad|Reaction)\]\s*([^:]{1,140}):\s*(.+)",body,re.I)
+  if not m:continue
+  ms=marks(labels(c),body[:m.start()]); name=clean_ability_name(m.group(2),ms,p["title"])
+  h=c.find_previous(["h2","h3","h4"])
+  if name and len(name)<=120:out.append((m.group(1).title(),name,norm(m.group(3)),ms,fragment(h,name)))
+ # icon-only reaction rows
+ for h in p["article"].find_all(["h3","h4"]):
+  if norm(h.get_text(" ",strip=True)).lower() not in {"reaction","reactions"}:continue
+  for sib in h.next_siblings:
+   if isinstance(sib,Tag) and sib.name in {"h2","h3","h4"}:break
+   if not isinstance(sib,Tag):continue
+   for row in (sib.select("tr") or [sib]):
+    text=norm(row.get_text(" ",strip=True))
+    if not text or "[Reaction]" in text or ":" not in text or text.lower().startswith("runemark reaction"):continue
+    m=re.search(r"([^:]{1,140}):\s*(.{20,})",text)
+    if m:
+     ms=marks(labels(row),text[:m.start(1)]); name=clean_ability_name(m.group(1),ms,p["title"])
+     if name and len(name)<=120:out.append(("Reaction",name,norm(m.group(2)),ms,fragment(h,name)))
+ uniq=[]; keys=set()
