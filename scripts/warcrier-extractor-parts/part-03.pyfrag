@@ -1,0 +1,80 @@
+
+def parse_blessings(p,rkey,warn):
+ out=[]; dkey=doc(p)["stableKey"]; year=(p["updated"] or str(date.today()))[:4]
+ for row in p["article"].select("table tr"):
+  c=[norm(x.get_text(" ",strip=True)) for x in row.find_all(["td","th"])]
+  if len(c)<4 or c[0].lower().startswith("blessing of"):continue
+  nums=[re.search(r"\d+",x) for x in c[-2:]]
+  if not all(nums):continue
+  regular,elite=(int(x.group()) for x in nums); mech=mechanics(c[1],"Blessing");mech["points"]={"regular":regular,"elite":elite}
+  out.append({"stableKey":f"blessing-{slug(c[0])}-{year}-en","rulesReleaseStableKey":rkey,"name":c[0],"effect":summary(mech,"Blessing"),"mechanics":mech,"points":regular,"sourceDocumentStableKey":dkey,"sourcePage":"#blessings"})
+ if not out:warn.append(f"{p['url']}: no blessings parsed")
+ return out
+
+def dedupe(items):
+ out=[];seen={};
+ for x in items:
+  k=x["stableKey"]
+  if k in seen:seen[k]+=1;x=dict(x);x["stableKey"]=f"{k}-{seen[k]}"
+  else:seen[k]=1
+  out.append(x)
+ return out
+
+def runemarks(factions,found):
+ out=[]; names=sorted({x.title() for x in FIGHTER_MARKS}|{norm(x).title() for x in found if x})
+ out+=[{"stableKey":f"{slug(n)}-en","name":n,"category":"fighter","displayOrder":i*10} for i,n in enumerate(names,1)]
+ out+=[{"stableKey":f["stableKey"],"name":f["name"],"category":"faction","displayOrder":1000+i*10} for i,f in enumerate(sorted(factions,key=lambda x:x["name"]),1)]
+ out+=[{"stableKey":f"{slug(n)}-en","name":n,"category":"ability","displayOrder":2000+i*10} for i,n in enumerate(COSTS,1)]
+ return dedupe(out)
+
+def validate(d):
+ errors=[]; maps={k:{x["stableKey"] for x in v} for k,v in d.items()}
+ for f in d["factions"]:
+  if f["rulesReleaseStableKey"] not in maps["releases"]:errors.append(f"bad release: {f['stableKey']}")
+  if f["grandAllianceStableKey"] not in maps["grandAlliances"]:errors.append(f"bad alliance: {f['stableKey']}")
+ for f in d["fighters"]:
+  if f["factionStableKey"] not in maps["factions"]:errors.append(f"bad faction: {f['stableKey']}")
+  for k in f["runemarkStableKeys"]:
+   if k not in maps["runemarks"]:errors.append(f"bad runemark {k}: {f['stableKey']}")
+ for w in d["weapons"]:
+  if w["fighterStableKey"] not in maps["fighters"]:errors.append(f"bad fighter: {w['stableKey']}")
+ for a in d["abilities"]:
+  if not a["isUniversal"] and a["factionStableKey"] not in maps["factions"]:errors.append(f"bad faction: {a['stableKey']}")
+  for k in a["runemarkStableKeys"]:
+   if k not in maps["runemarks"]:errors.append(f"bad runemark {k}: {a['stableKey']}")
+ return errors
+
+def write(out,d):
+ out.mkdir(parents=True,exist_ok=True)
+ files={"releases.json":{"sourceDocuments":d["sourceDocuments"],"releases":d["releases"]},"factions.json":{"grandAlliances":d["grandAlliances"],"factions":d["factions"]},"runemarks.json":{"runemarks":d["runemarks"]},"fighters.json":{"fighters":d["fighters"]},"weapons.json":{"weapons":d["weapons"]},"abilities.json":{"abilities":d["abilities"],"blessings":d["blessings"]}}
+ for n,v in files.items():(out/n).write_text(json.dumps(v,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
+
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument("--output-dir",default="data/reference");ap.add_argument("--timeout",type=float,default=30);ap.add_argument("--request-delay",type=float,default=.12);ap.add_argument("--max-pages",type=int,default=0);args=ap.parse_args()
+ s=session("WarcryHeraldReferenceExtractor/1.0 (+https://github.com/code-smithy/warcryherald)");warn=[];urls=discover(s,args.timeout,args.request_delay,args.max_pages)
+ if not urls:raise RuntimeError("No warband pages discovered")
+ pages={}
+ for i,u in enumerate([*urls,*SEEDS.values()],1):
+  u=canon(u)
+  if u in pages:continue
+  print(f"[{i}] {u}",flush=True);pages[u]=get_page(s,u,args.timeout);time.sleep(args.request_delay)
+ updated=[p["updated"] for p in pages.values() if p["updated"]];rdate=max(updated) if updated else str(date.today());year=rdate[:4];rkey=f"warcrier-{rdate}-en";root=f"warcrier-docs-{year}-en"
+ docs=[{"stableKey":root,"title":f"Warcrier Rules Reference {year}","publisher":"Warcrier","sourceUrl":SEEDS["warbands"],"language":"en","publishedAt":rdate}]+[doc(p) for p in pages.values()]
+ releases=[{"stableKey":rkey,"sourceDocumentStableKey":root,"name":f"Warcrier current English reference ({rdate})","releaseDate":rdate,"language":"en","status":"current","sourceUrl":SEEDS["warbands"]}]
+ ga=[{"stableKey":f"{k}-en","name":v[0],"displayOrder":v[1]} for k,v in ALLIANCES.items()]
+ factions=[];fighters=[];weapons=[];abilities=[];found=set()
+ for u in urls:
+  f,fs,ws,ab,rm=parse_faction(pages[canon(u)],rkey,warn)
+  if f:factions.append(f);fighters+=fs;weapons+=ws;abilities+=ab;found|=rm
+ uni,rm=parse_universal(pages[canon(SEEDS["abilities"])],rkey);abilities+=uni;found|=rm
+ blessings=parse_blessings(pages[canon(SEEDS["blessings"])],rkey,warn)
+ factions=dedupe(sorted(factions,key=lambda x:(x["grandAllianceStableKey"],x["name"])))
+ for i,f in enumerate(factions,1):f["displayOrder"]=i*10
+ d={"sourceDocuments":dedupe(sorted(docs,key=lambda x:x["stableKey"])),"releases":releases,"grandAlliances":ga,"factions":factions,"runemarks":runemarks(factions,found),"fighters":dedupe(sorted(fighters,key=lambda x:(x["factionStableKey"],x["points"],x["name"]))),"weapons":dedupe(sorted(weapons,key=lambda x:(x["fighterStableKey"],x["name"]))),"abilities":dedupe(sorted(abilities,key=lambda x:(str(x["factionStableKey"]),x["cost"],x["name"]))),"blessings":dedupe(blessings)}
+ errors=validate(d)
+ if errors:
+  print("\n".join("ERROR: "+x for x in errors),file=sys.stderr);return 1
+ write(Path(args.output_dir),d);print(", ".join(f"{k}={len(v)}" for k,v in d.items()))
+ for x in warn:print("WARNING: "+x,file=sys.stderr)
+ return 0
+if __name__=="__main__":raise SystemExit(main())
