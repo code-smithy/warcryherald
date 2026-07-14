@@ -39,54 +39,49 @@ export function AuthProvider({ children }: PropsWithChildren) {
     [client]
   );
 
-  useEffect(() => {
-    let active = true;
-
+  const refreshSession = useCallback(async () => {
     if (!client) {
       setLoading(false);
       setSession(null);
       setProfile(null);
       setProfileError(null);
+      return;
+    }
+
+    setLoading(true);
+    const { data, error } = await client.auth.getSession();
+
+    if (error) {
+      setSession(null);
+      setProfile(null);
+      setProfileError(error.message);
+      setLoading(false);
+      return;
+    }
+
+    setSession(data.session);
+
+    if (data.session?.user.id) {
+      await loadProfile(data.session.user.id);
+    } else {
+      setProfile(null);
+      setProfileError(null);
+    }
+
+    setLoading(false);
+  }, [client, loadProfile]);
+
+  useEffect(() => {
+    if (!client) {
+      void refreshSession();
       return undefined;
     }
 
-    const authClient = client;
-
-    async function initializeSession() {
-      setLoading(true);
-      const { data, error } = await authClient.auth.getSession();
-
-      if (!active) {
-        return;
-      }
-
-      if (error) {
-        setSession(null);
-        setProfile(null);
-        setProfileError(error.message);
-        setLoading(false);
-        return;
-      }
-
-      setSession(data.session);
-
-      if (data.session?.user.id) {
-        await loadProfile(data.session.user.id);
-      } else {
-        setProfile(null);
-        setProfileError(null);
-      }
-
-      if (active) {
-        setLoading(false);
-      }
-    }
-
-    void initializeSession();
+    void refreshSession();
 
     const {
       data: { subscription }
-    } = authClient.auth.onAuthStateChange((_event, nextSession) => {
+    } = client.auth.onAuthStateChange((_event, nextSession) => {
       setSession(nextSession);
 
       if (nextSession?.user.id) {
@@ -98,10 +93,9 @@ export function AuthProvider({ children }: PropsWithChildren) {
     });
 
     return () => {
-      active = false;
       subscription.unsubscribe();
     };
-  }, [client, loadProfile]);
+  }, [client, loadProfile, refreshSession]);
 
   const value = useMemo(
     () => ({
@@ -162,9 +156,10 @@ export function AuthProvider({ children }: PropsWithChildren) {
         if (session?.user.id) {
           await loadProfile(session.user.id);
         }
-      }
+      },
+      refreshSession
     }),
-    [client, loading, loadProfile, profile, profileError, session]
+    [client, loading, loadProfile, profile, profileError, refreshSession, session]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

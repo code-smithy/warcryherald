@@ -13,6 +13,7 @@ export type AuthContextValue = {
   signOut: () => Promise<void>;
   updateProfile: (fields: EditableProfileFields) => Promise<void>;
   refreshProfile: () => Promise<void>;
+  refreshSession: () => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextValue | null>(null);

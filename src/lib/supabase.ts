@@ -39,3 +39,38 @@ export function getOAuthRedirectUrl() {
 
   return `${window.location.origin}${path}#/auth/callback`;
 }
+
+export type OAuthCallbackParams = {
+  code: string | null;
+  accessToken: string | null;
+  refreshToken: string | null;
+  error: string | null;
+  errorDescription: string | null;
+};
+
+export function parseOAuthCallbackParams(url: string): OAuthCallbackParams {
+  const parsedUrl = new URL(url);
+  const params = new URLSearchParams(parsedUrl.search);
+  const hash = parsedUrl.hash.startsWith("#") ? parsedUrl.hash.slice(1) : parsedUrl.hash;
+
+  for (const separator of ["?", "#"]) {
+    const fragmentIndex = hash.indexOf(separator);
+
+    if (fragmentIndex >= 0) {
+      const fragmentParams = new URLSearchParams(hash.slice(fragmentIndex + 1));
+      fragmentParams.forEach((value, key) => {
+        if (!params.has(key)) {
+          params.set(key, value);
+        }
+      });
+    }
+  }
+
+  return {
+    code: params.get("code"),
+    accessToken: params.get("access_token"),
+    refreshToken: params.get("refresh_token"),
+    error: params.get("error"),
+    errorDescription: params.get("error_description")
+  };
+}

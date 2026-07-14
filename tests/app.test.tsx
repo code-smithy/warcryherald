@@ -8,6 +8,7 @@ import {
   validateCampaignDraft
 } from "../src/lib/campaigns";
 import { normalizeProfileUpdate } from "../src/lib/profiles";
+import { parseOAuthCallbackParams } from "../src/lib/supabase";
 
 function renderRoute(initialEntry: string) {
   render(
@@ -94,6 +95,44 @@ describe("Warcry Herald shell", () => {
       display_name: "Sigrun",
       preferred_language: "de",
       timezone: "UTC"
+    });
+  });
+
+  it("parses Supabase OAuth callback codes from hash-router URLs", () => {
+    expect(
+      parseOAuthCallbackParams(
+        "http://127.0.0.1:5173/#/auth/callback?code=abc123"
+      )
+    ).toEqual({
+      code: "abc123",
+      accessToken: null,
+      refreshToken: null,
+      error: null,
+      errorDescription: null
+    });
+
+    expect(
+      parseOAuthCallbackParams(
+        "http://127.0.0.1:5173/#/auth/callback?error=access_denied&error_description=Denied"
+      )
+    ).toEqual({
+      code: null,
+      accessToken: null,
+      refreshToken: null,
+      error: "access_denied",
+      errorDescription: "Denied"
+    });
+
+    expect(
+      parseOAuthCallbackParams(
+        "https://code-smithy.github.io/warcryherald/#/auth/callback#access_token=token123&refresh_token=refresh123&token_type=bearer"
+      )
+    ).toEqual({
+      code: null,
+      accessToken: "token123",
+      refreshToken: "refresh123",
+      error: null,
+      errorDescription: null
     });
   });
 
