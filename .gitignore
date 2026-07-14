@@ -10,3 +10,7 @@ coverage/
 .codex-dev-server.*.log
 data/reference/source-catalogue/*.discovered.json
 data/reference/review/**/*.pdf
+data/reference/pdfs/*
+!data/reference/pdfs/README.md
+data/reference/workbench/*
+!data/reference/workbench/README.md

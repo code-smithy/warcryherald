@@ -858,6 +858,7 @@ Record durable decisions here.
 - 2026-07-14: Added fictional English/German reference-data examples and documented the Phase 3 convention of language-suffixed stable keys until dedicated translation tables exist.
 - 2026-07-14: Added official English and German Warhammer Community source catalogue manifest and a discovery script for source metadata.
 - 2026-07-14: Added `mechanics` JSONB fields for abilities and blessings so reviewed imports can preserve exact operative clauses without relying only on prose summaries.
+- 2026-07-14: Added a local PDF extraction command that writes ignored workbench review JSON with page previews, likely fighter rows, and likely ability blocks.
 
 ## Phase Completion Log
 

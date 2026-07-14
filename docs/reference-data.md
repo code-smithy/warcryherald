@@ -47,14 +47,18 @@ import:
    `data/reference/source-catalogue/warhammer-community-warcry.discovered.json`.
    This generated file is ignored by git because it includes timestamps and may
    change whenever Warhammer Community changes its page rendering.
-3. Reviewers download official PDFs manually from the catalogue and extract
-   structured facts into temporary notes under `data/reference/review/`.
-   Do not commit PDFs or substantial copied prose.
-4. Reviewed structured records are entered into the import files under
+3. Reviewers download official PDFs manually from the catalogue into
+   `data/reference/pdfs/`. PDFs are ignored by git and must not be committed.
+4. Run `pnpm extract:reference-pdf` for each downloaded PDF to create an ignored
+   workbench extraction file under `data/reference/workbench/`.
+5. Reviewers convert extraction candidates into structured facts under
+   `data/reference/review/` or directly into the import files. Do not commit
+   substantial copied prose.
+6. Reviewed structured records are entered into the import files under
    `data/reference/`.
-5. `pnpm validate:reference-data` checks relationships and statistics.
-6. `pnpm import:reference-data -- --dry-run` checks the import without writes.
-7. The GitHub **Reference Data Import** workflow imports reviewed data after a
+7. `pnpm validate:reference-data` checks relationships and statistics.
+8. `pnpm import:reference-data -- --dry-run` checks the import without writes.
+9. The GitHub **Reference Data Import** workflow imports reviewed data after a
    successful dry run.
 
 Warcrier and community JSON can be used for completeness checks, but official
@@ -62,6 +66,22 @@ Warhammer Community PDFs remain the provenance recorded in `sourceDocuments`.
 If the official page renders PDF links dynamically and discovery finds only
 catalogue links, use the browser-visible download buttons to identify the PDFs
 for review.
+
+PDF extraction command:
+
+```bash
+pnpm extract:reference-pdf -- \
+  --pdf data/reference/pdfs/example.pdf \
+  --source-key warcry-example-2026-en \
+  --language en \
+  --title "Warcry Example 2026" \
+  --source-url "https://www.warhammer-community.com/..."
+```
+
+The extractor writes page hashes, previews, likely fighter rows, and likely
+ability blocks to `data/reference/workbench/<source-key>.extracted.json`.
+Those generated files are ignored by git because they can contain substantial
+source text. Treat them as review aids, not import-ready data.
 
 ## Phase 3 Import Files
 
