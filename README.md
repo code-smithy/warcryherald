@@ -2,7 +2,7 @@
 
 Warcry Herald is a campaign manager for Warcry narrative play.
 
-The project is currently in Phase 1: Discord authentication and profiles. The
+The project is currently in Phase 2: campaigns, members, and invitations. The
 app is a Vite, React, and TypeScript static frontend intended for GitHub Pages
 deployment with Supabase Auth and PostgreSQL.
 
@@ -48,6 +48,16 @@ pnpm lint
 pnpm test
 pnpm build
 ```
+
+## Current Features
+
+- Discord OAuth through Supabase Auth.
+- User profile settings.
+- Campaign creation and campaign list.
+- Campaign members with owner, campaign administrator, and player roles.
+- Campaign invitation links with optional expiration and usage limits.
+- Invite acceptance through `#/join/<token>`.
+- Campaign settings and owner-only archiving.
 
 ## Project Docs
 

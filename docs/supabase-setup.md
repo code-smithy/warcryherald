@@ -1,6 +1,6 @@
 # Supabase Setup
 
-Supabase is required for authenticated Phase 1 features. Until local project
+Supabase is required for authenticated campaign features. Until local project
 values are configured, protected app areas show a useful configuration notice.
 
 ## Frontend Environment Variables
@@ -36,8 +36,8 @@ Discord client secret or Supabase service-role key through `VITE_` variables.
 
 ## Migrations
 
-Apply migrations to create the Phase 1 `profiles` table, auth trigger, grants,
-and Row-Level Security policies:
+Apply migrations to create the profile, campaign, member, invite, grants, helper
+functions, and Row-Level Security policies:
 
 ```bash
 supabase db push
@@ -53,6 +53,18 @@ columns:
 
 Discord identifiers, avatar URL, site-admin status, timestamps, and ownership
 fields are controlled by database triggers, grants, or privileged operations.
+
+The Phase 2 migration adds:
+
+- `campaigns`
+- `campaign_members`
+- `campaign_invites`
+- `campaign_status` and `campaign_member_role` enum types
+- campaign membership and administrator helper functions
+- `accept_campaign_invite(invite_token text)`
+
+Invitation acceptance should call `accept_campaign_invite()` through Supabase
+RPC. Do not insert campaign membership directly from the frontend.
 
 ## Future Setup Work
 

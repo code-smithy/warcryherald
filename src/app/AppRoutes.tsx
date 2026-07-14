@@ -4,8 +4,10 @@ import { AuthProvider } from "../components/AuthProvider";
 import { ConfigGate } from "../components/ConfigGate";
 import { RequireAuth } from "../components/RequireAuth";
 import { AuthCallbackPage } from "../pages/AuthCallbackPage";
-import { CampaignsPlaceholderPage } from "../pages/CampaignsPlaceholderPage";
+import { CampaignDetailPage } from "../pages/CampaignDetailPage";
+import { CampaignsPage } from "../pages/CampaignsPage";
 import { HomePage } from "../pages/HomePage";
+import { JoinInvitePage } from "../pages/JoinInvitePage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { ProfilePage } from "../pages/ProfilePage";
 
@@ -33,7 +35,27 @@ export function AppRoutes() {
           element={
             <ConfigGate>
               <RequireAuth>
-                <CampaignsPlaceholderPage />
+                <CampaignsPage />
+              </RequireAuth>
+            </ConfigGate>
+          }
+        />
+        <Route
+          path="campaigns/:campaignId"
+          element={
+            <ConfigGate>
+              <RequireAuth>
+                <CampaignDetailPage />
+              </RequireAuth>
+            </ConfigGate>
+          }
+        />
+        <Route
+          path="join/:inviteToken"
+          element={
+            <ConfigGate>
+              <RequireAuth>
+                <JoinInvitePage />
               </RequireAuth>
             </ConfigGate>
           }

@@ -2,6 +2,11 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { AppRoutes } from "../src/app/AppRoutes";
+import {
+  getInviteState,
+  normalizeInviteDraft,
+  validateCampaignDraft
+} from "../src/lib/campaigns";
 import { normalizeProfileUpdate } from "../src/lib/profiles";
 
 function renderRoute(initialEntry: string) {
@@ -90,6 +95,81 @@ describe("Warcry Herald shell", () => {
       preferred_language: "de",
       timezone: "UTC"
     });
+  });
+
+  it("validates campaign drafts before saving", () => {
+    expect(
+      validateCampaignDraft({
+        name: "  Ash Road  ",
+        description: "  Tuesday league  ",
+        status: "active"
+      })
+    ).toEqual({
+      normalized: {
+        name: "Ash Road",
+        description: "Tuesday league",
+        status: "active"
+      },
+      errors: []
+    });
+
+    expect(
+      validateCampaignDraft({
+        name: "No",
+        description: "",
+        status: "draft"
+      }).errors
+    ).toContain("Campaign name must be at least 3 characters.");
+  });
+
+  it("normalizes invitation limits and reports invalid input", () => {
+    const normalized = normalizeInviteDraft({
+      maxUses: " 2 ",
+      expiresAt: "2026-07-15T18:30"
+    });
+
+    expect(normalized.errors).toEqual([]);
+    expect(normalized.normalized.maxUses).toBe(2);
+    expect(normalized.normalized.expiresAt).toMatch(/^2026-07-15T/);
+
+    expect(
+      normalizeInviteDraft({
+        maxUses: "0",
+        expiresAt: "not-a-date"
+      }).errors
+    ).toEqual([
+      "Maximum uses must be a whole number greater than zero.",
+      "Expiration must be a valid date and time."
+    ]);
+  });
+
+  it("classifies disabled expired and exhausted invites", () => {
+    expect(
+      getInviteState({
+        disabled_at: "2026-07-14T10:00:00.000Z",
+        expires_at: null,
+        max_uses: null,
+        use_count: 0
+      })
+    ).toBe("Disabled");
+
+    expect(
+      getInviteState({
+        disabled_at: null,
+        expires_at: "2000-01-01T00:00:00.000Z",
+        max_uses: null,
+        use_count: 0
+      })
+    ).toBe("Expired");
+
+    expect(
+      getInviteState({
+        disabled_at: null,
+        expires_at: null,
+        max_uses: 1,
+        use_count: 1
+      })
+    ).toBe("Exhausted");
   });
 
 });

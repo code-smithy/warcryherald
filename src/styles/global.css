@@ -34,7 +34,8 @@ a {
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
-select:focus-visible {
+select:focus-visible,
+textarea:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 3px;
 }
@@ -143,8 +144,7 @@ select:focus-visible {
   border-bottom: 1px solid var(--line);
 }
 
-.hero h1,
-.notice h1 {
+.hero h1 {
   max-width: 12ch;
   margin: 0;
   color: var(--accent-dark);
@@ -153,8 +153,18 @@ select:focus-visible {
   line-height: 0.95;
 }
 
+.notice h1,
+.page-heading h1 {
+  margin: 0;
+  color: var(--accent-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  line-height: 1;
+}
+
 .hero p,
-.notice p {
+.notice p,
+.page-heading p {
   max-width: 64ch;
   color: var(--muted);
   font-size: 1.08rem;
@@ -253,6 +263,174 @@ select:focus-visible {
   border-color: #a53c3c;
 }
 
+.page-heading {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1.5rem;
+}
+
+.page-heading--split {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+}
+
+.panel {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.panel h2 {
+  margin: 0 0 1rem;
+  color: var(--accent-dark);
+}
+
+.campaign-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.dashboard-grid .panel:last-child {
+  grid-column: 1 / -1;
+}
+
+.form-grid,
+.inline-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.inline-form {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end;
+}
+
+.form-grid label,
+.inline-form label {
+  display: grid;
+  gap: 0.4rem;
+  color: var(--accent-dark);
+  font-weight: 800;
+}
+
+.form-grid input,
+.form-grid select,
+.form-grid textarea,
+.inline-form input,
+.inline-form select,
+.inline-form textarea,
+.member-row select {
+  width: 100%;
+  min-height: 2.75rem;
+  border: 1px solid var(--line);
+  background: #fffdf7;
+  color: var(--ink);
+  padding: 0.65rem 0.75rem;
+  font: inherit;
+}
+
+.form-grid textarea,
+.inline-form textarea {
+  resize: vertical;
+}
+
+.campaign-list,
+.member-list,
+.invite-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.campaign-row,
+.member-row,
+.invite-row {
+  display: grid;
+  gap: 0.75rem;
+  align-items: center;
+  border: 1px solid var(--line);
+  background: #fffdf7;
+  padding: 0.85rem;
+}
+
+.campaign-row {
+  grid-template-columns: minmax(0, 1fr) auto;
+  text-decoration: none;
+}
+
+.campaign-row span:first-child,
+.member-row span:first-child {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.campaign-row small,
+.member-row small,
+.invite-row small,
+.muted {
+  color: var(--muted);
+}
+
+.campaign-row small,
+.member-row small,
+.invite-row code {
+  overflow-wrap: anywhere;
+}
+
+.member-row {
+  grid-template-columns: minmax(0, 1fr) minmax(10rem, 14rem) auto;
+}
+
+.invite-row {
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+}
+
+.invite-row code {
+  color: var(--accent-dark);
+  font-size: 0.9rem;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  border: 1px solid var(--line);
+  background: var(--paper-strong);
+  color: var(--accent-dark);
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.status-pill--active {
+  border-color: #7b9b6f;
+  background: #eaf3df;
+}
+
+.status-pill--completed {
+  border-color: #6f8f9b;
+  background: #dfedf3;
+}
+
+.status-pill--archived {
+  border-color: #9b7b6f;
+  background: #efe4df;
+}
+
 .profile-card {
   position: relative;
 }
@@ -341,6 +519,16 @@ select:focus-visible {
   }
 
   .foundation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-heading--split,
+  .campaign-layout,
+  .dashboard-grid,
+  .inline-form,
+  .campaign-row,
+  .member-row,
+  .invite-row {
     grid-template-columns: 1fr;
   }
 }

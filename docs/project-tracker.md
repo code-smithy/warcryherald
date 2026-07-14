@@ -31,8 +31,8 @@ Stay inquisitive. If a rule, table shape, workflow, copyright boundary, or UI be
 
 ## Current Status
 
-- Project stage: Phase 1 complete.
-- Current phase: ready for Phase 2.
+- Project stage: Phase 2 implementation added; live Supabase RLS verification pending.
+- Current phase: Phase 2 verification.
 - Last completed phase: Phase 1 - Authentication And Profiles.
 - MVP target: complete after `WH-018 Chronicle and audit history`.
 - Broader readiness target: complete after `WH-020 Security review and production deployment`.
@@ -818,6 +818,9 @@ Record durable decisions here.
 - 2026-07-14: Recorded Warcrier as a community rules reference and clarified that rules text and table descriptions may be imported when needed, while artwork, logos, images, layouts, and publication presentation remain out of scope.
 - 2026-07-14: Pinned pnpm to 10.17.1 for Node.js 20 compatibility in GitHub Pages CI. pnpm 11 requires Node.js 22.13 or newer.
 - 2026-07-14: Phase 1 profile edits are limited through column-level grants to `display_name`, `preferred_language`, and `timezone`; Discord metadata is maintained by the auth trigger.
+- 2026-07-14: Phase 2 ownership transfer remains deferred; the database rejects direct owner role changes.
+- 2026-07-14: Campaign invitation acceptance uses the `accept_campaign_invite()` PostgreSQL function so invite validation, membership creation, and use-count increments happen atomically.
+- 2026-07-14: Profile reads are expanded only to users who share a campaign so member lists can show display names without making profiles public.
 
 ## Phase Completion Log
 
@@ -837,3 +840,12 @@ Record completed phases and verification results here.
   - Verification: `pnpm lint` passed.
   - Verification: `pnpm test` passed with 5 tests.
   - Verification: `pnpm build` passed.
+- 2026-07-14: Implemented Phase 2 - Campaigns, Members, And Invitations.
+  - Added campaign, member, and invite tables with RLS, role helper functions, owner membership trigger, invite acceptance RPC, and guard triggers for archiving, owner removal, and owner role changes.
+  - Replaced the campaign placeholder with campaign list/create, campaign overview, member management, invite management, join-by-invite, campaign settings, and owner archive UI.
+  - Updated setup and security documentation for Phase 2 tables, policies, and invitation workflow.
+  - Added TypeScript tests for campaign draft validation, invite normalization, and invite state classification.
+  - Verification: `pnpm lint` passed.
+  - Verification: `pnpm test` passed with 9 tests.
+  - Verification: `pnpm build` passed.
+  - Pending verification: apply migrations to a live/local Supabase project and run two-user RLS acceptance checks for non-member reads, invite consumption, repeated invite rejection, and cross-campaign isolation.

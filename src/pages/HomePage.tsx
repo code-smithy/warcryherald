@@ -43,8 +43,8 @@ export function HomePage() {
         <article>
           <h2>Database authorization</h2>
           <p>
-            Row-Level Security keeps users scoped to their own profile until
-            campaign data arrives in Phase 2.
+            Row-Level Security keeps profiles and campaign records scoped to
+            authorized users.
           </p>
         </article>
       </section>
