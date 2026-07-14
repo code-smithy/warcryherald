@@ -159,28 +159,13 @@ The import system should initially support:
 - Source name, page, and external link.
 - User-supplied or original artwork only.
 
-Official source discovery:
+Reference data source handling:
 
-- The Warhammer Community Warcry downloads page is the primary discovery source
-  for public Warcry PDFs:
-  `https://www.warhammer-community.com/en-gb/downloads/warcry/` and
-  `https://www.warhammer-community.com/de-de/downloads/warcry/`.
-- Available localized page options include UK English, German, Spanish, French,
-  Italian, Japanese, and Korean.
+- Automated internet collection, website scraping, PDF downloading, and
+  generated extraction workbench files are out of scope for Phase 3.
 - Reference-data imports must track source language and should use reviewed,
-  versioned input files rather than scraping the site at runtime.
-- Official PDFs may be used to verify structured data, but imports must still
-  respect the copyright constraint above.
-
-Community rules reference:
-
-- Warcrier provides Warcry rules text, tables, and navigation at
-  `https://warcrier.net/docs/rules`.
-- Warcrier can be used as a cross-checking and discovery source for rules
-  structure, terminology, tables, and relationships.
-- Warcrier identifies itself as a free community project not associated with
-  Games Workshop, so official PDFs remain the preferred authority when sources
-  conflict.
+  versioned input files entered manually.
+- Imports must respect the copyright constraint above.
 
 ## Phase Roadmap
 
@@ -828,7 +813,7 @@ Track questions here as soon as they are discovered.
 2. Resolved: this repo root is the app. The source plan's nested `warcry-herald/` directory is treated as the repository root because this workspace is already `warcryherald`.
 3. Which Supabase project naming convention and environment strategy should be used for local, staging, and production?
 4. What is the first rules release and source set that should seed the reference database?
-5. What exact attribution format should imported rules text and table descriptions use for official PDFs and Warcrier cross-checks?
+5. What exact attribution format should imported rules text and table descriptions use?
 
 ## Decision Log
 
@@ -838,8 +823,7 @@ Record durable decisions here.
 - 2026-07-14: Implemented Phase 0 at the repository root rather than creating a nested `warcry-herald/` directory.
 - 2026-07-14: Chose hash-based React Router routing plus a GitHub Pages `404.html` fallback to preserve static hosting compatibility.
 - 2026-07-14: Supabase frontend configuration is validated with Zod and missing values render a user-facing configuration notice.
-- 2026-07-14: Recorded the official Warhammer Community Warcry downloads page as the discovery source for public PDFs across supported languages.
-- 2026-07-14: Recorded Warcrier as a community rules reference and clarified that rules text and table descriptions may be imported when needed, while artwork, logos, images, layouts, and publication presentation remain out of scope.
+- 2026-07-14: Clarified that reference-data imports must use reviewed structured input with source attribution and language tracking, while artwork, logos, images, layouts, and publication presentation remain out of scope.
 - 2026-07-14: Pinned pnpm to 10.17.1 for Node.js 20 compatibility in GitHub Pages CI. pnpm 11 requires Node.js 22.13 or newer.
 - 2026-07-14: Phase 1 profile edits are limited through column-level grants to `display_name`, `preferred_language`, and `timezone`; Discord metadata is maintained by the auth trigger.
 - 2026-07-14: Phase 2 ownership transfer remains deferred; the database rejects direct owner role changes.
@@ -858,12 +842,8 @@ Record durable decisions here.
 - 2026-07-14: Tightened the reference-data workflow dry-run so it also performs a read-only remote configuration check against `rules_releases` with the configured Supabase secret.
 - 2026-07-14: User-provided GitHub Actions log confirmed `Reference Data Import` dry-run passed validation, local dry-run, and the read-only remote Supabase configuration check.
 - 2026-07-14: Added fictional English/German reference-data examples and documented the Phase 3 convention of language-suffixed stable keys until dedicated translation tables exist.
-- 2026-07-14: Added official English and German Warhammer Community source catalogue manifest and a discovery script for source metadata.
 - 2026-07-14: Added `mechanics` JSONB fields for abilities and blessings so reviewed imports can preserve exact operative clauses without relying only on prose summaries.
-- 2026-07-14: Added a local PDF extraction command that writes ignored workbench review JSON with page previews, likely fighter rows, and likely ability blocks.
-- 2026-07-14: Added a PDF fetch command so official PDF URLs can be downloaded into the ignored local PDF inbox before extraction.
-- 2026-07-14: Made the generated official source-catalogue JSON commit-ready and added a GitHub workflow to refresh and commit it when catalogue metadata changes.
-- 2026-07-14: Updated source discovery to query the official Warhammer Community downloads API, added `pnpm sync:reference-pdfs`, and locally synced/extracted 42 official English/German Warcry PDFs into ignored workbench JSON.
+- 2026-07-14: Removed automated internet collection, PDF download/extraction, source-catalogue refresh, and Warcrier extraction attempts from the Phase 3 workflow; reviewed data must be entered manually.
 
 ## Phase Completion Log
 

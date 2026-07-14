@@ -37,68 +37,20 @@ It must:
 
 ## Source-To-Import Pipeline
 
-The Phase 3 pipeline separates source discovery, human review, and database
-import:
+The Phase 3 pipeline separates human review and database import. Automated
+internet collection, website scraping, PDF downloading, and generated extraction
+workbench files are intentionally out of scope.
 
-1. `data/reference/sources/warhammer-community-warcry.json` records the official
-   English and German Warhammer Community catalogue URLs.
-2. `pnpm discover:reference-sources` fetches those catalogue pages and writes
-   discovered source metadata to
-   `data/reference/source-catalogue/warhammer-community-warcry.discovered.json`.
-   Discovery also queries Warhammer Community's downloads API so
-   `documentLinks` contains direct official PDF URLs for English and German
-   Warcry downloads.
-   This generated file is committed because the GitHub
-   **Refresh Reference Source Catalogue** workflow refreshes it and commits
-   changes when the official catalogue surface changes.
-3. `pnpm sync:reference-pdfs` reads the discovered catalogue, downloads all
-   official PDFs into `data/reference/pdfs/<language>/`, and extracts each PDF
-   into `data/reference/workbench/`. PDFs and workbench extracts are ignored by
-   git and must not be committed.
-4. The GitHub **Reference PDF Extraction** workflow runs the same sync command
-   and uploads the workbench extraction JSON files as a short-lived artifact for
-   review.
-5. `pnpm draft:reference-review -- --extract <workbench-json>` creates a
-   committable review draft under `data/reference/review/`. Drafts contain
-   source metadata and candidate row names/costs, but not copied full rules
-   prose.
-6. Reviewers check each draft against the rendered PDF, approve rows, add short
-   `effect` summaries, and fill structured `mechanics`.
-7. `pnpm promote:reference-review -- --review <review-json>` merges approved
-   rows into the import files under `data/reference/`.
-8. `pnpm validate:reference-data` checks relationships and statistics.
-9. `pnpm import:reference-data -- --dry-run` checks the import without writes.
-10. The GitHub **Reference Data Import** workflow imports reviewed data after a
-   successful dry run.
-
-Warcrier and community JSON can be used for completeness checks, but official
-Warhammer Community PDFs remain the provenance recorded in `sourceDocuments`.
-
-PDF sync command:
-
-```bash
-pnpm discover:reference-sources
-pnpm sync:reference-pdfs
-pnpm draft:reference-review -- --extract data/reference/workbench/helsmiths-of-hashut-en.extracted.json
-```
-
-Single-PDF extraction commands:
-
-```bash
-pnpm fetch:reference-pdf -- --url "https://www.warhammer-community.com/..."
-
-pnpm extract:reference-pdf -- \
-  --pdf data/reference/pdfs/example.pdf \
-  --source-key warcry-example-2026-en \
-  --language en \
-  --title "Warcry Example 2026" \
-  --source-url "https://www.warhammer-community.com/..."
-```
-
-The extractor writes page hashes, previews, likely fighter rows, and likely
-ability blocks to `data/reference/workbench/<source-key>.extracted.json`.
-Those generated files are ignored by git because they can contain substantial
-source text. Treat them as review aids, not import-ready data.
+1. Review source material outside the app repository.
+2. Enter only reviewed structured records into the import files under
+   `data/reference/`.
+3. Preserve source title, page or section, URL where appropriate, release date,
+   and language for every imported row.
+4. Run `pnpm validate:reference-data` to check relationships and statistics.
+5. Run `pnpm import:reference-data -- --dry-run` to check the import without
+   remote writes.
+6. Use the GitHub **Reference Data Import** workflow only after a successful dry
+   run and human review of the JSON input files.
 
 ## Phase 3 Import Files
 
@@ -174,42 +126,6 @@ Example:
   }
 }
 ```
-
-## Official Source Discovery
-
-The official Warhammer Community Warcry downloads page should be treated as the
-primary discovery location for current public Warcry PDFs:
-
-- `https://www.warhammer-community.com/en-gb/downloads/warcry/`
-- `https://www.warhammer-community.com/de-de/downloads/warcry/`
-
-The page exposes localized Warhammer Community content in multiple languages,
-including UK English, German, Spanish, French, Italian, Japanese, and Korean.
-Reference-data work should account for language-specific PDFs and record the
-source language on imported rules releases or source documents.
-
-Use the official PDFs as source material for structured data extraction and
-verification, but do not scrape the site at runtime. Imports should use reviewed,
-versioned input files committed to the project only when their content fits the
-copyright boundary below.
-
-## Community Rules Reference
-
-Warcrier is an available community reference for Warcry rules text, tables, and
-rules navigation:
-
-- `https://warcrier.net/docs/rules`
-
-Warcrier presents rules sections such as battle setup, fighter profiles,
-movement, attacks, abilities, reactions, terrain, objectives, runemarks,
-designers' commentary, optional rules, and warband data. It identifies itself as
-a free community project not associated with Games Workshop.
-
-Use Warcrier as a cross-checking and discovery source when extracting rules
-structure, table names, terminology, and relationships. Do not treat it as the
-authoritative source over official PDFs when there is a conflict; record the
-official source document, page or section, language, and release wherever
-possible.
 
 ## Copyright Boundary
 

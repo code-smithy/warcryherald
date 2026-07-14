@@ -10,12 +10,6 @@
     "lint": "eslint . --max-warnings=0",
     "test": "vitest run",
     "test:watch": "vitest",
-    "discover:reference-sources": "node scripts/reference-sources.mjs discover",
-    "fetch:reference-pdf": "node scripts/reference-pdf.mjs fetch",
-    "extract:reference-pdf": "node scripts/reference-pdf.mjs extract",
-    "sync:reference-pdfs": "node scripts/reference-pdf.mjs sync",
-    "draft:reference-review": "node scripts/reference-review.mjs draft",
-    "promote:reference-review": "node scripts/reference-review.mjs promote",
     "validate:reference-data": "node scripts/reference-data.mjs validate",
     "import:reference-data": "node scripts/reference-data.mjs import",
     "verify:phase2": "node scripts/verify-phase2.mjs"

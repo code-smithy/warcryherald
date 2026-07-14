@@ -9,7 +9,3 @@ coverage/
 *.log
 .codex-dev-server.*.log
 data/reference/review/**/*.pdf
-data/reference/pdfs/*
-!data/reference/pdfs/README.md
-data/reference/workbench/*
-!data/reference/workbench/README.md
