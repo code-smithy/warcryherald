@@ -85,6 +85,12 @@ export type ReferenceFilters = {
   includeRetired: boolean;
 };
 
+const rulesReleaseStatusRank: Record<RulesReleaseStatus, number> = {
+  current: 0,
+  draft: 1,
+  retired: 2
+};
+
 export async function listRulesReleases(client: SupabaseClient) {
   const { data, error } = await client
     .from("rules_releases")
@@ -95,7 +101,30 @@ export async function listRulesReleases(client: SupabaseClient) {
     throw error;
   }
 
-  return (data ?? []) as RulesRelease[];
+  return sortRulesReleases((data ?? []) as RulesRelease[]);
+}
+
+export function sortRulesReleases(releases: RulesRelease[]) {
+  return [...releases].sort((left, right) => {
+    const statusDelta = rulesReleaseStatusRank[left.status] - rulesReleaseStatusRank[right.status];
+
+    if (statusDelta !== 0) {
+      return statusDelta;
+    }
+
+    const releaseDateDelta =
+      new Date(right.release_date).getTime() - new Date(left.release_date).getTime();
+
+    if (releaseDateDelta !== 0) {
+      return releaseDateDelta;
+    }
+
+    return left.name.localeCompare(right.name);
+  });
+}
+
+export function getNewestRulesRelease(releases: RulesRelease[]) {
+  return sortRulesReleases(releases)[0] ?? null;
 }
 
 export async function listFactions(client: SupabaseClient) {

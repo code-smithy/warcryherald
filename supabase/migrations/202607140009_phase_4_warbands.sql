@@ -21,9 +21,93 @@ alter table public.campaigns
 add column if not exists warband_points_limit integer not null default 1000 check (warband_points_limit > 0);
 
 alter table public.campaigns
+add column if not exists warband_fighter_minimum integer not null default 3 check (warband_fighter_minimum > 0);
+
+alter table public.campaigns
 add column if not exists warband_fighter_limit integer not null default 15 check (warband_fighter_limit > 0);
 
+do $$
+begin
+  alter table public.campaigns
+  add constraint campaigns_warband_fighter_minimum_lte_limit
+  check (warband_fighter_minimum <= warband_fighter_limit);
+exception
+  when duplicate_object then null;
+end
+$$;
+
+alter table public.campaigns
+add column if not exists rules_locked boolean not null default false;
+
+update public.campaigns
+set rules_locked = true
+where status <> 'draft'
+  and rules_locked = false;
+
 create index if not exists campaigns_rules_release_id_idx on public.campaigns(rules_release_id);
+
+create or replace function public.get_default_rules_release_id()
+returns uuid
+language sql
+stable
+set search_path = public
+as $$
+  select id
+  from public.rules_releases
+  order by
+    case status
+      when 'current' then 0
+      when 'draft' then 1
+      else 2
+    end,
+    release_date desc,
+    imported_at desc,
+    name asc
+  limit 1;
+$$;
+
+create or replace function public.enforce_campaign_update_rules()
+returns trigger
+language plpgsql
+set search_path = public
+as $$
+begin
+  if old.status is distinct from new.status
+    and (new.status = 'archived' or old.status = 'archived')
+    and not public.is_campaign_owner(old.id, auth.uid())
+  then
+    raise exception 'Only campaign owners may archive or restore campaigns.';
+  end if;
+
+  if new.status <> 'draft' and new.rules_release_id is null then
+    new.rules_release_id = public.get_default_rules_release_id();
+
+    if new.rules_release_id is null then
+      raise exception 'Choose a rules release before starting the campaign.';
+    end if;
+  end if;
+
+  if old.rules_locked
+    and (
+      old.rules_release_id is distinct from new.rules_release_id
+      or old.warband_points_limit is distinct from new.warband_points_limit
+      or old.warband_fighter_minimum is distinct from new.warband_fighter_minimum
+      or old.warband_fighter_limit is distinct from new.warband_fighter_limit
+    )
+  then
+    raise exception 'Campaign roster rules cannot be changed after the campaign starts.';
+  end if;
+
+  if old.status = 'draft' and new.status <> 'draft' then
+    new.rules_locked = true;
+  else
+    new.rules_locked = old.rules_locked;
+  end if;
+
+  new.created_by = old.created_by;
+  return new;
+end;
+$$;
 
 create table if not exists public.warbands (
   id uuid primary key default gen_random_uuid(),
@@ -34,10 +118,36 @@ create table if not exists public.warbands (
   name text not null check (char_length(trim(name)) between 2 and 80),
   status public.warband_status not null default 'draft',
   points_limit integer not null default 1000 check (points_limit > 0),
+  fighter_minimum integer not null default 3 check (fighter_minimum > 0),
   fighter_limit integer not null default 15 check (fighter_limit > 0),
+  constraint warbands_fighter_minimum_lte_limit check (fighter_minimum <= fighter_limit),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table public.warbands
+add column if not exists fighter_minimum integer not null default 3 check (fighter_minimum > 0);
+
+update public.warbands warband
+set fighter_minimum = least(campaign.warband_fighter_minimum, warband.fighter_limit)
+from public.campaigns campaign
+where campaign.id = warband.campaign_id
+  and warband.fighter_minimum = 3
+  and campaign.warband_fighter_minimum <> 3;
+
+update public.warbands
+set fighter_minimum = fighter_limit
+where fighter_minimum > fighter_limit;
+
+do $$
+begin
+  alter table public.warbands
+  add constraint warbands_fighter_minimum_lte_limit
+  check (fighter_minimum <= fighter_limit);
+exception
+  when duplicate_object then null;
+end
+$$;
 
 create table if not exists public.fighter_profile_snapshots (
   id uuid primary key default gen_random_uuid(),
@@ -145,6 +255,7 @@ declare
 begin
   select
     w.points_limit,
+    w.fighter_minimum,
     w.fighter_limit,
     coalesce(sum(s.points) filter (where wf.status = 'active'), 0)::integer as total_points,
     count(*) filter (where wf.status = 'active')::integer as active_count,
@@ -154,14 +265,14 @@ begin
   left join public.warband_fighters wf on wf.warband_id = w.id
   left join public.fighter_profile_snapshots s on s.id = wf.fighter_profile_snapshot_id
   where w.id = target_warband_id
-  group by w.id, w.points_limit, w.fighter_limit;
+  group by w.id, w.points_limit, w.fighter_minimum, w.fighter_limit;
 
   if not found then
     raise exception 'Warband was not found.';
   end if;
 
-  if roster.active_count < 1 then
-    raise exception 'A battle-ready warband must include at least one active fighter.';
+  if roster.active_count < roster.fighter_minimum then
+    raise exception 'A battle-ready warband must include at least % active fighters.', roster.fighter_minimum;
   end if;
 
   if roster.active_leaders <> 1 then
@@ -265,6 +376,22 @@ begin
     raise exception 'Warband was not found.';
   end if;
 
+  if warband_record.status = 'battle_ready' then
+    raise exception 'Return the warband to draft before changing its roster.';
+  end if;
+
+  if tg_op = 'UPDATE'
+    and old.fighter_profile_snapshot_id = new.fighter_profile_snapshot_id
+    and old.fighter_profile_id = new.fighter_profile_id
+    and old.warband_id = new.warband_id
+    and (
+      new.is_leader = old.is_leader
+      or new.is_leader = false
+    )
+  then
+    return new;
+  end if;
+
   select * into snapshot_record
   from public.fighter_profile_snapshots
   where id = new.fighter_profile_snapshot_id;
@@ -282,10 +409,6 @@ begin
 
   if new.is_leader and not snapshot_record.is_leader then
     raise exception 'Only fighter profiles with the leader runemark can be designated as leader.';
-  end if;
-
-  if warband_record.status = 'battle_ready' then
-    raise exception 'Return the warband to draft before changing its roster.';
   end if;
 
   return new;
@@ -332,6 +455,19 @@ begin
     raise exception 'Campaign was not found.';
   end if;
 
+  if campaign_record.rules_release_id is null then
+    campaign_record.rules_release_id := public.get_default_rules_release_id();
+
+    if campaign_record.rules_release_id is null then
+      raise exception 'Choose a rules release before creating warbands.';
+    end if;
+
+    update public.campaigns
+    set rules_release_id = campaign_record.rules_release_id
+    where id = target_campaign_id
+    returning * into campaign_record;
+  end if;
+
   select rules_release_id into faction_release
   from public.factions
   where id = target_faction_id;
@@ -348,6 +484,7 @@ begin
     name,
     status,
     points_limit,
+    fighter_minimum,
     fighter_limit
   )
   values (
@@ -358,6 +495,7 @@ begin
     trim(warband_name),
     'draft',
     campaign_record.warband_points_limit,
+    campaign_record.warband_fighter_minimum,
     campaign_record.warband_fighter_limit
   )
   returning *
@@ -581,11 +719,12 @@ revoke all on table public.warbands from anon, authenticated;
 revoke all on table public.fighter_profile_snapshots from anon, authenticated;
 revoke all on table public.warband_fighters from anon, authenticated;
 
-grant select, insert, update (name, status, points_limit, fighter_limit), delete on table public.warbands to authenticated;
+grant select, insert, update (name, status, points_limit, fighter_minimum, fighter_limit), delete on table public.warbands to authenticated;
 grant select on table public.fighter_profile_snapshots to authenticated;
 grant select, update (name, status, is_leader, sort_order), delete on table public.warband_fighters to authenticated;
-grant update (rules_release_id, warband_points_limit, warband_fighter_limit) on table public.campaigns to authenticated;
+grant update (rules_release_id, warband_points_limit, warband_fighter_minimum, warband_fighter_limit) on table public.campaigns to authenticated;
 
+grant execute on function public.get_default_rules_release_id() to authenticated;
 grant execute on function public.can_manage_warband(uuid, uuid) to authenticated;
 grant execute on function public.is_warband_campaign_member(uuid, uuid) to authenticated;
 grant execute on function public.create_warband(uuid, uuid, text) to authenticated;

@@ -72,6 +72,7 @@ export type Warband = {
   name: string;
   status: WarbandStatus;
   points_limit: number;
+  fighter_minimum: number;
   fighter_limit: number;
   created_at: string;
   updated_at: string;
@@ -129,7 +130,9 @@ export function validateWarbandDraft(draft: Pick<WarbandDraft, "name" | "faction
   return { normalized, errors };
 }
 
-export function validateWarbandRoster(warband: Pick<Warband, "points_limit" | "fighter_limit" | "warband_fighters">): ValidationResult {
+export function validateWarbandRoster(
+  warband: Pick<Warband, "points_limit" | "fighter_minimum" | "fighter_limit" | "warband_fighters">
+): ValidationResult {
   const activeFighters = getActiveRosterFighters(warband.warband_fighters ?? []);
   const totalPoints = activeFighters.reduce(
     (sum, fighter) => sum + (getFighterSnapshot(fighter)?.points ?? 0),
@@ -141,10 +144,10 @@ export function validateWarbandRoster(warband: Pick<Warband, "points_limit" | "f
   const warnings: ValidationIssue[] = [];
   const duplicateNames = findDuplicateActiveNames(activeFighters);
 
-  if (fighterCount < 1) {
+  if (fighterCount < warband.fighter_minimum) {
     errors.push({
       code: "missing-fighters",
-      message: "Add at least one active fighter."
+      message: `Add at least ${warband.fighter_minimum} active fighters.`
     });
   }
 
@@ -268,7 +271,7 @@ export async function createWarband(client: SupabaseClient, draft: WarbandDraft)
 export async function updateWarband(
   client: SupabaseClient,
   warbandId: string,
-  fields: Partial<Pick<Warband, "name" | "status" | "points_limit" | "fighter_limit">>
+  fields: Partial<Pick<Warband, "name" | "status" | "points_limit" | "fighter_minimum" | "fighter_limit">>
 ) {
   const { data, error } = await client
     .from("warbands")

@@ -12,8 +12,11 @@ import { getErrorMessage } from "../src/lib/errors";
 import { normalizeProfileUpdate } from "../src/lib/profiles";
 import {
   filterFighterProfiles,
+  getNewestRulesRelease,
   getSourceLabel,
-  type FighterProfile
+  sortRulesReleases,
+  type FighterProfile,
+  type RulesRelease
 } from "../src/lib/reference-data";
 import { parseOAuthCallbackParams } from "../src/lib/supabase";
 import {
@@ -200,6 +203,16 @@ describe("Warcry Herald shell", () => {
         status: "draft"
       }).errors
     ).toContain("Campaign name must be at least 3 characters.");
+
+    expect(
+      validateCampaignDraft({
+        name: "Ash Road",
+        description: "",
+        status: "draft",
+        warbandFighterMinimum: "16",
+        warbandFighterLimit: "15"
+      }).errors
+    ).toContain("Warband fighter minimum cannot exceed the fighter limit.");
   });
 
   it("normalizes invitation limits and reports invalid input", () => {
@@ -340,6 +353,21 @@ describe("Warcry Herald shell", () => {
     ]);
   });
 
+  it("prefers the newest current rules release as the default", () => {
+    const releases = [
+      makeRulesRelease({ id: "new-draft", status: "draft", release_date: "2026-07-14" }),
+      makeRulesRelease({ id: "old-current", status: "current", release_date: "2025-01-01" }),
+      makeRulesRelease({ id: "new-current", status: "current", release_date: "2026-01-01" })
+    ];
+
+    expect(sortRulesReleases(releases).map((release) => release.id)).toEqual([
+      "new-current",
+      "old-current",
+      "new-draft"
+    ]);
+    expect(getNewestRulesRelease(releases)?.id).toBe("new-current");
+  });
+
   it("validates battle-ready warband roster requirements", () => {
     const invalid = makeWarband({
       points_limit: 100,
@@ -361,6 +389,17 @@ describe("Warcry Herald shell", () => {
       ],
       warnings: [{ code: "duplicate-name" }]
     });
+
+    expect(
+      validateWarbandRoster(
+        makeWarband({
+          fighter_minimum: 2,
+          warband_fighters: [
+            makeWarbandFighter({ id: "leader", name: "Kara", points: 145, is_leader: true })
+          ]
+        })
+      ).errors
+    ).toContainEqual({ code: "missing-fighters", message: "Add at least 2 active fighters." });
 
     const valid = makeWarband({
       warband_fighters: [
@@ -433,6 +472,19 @@ function makeFighter(
   };
 }
 
+function makeRulesRelease(overrides: Partial<RulesRelease>): RulesRelease {
+  return {
+    id: "release",
+    stable_key: "release",
+    name: "Release",
+    release_date: "2026-07-14",
+    language: "en",
+    status: "current",
+    source_url: null,
+    ...overrides
+  };
+}
+
 function makeWarband(overrides: Partial<Warband>): Warband {
   return {
     id: "warband",
@@ -443,6 +495,7 @@ function makeWarband(overrides: Partial<Warband>): Warband {
     name: "Example Warband",
     status: "draft",
     points_limit: 1000,
+    fighter_minimum: 1,
     fighter_limit: 15,
     created_at: "2026-07-14T00:00:00.000Z",
     updated_at: "2026-07-14T00:00:00.000Z",

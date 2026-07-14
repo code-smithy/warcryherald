@@ -28,6 +28,7 @@ import {
 import { useAuth } from "../lib/auth-context";
 import { getErrorMessage } from "../lib/errors";
 import {
+  getNewestRulesRelease,
   getSingle,
   listFactions,
   listFighterProfiles,
@@ -47,6 +48,7 @@ import {
   removeWarbandFighter,
   updateWarband,
   updateWarbandFighter,
+  validateWarbandDraft,
   validateWarbandRoster,
   warbandStatusLabels,
   type Warband,
@@ -79,6 +81,7 @@ export function CampaignDetailPage() {
     status: "draft",
     rulesReleaseId: "",
     warbandPointsLimit: "1000",
+    warbandFighterMinimum: "3",
     warbandFighterLimit: "15"
   });
   const [warbandDraft, setWarbandDraft] = useState({ name: "", factionId: "" });
@@ -103,14 +106,21 @@ export function CampaignDetailPage() {
     warbands.find((warband) => warband.id === selectedWarbandId) ?? warbands[0] ?? null;
   const selectedFighterProfile =
     fighterProfiles.find((fighter) => fighter.id === fighterDraft.fighterProfileId) ?? null;
+  const defaultRulesRelease = useMemo(
+    () => getNewestRulesRelease(rulesReleases),
+    [rulesReleases]
+  );
+  const effectiveRulesReleaseId =
+    campaign?.rules_release_id ?? campaignDraft.rulesReleaseId ?? defaultRulesRelease?.id ?? "";
+  const rulesAreLocked = Boolean(campaign?.rules_locked || campaign?.status !== "draft");
   const availableFactions = useMemo(
     () =>
       factions.filter(
         (faction) =>
-          campaign?.rules_release_id &&
-          faction.rules_release_id === campaign.rules_release_id
+          effectiveRulesReleaseId &&
+          faction.rules_release_id === effectiveRulesReleaseId
       ),
-    [campaign?.rules_release_id, factions]
+    [effectiveRulesReleaseId, factions]
   );
   const availableFighterProfiles = useMemo(
     () =>
@@ -170,12 +180,14 @@ export function CampaignDetailPage() {
       setFactions(nextFactions);
       setFighterProfiles(nextFighterProfiles);
       setSelectedWarbandId((current) => current ?? nextWarbands[0]?.id ?? null);
+      const defaultReleaseId = nextCampaign.rules_release_id ?? getNewestRulesRelease(nextReleases)?.id ?? "";
       setCampaignDraft({
         name: nextCampaign.name,
         description: nextCampaign.description,
         status: nextCampaign.status,
-        rulesReleaseId: nextCampaign.rules_release_id ?? "",
+        rulesReleaseId: defaultReleaseId,
         warbandPointsLimit: String(nextCampaign.warband_points_limit),
+        warbandFighterMinimum: String(nextCampaign.warband_fighter_minimum),
         warbandFighterLimit: String(nextCampaign.warband_fighter_limit)
       });
     } catch (loadError) {
@@ -227,6 +239,24 @@ export function CampaignDetailPage() {
     setMessage(null);
 
     try {
+      const { errors } = validateWarbandDraft(warbandDraft);
+
+      if (errors.length > 0) {
+        throw new Error(errors.join(" "));
+      }
+
+      if (!campaign.rules_release_id && effectiveRulesReleaseId) {
+        await updateCampaign(client, campaign.id, {
+          name: campaign.name,
+          description: campaign.description,
+          status: campaign.status,
+          rulesReleaseId: effectiveRulesReleaseId,
+          warbandPointsLimit: campaignDraft.warbandPointsLimit,
+          warbandFighterMinimum: campaignDraft.warbandFighterMinimum,
+          warbandFighterLimit: campaignDraft.warbandFighterLimit
+        });
+      }
+
       const warband = await createWarband(client, {
         campaignId: campaign.id,
         factionId: warbandDraft.factionId,
@@ -501,7 +531,14 @@ export function CampaignDetailPage() {
             </button>
           </div>
 
-          {!campaign.rules_release_id ? (
+          {!campaign.rules_release_id && effectiveRulesReleaseId ? (
+            <p className="muted">
+              The newest rules release is selected by default and will be saved with the first
+              warband.
+            </p>
+          ) : null}
+
+          {!effectiveRulesReleaseId ? (
             <p className="muted">
               Choose a campaign rules release in settings before creating warbands.
             </p>
@@ -517,7 +554,7 @@ export function CampaignDetailPage() {
                 }
                 minLength={2}
                 maxLength={80}
-                disabled={!campaign.rules_release_id}
+                disabled={!effectiveRulesReleaseId}
               />
             </label>
             <label>
@@ -527,7 +564,7 @@ export function CampaignDetailPage() {
                 onChange={(event) =>
                   setWarbandDraft({ ...warbandDraft, factionId: event.target.value })
                 }
-                disabled={!campaign.rules_release_id || availableFactions.length === 0}
+                disabled={!effectiveRulesReleaseId || availableFactions.length === 0}
               >
                 <option value="">Choose faction</option>
                 {availableFactions.map((faction) => (
@@ -537,12 +574,12 @@ export function CampaignDetailPage() {
                 ))}
               </select>
             </label>
-            <button className="button" type="submit" disabled={saving || !campaign.rules_release_id}>
+            <button className="button" type="submit" disabled={saving || !effectiveRulesReleaseId}>
               Create warband
             </button>
           </form>
 
-          {availableFactions.length === 0 && campaign.rules_release_id ? (
+          {availableFactions.length === 0 && effectiveRulesReleaseId ? (
             <p className="muted">No factions are available for the configured rules release.</p>
           ) : null}
 
@@ -729,6 +766,7 @@ export function CampaignDetailPage() {
                 Rules release
                 <select
                   value={campaignDraft.rulesReleaseId ?? ""}
+                  disabled={rulesAreLocked || rulesReleases.length === 0}
                   onChange={(event) =>
                     setCampaignDraft({
                       ...campaignDraft,
@@ -736,7 +774,9 @@ export function CampaignDetailPage() {
                     })
                   }
                 >
-                  <option value="">Not configured</option>
+                  {rulesReleases.length === 0 ? (
+                    <option value="">No releases available</option>
+                  ) : null}
                   {rulesReleases.map((release) => (
                     <option key={release.id} value={release.id}>
                       {release.name}
@@ -749,6 +789,7 @@ export function CampaignDetailPage() {
                 <input
                   inputMode="numeric"
                   value={campaignDraft.warbandPointsLimit ?? ""}
+                  disabled={rulesAreLocked}
                   onChange={(event) =>
                     setCampaignDraft({
                       ...campaignDraft,
@@ -758,10 +799,25 @@ export function CampaignDetailPage() {
                 />
               </label>
               <label>
-                Warband fighter limit
+                Warband fighter minimum
+                <input
+                  inputMode="numeric"
+                  value={campaignDraft.warbandFighterMinimum ?? ""}
+                  disabled={rulesAreLocked}
+                  onChange={(event) =>
+                    setCampaignDraft({
+                      ...campaignDraft,
+                      warbandFighterMinimum: event.target.value
+                    })
+                  }
+                />
+              </label>
+              <label>
+                Warband fighter maximum
                 <input
                   inputMode="numeric"
                   value={campaignDraft.warbandFighterLimit ?? ""}
+                  disabled={rulesAreLocked}
                   onChange={(event) =>
                     setCampaignDraft({
                       ...campaignDraft,
@@ -770,6 +826,11 @@ export function CampaignDetailPage() {
                   }
                 />
               </label>
+              {rulesAreLocked ? (
+                <p className="muted">
+                  Rules release and starting roster limits are locked after the campaign starts.
+                </p>
+              ) : null}
               <button className="button" type="submit" disabled={saving}>
                 Save settings
               </button>
@@ -920,7 +981,7 @@ function WarbandRoster({
           <div>
             <dt>Fighters</dt>
             <dd>
-              {validation.fighterCount}/{selectedWarband.fighter_limit}
+              {validation.fighterCount}/{selectedWarband.fighter_minimum}-{selectedWarband.fighter_limit}
             </dd>
           </div>
           <div>

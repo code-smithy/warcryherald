@@ -9,7 +9,9 @@ export type Campaign = {
   description: string;
   status: CampaignStatus;
   rules_release_id: string | null;
+  rules_locked: boolean;
   warband_points_limit: number;
+  warband_fighter_minimum: number;
   warband_fighter_limit: number;
   created_by: string;
   created_at: string;
@@ -50,6 +52,7 @@ export type CampaignDraft = {
   status: CampaignStatus;
   rulesReleaseId?: string;
   warbandPointsLimit?: string;
+  warbandFighterMinimum?: string;
   warbandFighterLimit?: string;
 };
 
@@ -82,6 +85,9 @@ export function normalizeCampaignDraft(draft: CampaignDraft): CampaignDraft {
     ...(draft.warbandPointsLimit !== undefined
       ? { warbandPointsLimit: draft.warbandPointsLimit.trim() }
       : {}),
+    ...(draft.warbandFighterMinimum !== undefined
+      ? { warbandFighterMinimum: draft.warbandFighterMinimum.trim() }
+      : {}),
     ...(draft.warbandFighterLimit !== undefined
       ? { warbandFighterLimit: draft.warbandFighterLimit.trim() }
       : {})
@@ -113,11 +119,27 @@ export function validateCampaignDraft(draft: CampaignDraft) {
   }
 
   if (
+    normalized.warbandFighterMinimum !== undefined &&
+    (!Number.isInteger(Number(normalized.warbandFighterMinimum)) ||
+      Number(normalized.warbandFighterMinimum) < 1)
+  ) {
+    errors.push("Warband fighter minimum must be a whole number greater than zero.");
+  }
+
+  if (
     normalized.warbandFighterLimit !== undefined &&
     (!Number.isInteger(Number(normalized.warbandFighterLimit)) ||
       Number(normalized.warbandFighterLimit) < 1)
   ) {
     errors.push("Warband fighter limit must be a whole number greater than zero.");
+  }
+
+  if (
+    normalized.warbandFighterMinimum !== undefined &&
+    normalized.warbandFighterLimit !== undefined &&
+    Number(normalized.warbandFighterMinimum) > Number(normalized.warbandFighterLimit)
+  ) {
+    errors.push("Warband fighter minimum cannot exceed the fighter limit.");
   }
 
   return { normalized, errors };
@@ -254,6 +276,9 @@ export async function updateCampaign(
       rules_release_id: normalized.rulesReleaseId || null,
       ...(normalized.warbandPointsLimit !== undefined
         ? { warband_points_limit: Number(normalized.warbandPointsLimit) }
+        : {}),
+      ...(normalized.warbandFighterMinimum !== undefined
+        ? { warband_fighter_minimum: Number(normalized.warbandFighterMinimum) }
         : {}),
       ...(normalized.warbandFighterLimit !== undefined
         ? { warband_fighter_limit: Number(normalized.warbandFighterLimit) }
