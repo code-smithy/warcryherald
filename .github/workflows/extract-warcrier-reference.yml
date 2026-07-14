@@ -9,6 +9,13 @@ on:
       - scripts/extract-warcrier-reference.py
       - scripts/warcrier-extractor-parts/**
       - .github/workflows/extract-warcrier-reference.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - scripts/extract-warcrier-reference.py
+      - scripts/warcrier-extractor-parts/**
+      - .github/workflows/extract-warcrier-reference.yml
 
 permissions:
   contents: write
@@ -22,6 +29,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - name: Assemble extractor
         shell: bash
@@ -71,4 +79,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "data(reference): extract current Warcrier dataset"
-          git push
+          git push origin HEAD:${{ github.head_ref || github.ref_name }}
