@@ -3,6 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { AppRoutes } from "../src/app/AppRoutes";
 import {
+  getDefaultInviteExpiresAt,
   getInviteState,
   normalizeInviteDraft,
   validateCampaignDraft
@@ -198,6 +199,12 @@ describe("Warcry Herald shell", () => {
       "Maximum uses must be a whole number greater than zero.",
       "Expiration must be a valid date and time."
     ]);
+  });
+
+  it("defaults invite expiration to one week from now", () => {
+    expect(getDefaultInviteExpiresAt(new Date("2026-07-14T10:02:00"))).toBe(
+      "2026-07-21T10:05"
+    );
   });
 
   it("classifies disabled expired and exhausted invites", () => {

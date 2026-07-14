@@ -306,7 +306,8 @@ textarea:focus-visible {
 }
 
 .form-grid,
-.inline-form {
+.inline-form,
+.invite-form {
   display: grid;
   gap: 1rem;
 }
@@ -316,8 +317,15 @@ textarea:focus-visible {
   align-items: end;
 }
 
+.invite-form {
+  grid-template-columns: minmax(8rem, 0.7fr) minmax(14rem, 1fr) auto;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
 .form-grid label,
-.inline-form label {
+.inline-form label,
+.invite-form label {
   display: grid;
   gap: 0.4rem;
   color: var(--accent-dark);
@@ -330,6 +338,9 @@ textarea:focus-visible {
 .inline-form input,
 .inline-form select,
 .inline-form textarea,
+.invite-form input,
+.invite-form select,
+.invite-form textarea,
 .member-row select {
   width: 100%;
   min-height: 2.75rem;
@@ -341,7 +352,8 @@ textarea:focus-visible {
 }
 
 .form-grid textarea,
-.inline-form textarea {
+.inline-form textarea,
+.invite-form textarea {
   resize: vertical;
 }
 
@@ -394,11 +406,14 @@ textarea:focus-visible {
 
 .invite-row {
   grid-template-columns: minmax(0, 1fr) auto auto auto;
+  background: #fffdf7;
 }
 
 .invite-row code {
   color: var(--accent-dark);
   font-size: 0.9rem;
+  line-height: 1.5;
+  user-select: all;
 }
 
 .status-pill {
@@ -526,6 +541,7 @@ textarea:focus-visible {
   .campaign-layout,
   .dashboard-grid,
   .inline-form,
+  .invite-form,
   .campaign-row,
   .member-row,
   .invite-row {

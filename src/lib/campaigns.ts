@@ -19,11 +19,13 @@ export type CampaignMember = {
   role: CampaignMemberRole;
   joined_at: string;
   updated_at: string;
-  profiles?: {
-    display_name: string | null;
-    avatar_url: string | null;
-    discord_user_id: string | null;
-  } | null;
+  profiles?: CampaignMemberProfile | CampaignMemberProfile[] | null;
+};
+
+export type CampaignMemberProfile = {
+  display_name: string | null;
+  avatar_url: string | null;
+  discord_user_id: string | null;
 };
 
 export type CampaignInvite = {
@@ -62,6 +64,8 @@ export const campaignRoleLabels: Record<CampaignMemberRole, string> = {
   campaign_admin: "Campaign admin",
   player: "Player"
 };
+
+export const editableCampaignStatuses = ["draft", "active", "completed"] as const;
 
 export function normalizeCampaignDraft(draft: CampaignDraft): CampaignDraft {
   return {
@@ -108,6 +112,24 @@ export function normalizeInviteDraft(draft: InviteDraft) {
     expiresAtText && errors.length === 0 ? new Date(expiresAtText).toISOString() : null;
 
   return { normalized: { maxUses, expiresAt }, errors };
+}
+
+export function getDefaultInviteExpiresAt(now = new Date()) {
+  const expiresAt = new Date(now);
+  expiresAt.setDate(expiresAt.getDate() + 7);
+  expiresAt.setMinutes(Math.ceil(expiresAt.getMinutes() / 5) * 5, 0, 0);
+
+  return toDateTimeLocalValue(expiresAt);
+}
+
+export function toDateTimeLocalValue(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
 
 export function getInviteState(invite: Pick<CampaignInvite, "disabled_at" | "expires_at" | "max_uses" | "use_count">) {

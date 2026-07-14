@@ -51,6 +51,7 @@ the Supabase Dashboard SQL Editor:
 3. `supabase/migrations/202607140003_phase_2_create_campaign_rpc.sql`
 4. `supabase/migrations/202607140004_phase_1_profiles_repair.sql`
 5. `supabase/migrations/202607140005_phase_2_full_repair.sql`
+6. `supabase/migrations/202607140006_profile_upsert_rpc.sql`
 
 Then reload the PostgREST schema cache:
 
@@ -72,6 +73,15 @@ supabase/migrations/202607140005_phase_2_full_repair.sql
 
 It creates or repairs the Phase 1 profile objects and Phase 2 campaign objects
 in dependency order, then reloads the PostgREST schema cache.
+
+If a signed-in user sees `Cannot coerce the result to a single JSON object`
+while saving their profile, run:
+
+```text
+supabase/migrations/202607140006_profile_upsert_rpc.sql
+```
+
+Then redeploy the frontend that calls `update_current_profile(...)`.
 
 The auth trigger creates or refreshes a profile whenever Supabase receives
 Discord metadata for a user. Frontend clients can update only these profile

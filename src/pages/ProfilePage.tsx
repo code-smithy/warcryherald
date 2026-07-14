@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { languageOptions } from "../lib/profiles";
 import { useAuth } from "../lib/auth-context";
+import { getErrorMessage } from "../lib/errors";
 
 const browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
 
@@ -36,7 +37,7 @@ export function ProfilePage() {
       setStatus("Profile saved.");
     } catch (saveError) {
       setError(
-        saveError instanceof Error ? saveError.message : "Profile could not be saved."
+        getErrorMessage(saveError, "Profile could not be saved.")
       );
     }
   }

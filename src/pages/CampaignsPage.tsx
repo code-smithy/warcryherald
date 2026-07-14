@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   campaignStatusLabels,
   createCampaign,
+  editableCampaignStatuses,
   listCampaigns,
   type Campaign,
   type CampaignDraft,
@@ -135,8 +136,11 @@ export function CampaignsPage() {
                 setDraft({ ...draft, status: event.target.value as CampaignStatus })
               }
             >
-              <option value="draft">Draft</option>
-              <option value="active">Active</option>
+              {editableCampaignStatuses.map((status) => (
+                <option key={status} value={status}>
+                  {campaignStatusLabels[status]}
+                </option>
+              ))}
             </select>
           </label>
           <button className="button" type="submit" disabled={saving}>

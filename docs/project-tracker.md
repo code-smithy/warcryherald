@@ -847,6 +847,7 @@ Record durable decisions here.
 - 2026-07-14: Added a new migration for `create_campaign(...)` rather than relying on edits to an already-applied Phase 2 migration. Applied databases must receive `202607140003_phase_2_create_campaign_rpc.sql`.
 - 2026-07-14: Added `202607140004_phase_1_profiles_repair.sql` to repair partially migrated Supabase projects where `public.profiles` is absent from the PostgREST schema cache.
 - 2026-07-14: Added `202607140005_phase_2_full_repair.sql` after production showed both `public.campaigns` and `public.create_campaign(...)` absent. This is the preferred SQL Editor repair file for partially migrated production projects.
+- 2026-07-14: Added `202607140006_profile_upsert_rpc.sql` and switched profile load/save to RPCs so existing auth users without a `profiles` row can recover without direct frontend inserts.
 
 ## Phase Completion Log
 

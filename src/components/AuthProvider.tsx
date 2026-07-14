@@ -2,6 +2,7 @@ import type { PropsWithChildren } from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { AuthContext } from "../lib/auth-context";
+import { getErrorMessage } from "../lib/errors";
 import type { EditableProfileFields, Profile } from "../lib/profiles";
 import { normalizeProfileUpdate } from "../lib/profiles";
 import { getOAuthRedirectUrl, getSupabaseClient } from "../lib/supabase";
@@ -25,11 +26,37 @@ export function AuthProvider({ children }: PropsWithChildren) {
         .from("profiles")
         .select("*")
         .eq("id", userId)
-        .single();
+        .maybeSingle();
 
       if (error) {
-        setProfile(null);
-        setProfileError(error.message);
+        const { data: ensuredProfile, error: ensureError } = await client.rpc(
+          "ensure_current_profile"
+        );
+
+        if (ensureError) {
+          setProfile(null);
+          setProfileError(getErrorMessage(ensureError, "Profile could not be loaded."));
+          return;
+        }
+
+        setProfile(ensuredProfile as Profile);
+        setProfileError(null);
+        return;
+      }
+
+      if (!data) {
+        const { data: ensuredProfile, error: ensureError } = await client.rpc(
+          "ensure_current_profile"
+        );
+
+        if (ensureError) {
+          setProfile(null);
+          setProfileError(getErrorMessage(ensureError, "Profile could not be loaded."));
+          return;
+        }
+
+        setProfile(ensuredProfile as Profile);
+        setProfileError(null);
         return;
       }
 
@@ -138,12 +165,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
         }
 
         const update = normalizeProfileUpdate(fields);
-        const { data, error } = await client
-          .from("profiles")
-          .update(update)
-          .eq("id", session.user.id)
-          .select("*")
-          .single();
+        const { data, error } = await client.rpc("update_current_profile", {
+          next_display_name: update.display_name,
+          next_preferred_language: update.preferred_language,
+          next_timezone: update.timezone
+        });
 
         if (error) {
           throw error;

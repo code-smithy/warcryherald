@@ -6,7 +6,9 @@ import {
   campaignStatusLabels,
   createCampaignInvite,
   deactivateCampaignInvite,
+  editableCampaignStatuses,
   getCampaign,
+  getDefaultInviteExpiresAt,
   getCampaignJoinUrl,
   getInviteState,
   listCampaignInvites,
@@ -18,6 +20,7 @@ import {
   type CampaignDraft,
   type CampaignInvite,
   type CampaignMember,
+  type CampaignMemberProfile,
   type CampaignMemberRole,
   type CampaignStatus,
   type InviteDraft
@@ -26,15 +29,17 @@ import { useAuth } from "../lib/auth-context";
 import { getErrorMessage } from "../lib/errors";
 import { getSupabaseClient } from "../lib/supabase";
 
-const emptyInviteDraft: InviteDraft = {
-  maxUses: "",
-  expiresAt: ""
-};
+function createInviteDraft(): InviteDraft {
+  return {
+    maxUses: "",
+    expiresAt: getDefaultInviteExpiresAt()
+  };
+}
 
 export function CampaignDetailPage() {
   const { campaignId } = useParams();
   const client = getSupabaseClient();
-  const { user } = useAuth();
+  const { profile, user } = useAuth();
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const [members, setMembers] = useState<CampaignMember[]>([]);
   const [invites, setInvites] = useState<CampaignInvite[]>([]);
@@ -43,7 +48,7 @@ export function CampaignDetailPage() {
     description: "",
     status: "draft"
   });
-  const [inviteDraft, setInviteDraft] = useState(emptyInviteDraft);
+  const [inviteDraft, setInviteDraft] = useState(createInviteDraft);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -84,7 +89,7 @@ export function CampaignDetailPage() {
       setCampaignDraft({
         name: nextCampaign.name,
         description: nextCampaign.description,
-        status: nextCampaign.status === "archived" ? "completed" : nextCampaign.status
+        status: nextCampaign.status
       });
     } catch (loadError) {
       setError(
@@ -159,7 +164,7 @@ export function CampaignDetailPage() {
     try {
       const invite = await createCampaignInvite(client, campaign.id, inviteDraft, user.id);
       setInvites([invite, ...invites]);
-      setInviteDraft(emptyInviteDraft);
+      setInviteDraft(createInviteDraft());
       setMessage("Invite link created.");
     } catch (inviteError) {
       setError(
@@ -287,9 +292,11 @@ export function CampaignDetailPage() {
               <div className="member-row" key={member.user_id}>
                 <span>
                   <strong>
-                    {member.profiles?.display_name ??
-                      member.profiles?.discord_user_id ??
-                      member.user_id}
+                    {getMemberDisplayName(member, {
+                      currentUserEmail: user?.email ?? null,
+                      currentUserId: user?.id ?? null,
+                      currentUserProfileName: profile?.display_name ?? null
+                    })}
                   </strong>
                   <small>{campaignRoleLabels[member.role]}</small>
                 </span>
@@ -329,7 +336,7 @@ export function CampaignDetailPage() {
           <h2>Invite management</h2>
           {isAdmin ? (
             <>
-              <form className="inline-form" onSubmit={handleInviteCreate}>
+              <form className="invite-form" onSubmit={handleInviteCreate}>
                 <label>
                   Max uses
                   <input
@@ -426,9 +433,14 @@ export function CampaignDetailPage() {
                     })
                   }
                 >
-                  <option value="draft">Draft</option>
-                  <option value="active">Active</option>
-                  <option value="completed">Completed</option>
+                  {editableCampaignStatuses.map((status) => (
+                    <option key={status} value={status}>
+                      {campaignStatusLabels[status]}
+                    </option>
+                  ))}
+                  {campaign.status === "archived" || isOwner ? (
+                    <option value="archived">Archived</option>
+                  ) : null}
                 </select>
               </label>
               <button className="button" type="submit" disabled={saving}>
@@ -452,4 +464,39 @@ export function CampaignDetailPage() {
       </section>
     </main>
   );
+}
+
+function getMemberDisplayName(
+  member: CampaignMember,
+  currentUser: {
+    currentUserEmail: string | null;
+    currentUserId: string | null;
+    currentUserProfileName: string | null;
+  }
+) {
+  const relatedProfile = normalizeRelatedProfile(member.profiles);
+
+  if (relatedProfile?.display_name) {
+    return relatedProfile.display_name;
+  }
+
+  if (member.user_id === currentUser.currentUserId) {
+    return currentUser.currentUserProfileName || currentUser.currentUserEmail || "You";
+  }
+
+  if (relatedProfile?.discord_user_id) {
+    return `Discord ${relatedProfile.discord_user_id}`;
+  }
+
+  return `Player ${member.user_id.slice(0, 8)}`;
+}
+
+function normalizeRelatedProfile(
+  profile: CampaignMember["profiles"]
+): CampaignMemberProfile | null {
+  if (Array.isArray(profile)) {
+    return profile[0] ?? null;
+  }
+
+  return profile ?? null;
 }
