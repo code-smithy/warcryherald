@@ -73,6 +73,8 @@ pnpm test
 pnpm build
 pnpm discover:reference-sources
 pnpm sync:reference-pdfs
+pnpm draft:reference-review -- --extract data/reference/workbench/helsmiths-of-hashut-en.extracted.json
+pnpm promote:reference-review -- --review data/reference/review/helsmiths-of-hashut-en.review.json
 pnpm fetch:reference-pdf -- --url https://example.com/source.pdf
 pnpm extract:reference-pdf -- --pdf data/reference/pdfs/example.pdf --source-key example-2026-en --language en
 pnpm validate:reference-data

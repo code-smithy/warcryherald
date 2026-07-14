@@ -58,14 +58,17 @@ import:
 4. The GitHub **Reference PDF Extraction** workflow runs the same sync command
    and uploads the workbench extraction JSON files as a short-lived artifact for
    review.
-5. Reviewers convert extraction candidates into structured facts under
-   `data/reference/review/` or directly into the import files. Do not commit
-   substantial copied prose.
-6. Reviewed structured records are entered into the import files under
-   `data/reference/`.
-7. `pnpm validate:reference-data` checks relationships and statistics.
-8. `pnpm import:reference-data -- --dry-run` checks the import without writes.
-9. The GitHub **Reference Data Import** workflow imports reviewed data after a
+5. `pnpm draft:reference-review -- --extract <workbench-json>` creates a
+   committable review draft under `data/reference/review/`. Drafts contain
+   source metadata and candidate row names/costs, but not copied full rules
+   prose.
+6. Reviewers check each draft against the rendered PDF, approve rows, add short
+   `effect` summaries, and fill structured `mechanics`.
+7. `pnpm promote:reference-review -- --review <review-json>` merges approved
+   rows into the import files under `data/reference/`.
+8. `pnpm validate:reference-data` checks relationships and statistics.
+9. `pnpm import:reference-data -- --dry-run` checks the import without writes.
+10. The GitHub **Reference Data Import** workflow imports reviewed data after a
    successful dry run.
 
 Warcrier and community JSON can be used for completeness checks, but official
@@ -76,6 +79,7 @@ PDF sync command:
 ```bash
 pnpm discover:reference-sources
 pnpm sync:reference-pdfs
+pnpm draft:reference-review -- --extract data/reference/workbench/helsmiths-of-hashut-en.extracted.json
 ```
 
 Single-PDF extraction commands:
