@@ -33,7 +33,10 @@ for (const catalogue of manifest.catalogues) {
   }
 
   const links = extractLinks(html, catalogue.url);
-  const documentLinks = links.filter((link) => isLikelyReferenceDocument(link));
+  const documentLinks = mergeDocumentLinks(
+    links.filter((link) => isLikelyReferenceDocument(link)),
+    await fetchWarhammerCommunityDownloads(catalogue)
+  );
 
   catalogues.push({
     ...catalogue,
@@ -106,6 +109,78 @@ function isLikelyReferenceDocument(link) {
     (url.endsWith(".pdf") || url.includes(".pdf?")) &&
     (url.includes("warcry") || title.includes("warcry"))
   );
+}
+
+async function fetchWarhammerCommunityDownloads(catalogue) {
+  const language = getWarhammerCommunityLanguage(catalogue.language);
+
+  if (!catalogue.url.includes("warhammer-community.com") || !language) {
+    return [];
+  }
+
+  const response = await fetch("https://www.warhammer-community.com/api/search/downloads/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "User-Agent": "WarcryHeraldReferenceDiscovery/1.0"
+    },
+    body: JSON.stringify({
+      index: "downloads_v2",
+      searchTerm: "",
+      gameSystem: "warcry",
+      language
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error(`Warhammer Community downloads API failed with ${response.status}`);
+  }
+
+  const payload = await response.json();
+
+  return (payload.hits ?? [])
+    .map((hit) => hit.id ?? hit)
+    .filter((download) => download.file)
+    .map((download) => ({
+      title: download.title,
+      url: `https://assets.warhammer-community.com/${download.file}`,
+      sourceApi: "https://www.warhammer-community.com/api/search/downloads/",
+      slug: download.slug,
+      file: download.file,
+      fileSize: download.file_size,
+      lastUpdated: download.last_updated,
+      categories: (download.download_categories ?? []).map((category) =>
+        typeof category === "string" ? category : category.slug
+      )
+    }));
+}
+
+function getWarhammerCommunityLanguage(language) {
+  return {
+    de: "german",
+    en: "english"
+  }[language];
+}
+
+function mergeDocumentLinks(...groups) {
+  const merged = [];
+  const seen = new Set();
+
+  for (const group of groups) {
+    for (const link of group) {
+      if (seen.has(link.url)) {
+        continue;
+      }
+
+      seen.add(link.url);
+      merged.push(link);
+    }
+  }
+
+  return merged.sort((a, b) => {
+    const titleOrder = (a.title ?? "").localeCompare(b.title ?? "");
+    return titleOrder || a.url.localeCompare(b.url);
+  });
 }
 
 function getAttribute(attributes, name) {

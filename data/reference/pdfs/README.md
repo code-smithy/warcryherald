@@ -1,9 +1,16 @@
 # Local PDF Inbox
 
-Download official Warhammer Community PDFs into this directory before running
-`pnpm extract:reference-pdf`.
+`pnpm sync:reference-pdfs` downloads official Warhammer Community PDFs into this
+directory before running extraction.
 
 Preferred command:
+
+```bash
+pnpm discover:reference-sources
+pnpm sync:reference-pdfs
+```
+
+Single-PDF command:
 
 ```bash
 pnpm fetch:reference-pdf -- --url "https://www.warhammer-community.com/..."

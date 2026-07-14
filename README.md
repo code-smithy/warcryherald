@@ -72,6 +72,7 @@ pnpm lint
 pnpm test
 pnpm build
 pnpm discover:reference-sources
+pnpm sync:reference-pdfs
 pnpm fetch:reference-pdf -- --url https://example.com/source.pdf
 pnpm extract:reference-pdf -- --pdf data/reference/pdfs/example.pdf --source-key example-2026-en --language en
 pnpm validate:reference-data
@@ -102,6 +103,11 @@ GitHub Actions also has a manual **Reference Data Import** workflow. Run it in
 `dry-run` mode first. That mode validates local JSON and performs a read-only
 remote configuration check against Supabase. Choose `import` only after
 reviewing the JSON input files and confirming the target Supabase project.
+
+The **Reference PDF Extraction** workflow downloads the official English and
+German Warcry PDFs from the discovered catalogue and uploads extracted workbench
+JSON as an artifact. Those extracts are review input; they do not populate the
+app until reviewed facts are promoted into `data/reference/*.json` and imported.
 
 ## Project Docs
 

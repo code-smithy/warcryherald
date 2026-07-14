@@ -1,0 +1,59 @@
+name: Reference PDF Extraction
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "41 5 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reference-pdf-extraction
+  cancel-in-progress: false
+
+jobs:
+  extract:
+    name: Extract official PDF workbench data
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.17.1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: python -m pip install pypdf
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Discover official source catalogue
+        run: pnpm discover:reference-sources
+
+      - name: Download and extract official PDFs
+        run: pnpm sync:reference-pdfs
+        env:
+          PYTHON: python
+
+      - name: Upload workbench extracts
+        uses: actions/upload-artifact@v4
+        with:
+          name: reference-workbench-extracts
+          path: data/reference/workbench/*.extracted.json
+          if-no-files-found: error
+          retention-days: 14

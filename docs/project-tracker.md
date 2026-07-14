@@ -162,7 +162,9 @@ The import system should initially support:
 Official source discovery:
 
 - The Warhammer Community Warcry downloads page is the primary discovery source
-  for public Warcry PDFs: `https://www.warhammer-community.com/de-de/downloads/warcry/`.
+  for public Warcry PDFs:
+  `https://www.warhammer-community.com/en-gb/downloads/warcry/` and
+  `https://www.warhammer-community.com/de-de/downloads/warcry/`.
 - Available localized page options include UK English, German, Spanish, French,
   Italian, Japanese, and Korean.
 - Reference-data imports must track source language and should use reviewed,
@@ -861,6 +863,7 @@ Record durable decisions here.
 - 2026-07-14: Added a local PDF extraction command that writes ignored workbench review JSON with page previews, likely fighter rows, and likely ability blocks.
 - 2026-07-14: Added a PDF fetch command so official PDF URLs can be downloaded into the ignored local PDF inbox before extraction.
 - 2026-07-14: Made the generated official source-catalogue JSON commit-ready and added a GitHub workflow to refresh and commit it when catalogue metadata changes.
+- 2026-07-14: Updated source discovery to query the official Warhammer Community downloads API, added `pnpm sync:reference-pdfs`, and locally synced/extracted 42 official English/German Warcry PDFs into ignored workbench JSON.
 
 ## Phase Completion Log
 

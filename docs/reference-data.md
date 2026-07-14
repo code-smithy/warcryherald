@@ -45,14 +45,19 @@ import:
 2. `pnpm discover:reference-sources` fetches those catalogue pages and writes
    discovered source metadata to
    `data/reference/source-catalogue/warhammer-community-warcry.discovered.json`.
+   Discovery also queries Warhammer Community's downloads API so
+   `documentLinks` contains direct official PDF URLs for English and German
+   Warcry downloads.
    This generated file is committed because the GitHub
    **Refresh Reference Source Catalogue** workflow refreshes it and commits
    changes when the official catalogue surface changes.
-3. Reviewers copy the browser-visible official PDF URL and run
-   `pnpm fetch:reference-pdf -- --url <pdf-url>` to download it into
-   `data/reference/pdfs/`. PDFs are ignored by git and must not be committed.
-4. Run `pnpm extract:reference-pdf` for each downloaded PDF to create an ignored
-   workbench extraction file under `data/reference/workbench/`.
+3. `pnpm sync:reference-pdfs` reads the discovered catalogue, downloads all
+   official PDFs into `data/reference/pdfs/<language>/`, and extracts each PDF
+   into `data/reference/workbench/`. PDFs and workbench extracts are ignored by
+   git and must not be committed.
+4. The GitHub **Reference PDF Extraction** workflow runs the same sync command
+   and uploads the workbench extraction JSON files as a short-lived artifact for
+   review.
 5. Reviewers convert extraction candidates into structured facts under
    `data/reference/review/` or directly into the import files. Do not commit
    substantial copied prose.
@@ -65,11 +70,15 @@ import:
 
 Warcrier and community JSON can be used for completeness checks, but official
 Warhammer Community PDFs remain the provenance recorded in `sourceDocuments`.
-If the official page renders PDF links dynamically and discovery finds only
-catalogue links, use the browser-visible download buttons to identify the PDFs
-for review.
 
-PDF extraction command:
+PDF sync command:
+
+```bash
+pnpm discover:reference-sources
+pnpm sync:reference-pdfs
+```
+
+Single-PDF extraction commands:
 
 ```bash
 pnpm fetch:reference-pdf -- --url "https://www.warhammer-community.com/..."
@@ -167,6 +176,7 @@ Example:
 The official Warhammer Community Warcry downloads page should be treated as the
 primary discovery location for current public Warcry PDFs:
 
+- `https://www.warhammer-community.com/en-gb/downloads/warcry/`
 - `https://www.warhammer-community.com/de-de/downloads/warcry/`
 
 The page exposes localized Warhammer Community content in multiple languages,

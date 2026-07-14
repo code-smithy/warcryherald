@@ -13,6 +13,7 @@
     "discover:reference-sources": "node scripts/reference-sources.mjs discover",
     "fetch:reference-pdf": "node scripts/reference-pdf.mjs fetch",
     "extract:reference-pdf": "node scripts/reference-pdf.mjs extract",
+    "sync:reference-pdfs": "node scripts/reference-pdf.mjs sync",
     "validate:reference-data": "node scripts/reference-data.mjs validate",
     "import:reference-data": "node scripts/reference-data.mjs import",
     "verify:phase2": "node scripts/verify-phase2.mjs"
