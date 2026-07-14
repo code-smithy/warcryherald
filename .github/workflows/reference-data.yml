@@ -1,0 +1,57 @@
+name: Reference Data Import
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Run a dry run or import reviewed reference data.
+        required: true
+        default: dry-run
+        type: choice
+        options:
+          - dry-run
+          - import
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reference-data-import
+  cancel-in-progress: false
+
+jobs:
+  reference-data:
+    name: Reference data ${{ inputs.operation }}
+    environment: github-pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.17.1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate reference data
+        run: pnpm validate:reference-data
+
+      - name: Dry-run reference import
+        if: inputs.operation == 'dry-run'
+        run: pnpm import:reference-data -- --dry-run
+
+      - name: Import reference data
+        if: inputs.operation == 'import'
+        run: pnpm import:reference-data
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}

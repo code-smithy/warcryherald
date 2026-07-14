@@ -94,6 +94,10 @@ Reference-data mutation is intentionally not available through frontend
 credentials. To import reviewed data, run the import script with
 `SUPABASE_SERVICE_ROLE_KEY` set in the local process environment.
 
+GitHub Actions also has a manual **Reference Data Import** workflow. Run it in
+`dry-run` mode first, then choose `import` only after reviewing the JSON input
+files and confirming the target Supabase project.
+
 ## Project Docs
 
 Start with [docs/project-tracker.md](docs/project-tracker.md), then read the

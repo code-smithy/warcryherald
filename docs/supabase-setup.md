@@ -128,6 +128,18 @@ pnpm import:reference-data
 Use `pnpm validate:reference-data` or `pnpm import:reference-data -- --dry-run`
 before importing reviewed source data.
 
+The repository includes a manual GitHub Actions workflow named
+`Reference Data Import`. It runs against the `github-pages` environment and
+expects:
+
+- Environment or repository variable `VITE_SUPABASE_URL`.
+- Environment or repository secret `SUPABASE_SERVICE_ROLE_KEY`.
+
+Run the workflow with `operation: dry-run` first. Use `operation: import` only
+after the JSON files under `data/reference/` have been reviewed and the target
+Supabase project has the Phase 3 migration applied. The service-role key is not
+used by the normal GitHub Pages deploy workflow.
+
 ## Phase 2 Verification
 
 Before marking Phase 2 complete, verify against the target Supabase project:
