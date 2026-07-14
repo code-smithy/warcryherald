@@ -3,6 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { AppRoutes } from "../src/app/AppRoutes";
 import { normalizeProfileUpdate } from "../src/lib/profiles";
+import { addSupabaseApiKeyToUrl } from "../src/lib/supabase";
 
 function renderRoute(initialEntry: string) {
   render(
@@ -79,5 +80,16 @@ describe("Warcry Herald shell", () => {
       preferred_language: "de",
       timezone: "UTC"
     });
+  });
+
+  it("adds the public Supabase API key to browser OAuth redirects", () => {
+    expect(
+      addSupabaseApiKeyToUrl(
+        "https://example.supabase.co/auth/v1/authorize?provider=discord",
+        "sb_publishable_test"
+      )
+    ).toBe(
+      "https://example.supabase.co/auth/v1/authorize?provider=discord&apikey=sb_publishable_test"
+    );
   });
 });
