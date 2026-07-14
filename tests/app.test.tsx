@@ -3,7 +3,6 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { AppRoutes } from "../src/app/AppRoutes";
 import { normalizeProfileUpdate } from "../src/lib/profiles";
-import { addSupabaseApiKeyToUrl } from "../src/lib/supabase";
 
 function renderRoute(initialEntry: string) {
   render(
@@ -45,6 +44,17 @@ describe("Warcry Herald shell", () => {
     expect(screen.getByText(/VITE_SUPABASE_ANON_KEY is required/i)).toBeInTheDocument();
   });
 
+  it("rejects a Supabase REST endpoint instead of the project root", () => {
+    vi.stubEnv("VITE_SUPABASE_URL", "https://example.supabase.co/rest/v1");
+    vi.stubEnv("VITE_SUPABASE_ANON_KEY", "test-anon-key");
+
+    renderRoute("/campaigns");
+
+    expect(
+      screen.getByText(/must be the Supabase project root/i)
+    ).toBeInTheDocument();
+  });
+
   it("blocks protected routes for unauthenticated users", async () => {
     vi.stubEnv("VITE_SUPABASE_URL", "https://example.supabase.co");
     vi.stubEnv("VITE_SUPABASE_ANON_KEY", "test-anon-key");
@@ -82,14 +92,4 @@ describe("Warcry Herald shell", () => {
     });
   });
 
-  it("adds the public Supabase API key to browser OAuth redirects", () => {
-    expect(
-      addSupabaseApiKeyToUrl(
-        "https://example.supabase.co/auth/v1/authorize?provider=discord",
-        "sb_publishable_test"
-      )
-    ).toBe(
-      "https://example.supabase.co/auth/v1/authorize?provider=discord&apikey=sb_publishable_test"
-    );
-  });
 });

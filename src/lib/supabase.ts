@@ -39,23 +39,3 @@ export function getOAuthRedirectUrl() {
 
   return `${window.location.origin}${path}#/auth/callback`;
 }
-
-export function addSupabaseApiKeyToUrl(url: string, apiKey: string) {
-  const nextUrl = new URL(url);
-
-  if (!nextUrl.searchParams.has("apikey")) {
-    nextUrl.searchParams.set("apikey", apiKey);
-  }
-
-  return nextUrl.toString();
-}
-
-export function getSupabaseApiKey() {
-  const env = getClientEnv();
-
-  if (!env.ok) {
-    return null;
-  }
-
-  return env.values.VITE_SUPABASE_ANON_KEY;
-}

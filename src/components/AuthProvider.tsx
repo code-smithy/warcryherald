@@ -4,12 +4,7 @@ import type { Session } from "@supabase/supabase-js";
 import { AuthContext } from "../lib/auth-context";
 import type { EditableProfileFields, Profile } from "../lib/profiles";
 import { normalizeProfileUpdate } from "../lib/profiles";
-import {
-  addSupabaseApiKeyToUrl,
-  getOAuthRedirectUrl,
-  getSupabaseApiKey,
-  getSupabaseClient
-} from "../lib/supabase";
+import { getOAuthRedirectUrl, getSupabaseClient } from "../lib/supabase";
 
 export function AuthProvider({ children }: PropsWithChildren) {
   const client = getSupabaseClient();
@@ -121,29 +116,16 @@ export function AuthProvider({ children }: PropsWithChildren) {
           throw new Error("Supabase is not configured.");
         }
 
-        const apiKey = getSupabaseApiKey();
-
-        if (!apiKey) {
-          throw new Error("Supabase anon key is not configured.");
-        }
-
-        const { data, error } = await client.auth.signInWithOAuth({
+        const { error } = await client.auth.signInWithOAuth({
           provider: "discord",
           options: {
-            redirectTo: getOAuthRedirectUrl(),
-            skipBrowserRedirect: true
+            redirectTo: getOAuthRedirectUrl()
           }
         });
 
         if (error) {
           throw error;
         }
-
-        if (!data.url) {
-          throw new Error("Supabase did not return a Discord sign-in URL.");
-        }
-
-        window.location.assign(addSupabaseApiKeyToUrl(data.url, apiKey));
       },
       signOut: async () => {
         if (!client) {

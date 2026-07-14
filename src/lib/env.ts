@@ -18,6 +18,17 @@ const clientEnvSchema = z
         path: ["VITE_SUPABASE_URL"],
         message: "VITE_SUPABASE_URL must be a valid URL"
       });
+    } else {
+      const supabaseUrl = new URL(env.VITE_SUPABASE_URL);
+
+      if (supabaseUrl.pathname !== "/" && supabaseUrl.pathname !== "") {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["VITE_SUPABASE_URL"],
+          message:
+            "VITE_SUPABASE_URL must be the Supabase project root, for example https://project-ref.supabase.co"
+        });
+      }
     }
 
     if (!env.VITE_SUPABASE_ANON_KEY) {
