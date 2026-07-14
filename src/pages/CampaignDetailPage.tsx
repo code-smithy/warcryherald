@@ -27,7 +27,32 @@ import {
 } from "../lib/campaigns";
 import { useAuth } from "../lib/auth-context";
 import { getErrorMessage } from "../lib/errors";
+import {
+  getSingle,
+  listFactions,
+  listFighterProfiles,
+  listRulesReleases,
+  type Faction,
+  type FighterProfile,
+  type RulesRelease
+} from "../lib/reference-data";
 import { getSupabaseClient } from "../lib/supabase";
+import {
+  addWarbandFighter,
+  createWarband,
+  fighterStatusLabels,
+  getFighterSnapshot,
+  getWarbandFaction,
+  listWarbands,
+  removeWarbandFighter,
+  updateWarband,
+  updateWarbandFighter,
+  validateWarbandRoster,
+  warbandStatusLabels,
+  type Warband,
+  type WarbandFighter,
+  type WarbandFighterStatus
+} from "../lib/warbands";
 
 function createInviteDraft(): InviteDraft {
   return {
@@ -43,10 +68,24 @@ export function CampaignDetailPage() {
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const [members, setMembers] = useState<CampaignMember[]>([]);
   const [invites, setInvites] = useState<CampaignInvite[]>([]);
+  const [warbands, setWarbands] = useState<Warband[]>([]);
+  const [rulesReleases, setRulesReleases] = useState<RulesRelease[]>([]);
+  const [factions, setFactions] = useState<Faction[]>([]);
+  const [fighterProfiles, setFighterProfiles] = useState<FighterProfile[]>([]);
+  const [selectedWarbandId, setSelectedWarbandId] = useState<string | null>(null);
   const [campaignDraft, setCampaignDraft] = useState<CampaignDraft>({
     name: "",
     description: "",
-    status: "draft"
+    status: "draft",
+    rulesReleaseId: "",
+    warbandPointsLimit: "1000",
+    warbandFighterLimit: "15"
+  });
+  const [warbandDraft, setWarbandDraft] = useState({ name: "", factionId: "" });
+  const [fighterDraft, setFighterDraft] = useState({
+    fighterProfileId: "",
+    name: "",
+    isLeader: false
   });
   const [inviteDraft, setInviteDraft] = useState(createInviteDraft);
   const [loading, setLoading] = useState(true);
@@ -60,6 +99,35 @@ export function CampaignDetailPage() {
   );
   const isOwner = currentMember?.role === "owner";
   const isAdmin = currentMember?.role === "owner" || currentMember?.role === "campaign_admin";
+  const selectedWarband =
+    warbands.find((warband) => warband.id === selectedWarbandId) ?? warbands[0] ?? null;
+  const selectedFighterProfile =
+    fighterProfiles.find((fighter) => fighter.id === fighterDraft.fighterProfileId) ?? null;
+  const availableFactions = useMemo(
+    () =>
+      factions.filter(
+        (faction) =>
+          campaign?.rules_release_id &&
+          faction.rules_release_id === campaign.rules_release_id
+      ),
+    [campaign?.rules_release_id, factions]
+  );
+  const availableFighterProfiles = useMemo(
+    () =>
+      selectedWarband
+        ? fighterProfiles.filter((fighter) => {
+            const faction = getSingle(fighter.factions);
+            const release = getSingle(fighter.rules_releases);
+
+            return (
+              faction?.id === selectedWarband.faction_id &&
+              release?.id === selectedWarband.rules_release_id &&
+              fighter.is_current
+            );
+          })
+        : [],
+    [fighterProfiles, selectedWarband]
+  );
 
   const loadCampaign = useCallback(async () => {
     if (!client || !campaignId) {
@@ -70,9 +138,20 @@ export function CampaignDetailPage() {
     setError(null);
 
     try {
-      const [nextCampaign, nextMembers] = await Promise.all([
+      const [
+        nextCampaign,
+        nextMembers,
+        nextWarbands,
+        nextReleases,
+        nextFactions,
+        nextFighterProfiles
+      ] = await Promise.all([
         getCampaign(client, campaignId),
-        listCampaignMembers(client, campaignId)
+        listCampaignMembers(client, campaignId),
+        listWarbands(client, campaignId),
+        listRulesReleases(client),
+        listFactions(client),
+        listFighterProfiles(client)
       ]);
       const nextInvites =
         nextMembers.some(
@@ -86,10 +165,18 @@ export function CampaignDetailPage() {
       setCampaign(nextCampaign);
       setMembers(nextMembers);
       setInvites(nextInvites);
+      setWarbands(nextWarbands);
+      setRulesReleases(nextReleases);
+      setFactions(nextFactions);
+      setFighterProfiles(nextFighterProfiles);
+      setSelectedWarbandId((current) => current ?? nextWarbands[0]?.id ?? null);
       setCampaignDraft({
         name: nextCampaign.name,
         description: nextCampaign.description,
-        status: nextCampaign.status
+        status: nextCampaign.status,
+        rulesReleaseId: nextCampaign.rules_release_id ?? "",
+        warbandPointsLimit: String(nextCampaign.warband_points_limit),
+        warbandFighterLimit: String(nextCampaign.warband_fighter_limit)
       });
     } catch (loadError) {
       setError(
@@ -123,6 +210,125 @@ export function CampaignDetailPage() {
       setError(
         getErrorMessage(saveError, "Campaign settings could not be saved.")
       );
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleWarbandCreate(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!client || !campaign) {
+      return;
+    }
+
+    setSaving(true);
+    setError(null);
+    setMessage(null);
+
+    try {
+      const warband = await createWarband(client, {
+        campaignId: campaign.id,
+        factionId: warbandDraft.factionId,
+        name: warbandDraft.name
+      });
+      setWarbandDraft({ name: "", factionId: "" });
+      setSelectedWarbandId(warband.id);
+      await loadCampaign();
+      setMessage("Warband created.");
+    } catch (warbandError) {
+      setError(getErrorMessage(warbandError, "Warband could not be created."));
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleWarbandStatusChange(warbandId: string, status: Warband["status"]) {
+    if (!client) {
+      return;
+    }
+
+    setSaving(true);
+    setError(null);
+    setMessage(null);
+
+    try {
+      await updateWarband(client, warbandId, { status });
+      await loadCampaign();
+      setMessage(status === "battle_ready" ? "Warband marked battle-ready." : "Warband updated.");
+    } catch (warbandError) {
+      setError(getErrorMessage(warbandError, "Warband could not be updated."));
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleFighterAdd(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!client || !selectedWarband) {
+      return;
+    }
+
+    setSaving(true);
+    setError(null);
+    setMessage(null);
+
+    try {
+      await addWarbandFighter(client, {
+        warbandId: selectedWarband.id,
+        fighterProfileId: fighterDraft.fighterProfileId,
+        name: fighterDraft.name || selectedFighterProfile?.name || "",
+        isLeader: fighterDraft.isLeader
+      });
+      setFighterDraft({ fighterProfileId: "", name: "", isLeader: false });
+      await loadCampaign();
+      setMessage("Fighter added.");
+    } catch (fighterError) {
+      setError(getErrorMessage(fighterError, "Fighter could not be added."));
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleFighterUpdate(
+    fighterId: string,
+    fields: Parameters<typeof updateWarbandFighter>[2]
+  ) {
+    if (!client) {
+      return;
+    }
+
+    setSaving(true);
+    setError(null);
+    setMessage(null);
+
+    try {
+      await updateWarbandFighter(client, fighterId, fields);
+      await loadCampaign();
+      setMessage("Fighter updated.");
+    } catch (fighterError) {
+      setError(getErrorMessage(fighterError, "Fighter could not be updated."));
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleFighterRemove(fighterId: string) {
+    if (!client) {
+      return;
+    }
+
+    setSaving(true);
+    setError(null);
+    setMessage(null);
+
+    try {
+      await removeWarbandFighter(client, fighterId);
+      await loadCampaign();
+      setMessage("Fighter removed.");
+    } catch (fighterError) {
+      setError(getErrorMessage(fighterError, "Fighter could not be removed."));
     } finally {
       setSaving(false);
     }
@@ -284,6 +490,82 @@ export function CampaignDetailPage() {
       {error ? <p className="form-error">{error}</p> : null}
 
       <section className="dashboard-grid">
+        <article className="panel warband-panel">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Warbands</p>
+              <h2>Roster management</h2>
+            </div>
+            <button className="button button--secondary" type="button" onClick={() => window.print()}>
+              Print roster
+            </button>
+          </div>
+
+          {!campaign.rules_release_id ? (
+            <p className="muted">
+              Choose a campaign rules release in settings before creating warbands.
+            </p>
+          ) : null}
+
+          <form className="inline-form" onSubmit={handleWarbandCreate}>
+            <label>
+              Warband name
+              <input
+                value={warbandDraft.name}
+                onChange={(event) =>
+                  setWarbandDraft({ ...warbandDraft, name: event.target.value })
+                }
+                minLength={2}
+                maxLength={80}
+                disabled={!campaign.rules_release_id}
+              />
+            </label>
+            <label>
+              Faction
+              <select
+                value={warbandDraft.factionId}
+                onChange={(event) =>
+                  setWarbandDraft({ ...warbandDraft, factionId: event.target.value })
+                }
+                disabled={!campaign.rules_release_id || availableFactions.length === 0}
+              >
+                <option value="">Choose faction</option>
+                {availableFactions.map((faction) => (
+                  <option key={faction.id} value={faction.id}>
+                    {faction.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button className="button" type="submit" disabled={saving || !campaign.rules_release_id}>
+              Create warband
+            </button>
+          </form>
+
+          {availableFactions.length === 0 && campaign.rules_release_id ? (
+            <p className="muted">No factions are available for the configured rules release.</p>
+          ) : null}
+
+          <WarbandRoster
+            warbands={warbands}
+            selectedWarband={selectedWarband}
+            canManage={Boolean(
+              selectedWarband &&
+                (isAdmin || selectedWarband.owner_id === user?.id)
+            )}
+            fighterProfiles={availableFighterProfiles}
+            fighterDraft={fighterDraft}
+            selectedFighterProfile={selectedFighterProfile}
+            saving={saving}
+            onSelect={setSelectedWarbandId}
+            onFighterDraftChange={setFighterDraft}
+            onAddFighter={handleFighterAdd}
+            onFighterUpdate={handleFighterUpdate}
+            onFighterRemove={handleFighterRemove}
+            onWarbandStatusChange={handleWarbandStatusChange}
+          />
+        </article>
+
         <article className="panel">
           <p className="eyebrow">Roster access</p>
           <h2>Members</h2>
@@ -443,6 +725,51 @@ export function CampaignDetailPage() {
                   ) : null}
                 </select>
               </label>
+              <label>
+                Rules release
+                <select
+                  value={campaignDraft.rulesReleaseId ?? ""}
+                  onChange={(event) =>
+                    setCampaignDraft({
+                      ...campaignDraft,
+                      rulesReleaseId: event.target.value
+                    })
+                  }
+                >
+                  <option value="">Not configured</option>
+                  {rulesReleases.map((release) => (
+                    <option key={release.id} value={release.id}>
+                      {release.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Warband point limit
+                <input
+                  inputMode="numeric"
+                  value={campaignDraft.warbandPointsLimit ?? ""}
+                  onChange={(event) =>
+                    setCampaignDraft({
+                      ...campaignDraft,
+                      warbandPointsLimit: event.target.value
+                    })
+                  }
+                />
+              </label>
+              <label>
+                Warband fighter limit
+                <input
+                  inputMode="numeric"
+                  value={campaignDraft.warbandFighterLimit ?? ""}
+                  onChange={(event) =>
+                    setCampaignDraft({
+                      ...campaignDraft,
+                      warbandFighterLimit: event.target.value
+                    })
+                  }
+                />
+              </label>
               <button className="button" type="submit" disabled={saving}>
                 Save settings
               </button>
@@ -499,4 +826,347 @@ function normalizeRelatedProfile(
   }
 
   return profile ?? null;
+}
+
+function WarbandRoster({
+  warbands,
+  selectedWarband,
+  canManage,
+  fighterProfiles,
+  fighterDraft,
+  selectedFighterProfile,
+  saving,
+  onSelect,
+  onFighterDraftChange,
+  onAddFighter,
+  onFighterUpdate,
+  onFighterRemove,
+  onWarbandStatusChange
+}: {
+  warbands: Warband[];
+  selectedWarband: Warband | null;
+  canManage: boolean;
+  fighterProfiles: FighterProfile[];
+  fighterDraft: { fighterProfileId: string; name: string; isLeader: boolean };
+  selectedFighterProfile: FighterProfile | null;
+  saving: boolean;
+  onSelect: (warbandId: string) => void;
+  onFighterDraftChange: (draft: { fighterProfileId: string; name: string; isLeader: boolean }) => void;
+  onAddFighter: (event: React.FormEvent<HTMLFormElement>) => void;
+  onFighterUpdate: (
+    fighterId: string,
+    fields: Parameters<typeof updateWarbandFighter>[2]
+  ) => void;
+  onFighterRemove: (fighterId: string) => void;
+  onWarbandStatusChange: (warbandId: string, status: Warband["status"]) => void;
+}) {
+  if (warbands.length === 0) {
+    return <p className="muted">No warbands yet.</p>;
+  }
+
+  if (!selectedWarband) {
+    return null;
+  }
+
+  const validation = validateWarbandRoster(selectedWarband);
+  const rosterFighters = [...(selectedWarband.warband_fighters ?? [])].sort(
+    (a, b) => a.sort_order - b.sort_order || a.created_at.localeCompare(b.created_at)
+  );
+  const faction = getWarbandFaction(selectedWarband);
+
+  return (
+    <div className="warband-layout">
+      <div className="warband-list">
+        {warbands.map((warband) => {
+          const warbandValidation = validateWarbandRoster(warband);
+          const warbandFaction = getWarbandFaction(warband);
+
+          return (
+            <button
+              className="reference-row"
+              key={warband.id}
+              type="button"
+              aria-pressed={warband.id === selectedWarband.id}
+              onClick={() => onSelect(warband.id)}
+            >
+              <span>
+                <strong>{warband.name}</strong>
+                <small>
+                  {warbandFaction?.name ?? "Unknown faction"} - {warbandValidation.totalPoints} pts
+                </small>
+              </span>
+              <span className="status-pill">{warbandStatusLabels[warband.status]}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="warband-detail">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">{faction?.name ?? "Unknown faction"}</p>
+            <h3>{selectedWarband.name}</h3>
+          </div>
+          <span className="status-pill">{warbandStatusLabels[selectedWarband.status]}</span>
+        </div>
+
+        <dl className="stat-grid">
+          <div>
+            <dt>Points</dt>
+            <dd>
+              {validation.totalPoints}/{selectedWarband.points_limit}
+            </dd>
+          </div>
+          <div>
+            <dt>Fighters</dt>
+            <dd>
+              {validation.fighterCount}/{selectedWarband.fighter_limit}
+            </dd>
+          </div>
+          <div>
+            <dt>Leader</dt>
+            <dd>{validation.errors.some((issue) => issue.code === "missing-leader") ? "No" : "Yes"}</dd>
+          </div>
+          <div>
+            <dt>Roster</dt>
+            <dd>{validation.valid ? "Valid" : "Draft"}</dd>
+          </div>
+        </dl>
+
+        {validation.errors.length > 0 || validation.warnings.length > 0 ? (
+          <div className="validation-list" aria-live="polite">
+            {validation.errors.map((issue) => (
+              <p className="form-error" key={issue.code}>
+                {issue.message}
+              </p>
+            ))}
+            {validation.warnings.map((issue) => (
+              <p className="muted" key={issue.code}>
+                {issue.message}
+              </p>
+            ))}
+          </div>
+        ) : null}
+
+        {canManage ? (
+          <div className="hero-actions">
+            {selectedWarband.status === "draft" ? (
+              <button
+                className="button"
+                type="button"
+                disabled={saving || !validation.valid}
+                onClick={() => onWarbandStatusChange(selectedWarband.id, "battle_ready")}
+              >
+                Mark battle-ready
+              </button>
+            ) : null}
+            {selectedWarband.status === "battle_ready" ? (
+              <button
+                className="button button--secondary"
+                type="button"
+                disabled={saving}
+                onClick={() => onWarbandStatusChange(selectedWarband.id, "draft")}
+              >
+                Return to draft
+              </button>
+            ) : null}
+            {selectedWarband.status !== "retired" ? (
+              <button
+                className="button button--secondary"
+                type="button"
+                disabled={saving}
+                onClick={() => onWarbandStatusChange(selectedWarband.id, "retired")}
+              >
+                Retire warband
+              </button>
+            ) : null}
+          </div>
+        ) : null}
+
+        {canManage ? (
+          <form className="inline-form" onSubmit={onAddFighter}>
+            <label>
+              Fighter profile
+              <select
+                value={fighterDraft.fighterProfileId}
+                onChange={(event) =>
+                  onFighterDraftChange({
+                    fighterProfileId: event.target.value,
+                    name: "",
+                    isLeader: false
+                  })
+                }
+              >
+                <option value="">Choose fighter</option>
+                {fighterProfiles.map((fighter) => (
+                  <option key={fighter.id} value={fighter.id}>
+                    {fighter.name} - {fighter.points} pts
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Name
+              <input
+                value={fighterDraft.name}
+                onChange={(event) =>
+                  onFighterDraftChange({ ...fighterDraft, name: event.target.value })
+                }
+                placeholder={selectedFighterProfile?.name ?? "Fighter name"}
+                maxLength={80}
+              />
+            </label>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={fighterDraft.isLeader}
+                disabled={!selectedFighterProfile?.is_leader}
+                onChange={(event) =>
+                  onFighterDraftChange({ ...fighterDraft, isLeader: event.target.checked })
+                }
+              />
+              Leader
+            </label>
+            <button className="button" type="submit" disabled={saving || !fighterDraft.fighterProfileId}>
+              Add fighter
+            </button>
+          </form>
+        ) : null}
+
+        <div className="fighter-card-list">
+          {rosterFighters.length === 0 ? <p className="muted">No fighters in this roster.</p> : null}
+          {rosterFighters.map((fighter) => (
+            <WarbandFighterCard
+              key={fighter.id}
+              fighter={fighter}
+              canManage={canManage}
+              saving={saving}
+              onUpdate={onFighterUpdate}
+              onRemove={onFighterRemove}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function WarbandFighterCard({
+  fighter,
+  canManage,
+  saving,
+  onUpdate,
+  onRemove
+}: {
+  fighter: WarbandFighter;
+  canManage: boolean;
+  saving: boolean;
+  onUpdate: (
+    fighterId: string,
+    fields: Parameters<typeof updateWarbandFighter>[2]
+  ) => void;
+  onRemove: (fighterId: string) => void;
+}) {
+  const snapshot = getFighterSnapshot(fighter);
+  const [name, setName] = useState(fighter.name);
+
+  useEffect(() => {
+    setName(fighter.name);
+  }, [fighter.name]);
+
+  return (
+    <article className="fighter-card">
+      <div>
+        <h4>{fighter.name}</h4>
+        <p className="muted">
+          {snapshot?.name ?? "Unknown profile"} - {snapshot?.points ?? 0} pts
+        </p>
+      </div>
+
+      {snapshot ? (
+        <dl className="mini-stat-grid">
+          <div>
+            <dt>Move</dt>
+            <dd>{snapshot.movement}</dd>
+          </div>
+          <div>
+            <dt>Tough</dt>
+            <dd>{snapshot.toughness}</dd>
+          </div>
+          <div>
+            <dt>Wounds</dt>
+            <dd>{snapshot.wounds}</dd>
+          </div>
+        </dl>
+      ) : null}
+
+      {canManage ? (
+        <div className="fighter-card-controls">
+          <label>
+            Name
+            <input
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              maxLength={80}
+            />
+          </label>
+          <label>
+            Status
+            <select
+              value={fighter.status}
+              onChange={(event) =>
+                onUpdate(fighter.id, {
+                  status: event.target.value as WarbandFighterStatus
+                })
+              }
+              disabled={saving}
+            >
+              {Object.entries(fighterStatusLabels).map(([status, label]) => (
+                <option key={status} value={status}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              checked={fighter.is_leader}
+              disabled={saving || !snapshot?.is_leader}
+              onChange={(event) =>
+                onUpdate(fighter.id, { is_leader: event.target.checked })
+              }
+            />
+            Leader
+          </label>
+          <button
+            className="button button--secondary"
+            type="button"
+            disabled={saving || name.trim() === fighter.name}
+            onClick={() => onUpdate(fighter.id, { name: name.trim() || fighter.name })}
+          >
+            Save
+          </button>
+          <button
+            className="link-button"
+            type="button"
+            disabled={saving}
+            onClick={() => onUpdate(fighter.id, { status: "retired" })}
+          >
+            Retire
+          </button>
+          <button
+            className="link-button"
+            type="button"
+            disabled={saving}
+            onClick={() => onRemove(fighter.id)}
+          >
+            Remove
+          </button>
+        </div>
+      ) : (
+        <p className="muted">{fighterStatusLabels[fighter.status]}</p>
+      )}
+    </article>
+  );
 }

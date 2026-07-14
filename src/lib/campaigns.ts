@@ -8,6 +8,9 @@ export type Campaign = {
   name: string;
   description: string;
   status: CampaignStatus;
+  rules_release_id: string | null;
+  warband_points_limit: number;
+  warband_fighter_limit: number;
   created_by: string;
   created_at: string;
   updated_at: string;
@@ -45,6 +48,9 @@ export type CampaignDraft = {
   name: string;
   description: string;
   status: CampaignStatus;
+  rulesReleaseId?: string;
+  warbandPointsLimit?: string;
+  warbandFighterLimit?: string;
 };
 
 export type InviteDraft = {
@@ -71,7 +77,14 @@ export function normalizeCampaignDraft(draft: CampaignDraft): CampaignDraft {
   return {
     name: draft.name.trim(),
     description: draft.description.trim(),
-    status: draft.status
+    status: draft.status,
+    ...(draft.rulesReleaseId !== undefined ? { rulesReleaseId: draft.rulesReleaseId } : {}),
+    ...(draft.warbandPointsLimit !== undefined
+      ? { warbandPointsLimit: draft.warbandPointsLimit.trim() }
+      : {}),
+    ...(draft.warbandFighterLimit !== undefined
+      ? { warbandFighterLimit: draft.warbandFighterLimit.trim() }
+      : {})
   };
 }
 
@@ -89,6 +102,22 @@ export function validateCampaignDraft(draft: CampaignDraft) {
 
   if (normalized.description.length > 2000) {
     errors.push("Campaign description must be 2000 characters or fewer.");
+  }
+
+  if (
+    normalized.warbandPointsLimit !== undefined &&
+    (!Number.isInteger(Number(normalized.warbandPointsLimit)) ||
+      Number(normalized.warbandPointsLimit) < 1)
+  ) {
+    errors.push("Warband point limit must be a whole number greater than zero.");
+  }
+
+  if (
+    normalized.warbandFighterLimit !== undefined &&
+    (!Number.isInteger(Number(normalized.warbandFighterLimit)) ||
+      Number(normalized.warbandFighterLimit) < 1)
+  ) {
+    errors.push("Warband fighter limit must be a whole number greater than zero.");
   }
 
   return { normalized, errors };
@@ -218,7 +247,18 @@ export async function updateCampaign(
 
   const { data, error } = await client
     .from("campaigns")
-    .update(normalized)
+    .update({
+      name: normalized.name,
+      description: normalized.description,
+      status: normalized.status,
+      rules_release_id: normalized.rulesReleaseId || null,
+      ...(normalized.warbandPointsLimit !== undefined
+        ? { warband_points_limit: Number(normalized.warbandPointsLimit) }
+        : {}),
+      ...(normalized.warbandFighterLimit !== undefined
+        ? { warband_fighter_limit: Number(normalized.warbandFighterLimit) }
+        : {})
+    })
     .eq("id", campaignId)
     .select("*")
     .single();

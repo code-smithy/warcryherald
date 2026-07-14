@@ -1,4 +1,565 @@
 {
-  "grandAlliances": [],
-  "factions": []
+  "grandAlliances": [
+    {
+      "stableKey": "en-order",
+      "name": "Order",
+      "displayOrder": 10
+    },
+    {
+      "stableKey": "en-chaos",
+      "name": "Chaos",
+      "displayOrder": 20
+    },
+    {
+      "stableKey": "en-death",
+      "name": "Death",
+      "displayOrder": 30
+    },
+    {
+      "stableKey": "en-destruction",
+      "name": "Destruction",
+      "displayOrder": 40
+    }
+  ],
+  "factions": [
+    {
+      "stableKey": "en-order-allies-of-order",
+      "rulesReleaseStableKey": "warcrier-warbands-order-allies-of-order-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Allies of Order",
+      "displayOrder": 10
+    },
+    {
+      "stableKey": "en-order-cities-of-sigmar-castelite-hosts",
+      "rulesReleaseStableKey": "warcrier-warbands-order-cities-of-sigmar-castelite-hosts-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Cities of Sigmar: Castelite Hosts",
+      "displayOrder": 20
+    },
+    {
+      "stableKey": "en-order-cities-of-sigmar-darkling-covens",
+      "rulesReleaseStableKey": "warcrier-warbands-order-cities-of-sigmar-darkling-covens-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Cities of Sigmar: Darkling Covens",
+      "displayOrder": 30
+    },
+    {
+      "stableKey": "en-order-cities-of-sigmar-dispossessed",
+      "rulesReleaseStableKey": "warcrier-warbands-order-cities-of-sigmar-dispossessed-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Cities of Sigmar: Dispossessed",
+      "displayOrder": 40
+    },
+    {
+      "stableKey": "en-order-daughters-of-khaine",
+      "rulesReleaseStableKey": "warcrier-warbands-order-daughters-of-khaine-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Daughters Of Khaine",
+      "displayOrder": 50
+    },
+    {
+      "stableKey": "en-order-fyreslayers",
+      "rulesReleaseStableKey": "warcrier-warbands-order-fyreslayers-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Fyreslayers",
+      "displayOrder": 60
+    },
+    {
+      "stableKey": "en-order-hunters-of-huanchi",
+      "rulesReleaseStableKey": "warcrier-warbands-order-hunters-of-huanchi-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Hunters of Huanchi",
+      "displayOrder": 70
+    },
+    {
+      "stableKey": "en-order-idoneth-deepkin",
+      "rulesReleaseStableKey": "warcrier-warbands-order-idoneth-deepkin-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Idoneth Deepkin",
+      "displayOrder": 80
+    },
+    {
+      "stableKey": "en-order-khainite-shadowstalkers",
+      "rulesReleaseStableKey": "warcrier-warbands-order-khainite-shadowstalkers-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Khainite Shadowstalkers",
+      "displayOrder": 90
+    },
+    {
+      "stableKey": "en-order-kharadron-overlords",
+      "rulesReleaseStableKey": "warcrier-warbands-order-kharadron-overlords-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Kharadron Overlords",
+      "displayOrder": 100
+    },
+    {
+      "stableKey": "en-order-lumineth-realm-lords",
+      "rulesReleaseStableKey": "warcrier-warbands-order-lumineth-realm-lords-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Lumineth Realm-Lords",
+      "displayOrder": 110
+    },
+    {
+      "stableKey": "en-order-monsters-of-order",
+      "rulesReleaseStableKey": "warcrier-warbands-order-monsters-of-order-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Monsters of Order",
+      "displayOrder": 120
+    },
+    {
+      "stableKey": "en-order-order-of-azyr",
+      "rulesReleaseStableKey": "warcrier-warbands-order-order-of-azyr-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Order of Azyr",
+      "displayOrder": 130
+    },
+    {
+      "stableKey": "en-order-seraphon",
+      "rulesReleaseStableKey": "warcrier-warbands-order-seraphon-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Seraphon",
+      "displayOrder": 140
+    },
+    {
+      "stableKey": "en-order-stormcast-eternals-questor-soulsworn",
+      "rulesReleaseStableKey": "warcrier-warbands-order-stormcast-eternals-questor-soulsworn-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Stormcast Eternals Questor Soulsworn",
+      "displayOrder": 150
+    },
+    {
+      "stableKey": "en-order-stormcast-eternals-ruination-chamber",
+      "rulesReleaseStableKey": "warcrier-warbands-order-stormcast-eternals-ruination-chamber-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Stormcast Eternals Ruination Chamber",
+      "displayOrder": 160
+    },
+    {
+      "stableKey": "en-order-stormcast-eternals-sacrosanct-chamber",
+      "rulesReleaseStableKey": "warcrier-warbands-order-stormcast-eternals-sacrosanct-chamber-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Stormcast Eternals Sacrosanct Chamber",
+      "displayOrder": 170
+    },
+    {
+      "stableKey": "en-order-stormcast-eternals-thunderstrike-stormcasts",
+      "rulesReleaseStableKey": "warcrier-warbands-order-stormcast-eternals-thunderstrike-stormcasts-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Stormcast Eternals Thunderstrike Stormcasts",
+      "displayOrder": 180
+    },
+    {
+      "stableKey": "en-order-stormcast-eternals-vanguard-auxiliary-chamber",
+      "rulesReleaseStableKey": "warcrier-warbands-order-stormcast-eternals-vanguard-auxiliary-chamber-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Stormcast Eternals Vanguard Auxiliary Chamber",
+      "displayOrder": 190
+    },
+    {
+      "stableKey": "en-order-stormcast-eternals-warrior-chamber",
+      "rulesReleaseStableKey": "warcrier-warbands-order-stormcast-eternals-warrior-chamber-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Stormcast Eternals Warrior Chamber",
+      "displayOrder": 200
+    },
+    {
+      "stableKey": "en-order-sylvaneth",
+      "rulesReleaseStableKey": "warcrier-warbands-order-sylvaneth-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Sylvaneth",
+      "displayOrder": 210
+    },
+    {
+      "stableKey": "en-order-blacktalons",
+      "rulesReleaseStableKey": "warcrier-warbands-order-blacktalons-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "The Blacktalons",
+      "displayOrder": 220
+    },
+    {
+      "stableKey": "en-order-twistweald",
+      "rulesReleaseStableKey": "warcrier-warbands-order-twistweald-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Twistweald",
+      "displayOrder": 230
+    },
+    {
+      "stableKey": "en-order-vulkyn-flameseekers",
+      "rulesReleaseStableKey": "warcrier-warbands-order-vulkyn-flameseekers-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Vulkyn Flameseekers",
+      "displayOrder": 240
+    },
+    {
+      "stableKey": "en-order-wildercorps-hunters",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Wildercorps Hunters",
+      "displayOrder": 250
+    },
+    {
+      "stableKey": "en-order-ydrilan-riverblades",
+      "rulesReleaseStableKey": "warcrier-warbands-order-ydrilan-riverblades-en-release",
+      "grandAllianceStableKey": "en-order",
+      "name": "Ydrilan Riverblades",
+      "displayOrder": 260
+    },
+    {
+      "stableKey": "en-chaos-allies-of-chaos",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Allies of Chaos",
+      "displayOrder": 270
+    },
+    {
+      "stableKey": "en-chaos-beasts-of-chaos",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-beasts-of-chaos-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Beasts of Chaos",
+      "displayOrder": 280
+    },
+    {
+      "stableKey": "en-chaos-blades-of-khorne-bloodbound",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-blades-of-khorne-bloodbound-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Blades Of Khorne: Bloodbound",
+      "displayOrder": 290
+    },
+    {
+      "stableKey": "en-chaos-blades-of-khorne-daemons",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-blades-of-khorne-daemons-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Blades Of Khorne: Daemons",
+      "displayOrder": 300
+    },
+    {
+      "stableKey": "en-chaos-chaos-legionnaires",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Chaos Legionnaries",
+      "displayOrder": 310
+    },
+    {
+      "stableKey": "en-chaos-claws-of-karanak",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Claws of Karanak",
+      "displayOrder": 320
+    },
+    {
+      "stableKey": "en-chaos-corvus-cabal",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-corvus-cabal-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Corvus Cabal",
+      "displayOrder": 330
+    },
+    {
+      "stableKey": "en-chaos-cypher-lords",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-cypher-lords-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Cypher Lords",
+      "displayOrder": 340
+    },
+    {
+      "stableKey": "en-chaos-darkoath",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-darkoath-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Darkoath",
+      "displayOrder": 350
+    },
+    {
+      "stableKey": "en-chaos-darkoath-savagers",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-darkoath-savagers-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Darkoath Savagers",
+      "displayOrder": 360
+    },
+    {
+      "stableKey": "en-chaos-disciples-of-tzeentch-arcanites",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-disciples-of-tzeentch-arcanites-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Disciples Of Tzeentch: Arcanites",
+      "displayOrder": 370
+    },
+    {
+      "stableKey": "en-chaos-disciples-of-tzeentch-daemons",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-disciples-of-tzeentch-daemons-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Disciples Of Tzeentch: Daemons",
+      "displayOrder": 380
+    },
+    {
+      "stableKey": "en-chaos-hedonites-of-slaanesh-daemons",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-hedonites-of-slaanesh-daemons-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Hedonites of Slaanesh: Daemons",
+      "displayOrder": 390
+    },
+    {
+      "stableKey": "en-chaos-hedonites-of-slaanesh-sybarites",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-hedonites-of-slaanesh-sybarites-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Hedonites Of Slaanesh: Sybarites",
+      "displayOrder": 400
+    },
+    {
+      "stableKey": "en-chaos-helsmiths-of-hashut",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-helsmiths-of-hashut-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Helsmiths Of Hashut",
+      "displayOrder": 410
+    },
+    {
+      "stableKey": "en-chaos-iron-golem",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-iron-golem-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Iron Golem",
+      "displayOrder": 420
+    },
+    {
+      "stableKey": "en-chaos-maggotkin-of-nurgle-daemons",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-maggotkin-of-nurgle-daemons-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Maggotkin Of Nurgle: Daemons",
+      "displayOrder": 430
+    },
+    {
+      "stableKey": "en-chaos-maggotkin-of-nurgle-rotbringers",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-maggotkin-of-nurgle-rotbringers-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Maggotkin Of Nurgle: Rotbringers",
+      "displayOrder": 440
+    },
+    {
+      "stableKey": "en-chaos-monsters-of-chaos",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Monsters of Chaos",
+      "displayOrder": 450
+    },
+    {
+      "stableKey": "en-chaos-rotmire-creed",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Rotmire Creed",
+      "displayOrder": 460
+    },
+    {
+      "stableKey": "en-chaos-scions-of-the-flame",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-scions-of-the-flame-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Scions of the Flame",
+      "displayOrder": 470
+    },
+    {
+      "stableKey": "en-chaos-skaven",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-skaven-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Skaven",
+      "displayOrder": 480
+    },
+    {
+      "stableKey": "en-chaos-slaves-to-darkness",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-slaves-to-darkness-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Slaves To Darkness",
+      "displayOrder": 490
+    },
+    {
+      "stableKey": "en-chaos-spire-tyrants",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-spire-tyrants-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Spire Tyrants",
+      "displayOrder": 500
+    },
+    {
+      "stableKey": "en-chaos-splintered-fang",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-splintered-fang-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Splintered Fang",
+      "displayOrder": 510
+    },
+    {
+      "stableKey": "en-chaos-tarantulos-brood",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-tarantulos-brood-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Tarantulos Brood",
+      "displayOrder": 520
+    },
+    {
+      "stableKey": "en-chaos-horns-of-hashut",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-horns-of-hashut-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "The Horns Of Hashut",
+      "displayOrder": 530
+    },
+    {
+      "stableKey": "en-chaos-jade-obelisk",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-jade-obelisk-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "The Jade Obelisk",
+      "displayOrder": 540
+    },
+    {
+      "stableKey": "en-chaos-the-unmade",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-the-unmade-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "The Unmade",
+      "displayOrder": 550
+    },
+    {
+      "stableKey": "en-chaos-thralls-of-chaos",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-thralls-of-chaos-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Thralls of Chaos",
+      "displayOrder": 560
+    },
+    {
+      "stableKey": "en-chaos-untamed-beasts",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-untamed-beasts-en-release",
+      "grandAllianceStableKey": "en-chaos",
+      "name": "Untamed Beasts",
+      "displayOrder": 570
+    },
+    {
+      "stableKey": "en-death-askurgan-trueblades",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-en-release",
+      "grandAllianceStableKey": "en-death",
+      "name": "Askurgan Trueblades",
+      "displayOrder": 580
+    },
+    {
+      "stableKey": "en-death-flesh-eater-courts",
+      "rulesReleaseStableKey": "warcrier-warbands-death-flesh-eater-courts-en-release",
+      "grandAllianceStableKey": "en-death",
+      "name": "Flesh-Eater Courts",
+      "displayOrder": 590
+    },
+    {
+      "stableKey": "en-death-monsters-of-death",
+      "rulesReleaseStableKey": "warcrier-warbands-death-monsters-of-death-en-release",
+      "grandAllianceStableKey": "en-death",
+      "name": "Monsters of Death",
+      "displayOrder": 600
+    },
+    {
+      "stableKey": "en-death-nighthaunt",
+      "rulesReleaseStableKey": "warcrier-warbands-death-nighthaunt-en-release",
+      "grandAllianceStableKey": "en-death",
+      "name": "Nighthaunt",
+      "displayOrder": 610
+    },
+    {
+      "stableKey": "en-death-ossiarch-bonereapers",
+      "rulesReleaseStableKey": "warcrier-warbands-death-ossiarch-bonereapers-en-release",
+      "grandAllianceStableKey": "en-death",
+      "name": "Ossiarch Bonereapers",
+      "displayOrder": 620
+    },
+    {
+      "stableKey": "en-death-pyregheists",
+      "rulesReleaseStableKey": "warcrier-warbands-death-pyregheists-en-release",
+      "grandAllianceStableKey": "en-death",
+      "name": "Pyregheists",
+      "displayOrder": 630
+    },
+    {
+      "stableKey": "en-death-royal-beastflayers",
+      "rulesReleaseStableKey": "warcrier-warbands-death-royal-beastflayers-en-release",
+      "grandAllianceStableKey": "en-death",
+      "name": "Royal Beastflayers",
+      "displayOrder": 640
+    },
+    {
+      "stableKey": "en-death-soulblight-gravelords",
+      "rulesReleaseStableKey": "warcrier-warbands-death-soulblight-gravelords-en-release",
+      "grandAllianceStableKey": "en-death",
+      "name": "Soulblight Gravelords",
+      "displayOrder": 650
+    },
+    {
+      "stableKey": "en-death-teratic-cohort",
+      "rulesReleaseStableKey": "warcrier-warbands-death-teratic-cohort-en-release",
+      "grandAllianceStableKey": "en-death",
+      "name": "Teratic Cohort",
+      "displayOrder": 660
+    },
+    {
+      "stableKey": "en-death-thralls-of-death",
+      "rulesReleaseStableKey": "warcrier-warbands-death-thralls-of-death-en-release",
+      "grandAllianceStableKey": "en-death",
+      "name": "Thralls of Death",
+      "displayOrder": 670
+    },
+    {
+      "stableKey": "en-destruction-bonesplitterz",
+      "rulesReleaseStableKey": "warcrier-warbands-destruction-bonesplitterz-en-release",
+      "grandAllianceStableKey": "en-destruction",
+      "name": "Bonesplitterz",
+      "displayOrder": 680
+    },
+    {
+      "stableKey": "en-destruction-gloomspite-gitz",
+      "rulesReleaseStableKey": "warcrier-warbands-destruction-gloomspite-gitz-en-release",
+      "grandAllianceStableKey": "en-destruction",
+      "name": "Gloomspite Gitz",
+      "displayOrder": 690
+    },
+    {
+      "stableKey": "en-destruction-gobbapalooza",
+      "rulesReleaseStableKey": "warcrier-warbands-destruction-gobbapalooza-en-release",
+      "grandAllianceStableKey": "en-destruction",
+      "name": "Gobbapalooza",
+      "displayOrder": 700
+    },
+    {
+      "stableKey": "en-destruction-gorger-mawpack",
+      "rulesReleaseStableKey": "warcrier-warbands-destruction-gorger-mawpack-en-release",
+      "grandAllianceStableKey": "en-destruction",
+      "name": "Gorger Mawpack",
+      "displayOrder": 710
+    },
+    {
+      "stableKey": "en-destruction-ironjawz",
+      "rulesReleaseStableKey": "warcrier-warbands-destruction-ironjawz-en-release",
+      "grandAllianceStableKey": "en-destruction",
+      "name": "Ironjawz",
+      "displayOrder": 720
+    },
+    {
+      "stableKey": "en-destruction-kruleboyz",
+      "rulesReleaseStableKey": "warcrier-warbands-destruction-kruleboyz-en-release",
+      "grandAllianceStableKey": "en-destruction",
+      "name": "Kruleboyz",
+      "displayOrder": 730
+    },
+    {
+      "stableKey": "en-destruction-kruleboyz-monsta-killaz",
+      "rulesReleaseStableKey": "warcrier-warbands-destruction-kruleboyz-monsta-killaz-en-release",
+      "grandAllianceStableKey": "en-destruction",
+      "name": "Kruleboyz Monsta-Killaz",
+      "displayOrder": 740
+    },
+    {
+      "stableKey": "en-destruction-monsters-of-destruction",
+      "rulesReleaseStableKey": "warcrier-warbands-destruction-monsters-of-destruction-en-release",
+      "grandAllianceStableKey": "en-destruction",
+      "name": "Monsters Of Destruction",
+      "displayOrder": 750
+    },
+    {
+      "stableKey": "en-destruction-ogor-mawtribes",
+      "rulesReleaseStableKey": "warcrier-warbands-destruction-ogor-mawtribes-en-release",
+      "grandAllianceStableKey": "en-destruction",
+      "name": "Ogor Mawtribes",
+      "displayOrder": 760
+    },
+    {
+      "stableKey": "en-destruction-thralls-of-destruction",
+      "rulesReleaseStableKey": "warcrier-warbands-destruction-thralls-of-destruction-en-release",
+      "grandAllianceStableKey": "en-destruction",
+      "name": "Thralls Of Destruction",
+      "displayOrder": 770
+    }
+  ]
 }

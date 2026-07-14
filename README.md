@@ -44,6 +44,7 @@ the Supabase Dashboard SQL Editor:
 6. `supabase/migrations/202607140006_profile_upsert_rpc.sql`
 7. `supabase/migrations/202607140007_phase_3_reference_data.sql`
 8. `supabase/migrations/202607140008_phase_3_reference_mechanics.sql`
+9. `supabase/migrations/202607140009_phase_4_warbands.sql`
 
 Then reload the PostgREST schema cache:
 
@@ -86,6 +87,7 @@ pnpm import:reference-data -- --dry-run
 - Campaign settings and owner-only archiving.
 - Public reference browser shell at `#/reference`.
 - Versioned reference-data migration and validated JSON import scaffolding.
+- Campaign warband roster management with fighter snapshots and draft validation.
 
 These features require the database migrations above. A production app connected
 to a Supabase project without those migrations will sign in successfully but

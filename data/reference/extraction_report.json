@@ -1,0 +1,58 @@
+{
+  "source": "Warcrier documentation crawl",
+  "sourceUrl": "https://warcrier.net/docs",
+  "language": "en",
+  "snapshotDate": "2026-04-07",
+  "scraperSnapshotCommit": "a1f3f4d3e647365da5194450010c8ab7db3aab9d",
+  "structuredEnrichmentCommit": "d18ef618164d789501be7f90a842d9faec2f22f9",
+  "rawPageCount": 260,
+  "warbandPageCount": 77,
+  "sourceDocumentsOutput": 260,
+  "releasesOutput": 274,
+  "grandAlliancesOutput": 4,
+  "factionsOutput": 77,
+  "fightersOutput": 1339,
+  "weaponsOutput": 1706,
+  "abilitiesOutput": 1031,
+  "abilitiesMatchedToStructuredIds": 996,
+  "abilitiesRawOnly": 35,
+  "blessingsOutput": 10,
+  "runemarksOutput": 205,
+  "fighterIdentityMatches": 1339,
+  "skippedFighterCandidates": [],
+  "structuredAbilityEntriesNotObservedInSnapshot": [
+    {
+      "id": "a4f11133",
+      "warband": "Corvus Cabal",
+      "cost": "double",
+      "name": "Wall Run"
+    },
+    {
+      "id": "54d55383",
+      "warband": "Corvus Cabal",
+      "cost": "quad",
+      "name": "Running Strike"
+    },
+    {
+      "id": "ae5c000d",
+      "warband": "Gloomspite Gitz",
+      "cost": "reaction",
+      "name": "Spiteful Demise"
+    },
+    {
+      "id": "a4f5881c",
+      "warband": "Nighthaunt",
+      "cost": "triple",
+      "name": "Float Through Wall"
+    }
+  ],
+  "validationErrors": [],
+  "knownGaps": [
+    "This is a reproducible 2026-04-07 Warcrier crawl snapshot, not a live July 2026 crawl; later site edits may not be present.",
+    "Fighter base sizes are not exposed by the parsed Warcrier cards and remain null.",
+    "Runemarks rendered only as icons were enriched from the Warcrier-linked warcry_data snapshot; no runemark was guessed for an unmatched item.",
+    "Ability rule prose is represented by concise non-verbatim summaries, structured keywords, numeric tokens, and a source-rule hash. Exact wording remains at the linked Warcrier section.",
+    "Narrative prose, complete core rules, battleplans, campaign tables, terrain diagrams, and other content outside the six target schemas were not forced into incompatible records.",
+    "The historical Warcry Releases page in this crawl lists releases through April 2024; later release metadata is represented by individual Warcrier source-page snapshots rather than inferred product dates."
+  ]
+}

@@ -30,6 +30,8 @@ export type GrandAlliance = {
 export type Faction = {
   id: string;
   stable_key: string;
+  rules_release_id?: string;
+  grand_alliance_id?: string;
   name: string;
   grand_alliances?: GrandAlliance | GrandAlliance[] | null;
 };

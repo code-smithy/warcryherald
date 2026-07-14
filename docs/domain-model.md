@@ -61,6 +61,11 @@ Player data is campaign-specific state:
 
 A warband fighter is a named campaign instance of a fighter profile.
 
+Warbands belong to a campaign, owner, faction, and rules release. A campaign can
+contain multiple warbands per player. A warband fighter keeps its own campaign
+name and status while referencing an immutable fighter profile snapshot captured
+when the fighter was recruited.
+
 ## Historical Snapshots
 
 Roster entries and battle records must preserve the profile information that was

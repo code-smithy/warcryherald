@@ -305,6 +305,44 @@ textarea:focus-visible {
   grid-column: 1 / -1;
 }
 
+.warband-panel {
+  grid-column: 1 / -1;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.section-heading h2,
+.section-heading h3 {
+  margin: 0;
+  color: var(--accent-dark);
+}
+
+.warband-layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.55fr) minmax(0, 1.45fr);
+  gap: 1rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+.warband-list,
+.fighter-card-list,
+.validation-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.warband-detail {
+  display: grid;
+  gap: 1rem;
+}
+
 .reference-layout {
   display: grid;
   grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
@@ -378,7 +416,9 @@ textarea:focus-visible {
 .invite-form textarea,
 .reference-filters input,
 .reference-filters select,
-.member-row select {
+.member-row select,
+.fighter-card-controls input,
+.fighter-card-controls select {
   width: 100%;
   min-height: 2.75rem;
   border: 1px solid var(--line);
@@ -677,6 +717,89 @@ textarea:focus-visible {
   text-transform: uppercase;
 }
 
+.fighter-card {
+  display: grid;
+  gap: 1rem;
+  border: 1px solid var(--line);
+  background: #fffdf7;
+  padding: 1rem;
+}
+
+.fighter-card h4 {
+  margin: 0 0 0.25rem;
+  color: var(--accent-dark);
+}
+
+.fighter-card p {
+  margin: 0;
+}
+
+.mini-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.mini-stat-grid div {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  padding: 0.55rem;
+}
+
+.mini-stat-grid dt {
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.mini-stat-grid dd {
+  margin: 0.1rem 0 0;
+  color: var(--accent-dark);
+  font-weight: 900;
+}
+
+.fighter-card-controls {
+  display: grid;
+  grid-template-columns: minmax(10rem, 1fr) minmax(9rem, 0.8fr) auto auto auto auto;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.fighter-card-controls label {
+  display: grid;
+  gap: 0.4rem;
+  color: var(--accent-dark);
+  font-weight: 800;
+}
+
+@media print {
+  .site-header,
+  .invite-form,
+  .invite-list,
+  .member-row select,
+  .link-button,
+  .button,
+  .fighter-card-controls,
+  .form-success,
+  .form-error {
+    display: none !important;
+  }
+
+  .app-shell,
+  .page,
+  .panel,
+  .fighter-card {
+    background: #fff;
+  }
+
+  .page {
+    width: 100%;
+    padding: 0;
+  }
+}
+
 @media (max-width: 720px) {
   .site-header {
     align-items: flex-start;
@@ -701,13 +824,20 @@ textarea:focus-visible {
   .reference-layout,
   .reference-filters,
   .inline-form,
-  .invite-form,
-  .campaign-row,
-  .member-row,
-  .invite-row,
-  .reference-row,
-  .stat-grid {
+    .invite-form,
+    .campaign-row,
+    .member-row,
+    .invite-row,
+    .reference-row,
+    .stat-grid,
+    .warband-layout,
+    .fighter-card-controls,
+    .mini-stat-grid {
     grid-template-columns: 1fr;
+  }
+
+  .section-heading {
+    display: grid;
   }
 
   .reference-release-summary {

@@ -54,6 +54,7 @@ the Supabase Dashboard SQL Editor:
 6. `supabase/migrations/202607140006_profile_upsert_rpc.sql`
 7. `supabase/migrations/202607140007_phase_3_reference_data.sql`
 8. `supabase/migrations/202607140008_phase_3_reference_mechanics.sql`
+9. `supabase/migrations/202607140009_phase_4_warbands.sql`
 
 Then reload the PostgREST schema cache:
 
@@ -116,6 +117,17 @@ The Phase 3 reference-data migration adds public read-only tables for:
 - Fighter profiles, fighter runemarks, and weapon profiles.
 - Abilities, ability runemarks, faction abilities, universal abilities, and
   blessings.
+
+The Phase 4 warband migration adds:
+
+- Optional campaign `rules_release_id` configuration.
+- `warbands`, `warband_fighters`, and `fighter_profile_snapshots`.
+- Warband and fighter status enum types.
+- RLS policies so only campaign members can read warbands, and only warband
+  owners or campaign administrators can manage rosters.
+- `create_warband(...)` and `add_warband_fighter(...)` RPCs. Fighter
+  recruitment captures a profile snapshot so later reference updates do not
+  silently rewrite saved rosters.
 
 Anonymous and authenticated clients receive `select` only. Reference-data
 imports must run from trusted tooling with `SUPABASE_SERVICE_ROLE_KEY` in the

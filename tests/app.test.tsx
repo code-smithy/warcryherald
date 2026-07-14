@@ -16,6 +16,11 @@ import {
   type FighterProfile
 } from "../src/lib/reference-data";
 import { parseOAuthCallbackParams } from "../src/lib/supabase";
+import {
+  validateWarbandDraft,
+  validateWarbandRoster,
+  type Warband
+} from "../src/lib/warbands";
 
 function renderRoute(initialEntry: string) {
   render(
@@ -315,6 +320,64 @@ describe("Warcry Herald shell", () => {
     ).toBe("Example Release - Example Source, p. 12");
   });
 
+  it("validates warband drafts before creation", () => {
+    expect(
+      validateWarbandDraft({
+        name: "  Ember Pact  ",
+        factionId: "faction"
+      })
+    ).toEqual({
+      normalized: {
+        name: "Ember Pact",
+        factionId: "faction"
+      },
+      errors: []
+    });
+
+    expect(validateWarbandDraft({ name: "A", factionId: "" }).errors).toEqual([
+      "Warband name must be at least 2 characters.",
+      "Choose a faction for this warband."
+    ]);
+  });
+
+  it("validates battle-ready warband roster requirements", () => {
+    const invalid = makeWarband({
+      points_limit: 100,
+      fighter_limit: 1,
+      warband_fighters: [
+        makeWarbandFighter({ id: "one", name: "Ash", points: 75, is_leader: false }),
+        makeWarbandFighter({ id: "two", name: "Ash", points: 75, is_leader: false })
+      ]
+    });
+
+    expect(validateWarbandRoster(invalid)).toMatchObject({
+      valid: false,
+      totalPoints: 150,
+      fighterCount: 2,
+      errors: [
+        { code: "missing-leader" },
+        { code: "points-limit" },
+        { code: "fighter-limit" }
+      ],
+      warnings: [{ code: "duplicate-name" }]
+    });
+
+    const valid = makeWarband({
+      warband_fighters: [
+        makeWarbandFighter({ id: "leader", name: "Kara", points: 145, is_leader: true }),
+        makeWarbandFighter({ id: "fighter", name: "Morn", points: 80, is_leader: false })
+      ]
+    });
+
+    expect(validateWarbandRoster(valid)).toMatchObject({
+      valid: true,
+      totalPoints: 225,
+      fighterCount: 2,
+      errors: [],
+      warnings: []
+    });
+  });
+
 });
 
 function makeFighter(
@@ -367,5 +430,65 @@ function makeFighter(
     weapon_profiles: [],
     fighter_profile_runemarks: runemarks.map((runemark) => ({ runemarks: runemark })),
     ...overrides
+  };
+}
+
+function makeWarband(overrides: Partial<Warband>): Warband {
+  return {
+    id: "warband",
+    campaign_id: "campaign",
+    owner_id: "owner",
+    rules_release_id: "release",
+    faction_id: "faction",
+    name: "Example Warband",
+    status: "draft",
+    points_limit: 1000,
+    fighter_limit: 15,
+    created_at: "2026-07-14T00:00:00.000Z",
+    updated_at: "2026-07-14T00:00:00.000Z",
+    warband_fighters: [],
+    ...overrides
+  };
+}
+
+function makeWarbandFighter({
+  id,
+  name,
+  points,
+  is_leader
+}: {
+  id: string;
+  name: string;
+  points: number;
+  is_leader: boolean;
+}): NonNullable<Warband["warband_fighters"]>[number] {
+  return {
+    id,
+    warband_id: "warband",
+    fighter_profile_snapshot_id: `${id}-snapshot`,
+    fighter_profile_id: `${id}-profile`,
+    name,
+    status: "active",
+    is_leader,
+    sort_order: 0,
+    created_at: "2026-07-14T00:00:00.000Z",
+    updated_at: "2026-07-14T00:00:00.000Z",
+    fighter_profile_snapshots: {
+      id: `${id}-snapshot`,
+      fighter_profile_id: `${id}-profile`,
+      rules_release_id: "release",
+      faction_id: "faction",
+      stable_key: `${id}-profile`,
+      name: `${name} Profile`,
+      movement: 4,
+      toughness: 4,
+      wounds: 10,
+      points,
+      base_size_mm: null,
+      is_leader,
+      weapons: [],
+      runemarks: [],
+      captured_at: "2026-07-14T00:00:00.000Z"
+    }
   };
 }

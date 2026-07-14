@@ -1,3 +1,1234 @@
 {
-  "runemarks": []
+  "runemarks": [
+    {
+      "stableKey": "en-runemark-double",
+      "name": "Double",
+      "category": "ability",
+      "displayOrder": 10
+    },
+    {
+      "stableKey": "en-runemark-triple",
+      "name": "Triple",
+      "category": "ability",
+      "displayOrder": 20
+    },
+    {
+      "stableKey": "en-runemark-quad",
+      "name": "Quad",
+      "category": "ability",
+      "displayOrder": 30
+    },
+    {
+      "stableKey": "en-runemark-reaction",
+      "name": "Reaction",
+      "category": "ability",
+      "displayOrder": 40
+    },
+    {
+      "stableKey": "en-runemark-battle-trait",
+      "name": "Battle Trait",
+      "category": "ability",
+      "displayOrder": 50
+    },
+    {
+      "stableKey": "en-runemark-passive",
+      "name": "Passive",
+      "category": "ability",
+      "displayOrder": 60
+    },
+    {
+      "stableKey": "en-runemark-attacks",
+      "name": "Attacks",
+      "category": "characteristic",
+      "displayOrder": 10
+    },
+    {
+      "stableKey": "en-runemark-damage",
+      "name": "Damage",
+      "category": "characteristic",
+      "displayOrder": 20
+    },
+    {
+      "stableKey": "en-runemark-move",
+      "name": "Move",
+      "category": "characteristic",
+      "displayOrder": 30
+    },
+    {
+      "stableKey": "en-runemark-range",
+      "name": "Range",
+      "category": "characteristic",
+      "displayOrder": 40
+    },
+    {
+      "stableKey": "en-runemark-strength",
+      "name": "Strength",
+      "category": "characteristic",
+      "displayOrder": 50
+    },
+    {
+      "stableKey": "en-runemark-toughness",
+      "name": "Toughness",
+      "category": "characteristic",
+      "displayOrder": 60
+    },
+    {
+      "stableKey": "en-runemark-wounds",
+      "name": "Wounds",
+      "category": "characteristic",
+      "displayOrder": 70
+    },
+    {
+      "stableKey": "en-order",
+      "name": "Order",
+      "category": "faction",
+      "displayOrder": 10
+    },
+    {
+      "stableKey": "en-chaos",
+      "name": "Chaos",
+      "category": "faction",
+      "displayOrder": 20
+    },
+    {
+      "stableKey": "en-death",
+      "name": "Death",
+      "category": "faction",
+      "displayOrder": 30
+    },
+    {
+      "stableKey": "en-destruction",
+      "name": "Destruction",
+      "category": "faction",
+      "displayOrder": 40
+    },
+    {
+      "stableKey": "en-order-allies-of-order",
+      "name": "Allies of Order",
+      "category": "faction",
+      "displayOrder": 50
+    },
+    {
+      "stableKey": "en-order-cities-of-sigmar-castelite-hosts",
+      "name": "Cities of Sigmar: Castelite Hosts",
+      "category": "faction",
+      "displayOrder": 60
+    },
+    {
+      "stableKey": "en-order-cities-of-sigmar-darkling-covens",
+      "name": "Cities of Sigmar: Darkling Covens",
+      "category": "faction",
+      "displayOrder": 70
+    },
+    {
+      "stableKey": "en-order-cities-of-sigmar-dispossessed",
+      "name": "Cities of Sigmar: Dispossessed",
+      "category": "faction",
+      "displayOrder": 80
+    },
+    {
+      "stableKey": "en-order-daughters-of-khaine",
+      "name": "Daughters Of Khaine",
+      "category": "faction",
+      "displayOrder": 90
+    },
+    {
+      "stableKey": "en-order-fyreslayers",
+      "name": "Fyreslayers",
+      "category": "faction",
+      "displayOrder": 100
+    },
+    {
+      "stableKey": "en-order-hunters-of-huanchi",
+      "name": "Hunters of Huanchi",
+      "category": "faction",
+      "displayOrder": 110
+    },
+    {
+      "stableKey": "en-order-idoneth-deepkin",
+      "name": "Idoneth Deepkin",
+      "category": "faction",
+      "displayOrder": 120
+    },
+    {
+      "stableKey": "en-order-khainite-shadowstalkers",
+      "name": "Khainite Shadowstalkers",
+      "category": "faction",
+      "displayOrder": 130
+    },
+    {
+      "stableKey": "en-order-kharadron-overlords",
+      "name": "Kharadron Overlords",
+      "category": "faction",
+      "displayOrder": 140
+    },
+    {
+      "stableKey": "en-order-lumineth-realm-lords",
+      "name": "Lumineth Realm-Lords",
+      "category": "faction",
+      "displayOrder": 150
+    },
+    {
+      "stableKey": "en-order-monsters-of-order",
+      "name": "Monsters of Order",
+      "category": "faction",
+      "displayOrder": 160
+    },
+    {
+      "stableKey": "en-order-order-of-azyr",
+      "name": "Order of Azyr",
+      "category": "faction",
+      "displayOrder": 170
+    },
+    {
+      "stableKey": "en-order-seraphon",
+      "name": "Seraphon",
+      "category": "faction",
+      "displayOrder": 180
+    },
+    {
+      "stableKey": "en-order-stormcast-eternals-questor-soulsworn",
+      "name": "Stormcast Eternals Questor Soulsworn",
+      "category": "faction",
+      "displayOrder": 190
+    },
+    {
+      "stableKey": "en-order-stormcast-eternals-ruination-chamber",
+      "name": "Stormcast Eternals Ruination Chamber",
+      "category": "faction",
+      "displayOrder": 200
+    },
+    {
+      "stableKey": "en-order-stormcast-eternals-sacrosanct-chamber",
+      "name": "Stormcast Eternals Sacrosanct Chamber",
+      "category": "faction",
+      "displayOrder": 210
+    },
+    {
+      "stableKey": "en-order-stormcast-eternals-thunderstrike-stormcasts",
+      "name": "Stormcast Eternals Thunderstrike Stormcasts",
+      "category": "faction",
+      "displayOrder": 220
+    },
+    {
+      "stableKey": "en-order-stormcast-eternals-vanguard-auxiliary-chamber",
+      "name": "Stormcast Eternals Vanguard Auxiliary Chamber",
+      "category": "faction",
+      "displayOrder": 230
+    },
+    {
+      "stableKey": "en-order-stormcast-eternals-warrior-chamber",
+      "name": "Stormcast Eternals Warrior Chamber",
+      "category": "faction",
+      "displayOrder": 240
+    },
+    {
+      "stableKey": "en-order-sylvaneth",
+      "name": "Sylvaneth",
+      "category": "faction",
+      "displayOrder": 250
+    },
+    {
+      "stableKey": "en-order-blacktalons",
+      "name": "The Blacktalons",
+      "category": "faction",
+      "displayOrder": 260
+    },
+    {
+      "stableKey": "en-order-twistweald",
+      "name": "Twistweald",
+      "category": "faction",
+      "displayOrder": 270
+    },
+    {
+      "stableKey": "en-order-vulkyn-flameseekers",
+      "name": "Vulkyn Flameseekers",
+      "category": "faction",
+      "displayOrder": 280
+    },
+    {
+      "stableKey": "en-order-wildercorps-hunters",
+      "name": "Wildercorps Hunters",
+      "category": "faction",
+      "displayOrder": 290
+    },
+    {
+      "stableKey": "en-order-ydrilan-riverblades",
+      "name": "Ydrilan Riverblades",
+      "category": "faction",
+      "displayOrder": 300
+    },
+    {
+      "stableKey": "en-chaos-allies-of-chaos",
+      "name": "Allies of Chaos",
+      "category": "faction",
+      "displayOrder": 310
+    },
+    {
+      "stableKey": "en-chaos-beasts-of-chaos",
+      "name": "Beasts of Chaos",
+      "category": "faction",
+      "displayOrder": 320
+    },
+    {
+      "stableKey": "en-chaos-blades-of-khorne-bloodbound",
+      "name": "Blades Of Khorne: Bloodbound",
+      "category": "faction",
+      "displayOrder": 330
+    },
+    {
+      "stableKey": "en-chaos-blades-of-khorne-daemons",
+      "name": "Blades Of Khorne: Daemons",
+      "category": "faction",
+      "displayOrder": 340
+    },
+    {
+      "stableKey": "en-chaos-chaos-legionnaires",
+      "name": "Chaos Legionnaries",
+      "category": "faction",
+      "displayOrder": 350
+    },
+    {
+      "stableKey": "en-chaos-claws-of-karanak",
+      "name": "Claws of Karanak",
+      "category": "faction",
+      "displayOrder": 360
+    },
+    {
+      "stableKey": "en-chaos-corvus-cabal",
+      "name": "Corvus Cabal",
+      "category": "faction",
+      "displayOrder": 370
+    },
+    {
+      "stableKey": "en-chaos-cypher-lords",
+      "name": "Cypher Lords",
+      "category": "faction",
+      "displayOrder": 380
+    },
+    {
+      "stableKey": "en-chaos-darkoath",
+      "name": "Darkoath",
+      "category": "faction",
+      "displayOrder": 390
+    },
+    {
+      "stableKey": "en-chaos-darkoath-savagers",
+      "name": "Darkoath Savagers",
+      "category": "faction",
+      "displayOrder": 400
+    },
+    {
+      "stableKey": "en-chaos-disciples-of-tzeentch-arcanites",
+      "name": "Disciples Of Tzeentch: Arcanites",
+      "category": "faction",
+      "displayOrder": 410
+    },
+    {
+      "stableKey": "en-chaos-disciples-of-tzeentch-daemons",
+      "name": "Disciples Of Tzeentch: Daemons",
+      "category": "faction",
+      "displayOrder": 420
+    },
+    {
+      "stableKey": "en-chaos-hedonites-of-slaanesh-daemons",
+      "name": "Hedonites of Slaanesh: Daemons",
+      "category": "faction",
+      "displayOrder": 430
+    },
+    {
+      "stableKey": "en-chaos-hedonites-of-slaanesh-sybarites",
+      "name": "Hedonites Of Slaanesh: Sybarites",
+      "category": "faction",
+      "displayOrder": 440
+    },
+    {
+      "stableKey": "en-chaos-helsmiths-of-hashut",
+      "name": "Helsmiths Of Hashut",
+      "category": "faction",
+      "displayOrder": 450
+    },
+    {
+      "stableKey": "en-chaos-iron-golem",
+      "name": "Iron Golem",
+      "category": "faction",
+      "displayOrder": 460
+    },
+    {
+      "stableKey": "en-chaos-maggotkin-of-nurgle-daemons",
+      "name": "Maggotkin Of Nurgle: Daemons",
+      "category": "faction",
+      "displayOrder": 470
+    },
+    {
+      "stableKey": "en-chaos-maggotkin-of-nurgle-rotbringers",
+      "name": "Maggotkin Of Nurgle: Rotbringers",
+      "category": "faction",
+      "displayOrder": 480
+    },
+    {
+      "stableKey": "en-chaos-monsters-of-chaos",
+      "name": "Monsters of Chaos",
+      "category": "faction",
+      "displayOrder": 490
+    },
+    {
+      "stableKey": "en-chaos-rotmire-creed",
+      "name": "Rotmire Creed",
+      "category": "faction",
+      "displayOrder": 500
+    },
+    {
+      "stableKey": "en-chaos-scions-of-the-flame",
+      "name": "Scions of the Flame",
+      "category": "faction",
+      "displayOrder": 510
+    },
+    {
+      "stableKey": "en-chaos-skaven",
+      "name": "Skaven",
+      "category": "faction",
+      "displayOrder": 520
+    },
+    {
+      "stableKey": "en-chaos-slaves-to-darkness",
+      "name": "Slaves To Darkness",
+      "category": "faction",
+      "displayOrder": 530
+    },
+    {
+      "stableKey": "en-chaos-spire-tyrants",
+      "name": "Spire Tyrants",
+      "category": "faction",
+      "displayOrder": 540
+    },
+    {
+      "stableKey": "en-chaos-splintered-fang",
+      "name": "Splintered Fang",
+      "category": "faction",
+      "displayOrder": 550
+    },
+    {
+      "stableKey": "en-chaos-tarantulos-brood",
+      "name": "Tarantulos Brood",
+      "category": "faction",
+      "displayOrder": 560
+    },
+    {
+      "stableKey": "en-chaos-horns-of-hashut",
+      "name": "The Horns Of Hashut",
+      "category": "faction",
+      "displayOrder": 570
+    },
+    {
+      "stableKey": "en-chaos-jade-obelisk",
+      "name": "The Jade Obelisk",
+      "category": "faction",
+      "displayOrder": 580
+    },
+    {
+      "stableKey": "en-chaos-the-unmade",
+      "name": "The Unmade",
+      "category": "faction",
+      "displayOrder": 590
+    },
+    {
+      "stableKey": "en-chaos-thralls-of-chaos",
+      "name": "Thralls of Chaos",
+      "category": "faction",
+      "displayOrder": 600
+    },
+    {
+      "stableKey": "en-chaos-untamed-beasts",
+      "name": "Untamed Beasts",
+      "category": "faction",
+      "displayOrder": 610
+    },
+    {
+      "stableKey": "en-death-askurgan-trueblades",
+      "name": "Askurgan Trueblades",
+      "category": "faction",
+      "displayOrder": 620
+    },
+    {
+      "stableKey": "en-death-flesh-eater-courts",
+      "name": "Flesh-Eater Courts",
+      "category": "faction",
+      "displayOrder": 630
+    },
+    {
+      "stableKey": "en-death-monsters-of-death",
+      "name": "Monsters of Death",
+      "category": "faction",
+      "displayOrder": 640
+    },
+    {
+      "stableKey": "en-death-nighthaunt",
+      "name": "Nighthaunt",
+      "category": "faction",
+      "displayOrder": 650
+    },
+    {
+      "stableKey": "en-death-ossiarch-bonereapers",
+      "name": "Ossiarch Bonereapers",
+      "category": "faction",
+      "displayOrder": 660
+    },
+    {
+      "stableKey": "en-death-pyregheists",
+      "name": "Pyregheists",
+      "category": "faction",
+      "displayOrder": 670
+    },
+    {
+      "stableKey": "en-death-royal-beastflayers",
+      "name": "Royal Beastflayers",
+      "category": "faction",
+      "displayOrder": 680
+    },
+    {
+      "stableKey": "en-death-soulblight-gravelords",
+      "name": "Soulblight Gravelords",
+      "category": "faction",
+      "displayOrder": 690
+    },
+    {
+      "stableKey": "en-death-teratic-cohort",
+      "name": "Teratic Cohort",
+      "category": "faction",
+      "displayOrder": 700
+    },
+    {
+      "stableKey": "en-death-thralls-of-death",
+      "name": "Thralls of Death",
+      "category": "faction",
+      "displayOrder": 710
+    },
+    {
+      "stableKey": "en-destruction-bonesplitterz",
+      "name": "Bonesplitterz",
+      "category": "faction",
+      "displayOrder": 720
+    },
+    {
+      "stableKey": "en-destruction-gloomspite-gitz",
+      "name": "Gloomspite Gitz",
+      "category": "faction",
+      "displayOrder": 730
+    },
+    {
+      "stableKey": "en-destruction-gobbapalooza",
+      "name": "Gobbapalooza",
+      "category": "faction",
+      "displayOrder": 740
+    },
+    {
+      "stableKey": "en-destruction-gorger-mawpack",
+      "name": "Gorger Mawpack",
+      "category": "faction",
+      "displayOrder": 750
+    },
+    {
+      "stableKey": "en-destruction-ironjawz",
+      "name": "Ironjawz",
+      "category": "faction",
+      "displayOrder": 760
+    },
+    {
+      "stableKey": "en-destruction-kruleboyz",
+      "name": "Kruleboyz",
+      "category": "faction",
+      "displayOrder": 770
+    },
+    {
+      "stableKey": "en-destruction-kruleboyz-monsta-killaz",
+      "name": "Kruleboyz Monsta-Killaz",
+      "category": "faction",
+      "displayOrder": 780
+    },
+    {
+      "stableKey": "en-destruction-monsters-of-destruction",
+      "name": "Monsters Of Destruction",
+      "category": "faction",
+      "displayOrder": 790
+    },
+    {
+      "stableKey": "en-destruction-ogor-mawtribes",
+      "name": "Ogor Mawtribes",
+      "category": "faction",
+      "displayOrder": 800
+    },
+    {
+      "stableKey": "en-destruction-thralls-of-destruction",
+      "name": "Thralls Of Destruction",
+      "category": "faction",
+      "displayOrder": 810
+    },
+    {
+      "stableKey": "en-runemark-blackpowders-buccaneers",
+      "name": "Blackpowder's Buccaneers",
+      "category": "faction",
+      "displayOrder": 820
+    },
+    {
+      "stableKey": "en-runemark-blood-of-the-bull",
+      "name": "Blood of the Bull",
+      "category": "faction",
+      "displayOrder": 830
+    },
+    {
+      "stableKey": "en-runemark-borgits-beastgrabbaz",
+      "name": "Borgit's Beastgrabbaz",
+      "category": "faction",
+      "displayOrder": 840
+    },
+    {
+      "stableKey": "en-runemark-brands-oathbound",
+      "name": "Brand's Oathbound",
+      "category": "faction",
+      "displayOrder": 850
+    },
+    {
+      "stableKey": "en-runemark-brethren-of-the-bolt",
+      "name": "Brethren of the Bolt",
+      "category": "faction",
+      "displayOrder": 860
+    },
+    {
+      "stableKey": "en-runemark-cyrenis-razors",
+      "name": "Cyreni's Razors",
+      "category": "faction",
+      "displayOrder": 870
+    },
+    {
+      "stableKey": "en-runemark-da-kunnin-krew",
+      "name": "Da Kunnin' Krew",
+      "category": "faction",
+      "displayOrder": 880
+    },
+    {
+      "stableKey": "en-runemark-daggoks-stab-ladz",
+      "name": "Daggok's Stab-ladz",
+      "category": "faction",
+      "displayOrder": 890
+    },
+    {
+      "stableKey": "en-runemark-domitans-stormcoven",
+      "name": "Domitan's Stormcoven",
+      "category": "faction",
+      "displayOrder": 900
+    },
+    {
+      "stableKey": "en-runemark-elathains-soulraid",
+      "name": "Elathain's Soulraid",
+      "category": "faction",
+      "displayOrder": 910
+    },
+    {
+      "stableKey": "en-runemark-ephilims-pandaemonium",
+      "name": "Ephilim's Pandaemonium",
+      "category": "faction",
+      "displayOrder": 920
+    },
+    {
+      "stableKey": "en-runemark-eyes-of-the-nine",
+      "name": "Eyes of the Nine",
+      "category": "faction",
+      "displayOrder": 930
+    },
+    {
+      "stableKey": "en-runemark-garreks-reavers",
+      "name": "Garrek's Reavers",
+      "category": "faction",
+      "displayOrder": 940
+    },
+    {
+      "stableKey": "en-runemark-gladitorium",
+      "name": "Gladitorium",
+      "category": "faction",
+      "displayOrder": 950
+    },
+    {
+      "stableKey": "en-runemark-gloomspite-gitz",
+      "name": "Gloomspite Gitz",
+      "category": "faction",
+      "displayOrder": 960
+    },
+    {
+      "stableKey": "en-runemark-gnarlspirit-pack",
+      "name": "Gnarlspirit Pack",
+      "category": "faction",
+      "displayOrder": 970
+    },
+    {
+      "stableKey": "en-runemark-godsworn-hunt",
+      "name": "Godsworn Hunt",
+      "category": "faction",
+      "displayOrder": 980
+    },
+    {
+      "stableKey": "en-runemark-gorechosen-of-dromm",
+      "name": "Gorechosen of Dromm",
+      "category": "faction",
+      "displayOrder": 990
+    },
+    {
+      "stableKey": "en-runemark-grandfathers-gardeners",
+      "name": "Grandfather's Gardeners",
+      "category": "faction",
+      "displayOrder": 1000
+    },
+    {
+      "stableKey": "en-runemark-grashraks-despoilers",
+      "name": "Grashrak's Despoilers",
+      "category": "faction",
+      "displayOrder": 1010
+    },
+    {
+      "stableKey": "en-runemark-grinkraks-looncourt",
+      "name": "Grinkrak's Looncourt",
+      "category": "faction",
+      "displayOrder": 1020
+    },
+    {
+      "stableKey": "en-runemark-gryselles-arenai",
+      "name": "Gryselle's Arenai",
+      "category": "faction",
+      "displayOrder": 1030
+    },
+    {
+      "stableKey": "en-runemark-hedkrakkas-madmob",
+      "name": "Hedkrakka's Madmob",
+      "category": "faction",
+      "displayOrder": 1040
+    },
+    {
+      "stableKey": "en-runemark-heralds-of-kurnoth",
+      "name": "Heralds of Kurnoth",
+      "category": "faction",
+      "displayOrder": 1050
+    },
+    {
+      "stableKey": "en-runemark-hexbanes-hunters",
+      "name": "Hexbane's Hunters",
+      "category": "faction",
+      "displayOrder": 1060
+    },
+    {
+      "stableKey": "en-runemark-hollow-blades",
+      "name": "Hollow Blades",
+      "category": "faction",
+      "displayOrder": 1070
+    },
+    {
+      "stableKey": "en-runemark-hrothgorns-mantrappers",
+      "name": "Hrothgorn's Mantrappers",
+      "category": "faction",
+      "displayOrder": 1080
+    },
+    {
+      "stableKey": "en-runemark-ironskulls-boyz",
+      "name": "Ironskull's Boyz",
+      "category": "faction",
+      "displayOrder": 1090
+    },
+    {
+      "stableKey": "en-runemark-jaws-of-itzl",
+      "name": "Jaws of Itzl",
+      "category": "faction",
+      "displayOrder": 1100
+    },
+    {
+      "stableKey": "en-runemark-kainans-reapers",
+      "name": "Kainan's Reapers",
+      "category": "faction",
+      "displayOrder": 1110
+    },
+    {
+      "stableKey": "en-runemark-kamandoras-blades",
+      "name": "Kamandora's Blades",
+      "category": "faction",
+      "displayOrder": 1120
+    },
+    {
+      "stableKey": "en-runemark-khagras-ravagers",
+      "name": "Khagra's Ravagers",
+      "category": "faction",
+      "displayOrder": 1130
+    },
+    {
+      "stableKey": "en-runemark-knives-of-the-crone",
+      "name": "Knives of the Crone",
+      "category": "faction",
+      "displayOrder": 1140
+    },
+    {
+      "stableKey": "en-runemark-magores-fiends",
+      "name": "Magore's Fiends",
+      "category": "faction",
+      "displayOrder": 1150
+    },
+    {
+      "stableKey": "en-runemark-mollogs-mob",
+      "name": "Mollog's Mob",
+      "category": "faction",
+      "displayOrder": 1160
+    },
+    {
+      "stableKey": "en-runemark-morgoks-krushas",
+      "name": "Morgok's Krushas",
+      "category": "faction",
+      "displayOrder": 1170
+    },
+    {
+      "stableKey": "en-runemark-morgwaeths-blade-coven",
+      "name": "Morgwaeth's Blade-Coven",
+      "category": "faction",
+      "displayOrder": 1180
+    },
+    {
+      "stableKey": "en-runemark-myaris-purifiers",
+      "name": "Myari's Purifiers",
+      "category": "faction",
+      "displayOrder": 1190
+    },
+    {
+      "stableKey": "en-runemark-rippas-snarlfangs",
+      "name": "Rippa's Snarlfangs",
+      "category": "faction",
+      "displayOrder": 1200
+    },
+    {
+      "stableKey": "en-runemark-saviours-of-cinderfall",
+      "name": "Saviours of Cinderfall",
+      "category": "faction",
+      "displayOrder": 1210
+    },
+    {
+      "stableKey": "en-runemark-skabbiks-plaguepack",
+      "name": "Skabbik's Plaguepack",
+      "category": "faction",
+      "displayOrder": 1220
+    },
+    {
+      "stableKey": "en-runemark-skaeths-wild-hunt",
+      "name": "Skaeth's Wild Hunt",
+      "category": "faction",
+      "displayOrder": 1230
+    },
+    {
+      "stableKey": "en-runemark-skinnerkin",
+      "name": "Skinnerkin",
+      "category": "faction",
+      "displayOrder": 1240
+    },
+    {
+      "stableKey": "en-runemark-skittershanks-clawpack",
+      "name": "Skittershank's Clawpack",
+      "category": "faction",
+      "displayOrder": 1250
+    },
+    {
+      "stableKey": "en-runemark-sons-of-velmorn",
+      "name": "Sons of Velmorn",
+      "category": "faction",
+      "displayOrder": 1260
+    },
+    {
+      "stableKey": "en-runemark-spiteclaws-swarm",
+      "name": "Spiteclaw's Swarm",
+      "category": "faction",
+      "displayOrder": 1270
+    },
+    {
+      "stableKey": "en-runemark-steelhearts-champions",
+      "name": "Steelheart's Champions",
+      "category": "faction",
+      "displayOrder": 1280
+    },
+    {
+      "stableKey": "en-runemark-stormsires-cursebreakers",
+      "name": "Stormsire's Cursebreakers",
+      "category": "faction",
+      "displayOrder": 1290
+    },
+    {
+      "stableKey": "en-runemark-the-chosen-axes",
+      "name": "The Chosen Axes",
+      "category": "faction",
+      "displayOrder": 1300
+    },
+    {
+      "stableKey": "en-runemark-the-crimson-court",
+      "name": "The Crimson Court",
+      "category": "faction",
+      "displayOrder": 1310
+    },
+    {
+      "stableKey": "en-runemark-the-dread-pageant",
+      "name": "The Dread Pageant",
+      "category": "faction",
+      "displayOrder": 1320
+    },
+    {
+      "stableKey": "en-runemark-the-emberwatch",
+      "name": "The Emberwatch",
+      "category": "faction",
+      "displayOrder": 1330
+    },
+    {
+      "stableKey": "en-runemark-the-exiled-dead",
+      "name": "The Exiled Dead",
+      "category": "faction",
+      "displayOrder": 1340
+    },
+    {
+      "stableKey": "en-runemark-the-farstriders",
+      "name": "The Farstriders",
+      "category": "faction",
+      "displayOrder": 1350
+    },
+    {
+      "stableKey": "en-runemark-the-grymwatch",
+      "name": "The Grymwatch",
+      "category": "faction",
+      "displayOrder": 1360
+    },
+    {
+      "stableKey": "en-runemark-the-headsmens-curse",
+      "name": "The Headsmen's Curse",
+      "category": "faction",
+      "displayOrder": 1370
+    },
+    {
+      "stableKey": "en-runemark-the-sepulchral-guard",
+      "name": "The Sepulchral Guard",
+      "category": "faction",
+      "displayOrder": 1380
+    },
+    {
+      "stableKey": "en-runemark-the-shadeborn",
+      "name": "The Shadeborn",
+      "category": "faction",
+      "displayOrder": 1390
+    },
+    {
+      "stableKey": "en-runemark-the-starblood-stalkers",
+      "name": "The Starblood Stalkers",
+      "category": "faction",
+      "displayOrder": 1400
+    },
+    {
+      "stableKey": "en-runemark-the-wurmspat",
+      "name": "The Wurmspat",
+      "category": "faction",
+      "displayOrder": 1410
+    },
+    {
+      "stableKey": "en-runemark-thorns-of-the-briar-queen",
+      "name": "Thorns of the Briar Queen",
+      "category": "faction",
+      "displayOrder": 1420
+    },
+    {
+      "stableKey": "en-runemark-thricefold-discord",
+      "name": "Thricefold Discord",
+      "category": "faction",
+      "displayOrder": 1430
+    },
+    {
+      "stableKey": "en-runemark-thundriks-profiteers",
+      "name": "Thundrik's Profiteers",
+      "category": "faction",
+      "displayOrder": 1440
+    },
+    {
+      "stableKey": "en-runemark-xandires-truthseekers",
+      "name": "Xandire's Truthseekers",
+      "category": "faction",
+      "displayOrder": 1450
+    },
+    {
+      "stableKey": "en-runemark-yltharis-guardians",
+      "name": "Ylthari's Guardians",
+      "category": "faction",
+      "displayOrder": 1460
+    },
+    {
+      "stableKey": "en-runemark-zarbags-gitz",
+      "name": "Zarbag's Gitz",
+      "category": "faction",
+      "displayOrder": 1470
+    },
+    {
+      "stableKey": "en-runemark-zikkits-tunnelpack",
+      "name": "Zikkit's Tunnelpack",
+      "category": "faction",
+      "displayOrder": 1480
+    },
+    {
+      "stableKey": "en-runemark-zondaras-gravebreakers",
+      "name": "Zondara's Gravebreakers",
+      "category": "faction",
+      "displayOrder": 1490
+    },
+    {
+      "stableKey": "en-runemark-agile",
+      "name": "Agile",
+      "category": "fighter",
+      "displayOrder": 10
+    },
+    {
+      "stableKey": "en-runemark-beast",
+      "name": "Beast",
+      "category": "fighter",
+      "displayOrder": 20
+    },
+    {
+      "stableKey": "en-runemark-berserker",
+      "name": "Berserker",
+      "category": "fighter",
+      "displayOrder": 30
+    },
+    {
+      "stableKey": "en-runemark-brute",
+      "name": "Brute",
+      "category": "fighter",
+      "displayOrder": 40
+    },
+    {
+      "stableKey": "en-runemark-bulwark",
+      "name": "Bulwark",
+      "category": "fighter",
+      "displayOrder": 50
+    },
+    {
+      "stableKey": "en-runemark-champion",
+      "name": "Champion",
+      "category": "fighter",
+      "displayOrder": 60
+    },
+    {
+      "stableKey": "en-runemark-sentience",
+      "name": "Sentience",
+      "category": "fighter",
+      "displayOrder": 70
+    },
+    {
+      "stableKey": "en-runemark-destroyer",
+      "name": "Destroyer",
+      "category": "fighter",
+      "displayOrder": 80
+    },
+    {
+      "stableKey": "en-runemark-elite",
+      "name": "Elite",
+      "category": "fighter",
+      "displayOrder": 90
+    },
+    {
+      "stableKey": "en-runemark-fly",
+      "name": "Fly",
+      "category": "fighter",
+      "displayOrder": 100
+    },
+    {
+      "stableKey": "en-runemark-icon-bearer",
+      "name": "Icon Bearer",
+      "category": "fighter",
+      "displayOrder": 110
+    },
+    {
+      "stableKey": "en-runemark-hero",
+      "name": "Hero",
+      "category": "fighter",
+      "displayOrder": 120
+    },
+    {
+      "stableKey": "en-runemark-minion",
+      "name": "Minion",
+      "category": "fighter",
+      "displayOrder": 130
+    },
+    {
+      "stableKey": "en-runemark-mystic",
+      "name": "Mystic",
+      "category": "fighter",
+      "displayOrder": 140
+    },
+    {
+      "stableKey": "en-runemark-scout",
+      "name": "Scout",
+      "category": "fighter",
+      "displayOrder": 150
+    },
+    {
+      "stableKey": "en-runemark-trapper",
+      "name": "Trapper",
+      "category": "fighter",
+      "displayOrder": 160
+    },
+    {
+      "stableKey": "en-runemark-warrior",
+      "name": "Warrior",
+      "category": "fighter",
+      "displayOrder": 170
+    },
+    {
+      "stableKey": "en-runemark-monster",
+      "name": "Monster",
+      "category": "fighter",
+      "displayOrder": 180
+    },
+    {
+      "stableKey": "en-runemark-mount",
+      "name": "Mount",
+      "category": "fighter",
+      "displayOrder": 190
+    },
+    {
+      "stableKey": "en-runemark-thrall",
+      "name": "Thrall",
+      "category": "fighter",
+      "displayOrder": 200
+    },
+    {
+      "stableKey": "en-runemark-ally",
+      "name": "Ally",
+      "category": "fighter",
+      "displayOrder": 210
+    },
+    {
+      "stableKey": "en-runemark-ferocious",
+      "name": "Ferocious",
+      "category": "fighter",
+      "displayOrder": 220
+    },
+    {
+      "stableKey": "en-runemark-frenzied",
+      "name": "Frenzied",
+      "category": "fighter",
+      "displayOrder": 230
+    },
+    {
+      "stableKey": "en-runemark-priest",
+      "name": "Priest",
+      "category": "fighter",
+      "displayOrder": 240
+    },
+    {
+      "stableKey": "en-runemark-terrifying",
+      "name": "Terrifying",
+      "category": "fighter",
+      "displayOrder": 250
+    },
+    {
+      "stableKey": "en-runemark-grombrindal",
+      "name": "Grombrindal",
+      "category": "fighter",
+      "displayOrder": 260
+    },
+    {
+      "stableKey": "en-runemark-blast",
+      "name": "Blast",
+      "category": "weapon",
+      "displayOrder": 10
+    },
+    {
+      "stableKey": "en-runemark-axe",
+      "name": "Axe",
+      "category": "weapon",
+      "displayOrder": 20
+    },
+    {
+      "stableKey": "en-runemark-bolas",
+      "name": "Bolas",
+      "category": "weapon",
+      "displayOrder": 30
+    },
+    {
+      "stableKey": "en-runemark-reach-weapon",
+      "name": "Reach Weapon",
+      "category": "weapon",
+      "displayOrder": 40
+    },
+    {
+      "stableKey": "en-runemark-claws",
+      "name": "Claws",
+      "category": "weapon",
+      "displayOrder": 50
+    },
+    {
+      "stableKey": "en-runemark-club",
+      "name": "Club",
+      "category": "weapon",
+      "displayOrder": 60
+    },
+    {
+      "stableKey": "en-runemark-dagger",
+      "name": "Dagger",
+      "category": "weapon",
+      "displayOrder": 70
+    },
+    {
+      "stableKey": "en-runemark-fangs",
+      "name": "Fangs",
+      "category": "weapon",
+      "displayOrder": 80
+    },
+    {
+      "stableKey": "en-runemark-ranged-weapon",
+      "name": "Ranged Weapon",
+      "category": "weapon",
+      "displayOrder": 90
+    },
+    {
+      "stableKey": "en-runemark-scythe",
+      "name": "Scythe",
+      "category": "weapon",
+      "displayOrder": 100
+    },
+    {
+      "stableKey": "en-runemark-spear",
+      "name": "Spear",
+      "category": "weapon",
+      "displayOrder": 110
+    },
+    {
+      "stableKey": "en-runemark-mace",
+      "name": "Mace",
+      "category": "weapon",
+      "displayOrder": 120
+    },
+    {
+      "stableKey": "en-runemark-sword",
+      "name": "Sword",
+      "category": "weapon",
+      "displayOrder": 130
+    },
+    {
+      "stableKey": "en-runemark-unarmed",
+      "name": "Unarmed",
+      "category": "weapon",
+      "displayOrder": 140
+    },
+    {
+      "stableKey": "en-runemark-hook",
+      "name": "Hook",
+      "category": "weapon",
+      "displayOrder": 150
+    },
+    {
+      "stableKey": "en-runemark-bident",
+      "name": "Bident",
+      "category": "weapon",
+      "displayOrder": 160
+    },
+    {
+      "stableKey": "en-runemark-hammer",
+      "name": "Hammer",
+      "category": "weapon",
+      "displayOrder": 170
+    }
+  ]
 }

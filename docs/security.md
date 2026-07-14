@@ -61,6 +61,19 @@ Use database functions for multi-table or sensitive operations, including:
 - Service-role keys must never use the `VITE_` prefix and must never be exposed
   to browser code.
 
+## Phase 4 Warband Rules
+
+- Warbands are private campaign data and are readable only by campaign members.
+- Any campaign member can create multiple warbands in that campaign.
+- Only the warband owner or campaign owners/administrators can update a warband
+  roster.
+- Fighters are added through `add_warband_fighter(...)`, which verifies the
+  fighter profile belongs to the warband faction and rules release.
+- Fighter profile snapshots are created when a fighter is recruited so later
+  reference-data updates do not silently change saved rosters.
+- Invalid rosters may remain drafts, but a battle-ready roster must have one
+  active leader and stay within point and fighter limits.
+
 ## Required RLS Test Areas
 
 - Non-member reads.
