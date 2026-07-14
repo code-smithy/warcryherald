@@ -31,9 +31,9 @@ Stay inquisitive. If a rule, table shape, workflow, copyright boundary, or UI be
 
 ## Current Status
 
-- Project stage: pre-implementation.
-- Current phase: not started.
-- Last completed phase: none.
+- Project stage: Phase 0 complete.
+- Current phase: ready for Phase 1.
+- Last completed phase: Phase 0 - Repository And Design Foundation.
 - MVP target: complete after `WH-018 Chronicle and audit history`.
 - Broader readiness target: complete after `WH-020 Security review and production deployment`.
 
@@ -141,7 +141,12 @@ Fighter data must support movement, toughness, wounds, points, weapon profiles, 
 
 ### Copyright Constraint
 
-Do not copy publication layouts, artwork, or entire bodies of rules text into the application.
+Do not copy publication layouts, artwork, logos, or images into the application.
+
+Rules text, table descriptions, names, structured effects, and explanatory text
+may be relevant product data for campaign workflows. Import them deliberately,
+with source attribution and language tracking, and keep the copied surface
+limited to what the feature requires.
 
 The import system should initially support:
 
@@ -149,9 +154,31 @@ The import system should initially support:
 - Names and identifiers.
 - Point costs.
 - Runemark relationships.
-- Short structured effects where justified.
+- Rules text, table descriptions, and structured effects where needed for app
+  workflows.
 - Source name, page, and external link.
 - User-supplied or original artwork only.
+
+Official source discovery:
+
+- The Warhammer Community Warcry downloads page is the primary discovery source
+  for public Warcry PDFs: `https://www.warhammer-community.com/de-de/downloads/warcry/`.
+- Available localized page options include UK English, German, Spanish, French,
+  Italian, Japanese, and Korean.
+- Reference-data imports must track source language and should use reviewed,
+  versioned input files rather than scraping the site at runtime.
+- Official PDFs may be used to verify structured data, but imports must still
+  respect the copyright constraint above.
+
+Community rules reference:
+
+- Warcrier provides Warcry rules text, tables, and navigation at
+  `https://warcrier.net/docs/rules`.
+- Warcrier can be used as a cross-checking and discovery source for rules
+  structure, terminology, tables, and relationships.
+- Warcrier identifies itself as a free community project not associated with
+  Games Workshop, so official PDFs remain the preferred authority when sources
+  conflict.
 
 ## Phase Roadmap
 
@@ -774,19 +801,30 @@ These should not block the first usable release:
 Track questions here as soon as they are discovered.
 
 1. Which existing Questboard repository or codebase should be used as the architectural reference?
-2. Should this repo root become the app, or should the app live under a nested `warcry-herald/` directory as described in the source plan?
+2. Resolved: this repo root is the app. The source plan's nested `warcry-herald/` directory is treated as the repository root because this workspace is already `warcryherald`.
 3. Which Supabase project naming convention and environment strategy should be used for local, staging, and production?
 4. What is the first rules release and source set that should seed the reference database?
-5. How much short structured ability text is acceptable under the copyright constraint, and should the app prefer user-entered summaries over imported text?
+5. What exact attribution format should imported rules text and table descriptions use for official PDFs and Warcrier cross-checks?
 
 ## Decision Log
 
 Record durable decisions here.
 
-- 2026-07-14: Created this tracker before implementation. No application scaffold has been started yet.
+- 2026-07-14: Created this tracker before implementation.
+- 2026-07-14: Implemented Phase 0 at the repository root rather than creating a nested `warcry-herald/` directory.
+- 2026-07-14: Chose hash-based React Router routing plus a GitHub Pages `404.html` fallback to preserve static hosting compatibility.
+- 2026-07-14: Supabase frontend configuration is validated with Zod and missing values render a user-facing configuration notice.
+- 2026-07-14: Recorded the official Warhammer Community Warcry downloads page as the discovery source for public PDFs across supported languages.
+- 2026-07-14: Recorded Warcrier as a community rules reference and clarified that rules text and table descriptions may be imported when needed, while artwork, logos, images, layouts, and publication presentation remain out of scope.
 
 ## Phase Completion Log
 
 Record completed phases and verification results here.
 
-- None yet.
+- 2026-07-14: Completed Phase 0 - Repository And Design Foundation.
+  - Added Vite, React, TypeScript, React Router, ESLint, Vitest, Testing Library, and GitHub Pages workflow foundation.
+  - Added required docs: `design.md`, `domain-model.md`, `reference-data.md`, `security.md`, and `supabase-setup.md`.
+  - Added placeholder directories for app code, scripts, Supabase functions, migrations, seed data, and tests.
+  - Verification: `pnpm lint` passed.
+  - Verification: `pnpm test` passed with 3 tests.
+  - Verification: `pnpm build` passed.

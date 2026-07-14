@@ -1,0 +1,10 @@
+node_modules/
+.pnpm-store/
+.idea/
+dist/
+coverage/
+.env
+.env.local
+.env.*.local
+*.log
+.codex-dev-server.*.log
