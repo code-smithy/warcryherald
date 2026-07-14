@@ -10,6 +10,7 @@ import { HomePage } from "../pages/HomePage";
 import { JoinInvitePage } from "../pages/JoinInvitePage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { ProfilePage } from "../pages/ProfilePage";
+import { ReferencePage } from "../pages/ReferencePage";
 
 export function AppRoutes() {
   return (
@@ -57,6 +58,14 @@ export function AppRoutes() {
               <RequireAuth>
                 <JoinInvitePage />
               </RequireAuth>
+            </ConfigGate>
+          }
+        />
+        <Route
+          path="reference"
+          element={
+            <ConfigGate>
+              <ReferencePage />
             </ConfigGate>
           }
         />

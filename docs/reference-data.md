@@ -35,6 +35,27 @@ It must:
 - Support dry-run mode.
 - Avoid runtime scraping.
 
+## Phase 3 Import Files
+
+Reviewed input lives under `data/reference/`:
+
+- `releases.json` contains `sourceDocuments` and `releases`.
+- `factions.json` contains `grandAlliances` and `factions`.
+- `runemarks.json` contains `runemarks`.
+- `fighters.json` contains `fighters`.
+- `weapons.json` contains `weapons`.
+- `abilities.json` contains `abilities` and `blessings`.
+
+Run `pnpm validate:reference-data` before import. The validator rejects
+duplicate stable keys, invalid release/faction/runemark references, and
+impossible fighter or weapon statistics. Run
+`pnpm import:reference-data -- --dry-run` to check the same files without
+remote writes.
+
+Actual imports require `SUPABASE_SERVICE_ROLE_KEY` in the process environment.
+Do not place the service-role key in `.env` files that can be used by the
+frontend, and never prefix it with `VITE_`.
+
 ## Official Source Discovery
 
 The official Warhammer Community Warcry downloads page should be treated as the

@@ -305,9 +305,37 @@ textarea:focus-visible {
   grid-column: 1 / -1;
 }
 
+.reference-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.reference-release-summary {
+  display: grid;
+  min-width: 9rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  padding: 1rem;
+  text-align: right;
+}
+
+.reference-release-summary strong {
+  color: var(--accent-dark);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.reference-release-summary span {
+  color: var(--muted);
+  font-weight: 800;
+}
+
 .form-grid,
 .inline-form,
-.invite-form {
+.invite-form,
+.reference-filters {
   display: grid;
   gap: 1rem;
 }
@@ -323,9 +351,16 @@ textarea:focus-visible {
   margin-bottom: 1rem;
 }
 
+.reference-filters {
+  grid-template-columns: minmax(12rem, 1.2fr) repeat(3, minmax(10rem, 1fr)) auto;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
 .form-grid label,
 .inline-form label,
-.invite-form label {
+.invite-form label,
+.reference-filters label {
   display: grid;
   gap: 0.4rem;
   color: var(--accent-dark);
@@ -341,6 +376,8 @@ textarea:focus-visible {
 .invite-form input,
 .invite-form select,
 .invite-form textarea,
+.reference-filters input,
+.reference-filters select,
 .member-row select {
   width: 100%;
   min-height: 2.75rem;
@@ -357,9 +394,22 @@ textarea:focus-visible {
   resize: vertical;
 }
 
+.checkbox-label {
+  display: flex !important;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.5rem !important;
+}
+
+.checkbox-label input {
+  width: auto;
+  min-height: 0;
+}
+
 .campaign-list,
 .member-list,
-.invite-list {
+.invite-list,
+.reference-list {
   display: grid;
   gap: 0.75rem;
 }
@@ -407,6 +457,31 @@ textarea:focus-visible {
 .invite-row {
   grid-template-columns: minmax(0, 1fr) auto auto auto;
   background: #fffdf7;
+}
+
+.reference-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+  width: 100%;
+  border: 1px solid var(--line);
+  background: #fffdf7;
+  color: inherit;
+  padding: 0.85rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.reference-row[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--paper-strong);
+}
+
+.reference-row span:first-child {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
 }
 
 .invite-row code {
@@ -519,6 +594,89 @@ textarea:focus-visible {
   color: #1d6a44;
 }
 
+.reference-detail {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.reference-detail h2 {
+  margin-bottom: 0.35rem;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.stat-grid div {
+  border: 1px solid var(--line);
+  background: #fffdf7;
+  padding: 0.75rem;
+}
+
+.stat-grid dt {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.stat-grid dd {
+  margin: 0.2rem 0 0;
+  color: var(--accent-dark);
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag-list span {
+  border: 1px solid var(--line);
+  background: var(--paper-strong);
+  color: var(--accent-dark);
+  padding: 0.35rem 0.55rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.reference-table-wrap {
+  overflow-x: auto;
+}
+
+.reference-table {
+  width: 100%;
+  min-width: 32rem;
+  border-collapse: collapse;
+}
+
+.reference-table caption {
+  margin-bottom: 0.5rem;
+  color: var(--accent-dark);
+  font-weight: 900;
+  text-align: left;
+}
+
+.reference-table th,
+.reference-table td {
+  border: 1px solid var(--line);
+  background: #fffdf7;
+  padding: 0.65rem;
+  text-align: left;
+}
+
+.reference-table thead th {
+  background: var(--paper-strong);
+  color: var(--accent-dark);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
 @media (max-width: 720px) {
   .site-header {
     align-items: flex-start;
@@ -540,11 +698,19 @@ textarea:focus-visible {
   .page-heading--split,
   .campaign-layout,
   .dashboard-grid,
+  .reference-layout,
+  .reference-filters,
   .inline-form,
   .invite-form,
   .campaign-row,
   .member-row,
-  .invite-row {
+  .invite-row,
+  .reference-row,
+  .stat-grid {
     grid-template-columns: 1fr;
+  }
+
+  .reference-release-summary {
+    text-align: left;
   }
 }

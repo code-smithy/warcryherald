@@ -50,6 +50,17 @@ Use database functions for multi-table or sensitive operations, including:
 - Finalizing battles.
 - Transferring campaign ownership.
 
+## Phase 3 Reference Data Rules
+
+- Reference-data tables are public read-only through Supabase anon and
+  authenticated roles.
+- Ordinary users cannot insert, update, or delete source documents, releases,
+  factions, runemarks, fighter profiles, weapons, abilities, or blessings.
+- Reference imports run only from trusted local or operational tooling with a
+  service-role key in the process environment.
+- Service-role keys must never use the `VITE_` prefix and must never be exposed
+  to browser code.
+
 ## Required RLS Test Areas
 
 - Non-member reads.

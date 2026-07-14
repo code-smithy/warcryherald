@@ -52,6 +52,7 @@ the Supabase Dashboard SQL Editor:
 4. `supabase/migrations/202607140004_phase_1_profiles_repair.sql`
 5. `supabase/migrations/202607140005_phase_2_full_repair.sql`
 6. `supabase/migrations/202607140006_profile_upsert_rpc.sql`
+7. `supabase/migrations/202607140007_phase_3_reference_data.sql`
 
 Then reload the PostgREST schema cache:
 
@@ -107,6 +108,26 @@ The Phase 2 migration adds:
 Invitation acceptance should call `accept_campaign_invite()` through Supabase
 RPC. Do not insert campaign membership directly from the frontend.
 
+The Phase 3 reference-data migration adds public read-only tables for:
+
+- Source documents and rules releases.
+- Grand alliances, factions, and runemarks.
+- Fighter profiles, fighter runemarks, and weapon profiles.
+- Abilities, ability runemarks, faction abilities, universal abilities, and
+  blessings.
+
+Anonymous and authenticated clients receive `select` only. Reference-data
+imports must run from trusted tooling with `SUPABASE_SERVICE_ROLE_KEY` in the
+process environment:
+
+```powershell
+$env:SUPABASE_SERVICE_ROLE_KEY = "<service-role-key>"
+pnpm import:reference-data
+```
+
+Use `pnpm validate:reference-data` or `pnpm import:reference-data -- --dry-run`
+before importing reviewed source data.
+
 ## Phase 2 Verification
 
 Before marking Phase 2 complete, verify against the target Supabase project:
@@ -122,8 +143,10 @@ Before marking Phase 2 complete, verify against the target Supabase project:
 - The sole owner cannot leave or be removed.
 
 The automated verification command covers these checks against a migrated
-Supabase project. Use two temporary authenticated users, then pass their current
-access tokens through environment variables:
+Supabase project. It reads `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`
+from the process environment or local `.env` file. Use two temporary
+authenticated users, then pass their current access tokens through environment
+variables:
 
 ```bash
 PHASE2_USER_A_ACCESS_TOKEN=<user-a-access-token> \

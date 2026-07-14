@@ -2,10 +2,8 @@
 
 Warcry Herald is a campaign manager for Warcry narrative play.
 
-The project currently has the Phase 2 campaign implementation in progress. The
-frontend code and migrations exist, but Phase 2 is not complete until the
-Supabase migrations are applied to the target project and the two-user RLS
-acceptance checks pass.
+The project currently has the Phase 3 reference-data foundation in progress.
+Phase 2 campaign, member, and invitation work is complete.
 
 ## Prerequisites
 
@@ -44,6 +42,7 @@ the Supabase Dashboard SQL Editor:
 4. `supabase/migrations/202607140004_phase_1_profiles_repair.sql`
 5. `supabase/migrations/202607140005_phase_2_full_repair.sql`
 6. `supabase/migrations/202607140006_profile_upsert_rpc.sql`
+7. `supabase/migrations/202607140007_phase_3_reference_data.sql`
 
 Then reload the PostgREST schema cache:
 
@@ -71,6 +70,8 @@ pnpm dev
 pnpm lint
 pnpm test
 pnpm build
+pnpm validate:reference-data
+pnpm import:reference-data -- --dry-run
 ```
 
 ## Current Features
@@ -82,10 +83,16 @@ pnpm build
 - Campaign invitation links with optional expiration and usage limits.
 - Invite acceptance through `#/join/<token>`.
 - Campaign settings and owner-only archiving.
+- Public reference browser shell at `#/reference`.
+- Versioned reference-data migration and validated JSON import scaffolding.
 
 These features require the database migrations above. A production app connected
 to a Supabase project without those migrations will sign in successfully but
 fail when loading profiles or campaigns.
+
+Reference-data mutation is intentionally not available through frontend
+credentials. To import reviewed data, run the import script with
+`SUPABASE_SERVICE_ROLE_KEY` set in the local process environment.
 
 ## Project Docs
 

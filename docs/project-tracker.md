@@ -31,9 +31,9 @@ Stay inquisitive. If a rule, table shape, workflow, copyright boundary, or UI be
 
 ## Current Status
 
-- Project stage: Phase 2 implementation in progress; database deployment and live RLS verification pending.
-- Current phase: Phase 2 closeout.
-- Last completed phase: Phase 1 - Authentication And Profiles.
+- Project stage: Phase 3 implementation in progress; reference-data foundation added and reviewed source data pending.
+- Current phase: Phase 3 - Versioned Warcry Reference Data.
+- Last completed phase: Phase 2 - Campaigns, Members, And Invitations.
 - MVP target: complete after `WH-018 Chronicle and audit history`.
 - Broader readiness target: complete after `WH-020 Security review and production deployment`.
 
@@ -337,8 +337,8 @@ Closeout checklist:
 
 - Apply `202607140001_phase_1_profiles.sql` and
   `202607140002_phase_2_campaigns.sql` and
-  `202607140003_phase_2_create_campaign_rpc.sql` to the target Supabase
-  project.
+  `202607140003_phase_2_create_campaign_rpc.sql` and
+  `202607140006_profile_upsert_rpc.sql` to the target Supabase project.
 - If production reports `public.profiles` missing from the schema cache, run
   `202607140005_phase_2_full_repair.sql` from the Supabase SQL Editor.
 - Reload the PostgREST schema cache after migration.
@@ -848,6 +848,10 @@ Record durable decisions here.
 - 2026-07-14: Added `202607140004_phase_1_profiles_repair.sql` to repair partially migrated Supabase projects where `public.profiles` is absent from the PostgREST schema cache.
 - 2026-07-14: Added `202607140005_phase_2_full_repair.sql` after production showed both `public.campaigns` and `public.create_campaign(...)` absent. This is the preferred SQL Editor repair file for partially migrated production projects.
 - 2026-07-14: Added `202607140006_profile_upsert_rpc.sql` and switched profile load/save to RPCs so existing auth users without a `profiles` row can recover without direct frontend inserts.
+- 2026-07-14: Updated `pnpm verify:phase2` to load frontend-safe Supabase project values from `.env`; temporary user access tokens must still be passed through the process environment.
+- 2026-07-14: User confirmed Phase 2 target migrations and live two-user RLS verification are complete.
+- 2026-07-14: Started Phase 3 with public read-only reference tables, empty reviewed-input JSON scaffolds, and service-role-only import tooling.
+- 2026-07-14: Phase 3 foundation local verification passed `pnpm validate:reference-data`, `pnpm import:reference-data -- --dry-run`, `pnpm lint`, `pnpm test` with 15 tests, and `pnpm build`.
 
 ## Phase Completion Log
 
@@ -867,15 +871,16 @@ Record completed phases and verification results here.
   - Verification: `pnpm lint` passed.
   - Verification: `pnpm test` passed with 5 tests.
   - Verification: `pnpm build` passed.
-- 2026-07-14: Implemented Phase 2 - Campaigns, Members, And Invitations; phase closeout remains pending.
+- 2026-07-14: Completed Phase 2 - Campaigns, Members, And Invitations.
   - Added campaign, member, and invite tables with RLS, role helper functions, owner membership trigger, invite acceptance RPC, and guard triggers for archiving, owner removal, and owner role changes.
   - Replaced the campaign placeholder with campaign list/create, campaign overview, member management, invite management, join-by-invite, campaign settings, and owner archive UI.
   - Updated setup and security documentation for Phase 2 tables, policies, and invitation workflow.
   - Added TypeScript tests for campaign draft validation, invite normalization, and invite state classification.
   - Added callback fixes for both PKCE `code` and implicit `access_token` OAuth redirects.
   - Added campaign creation RPC and shared Supabase error-message extraction after production testing exposed missing database objects and masked errors.
-  - Added `pnpm verify:phase2` to run the live two-user Phase 2 acceptance and RLS checks.
+  - Added `pnpm verify:phase2` to run the live two-user Phase 2 acceptance and RLS checks. The verifier reads frontend-safe Supabase project values from `.env` and requires two temporary user access tokens in the process environment.
   - Verification: `pnpm lint` passed.
-  - Verification: `pnpm test` passed with 11 tests.
+  - Verification: `pnpm test` passed with 12 tests.
   - Verification: `pnpm build` passed.
-  - Pending closeout: Supabase CLI is not installed in this environment, and production/local database credentials plus two temporary user tokens are not available here. Apply migrations and run `pnpm verify:phase2` before marking Phase 2 complete.
+  - Verification: 2026-07-14 local closeout recheck passed `pnpm lint`, `pnpm test` with 12 tests, and `pnpm build`.
+  - Verification: 2026-07-14 user confirmed target Supabase migrations and `pnpm verify:phase2` live two-user RLS checks are complete.

@@ -10,6 +10,11 @@ import {
 } from "../src/lib/campaigns";
 import { getErrorMessage } from "../src/lib/errors";
 import { normalizeProfileUpdate } from "../src/lib/profiles";
+import {
+  filterFighterProfiles,
+  getSourceLabel,
+  type FighterProfile
+} from "../src/lib/reference-data";
 import { parseOAuthCallbackParams } from "../src/lib/supabase";
 
 function renderRoute(initialEntry: string) {
@@ -37,6 +42,7 @@ describe("Warcry Herald shell", () => {
       })
     ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^campaigns$/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /^reference$/i })).toBeInTheDocument();
   });
 
   it("shows a useful configuration error when Supabase is missing", () => {
@@ -50,6 +56,17 @@ describe("Warcry Herald shell", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(/VITE_SUPABASE_URL is required/i)).toBeInTheDocument();
     expect(screen.getByText(/VITE_SUPABASE_ANON_KEY is required/i)).toBeInTheDocument();
+  });
+
+  it("exposes the reference browser as a public configured route", () => {
+    vi.stubEnv("VITE_SUPABASE_URL", "");
+    vi.stubEnv("VITE_SUPABASE_ANON_KEY", "");
+
+    renderRoute("/reference");
+
+    expect(
+      screen.getByRole("heading", { name: /supabase is not configured yet/i })
+    ).toBeInTheDocument();
   });
 
   it("rejects a Supabase REST endpoint instead of the project root", () => {
@@ -236,4 +253,119 @@ describe("Warcry Herald shell", () => {
     ).toBe("Exhausted");
   });
 
+  it("filters reference fighters by search, release state, faction, and runemark", () => {
+    const fighters: FighterProfile[] = [
+      makeFighter({
+        id: "current",
+        stable_key: "current-fighter",
+        name: "Current Fighter",
+        factionKey: "iron-guild",
+        factionName: "Iron Guild",
+        allianceKey: "order",
+        allianceName: "Order",
+        runemarks: [{ id: "elite", stable_key: "elite", name: "Elite", category: "fighter" }],
+        releaseStatus: "current",
+        is_current: true
+      }),
+      makeFighter({
+        id: "retired",
+        stable_key: "retired-fighter",
+        name: "Retired Fighter",
+        factionKey: "ash-tribe",
+        factionName: "Ash Tribe",
+        allianceKey: "chaos",
+        allianceName: "Chaos",
+        runemarks: [],
+        releaseStatus: "retired",
+        is_current: false
+      })
+    ];
+
+    expect(
+      filterFighterProfiles(fighters, {
+        search: "elite",
+        factionKey: "iron-guild",
+        grandAllianceKey: "order",
+        runemarkKey: "elite",
+        includeRetired: false
+      }).map((fighter) => fighter.id)
+    ).toEqual(["current"]);
+
+    expect(
+      filterFighterProfiles(fighters, {
+        search: "",
+        factionKey: "",
+        grandAllianceKey: "",
+        runemarkKey: "",
+        includeRetired: true
+      }).map((fighter) => fighter.id)
+    ).toEqual(["current", "retired"]);
+  });
+
+  it("shows source release and document labels for reference fighters", () => {
+    expect(
+      getSourceLabel(
+        makeFighter({
+          id: "fighter",
+          stable_key: "fighter",
+          name: "Fighter",
+          source_page: "12"
+        })
+      )
+    ).toBe("Example Release - Example Source, p. 12");
+  });
+
 });
+
+function makeFighter(
+  overrides: Partial<FighterProfile> & {
+    factionKey?: string;
+    factionName?: string;
+    allianceKey?: string;
+    allianceName?: string;
+    releaseStatus?: "draft" | "current" | "retired";
+    runemarks?: Array<{ id: string; stable_key: string; name: string; category: string }>;
+  }
+): FighterProfile {
+  const runemarks = overrides.runemarks ?? [];
+
+  return {
+    id: overrides.id ?? "fighter",
+    stable_key: overrides.stable_key ?? "fighter",
+    name: overrides.name ?? "Fighter",
+    movement: overrides.movement ?? 4,
+    toughness: overrides.toughness ?? 4,
+    wounds: overrides.wounds ?? 10,
+    points: overrides.points ?? 100,
+    base_size_mm: overrides.base_size_mm ?? null,
+    is_leader: overrides.is_leader ?? false,
+    is_current: overrides.is_current ?? true,
+    source_page: overrides.source_page ?? null,
+    factions: {
+      id: "faction",
+      stable_key: overrides.factionKey ?? "example-faction",
+      name: overrides.factionName ?? "Example Faction",
+      grand_alliances: {
+        id: "alliance",
+        stable_key: overrides.allianceKey ?? "example-alliance",
+        name: overrides.allianceName ?? "Example Alliance"
+      }
+    },
+    rules_releases: {
+      id: "release",
+      stable_key: "example-release",
+      name: "Example Release",
+      release_date: "2026-07-14",
+      language: "en",
+      status: overrides.releaseStatus ?? "current",
+      source_url: null,
+      source_documents: {
+        title: "Example Source",
+        source_url: null
+      }
+    },
+    weapon_profiles: [],
+    fighter_profile_runemarks: runemarks.map((runemark) => ({ runemarks: runemark })),
+    ...overrides
+  };
+}
