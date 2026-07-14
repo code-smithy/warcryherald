@@ -72,6 +72,7 @@ pnpm lint
 pnpm test
 pnpm build
 pnpm discover:reference-sources
+pnpm fetch:reference-pdf -- --url https://example.com/source.pdf
 pnpm extract:reference-pdf -- --pdf data/reference/pdfs/example.pdf --source-key example-2026-en --language en
 pnpm validate:reference-data
 pnpm import:reference-data -- --dry-run

@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 1,
+  "sourceManifest": "data/reference/sources/warhammer-community-warcry.json",
+  "catalogues": [
+    {
+      "stableKey": "warhammer-community-warcry-en-gb",
+      "language": "en",
+      "publisher": "Games Workshop",
+      "title": "Warcry Downloads - UK English",
+      "url": "https://www.warhammer-community.com/en-gb/downloads/warcry/",
+      "priority": 10,
+      "documentLinks": [],
+      "candidateLinks": [
+        {
+          "title": "",
+          "url": "https://www.warhammer-community.com/de-de/downloads/warcry/"
+        },
+        {
+          "title": "",
+          "url": "https://www.warhammer-community.com/downloads/warcry"
+        },
+        {
+          "title": "All Downloads",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/"
+        },
+        {
+          "title": "Downloads",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/"
+        },
+        {
+          "title": "",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/"
+        },
+        {
+          "title": "Adeptus Titanicus",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/adeptus-titanicus/"
+        },
+        {
+          "title": "Blood Bowl",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/blood-bowl/"
+        },
+        {
+          "title": "Kill Team",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+        },
+        {
+          "title": "Legions Imperialis",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/legions-imperialis/"
+        },
+        {
+          "title": "Middle-earth™ Strategy Battle Game",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/middle-earth-strategy-battle-game/"
+        },
+        {
+          "title": "Necromunda",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/necromunda/"
+        },
+        {
+          "title": "Warcry",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/warcry/"
+        },
+        {
+          "title": "",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/warcry/"
+        },
+        {
+          "title": "Warhammer 40,000",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/warhammer-40000/"
+        },
+        {
+          "title": "Warhammer Age of Sigmar",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/warhammer-age-of-sigmar/"
+        },
+        {
+          "title": "Warhammer Quest: Blackstone Fortress",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/warhammer-quest-blackstone-fortress/"
+        },
+        {
+          "title": "Warhammer Quest: Cursed City",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/warhammer-quest-cursed-city/"
+        },
+        {
+          "title": "Warhammer Quest: Darkwater",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/warhammer-quest-darkwater/"
+        },
+        {
+          "title": "Warhammer: The Horus Heresy",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/warhammer-the-horus-heresy/"
+        },
+        {
+          "title": "Warhammer: The Old World",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/warhammer-the-old-world/"
+        },
+        {
+          "title": "Warhammer Underworlds",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/warhammer-underworlds/"
+        },
+        {
+          "title": "White Dwarf",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/white-dwarf/"
+        },
+        {
+          "title": "Warcry",
+          "url": "https://www.warhammer-community.com/en-gb/setting/warcry/"
+        },
+        {
+          "title": "See all",
+          "url": "https://www.warhammer-community.com/en-gb/setting/warcry/"
+        },
+        {
+          "title": "Downloads",
+          "url": "https://www.warhammer-community.com/en-gb/topics/downloads/"
+        },
+        {
+          "title": "Warcry",
+          "url": "https://www.warhammer-community.com/en-gb/topics/warcry/"
+        }
+      ]
+    },
+    {
+      "stableKey": "warhammer-community-warcry-de-de",
+      "language": "de",
+      "publisher": "Games Workshop",
+      "title": "Warcry Downloads - Deutsch",
+      "url": "https://www.warhammer-community.com/de-de/downloads/warcry/",
+      "priority": 20,
+      "documentLinks": [],
+      "candidateLinks": [
+        {
+          "title": "Alle Downloads",
+          "url": "https://www.warhammer-community.com/de-de/downloads/"
+        },
+        {
+          "title": "Downloads",
+          "url": "https://www.warhammer-community.com/de-de/downloads/"
+        },
+        {
+          "title": "",
+          "url": "https://www.warhammer-community.com/de-de/downloads/"
+        },
+        {
+          "title": "Adeptus Titanicus",
+          "url": "https://www.warhammer-community.com/de-de/downloads/adeptus-titanicus/"
+        },
+        {
+          "title": "Blood Bowl",
+          "url": "https://www.warhammer-community.com/de-de/downloads/blood-bowl/"
+        },
+        {
+          "title": "Kill Team",
+          "url": "https://www.warhammer-community.com/de-de/downloads/kill-team/"
+        },
+        {
+          "title": "Legions Imperialis",
+          "url": "https://www.warhammer-community.com/de-de/downloads/legions-imperialis/"
+        },
+        {
+          "title": "Middle-earth™ Strategy Battle Game",
+          "url": "https://www.warhammer-community.com/de-de/downloads/middle-earth-strategy-battle-game/"
+        },
+        {
+          "title": "Necromunda",
+          "url": "https://www.warhammer-community.com/de-de/downloads/necromunda/"
+        },
+        {
+          "title": "Warcry",
+          "url": "https://www.warhammer-community.com/de-de/downloads/warcry/"
+        },
+        {
+          "title": "",
+          "url": "https://www.warhammer-community.com/de-de/downloads/warcry/"
+        },
+        {
+          "title": "Warhammer 40.000",
+          "url": "https://www.warhammer-community.com/de-de/downloads/warhammer-40000/"
+        },
+        {
+          "title": "Warhammer Age of Sigmar",
+          "url": "https://www.warhammer-community.com/de-de/downloads/warhammer-age-of-sigmar/"
+        },
+        {
+          "title": "Warhammer Quest: Blackstone Fortress",
+          "url": "https://www.warhammer-community.com/de-de/downloads/warhammer-quest-blackstone-fortress/"
+        },
+        {
+          "title": "Warhammer Quest: Die Verfluchte Stadt",
+          "url": "https://www.warhammer-community.com/de-de/downloads/warhammer-quest-die-verfluchte-stadt/"
+        },
+        {
+          "title": "Warhammer: The Horus Heresy",
+          "url": "https://www.warhammer-community.com/de-de/downloads/warhammer-the-horus-heresy/"
+        },
+        {
+          "title": "Warhammer: The Old World",
+          "url": "https://www.warhammer-community.com/de-de/downloads/warhammer-the-old-world/"
+        },
+        {
+          "title": "Warhammer Underworlds",
+          "url": "https://www.warhammer-community.com/de-de/downloads/warhammer-underworlds/"
+        },
+        {
+          "title": "Warcry",
+          "url": "https://www.warhammer-community.com/de-de/setting/warcry/"
+        },
+        {
+          "title": "",
+          "url": "https://www.warhammer-community.com/downloads/warcry"
+        },
+        {
+          "title": "",
+          "url": "https://www.warhammer-community.com/en-gb/downloads/warcry/"
+        }
+      ]
+    }
+  ]
+}

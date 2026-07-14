@@ -45,9 +45,11 @@ import:
 2. `pnpm discover:reference-sources` fetches those catalogue pages and writes
    discovered source metadata to
    `data/reference/source-catalogue/warhammer-community-warcry.discovered.json`.
-   This generated file is ignored by git because it includes timestamps and may
-   change whenever Warhammer Community changes its page rendering.
-3. Reviewers download official PDFs manually from the catalogue into
+   This generated file is committed because the GitHub
+   **Refresh Reference Source Catalogue** workflow refreshes it and commits
+   changes when the official catalogue surface changes.
+3. Reviewers copy the browser-visible official PDF URL and run
+   `pnpm fetch:reference-pdf -- --url <pdf-url>` to download it into
    `data/reference/pdfs/`. PDFs are ignored by git and must not be committed.
 4. Run `pnpm extract:reference-pdf` for each downloaded PDF to create an ignored
    workbench extraction file under `data/reference/workbench/`.
@@ -70,6 +72,8 @@ for review.
 PDF extraction command:
 
 ```bash
+pnpm fetch:reference-pdf -- --url "https://www.warhammer-community.com/..."
+
 pnpm extract:reference-pdf -- \
   --pdf data/reference/pdfs/example.pdf \
   --source-key warcry-example-2026-en \

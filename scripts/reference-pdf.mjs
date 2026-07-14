@@ -4,60 +4,104 @@ import { basename, dirname, resolve } from "node:path";
 
 const command = process.argv[2] ?? "extract";
 
-if (command !== "extract") {
-  fail("Usage: node scripts/reference-pdf.mjs extract --pdf <path> --source-key <key> --language <code> [--title <title>] [--source-url <url>] [--out <path>]");
+if (command === "fetch") {
+  await fetchPdf();
+} else if (command === "extract") {
+  extractPdf();
+} else {
+  fail(
+    "Usage: node scripts/reference-pdf.mjs fetch --url <pdf-url> [--out <path>] | extract --pdf <path> --source-key <key> --language <code> [--title <title>] [--source-url <url>] [--out <path>]"
+  );
 }
 
-const pdfPath = getRequiredOption("--pdf");
-const sourceKey = getRequiredOption("--source-key");
-const language = getRequiredOption("--language");
-const title = getOptionValue("--title") ?? basename(pdfPath, ".pdf");
-const sourceUrl = getOptionValue("--source-url") ?? null;
-const outputPath = resolve(
-  process.cwd(),
-  getOptionValue("--out") ?? `data/reference/workbench/${sourceKey}.extracted.json`
-);
+async function fetchPdf() {
+  const url = getRequiredOption("--url");
+  const parsedUrl = new URL(url);
+  const urlName = basename(parsedUrl.pathname) || "reference.pdf";
+  const outputPath = resolve(
+    process.cwd(),
+    getOptionValue("--out") ?? `data/reference/pdfs/${sanitizeFileName(urlName)}`
+  );
 
-if (!/^[a-z0-9][a-z0-9-]*$/.test(sourceKey)) {
-  fail("--source-key must use lowercase letters, numbers, and hyphens.");
-}
-
-if (!existsSync(resolve(process.cwd(), pdfPath))) {
-  fail(`PDF not found: ${pdfPath}`);
-}
-
-const python = getPythonExecutable();
-const result = spawnSync(
-  python,
-  [
-    resolve(process.cwd(), "scripts", "reference_pdf_extract.py"),
-    "--pdf",
-    resolve(process.cwd(), pdfPath),
-    "--source-key",
-    sourceKey,
-    "--language",
-    language,
-    "--title",
-    title,
-    ...(sourceUrl ? ["--source-url", sourceUrl] : [])
-  ],
-  {
-    cwd: process.cwd(),
-    encoding: "utf8"
+  if (!outputPath.toLowerCase().endsWith(".pdf")) {
+    fail("--out must end with .pdf.");
   }
-);
 
-if (result.status !== 0) {
-  process.stderr.write(result.stderr);
-  process.stdout.write(result.stdout);
-  process.exit(result.status ?? 1);
+  const response = await fetch(url, {
+    headers: {
+      "User-Agent": "WarcryHeraldReferencePipeline/1.0"
+    }
+  });
+
+  if (!response.ok) {
+    fail(`${url} failed with ${response.status}.`);
+  }
+
+  const bytes = new Uint8Array(await response.arrayBuffer());
+
+  if (!isPdf(bytes)) {
+    fail(`${url} did not return a PDF.`);
+  }
+
+  mkdirSync(dirname(outputPath), { recursive: true });
+  writeFileSync(outputPath, bytes);
+
+  console.log(`ok - fetched ${url}`);
+  console.log(`ok - wrote ${outputPath}`);
 }
 
-mkdirSync(dirname(outputPath), { recursive: true });
-writeFileSync(outputPath, result.stdout);
+function extractPdf() {
+  const pdfPath = getRequiredOption("--pdf");
+  const sourceKey = getRequiredOption("--source-key");
+  const language = getRequiredOption("--language");
+  const title = getOptionValue("--title") ?? basename(pdfPath, ".pdf");
+  const sourceUrl = getOptionValue("--source-url") ?? null;
+  const outputPath = resolve(
+    process.cwd(),
+    getOptionValue("--out") ?? `data/reference/workbench/${sourceKey}.extracted.json`
+  );
 
-console.log(`ok - extracted ${pdfPath}`);
-console.log(`ok - wrote ${outputPath}`);
+  if (!/^[a-z0-9][a-z0-9-]*$/.test(sourceKey)) {
+    fail("--source-key must use lowercase letters, numbers, and hyphens.");
+  }
+
+  if (!existsSync(resolve(process.cwd(), pdfPath))) {
+    fail(`PDF not found: ${pdfPath}`);
+  }
+
+  const python = getPythonExecutable();
+  const result = spawnSync(
+    python,
+    [
+      resolve(process.cwd(), "scripts", "reference_pdf_extract.py"),
+      "--pdf",
+      resolve(process.cwd(), pdfPath),
+      "--source-key",
+      sourceKey,
+      "--language",
+      language,
+      "--title",
+      title,
+      ...(sourceUrl ? ["--source-url", sourceUrl] : [])
+    ],
+    {
+      cwd: process.cwd(),
+      encoding: "utf8"
+    }
+  );
+
+  if (result.status !== 0) {
+    process.stderr.write(result.stderr);
+    process.stdout.write(result.stdout);
+    process.exit(result.status ?? 1);
+  }
+
+  mkdirSync(dirname(outputPath), { recursive: true });
+  writeFileSync(outputPath, result.stdout);
+
+  console.log(`ok - extracted ${pdfPath}`);
+  console.log(`ok - wrote ${outputPath}`);
+}
 
 function getPythonExecutable() {
   const configured = process.env.PYTHON;
@@ -87,6 +131,20 @@ function getOptionValue(name) {
   }
 
   return process.argv[index + 1] ?? null;
+}
+
+function sanitizeFileName(value) {
+  return value.replace(/[^a-zA-Z0-9._-]+/g, "-");
+}
+
+function isPdf(bytes) {
+  return (
+    bytes.length > 4 &&
+    bytes[0] === 0x25 &&
+    bytes[1] === 0x50 &&
+    bytes[2] === 0x44 &&
+    bytes[3] === 0x46
+  );
 }
 
 function fail(message) {

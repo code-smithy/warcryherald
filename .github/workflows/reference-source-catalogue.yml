@@ -1,0 +1,46 @@
+name: Refresh Reference Source Catalogue
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 5 * * 1"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reference-source-catalogue
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: Refresh source catalogue
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.17.1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Discover official source catalogue
+        run: pnpm discover:reference-sources
+
+      - name: Commit catalogue changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(reference): refresh source catalogue"
+          file_pattern: data/reference/source-catalogue/*.discovered.json

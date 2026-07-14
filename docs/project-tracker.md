@@ -859,6 +859,8 @@ Record durable decisions here.
 - 2026-07-14: Added official English and German Warhammer Community source catalogue manifest and a discovery script for source metadata.
 - 2026-07-14: Added `mechanics` JSONB fields for abilities and blessings so reviewed imports can preserve exact operative clauses without relying only on prose summaries.
 - 2026-07-14: Added a local PDF extraction command that writes ignored workbench review JSON with page previews, likely fighter rows, and likely ability blocks.
+- 2026-07-14: Added a PDF fetch command so official PDF URLs can be downloaded into the ignored local PDF inbox before extraction.
+- 2026-07-14: Made the generated official source-catalogue JSON commit-ready and added a GitHub workflow to refresh and commit it when catalogue metadata changes.
 
 ## Phase Completion Log
 

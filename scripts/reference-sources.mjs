@@ -18,7 +18,6 @@ const outputPath = resolve(
     "data/reference/source-catalogue/warhammer-community-warcry.discovered.json"
 );
 const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
-const discoveredAt = new Date().toISOString();
 const catalogues = [];
 
 for (const catalogue of manifest.catalogues) {
@@ -38,7 +37,6 @@ for (const catalogue of manifest.catalogues) {
 
   catalogues.push({
     ...catalogue,
-    discoveredAt,
     documentLinks,
     candidateLinks: links.filter((link) => link.url.includes("/downloads/") || link.url.includes("/warcry/"))
   });
@@ -49,8 +47,8 @@ writeFileSync(
   outputPath,
   `${JSON.stringify(
     {
-      generatedAt: discoveredAt,
-      sourceManifest: manifestPath.replaceAll("\\", "/"),
+      schemaVersion: 1,
+      sourceManifest: getRepoRelativePath(manifestPath),
       catalogues
     },
     null,
@@ -75,7 +73,7 @@ function extractLinks(html, baseUrl) {
       continue;
     }
 
-    const url = new URL(href, baseUrl).toString();
+    const url = normalizeDiscoveredUrl(new URL(href, baseUrl).toString());
     const title = stripHtml(body).trim();
     const key = `${url}|${title}`;
 
@@ -88,7 +86,7 @@ function extractLinks(html, baseUrl) {
   }
 
   for (const url of html.match(/https?:\/\/[^"'<> )]+/g) ?? []) {
-    const normalizedUrl = url.replace(/\\u002F/g, "/");
+    const normalizedUrl = normalizeDiscoveredUrl(url.replace(/\\u002F/g, "/"));
     const key = `${normalizedUrl}|`;
 
     if (!seen.has(key)) {
@@ -127,6 +125,10 @@ function stripHtml(value) {
     .replace(/\s+/g, " ");
 }
 
+function normalizeDiscoveredUrl(value) {
+  return value.replace(/\\+$/g, "");
+}
+
 function getOptionValue(name) {
   const index = process.argv.indexOf(name);
 
@@ -135,4 +137,13 @@ function getOptionValue(name) {
   }
 
   return process.argv[index + 1] ?? null;
+}
+
+function getRepoRelativePath(path) {
+  const relativePath = path
+    .replace(resolve(process.cwd()), "")
+    .replace(/^[/\\]/, "")
+    .replaceAll("\\", "/");
+
+  return relativePath || path.replaceAll("\\", "/");
 }

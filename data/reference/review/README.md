@@ -7,7 +7,8 @@ Recommended flow:
 
 1. Run `pnpm discover:reference-sources`.
 2. Review `data/reference/source-catalogue/warhammer-community-warcry.discovered.json`.
-3. Download official PDFs manually into `data/reference/pdfs/`. Do not commit PDFs.
+3. Copy each official PDF URL from the browser-visible download button and run
+   `pnpm fetch:reference-pdf -- --url <pdf-url>`. Do not commit PDFs.
 4. Run `pnpm extract:reference-pdf` to generate ignored workbench extraction
    files under `data/reference/workbench/`.
 5. Review extraction candidates against the rendered PDF.
