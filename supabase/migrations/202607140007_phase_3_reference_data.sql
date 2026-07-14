@@ -48,7 +48,7 @@ create table if not exists public.runemarks (
   id uuid primary key default gen_random_uuid(),
   stable_key text not null unique check (stable_key ~ '^[a-z0-9][a-z0-9-]*$'),
   name text not null check (char_length(trim(name)) between 1 and 80),
-  category text not null default 'fighter' check (category in ('fighter', 'faction', 'ability', 'universal')),
+  category text not null default 'fighter' check (category in ('fighter', 'faction', 'ability', 'universal', 'characteristic', 'weapon')),
   display_order integer not null default 0,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()

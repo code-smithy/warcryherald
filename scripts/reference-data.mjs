@@ -621,7 +621,9 @@ const factionSchema = z.object({
 const runemarkSchema = z.object({
   stableKey,
   name: z.string().trim().min(1).max(80),
-  category: z.enum(["fighter", "faction", "ability", "universal"]).default("fighter"),
+  category: z
+    .enum(["fighter", "faction", "ability", "universal", "characteristic", "weapon"])
+    .default("fighter"),
   displayOrder: z.number().int().default(0)
 });
 

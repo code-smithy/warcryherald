@@ -3,7 +3,7 @@
     {
       "stableKey": "en-ability-87348921",
       "rulesReleaseStableKey": "warcrier-warbands-order-monsters-of-order-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-order-monsters-of-order",
       "name": "Abyssal Howl",
       "isUniversal": false,
       "cost": "Triple",
@@ -37,7 +37,7 @@
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-before-the-gnarlwood-challenge-battles-a-right-old-mess-en-release",
       "factionStableKey": null,
       "name": "Activate the Rune",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Double",
       "effect": "Structured rule involving bonus attacks; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -67,7 +67,7 @@
       "rulesReleaseStableKey": "warcrier-battles-battleplan-generator-twists-en-release",
       "factionStableKey": null,
       "name": "Aligned",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Quad",
       "effect": "Structured rule involving movement modifiers; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -94,7 +94,7 @@
     {
       "stableKey": "en-ability-7bbc8ec9",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-allies-of-chaos",
       "name": "Arcane Fury",
       "isUniversal": false,
       "cost": "Triple",
@@ -128,7 +128,7 @@
       "rulesReleaseStableKey": "warcrier-rules-optional-rules-battle-traits-en-release",
       "factionStableKey": null,
       "name": "Aspire to Glory",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Battle Trait",
       "effect": "Structured rule involving damage allocation, critical hits; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -157,7 +157,7 @@
     {
       "stableKey": "en-ability-b7b106a5",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Aura of Mutation",
       "isUniversal": false,
       "cost": "Quad",
@@ -191,7 +191,7 @@
     {
       "stableKey": "en-ability-4ea5d6ac",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Avalanche of Flesh",
       "isUniversal": false,
       "cost": "Triple",
@@ -225,7 +225,7 @@
     {
       "stableKey": "en-ability-c3d76f91",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Beast Unbound",
       "isUniversal": false,
       "cost": "Triple",
@@ -257,7 +257,7 @@
     {
       "stableKey": "en-ability-43a52834",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-allies-of-chaos",
       "name": "Berserk",
       "isUniversal": false,
       "cost": "Double",
@@ -321,7 +321,7 @@
     {
       "stableKey": "en-ability-739e521e",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-allies-of-chaos",
       "name": "Blood Marshal",
       "isUniversal": false,
       "cost": "Triple",
@@ -355,7 +355,7 @@
     {
       "stableKey": "en-ability-68c2f956",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-allies-of-chaos",
       "name": "Bloody Trophy",
       "isUniversal": false,
       "cost": "Double",
@@ -387,7 +387,7 @@
       "rulesReleaseStableKey": "warcrier-rules-terrain-scales-of-talaxis-terrain-rules-en-release",
       "factionStableKey": null,
       "name": "Cautious Deciphering",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Triple",
       "effect": "Structured rule involving damage allocation; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -418,7 +418,7 @@
     {
       "stableKey": "en-ability-f86e1ac0",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-allies-of-chaos",
       "name": "Charm",
       "isUniversal": false,
       "cost": "Quad",
@@ -476,7 +476,7 @@
       "rulesReleaseStableKey": "warcrier-rules-optional-rules-battle-traits-en-release",
       "factionStableKey": null,
       "name": "Courageous Defenders",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Battle Trait",
       "effect": "Structured rule involving critical hits; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -502,7 +502,7 @@
     {
       "stableKey": "en-ability-14938b02",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-thralls-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-thralls-of-chaos",
       "name": "Cower",
       "isUniversal": false,
       "cost": "Triple",
@@ -531,7 +531,7 @@
     {
       "stableKey": "en-ability-432cbdbc",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-thralls-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-thralls-of-chaos",
       "name": "Crazed Flock",
       "isUniversal": false,
       "cost": "Triple",
@@ -565,7 +565,7 @@
     {
       "stableKey": "en-ability-bb806355",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-allies-of-chaos",
       "name": "Cruel Strike",
       "isUniversal": false,
       "cost": "Reaction",
@@ -602,7 +602,7 @@
     {
       "stableKey": "en-ability-835cd781",
       "rulesReleaseStableKey": "warcrier-warbands-destruction-monsters-of-destruction-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-destruction-monsters-of-destruction",
       "name": "Crushing Grip",
       "isUniversal": false,
       "cost": "Triple",
@@ -637,7 +637,7 @@
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-before-the-gnarlwood-narrative-battles-the-forlorn-hope-en-release",
       "factionStableKey": null,
       "name": "Curse of Years",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Quad",
       "effect": "Structured rule involving damage allocation, toughness modifiers; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -668,7 +668,7 @@
     {
       "stableKey": "en-ability-a7e23cab",
       "rulesReleaseStableKey": "warcrier-warbands-death-monsters-of-death-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-death-monsters-of-death",
       "name": "Death Scream",
       "isUniversal": false,
       "cost": "Triple",
@@ -704,7 +704,7 @@
       "rulesReleaseStableKey": "warcrier-rules-optional-rules-battle-traits-en-release",
       "factionStableKey": null,
       "name": "Deathless Minions",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Battle Trait",
       "effect": "Structured rule involving critical hits; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -730,7 +730,7 @@
     {
       "stableKey": "en-ability-ba68cdfb",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-jade-obelisk-quests-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-jade-obelisk",
       "name": "Defiling Strike",
       "isUniversal": false,
       "cost": "Triple",
@@ -796,7 +796,7 @@
     {
       "stableKey": "en-ability-c6ede27d",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-allies-of-chaos",
       "name": "Dominate Mind",
       "isUniversal": false,
       "cost": "Triple",
@@ -829,7 +829,7 @@
     {
       "stableKey": "en-ability-cd07297b",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Draconic Head's Fiery Breath",
       "isUniversal": false,
       "cost": "Quad",
@@ -896,7 +896,7 @@
     {
       "stableKey": "en-ability-d43e0dc0",
       "rulesReleaseStableKey": "warcrier-warbands-destruction-monsters-of-destruction-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-destruction-monsters-of-destruction",
       "name": "Dragged Victim",
       "isUniversal": false,
       "cost": "Quad",
@@ -929,7 +929,7 @@
     {
       "stableKey": "en-ability-90a08960",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Drunken Stagger",
       "isUniversal": false,
       "cost": "Double",
@@ -960,7 +960,7 @@
     {
       "stableKey": "en-ability-c15ac47e",
       "rulesReleaseStableKey": "warcrier-warbands-destruction-monsters-of-destruction-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-destruction-monsters-of-destruction",
       "name": "Drunken Stagger",
       "isUniversal": false,
       "cost": "Double",
@@ -991,7 +991,7 @@
     {
       "stableKey": "en-ability-69a56b0c",
       "rulesReleaseStableKey": "warcrier-warbands-order-monsters-of-order-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-order-monsters-of-order",
       "name": "Fiery Breath",
       "isUniversal": false,
       "cost": "Triple",
@@ -1028,7 +1028,7 @@
       "rulesReleaseStableKey": "warcrier-battles-matched-play-en-release",
       "factionStableKey": null,
       "name": "Forge a Legend",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Triple",
       "effect": "Structured rule involving bonus movement, bonus attacks, taken-down fighters; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -1063,7 +1063,7 @@
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-before-the-gnarlwood-narrative-battles-war-of-the-morruk-hills-en-release",
       "factionStableKey": null,
       "name": "From the Heavens",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Double",
       "effect": "Structured rule involving bonus movement, damage allocation; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -1098,7 +1098,7 @@
       "rulesReleaseStableKey": "warcrier-rules-terrain-gnarlwood-terrain-special-rules-en-release",
       "factionStableKey": null,
       "name": "Get in the Pit",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Triple",
       "effect": "Structured rule involving dice resolution, strength modifiers, taken-down fighters; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -1161,7 +1161,7 @@
     {
       "stableKey": "en-ability-966269c7",
       "rulesReleaseStableKey": "warcrier-warbands-order-allies-of-order-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-order-allies-of-order",
       "name": "Grombindal's Wisdom",
       "isUniversal": false,
       "cost": "Triple",
@@ -1198,7 +1198,7 @@
       "rulesReleaseStableKey": "warcrier-battles-battleplan-generator-twists-en-release",
       "factionStableKey": null,
       "name": "Healing Rains",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Double",
       "effect": "Structured rule involving damage allocation, damage removal, toughness modifiers; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -1229,7 +1229,7 @@
     {
       "stableKey": "en-ability-0d632646",
       "rulesReleaseStableKey": "warcrier-warbands-destruction-kruleboyz-monsta-killaz-quests-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-destruction-kruleboyz-monsta-killaz",
       "name": "Hollerin' and Hootin'",
       "isUniversal": false,
       "cost": "Triple",
@@ -1254,7 +1254,7 @@
     {
       "stableKey": "en-ability-7beccbda",
       "rulesReleaseStableKey": "warcrier-warbands-destruction-thralls-of-destruction-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-destruction-thralls-of-destruction",
       "name": "Horrific Stench",
       "isUniversal": false,
       "cost": "Reaction",
@@ -1285,7 +1285,7 @@
     {
       "stableKey": "en-ability-e849e327",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Hurl Boulder",
       "isUniversal": false,
       "cost": "Triple",
@@ -1318,7 +1318,7 @@
     {
       "stableKey": "en-ability-2d6a9f87",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-allies-of-chaos",
       "name": "Hurl Masonry",
       "isUniversal": false,
       "cost": "Double",
@@ -1353,7 +1353,7 @@
     {
       "stableKey": "en-ability-5a4eb2ae",
       "rulesReleaseStableKey": "warcrier-warbands-death-monsters-of-death-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-death-monsters-of-death",
       "name": "Infested with Bats",
       "isUniversal": false,
       "cost": "Quad",
@@ -1388,7 +1388,7 @@
       "rulesReleaseStableKey": "warcrier-rules-terrain-scales-of-talaxis-terrain-rules-en-release",
       "factionStableKey": null,
       "name": "Infuse with Energy",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Double",
       "effect": "Structured rule involving dice resolution; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -1441,7 +1441,7 @@
     {
       "stableKey": "en-ability-115a9054",
       "rulesReleaseStableKey": "warcrier-warbands-order-allies-of-order-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-order-allies-of-order",
       "name": "Knowing Just Where to Strike",
       "isUniversal": false,
       "cost": "Double",
@@ -1472,7 +1472,7 @@
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-before-the-gnarlwood-narrative-battles-the-purge-of-anvilgard-en-release",
       "factionStableKey": null,
       "name": "Lantern of Abjuration",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Triple",
       "effect": "Special rule with source-defined conditions and effects; consult the linked Warcrier section for exact wording.",
       "mechanics": {
@@ -1505,7 +1505,7 @@
     {
       "stableKey": "en-ability-e19e1937",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Leonine Roar",
       "isUniversal": false,
       "cost": "Triple",
@@ -1540,7 +1540,7 @@
       "rulesReleaseStableKey": "warcrier-battles-matched-play-en-release",
       "factionStableKey": null,
       "name": "Lifeleech Curse",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Triple",
       "effect": "Structured rule involving damage allocation, damage removal, treasure interaction, terrain interaction; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -1575,7 +1575,7 @@
     {
       "stableKey": "en-ability-bc107512",
       "rulesReleaseStableKey": "warcrier-warbands-order-idoneth-deepkin-quests-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-order-idoneth-deepkin",
       "name": "Light of Hysh",
       "isUniversal": false,
       "cost": "Reaction",
@@ -1609,7 +1609,7 @@
     {
       "stableKey": "en-ability-80b277b5",
       "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-order-wildercorps-hunters",
       "name": "Look Out, Sir!",
       "isUniversal": false,
       "cost": "Reaction",
@@ -1643,7 +1643,7 @@
       "rulesReleaseStableKey": "warcrier-rules-terrain-gnarlwood-terrain-special-rules-en-release",
       "factionStableKey": null,
       "name": "Makeshift Missiles",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Double",
       "effect": "Structured rule involving damage allocation; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -1674,7 +1674,7 @@
     {
       "stableKey": "en-ability-bf43048a",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-allies-of-chaos",
       "name": "Marshal's Net",
       "isUniversal": false,
       "cost": "Double",
@@ -1708,7 +1708,7 @@
     {
       "stableKey": "en-ability-8a3c74a0",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Maw Tentacles",
       "isUniversal": false,
       "cost": "Double",
@@ -1742,7 +1742,7 @@
     {
       "stableKey": "en-ability-cf5c1090",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Mighty Jaws",
       "isUniversal": false,
       "cost": "Double",
@@ -1775,7 +1775,7 @@
     {
       "stableKey": "en-ability-7bbcb219",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Mighty Kick",
       "isUniversal": false,
       "cost": "Triple",
@@ -1809,7 +1809,7 @@
     {
       "stableKey": "en-ability-dd928981",
       "rulesReleaseStableKey": "warcrier-warbands-destruction-monsters-of-destruction-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-destruction-monsters-of-destruction",
       "name": "Mighty Kick",
       "isUniversal": false,
       "cost": "Triple",
@@ -1873,7 +1873,7 @@
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-before-the-gnarlwood-narrative-battles-the-purge-of-anvilgard-en-release",
       "factionStableKey": null,
       "name": "Murderous Swashbuckler",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Double",
       "effect": "Structured rule involving attack modifiers; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -1900,7 +1900,7 @@
     {
       "stableKey": "en-ability-f498740f",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Mutant Regeneration",
       "isUniversal": false,
       "cost": "Triple",
@@ -1932,7 +1932,7 @@
     {
       "stableKey": "en-ability-29483e90",
       "rulesReleaseStableKey": "warcrier-warbands-death-thralls-of-death-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-death-thralls-of-death",
       "name": "Necromantic Bonds",
       "isUniversal": false,
       "cost": "Reaction",
@@ -1967,7 +1967,7 @@
     {
       "stableKey": "en-ability-4b48ae9b",
       "rulesReleaseStableKey": "warcrier-warbands-order-allies-of-order-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-order-allies-of-order",
       "name": "Nothing I Haven't Seen Before",
       "isUniversal": false,
       "cost": "Quad",
@@ -1998,7 +1998,7 @@
     {
       "stableKey": "en-ability-c8b9eb22",
       "rulesReleaseStableKey": "warcrier-warbands-destruction-thralls-of-destruction-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-destruction-thralls-of-destruction",
       "name": "Noxious Vomit",
       "isUniversal": false,
       "cost": "Double",
@@ -2064,7 +2064,7 @@
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-before-the-gnarlwood-narrative-battles-war-of-the-morruk-hills-en-release",
       "factionStableKey": null,
       "name": "Out of the Mists",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Double",
       "effect": "Structured rule involving bonus movement; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -2093,7 +2093,7 @@
     {
       "stableKey": "en-ability-639d31e7",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-thralls-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-thralls-of-chaos",
       "name": "Outrunner of Chaos",
       "isUniversal": false,
       "cost": "Double",
@@ -2124,7 +2124,7 @@
     {
       "stableKey": "en-ability-e55373fd",
       "rulesReleaseStableKey": "warcrier-warbands-destruction-monsters-of-destruction-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-destruction-monsters-of-destruction",
       "name": "Paralysing Venom",
       "isUniversal": false,
       "cost": "Triple",
@@ -2156,7 +2156,7 @@
     {
       "stableKey": "en-ability-6f7786d8",
       "rulesReleaseStableKey": "warcrier-warbands-death-monsters-of-death-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-death-monsters-of-death",
       "name": "Pestilent Breath",
       "isUniversal": false,
       "cost": "Quad",
@@ -2193,7 +2193,7 @@
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-before-the-gnarlwood-narrative-battles-the-purge-of-anvilgard-en-release",
       "factionStableKey": null,
       "name": "Plough Through",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Triple",
       "effect": "Structured rule involving damage allocation; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -2225,7 +2225,7 @@
       "rulesReleaseStableKey": "warcrier-rules-terrain-gnarlwood-terrain-special-rules-en-release",
       "factionStableKey": null,
       "name": "Power Unleashed",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Triple",
       "effect": "Structured rule involving damage allocation, terrain interaction; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -2258,7 +2258,7 @@
     {
       "stableKey": "en-ability-7a9f79ce",
       "rulesReleaseStableKey": "warcrier-warbands-order-monsters-of-order-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-order-monsters-of-order",
       "name": "Quick with the Lash",
       "isUniversal": false,
       "cost": "Double",
@@ -2289,7 +2289,7 @@
     {
       "stableKey": "en-ability-9f01600b",
       "rulesReleaseStableKey": "warcrier-warbands-order-monsters-of-order-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-order-monsters-of-order",
       "name": "Quick with the Lash",
       "isUniversal": false,
       "cost": "Double",
@@ -2320,7 +2320,7 @@
     {
       "stableKey": "en-ability-29de0ba8",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Rampaging Charge",
       "isUniversal": false,
       "cost": "Double",
@@ -2354,7 +2354,7 @@
     {
       "stableKey": "en-ability-9a527ccb",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-allies-of-chaos",
       "name": "Rampaging Charge",
       "isUniversal": false,
       "cost": "Triple",
@@ -2390,7 +2390,7 @@
       "rulesReleaseStableKey": "warcrier-rules-terrain-scales-of-talaxis-terrain-rules-en-release",
       "factionStableKey": null,
       "name": "Ransack",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Double",
       "effect": "Structured rule involving damage allocation, dice resolution, wild dice; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -2422,7 +2422,7 @@
     {
       "stableKey": "en-ability-2d016ef5",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Ravenous Bloodgreed",
       "isUniversal": false,
       "cost": "Quad",
@@ -2456,7 +2456,7 @@
       "rulesReleaseStableKey": "warcrier-battles-battleplan-generator-twists-en-release",
       "factionStableKey": null,
       "name": "Read Inscriptions",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Double",
       "effect": "Structured rule involving damage allocation, dice resolution, movement modifiers, attack modifiers, strength modifiers; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -2535,7 +2535,7 @@
     {
       "stableKey": "en-ability-94cb55a7",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Regenerating Monstrosity",
       "isUniversal": false,
       "cost": "Double",
@@ -2569,7 +2569,7 @@
       "rulesReleaseStableKey": "warcrier-rules-optional-rules-battle-traits-en-release",
       "factionStableKey": null,
       "name": "Relentless Destroyers",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Battle Trait",
       "effect": "Optional battle trait; consult the linked Warcrier section for the exact eligibility, timing, and effect.",
       "mechanics": {
@@ -2628,7 +2628,7 @@
     {
       "stableKey": "en-ability-a2ab02f6",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Rip and Tear Masonry",
       "isUniversal": false,
       "cost": "Double",
@@ -2657,7 +2657,7 @@
     {
       "stableKey": "en-ability-e2a3a52d",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Roaring Charge",
       "isUniversal": false,
       "cost": "Double",
@@ -2719,7 +2719,7 @@
       "rulesReleaseStableKey": "warcrier-rules-terrain-scales-of-talaxis-terrain-rules-en-release",
       "factionStableKey": null,
       "name": "Rushed Deciphering",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Double",
       "effect": "Structured rule involving damage allocation, dice resolution; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -2751,7 +2751,7 @@
     {
       "stableKey": "en-ability-ad5ea812",
       "rulesReleaseStableKey": "warcrier-warbands-death-thralls-of-death-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-death-thralls-of-death",
       "name": "Scent of Gore",
       "isUniversal": false,
       "cost": "Triple",
@@ -2787,7 +2787,7 @@
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-before-the-gnarlwood-narrative-battles-the-purge-of-anvilgard-en-release",
       "factionStableKey": null,
       "name": "Scour For Corruption",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Double",
       "effect": "Structured rule involving damage allocation, dice resolution; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -2821,7 +2821,7 @@
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-before-the-gnarlwood-narrative-battles-the-forlorn-hope-en-release",
       "factionStableKey": null,
       "name": "Searing Darts of Light",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Double",
       "effect": "Structured rule involving damage allocation; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -2850,7 +2850,7 @@
     {
       "stableKey": "en-ability-98a476a3",
       "rulesReleaseStableKey": "warcrier-warbands-order-monsters-of-order-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-order-monsters-of-order",
       "name": "Sever One Head, Another Takes Its Place",
       "isUniversal": false,
       "cost": "Quad",
@@ -2885,7 +2885,7 @@
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-the-sundered-scales-en-release",
       "factionStableKey": null,
       "name": "Shield of the Void",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Reaction",
       "effect": "Structured rule involving damage allocation, dice resolution, attack modifiers, toughness modifiers, objective control; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -2929,7 +2929,7 @@
     {
       "stableKey": "en-ability-fb6f504b",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-allies-of-chaos",
       "name": "Skewer, Drag and Bludgeon",
       "isUniversal": false,
       "cost": "Quad",
@@ -2964,7 +2964,7 @@
     {
       "stableKey": "en-ability-4ebb51eb",
       "rulesReleaseStableKey": "warcrier-warbands-death-thralls-of-death-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-death-thralls-of-death",
       "name": "Slavering Charge",
       "isUniversal": false,
       "cost": "Double",
@@ -2997,7 +2997,7 @@
     {
       "stableKey": "en-ability-04e790c9",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Slavering Maw",
       "isUniversal": false,
       "cost": "Triple",
@@ -3030,7 +3030,7 @@
     {
       "stableKey": "en-ability-8922ef18",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Soul-eater",
       "isUniversal": false,
       "cost": "Quad",
@@ -3067,7 +3067,7 @@
       "rulesReleaseStableKey": "warcrier-rules-terrain-gnarlwood-terrain-special-rules-en-release",
       "factionStableKey": null,
       "name": "Sound the Alarm",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Triple",
       "effect": "Special rule with source-defined conditions and effects; consult the linked Warcrier section for exact wording.",
       "mechanics": {
@@ -3092,7 +3092,7 @@
     {
       "stableKey": "en-ability-86b60a14",
       "rulesReleaseStableKey": "warcrier-warbands-order-monsters-of-order-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-order-monsters-of-order",
       "name": "Spiked Tail",
       "isUniversal": false,
       "cost": "Quad",
@@ -3125,7 +3125,7 @@
     {
       "stableKey": "en-ability-261f0ed9",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-allies-of-chaos",
       "name": "Spiteful Reprisal",
       "isUniversal": false,
       "cost": "Reaction",
@@ -3152,7 +3152,7 @@
     {
       "stableKey": "en-ability-6e5b14b2",
       "rulesReleaseStableKey": "warcrier-warbands-destruction-monsters-of-destruction-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-destruction-monsters-of-destruction",
       "name": "Squiggly-beast Followers",
       "isUniversal": false,
       "cost": "Double",
@@ -3223,7 +3223,7 @@
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-before-the-gnarlwood-narrative-battles-the-forlorn-hope-en-release",
       "factionStableKey": null,
       "name": "Summon Nightmare Predator",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Triple",
       "effect": "Structured rule involving damage allocation, terrain interaction, taken-down fighters; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -3257,7 +3257,7 @@
     {
       "stableKey": "en-ability-b63d9f37",
       "rulesReleaseStableKey": "warcrier-warbands-death-monsters-of-death-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-death-monsters-of-death",
       "name": "Swooping Dive",
       "isUniversal": false,
       "cost": "Double",
@@ -3288,7 +3288,7 @@
     {
       "stableKey": "en-ability-deaa5772",
       "rulesReleaseStableKey": "warcrier-warbands-death-monsters-of-death-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-death-monsters-of-death",
       "name": "Swooping Dive",
       "isUniversal": false,
       "cost": "Double",
@@ -3319,7 +3319,7 @@
     {
       "stableKey": "en-ability-aa4861f7",
       "rulesReleaseStableKey": "warcrier-warbands-death-monsters-of-death-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-death-monsters-of-death",
       "name": "Sword-like Claws",
       "isUniversal": false,
       "cost": "Triple",
@@ -3350,7 +3350,7 @@
     {
       "stableKey": "en-ability-5966dc17",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Tail Whip",
       "isUniversal": false,
       "cost": "Double",
@@ -3441,7 +3441,7 @@
     {
       "stableKey": "en-ability-bb102125",
       "rulesReleaseStableKey": "warcrier-warbands-death-soulblight-gravelords-quests-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-death-soulblight-gravelords",
       "name": "Tear It Down",
       "isUniversal": false,
       "cost": "Double",
@@ -3474,7 +3474,7 @@
     {
       "stableKey": "en-ability-ec0cec2a",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-allies-of-chaos",
       "name": "Telepathic Threatening",
       "isUniversal": false,
       "cost": "Double",
@@ -3506,7 +3506,7 @@
     {
       "stableKey": "en-ability-2908288b",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-allies-of-chaos",
       "name": "Test of Skill",
       "isUniversal": false,
       "cost": "Reaction",
@@ -3539,7 +3539,7 @@
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-before-the-gnarlwood-narrative-battles-a-fools-trove-in-ulfenkarn-en-release",
       "factionStableKey": null,
       "name": "The Dead Rise",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Quad",
       "effect": "Structured rule involving bonus attacks, taken-down fighters; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -3575,7 +3575,7 @@
     {
       "stableKey": "en-ability-df25190d",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-thralls-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-thralls-of-chaos",
       "name": "The Master's Voice",
       "isUniversal": false,
       "cost": "Reaction",
@@ -3610,7 +3610,7 @@
     {
       "stableKey": "en-ability-53858b0f",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Too Horrible to Die",
       "isUniversal": false,
       "cost": "Quad",
@@ -3641,7 +3641,7 @@
     {
       "stableKey": "en-ability-a2752287",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-allies-of-chaos",
       "name": "Trampling Charge",
       "isUniversal": false,
       "cost": "Triple",
@@ -3675,7 +3675,7 @@
     {
       "stableKey": "en-ability-17e5bdf0",
       "rulesReleaseStableKey": "warcrier-warbands-destruction-monsters-of-destruction-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-destruction-monsters-of-destruction",
       "name": "Troggoth Regrowth",
       "isUniversal": false,
       "cost": "Double",
@@ -3707,7 +3707,7 @@
     {
       "stableKey": "en-ability-6a083be7",
       "rulesReleaseStableKey": "warcrier-warbands-destruction-thralls-of-destruction-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-destruction-thralls-of-destruction",
       "name": "Troggoth Regrowth",
       "isUniversal": false,
       "cost": "Double",
@@ -3741,7 +3741,7 @@
       "rulesReleaseStableKey": "warcrier-rules-terrain-varanite-delve-special-rules-en-release",
       "factionStableKey": null,
       "name": "Turn Delve Engine On",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Double",
       "effect": "Structured rule involving damage allocation, dice resolution; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -3777,7 +3777,7 @@
       "rulesReleaseStableKey": "warcrier-rules-terrain-varanite-delve-special-rules-en-release",
       "factionStableKey": null,
       "name": "Turn Delve Engines Off",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Triple",
       "effect": "Special rule with source-defined conditions and effects; consult the linked Warcrier section for exact wording.",
       "mechanics": {
@@ -3802,7 +3802,7 @@
     {
       "stableKey": "en-ability-b26ac39f",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-thralls-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-thralls-of-chaos",
       "name": "Uncontrollable Stampede",
       "isUniversal": false,
       "cost": "Triple",
@@ -3838,7 +3838,7 @@
       "rulesReleaseStableKey": "warcrier-battles-matched-play-en-release",
       "factionStableKey": null,
       "name": "Unseat",
-      "isUniversal": false,
+      "isUniversal": true,
       "cost": "Triple",
       "effect": "Structured rule involving damage allocation, strength modifiers, taken-down fighters; consult the linked Warcrier section for exact timing, targets, ranges, and values.",
       "mechanics": {
@@ -3873,7 +3873,7 @@
     {
       "stableKey": "en-ability-710715ea",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-allies-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-allies-of-chaos",
       "name": "Unthinking Destruction",
       "isUniversal": false,
       "cost": "Reaction",
@@ -3906,7 +3906,7 @@
     {
       "stableKey": "en-ability-4dd76429",
       "rulesReleaseStableKey": "warcrier-warbands-destruction-monsters-of-destruction-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-destruction-monsters-of-destruction",
       "name": "Vicious 'Eadbutt",
       "isUniversal": false,
       "cost": "Quad",
@@ -3939,7 +3939,7 @@
     {
       "stableKey": "en-ability-8613c6ea",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-monsters-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-monsters-of-chaos",
       "name": "Vicious 'Eadbutt",
       "isUniversal": false,
       "cost": "Quad",
@@ -3972,7 +3972,7 @@
     {
       "stableKey": "en-ability-943df11b",
       "rulesReleaseStableKey": "warcrier-warbands-order-idoneth-deepkin-quests-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-order-idoneth-deepkin",
       "name": "Voltaic Retaliation",
       "isUniversal": false,
       "cost": "Reaction",
@@ -4002,7 +4002,7 @@
     {
       "stableKey": "en-ability-fcd24c77",
       "rulesReleaseStableKey": "warcrier-warbands-destruction-monsters-of-destruction-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-destruction-monsters-of-destruction",
       "name": "Wall Crawler",
       "isUniversal": false,
       "cost": "Double",
@@ -4031,7 +4031,7 @@
     {
       "stableKey": "en-ability-e9455430",
       "rulesReleaseStableKey": "warcrier-warbands-chaos-thralls-of-chaos-en-release",
-      "factionStableKey": null,
+      "factionStableKey": "en-chaos-thralls-of-chaos",
       "name": "Writhing Tentacles",
       "isUniversal": false,
       "cost": "Triple",
