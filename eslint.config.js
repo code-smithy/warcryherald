@@ -34,5 +34,11 @@ export default tseslint.config(
         ...globals.vitest
       }
     }
+  },
+  {
+    files: ["scripts/**/*.mjs"],
+    languageOptions: {
+      globals: globals.nodeBuiltin
+    }
   }
 );

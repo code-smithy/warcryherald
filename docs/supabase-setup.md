@@ -48,6 +48,8 @@ the Supabase Dashboard SQL Editor:
 
 1. `supabase/migrations/202607140001_phase_1_profiles.sql`
 2. `supabase/migrations/202607140002_phase_2_campaigns.sql`
+3. `supabase/migrations/202607140003_phase_2_create_campaign_rpc.sql`
+4. `supabase/migrations/202607140004_phase_1_profiles_repair.sql`
 
 Then reload the PostgREST schema cache:
 
@@ -58,6 +60,19 @@ notify pgrst, 'reload schema';
 The browser error `Could not find the table 'public.profiles' in the schema
 cache` means the target Supabase project has not received the migrations or the
 PostgREST schema cache has not reloaded after migration.
+
+For a production project that is already partially migrated and reports
+`public.profiles` missing, run this repair migration from the SQL Editor:
+
+```text
+supabase/migrations/202607140004_phase_1_profiles_repair.sql
+```
+
+For a production project that reports `public.create_campaign(...)` missing, run:
+
+```text
+supabase/migrations/202607140003_phase_2_create_campaign_rpc.sql
+```
 
 The auth trigger creates or refreshes a profile whenever Supabase receives
 Discord metadata for a user. Frontend clients can update only these profile
@@ -78,6 +93,7 @@ The Phase 2 migration adds:
 - `campaign_status` and `campaign_member_role` enum types
 - campaign membership and administrator helper functions
 - `accept_campaign_invite(invite_token text)`
+- `create_campaign(campaign_name text, campaign_description text, campaign_status text)`
 
 Invitation acceptance should call `accept_campaign_invite()` through Supabase
 RPC. Do not insert campaign membership directly from the frontend.
@@ -95,6 +111,29 @@ Before marking Phase 2 complete, verify against the target Supabase project:
 - Players cannot promote themselves or manage invites.
 - Campaign administrators can create and disable invites.
 - The sole owner cannot leave or be removed.
+
+The automated verification command covers these checks against a migrated
+Supabase project. Use two temporary authenticated users, then pass their current
+access tokens through environment variables:
+
+```bash
+PHASE2_USER_A_ACCESS_TOKEN=<user-a-access-token> \
+PHASE2_USER_B_ACCESS_TOKEN=<user-b-access-token> \
+pnpm verify:phase2
+```
+
+On PowerShell:
+
+```powershell
+$env:PHASE2_USER_A_ACCESS_TOKEN = "<user-a-access-token>"
+$env:PHASE2_USER_B_ACCESS_TOKEN = "<user-b-access-token>"
+pnpm verify:phase2
+```
+
+The command creates temporary campaigns and invites in the target project. Run
+it against staging or a disposable verification campaign when possible. Do not
+commit access tokens or paste callback URLs containing `access_token` fragments
+into issue trackers, logs, or documentation.
 
 ## Future Setup Work
 

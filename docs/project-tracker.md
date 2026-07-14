@@ -336,7 +336,11 @@ Acceptance criteria:
 Closeout checklist:
 
 - Apply `202607140001_phase_1_profiles.sql` and
-  `202607140002_phase_2_campaigns.sql` to the target Supabase project.
+  `202607140002_phase_2_campaigns.sql` and
+  `202607140003_phase_2_create_campaign_rpc.sql` to the target Supabase
+  project.
+- If production reports `public.profiles` missing from the schema cache, run
+  `202607140004_phase_1_profiles_repair.sql` from the Supabase SQL Editor.
 - Reload the PostgREST schema cache after migration.
 - Confirm Discord login creates or refreshes a profile row.
 - Confirm an authenticated user can create a campaign and becomes owner.
@@ -347,6 +351,8 @@ Closeout checklist:
 - Confirm campaign administrators can manage invites and member roles, while
   players cannot self-promote.
 - Confirm the sole owner cannot leave or be removed.
+- Run `pnpm verify:phase2` with two temporary authenticated user access tokens
+  against the migrated target Supabase project.
 - Run `pnpm lint`, `pnpm test`, and `pnpm build` after any closeout fixes.
 
 ### Phase 3 - Versioned Warcry Reference Data
@@ -837,6 +843,9 @@ Record durable decisions here.
 - 2026-07-14: Phase 2 ownership transfer remains deferred; the database rejects direct owner role changes.
 - 2026-07-14: Campaign invitation acceptance uses the `accept_campaign_invite()` PostgreSQL function so invite validation, membership creation, and use-count increments happen atomically.
 - 2026-07-14: Profile reads are expanded only to users who share a campaign so member lists can show display names without making profiles public.
+- 2026-07-14: Phase 2 live closeout is verified by `pnpm verify:phase2`, which requires two temporary authenticated user access tokens and a migrated target Supabase project.
+- 2026-07-14: Added a new migration for `create_campaign(...)` rather than relying on edits to an already-applied Phase 2 migration. Applied databases must receive `202607140003_phase_2_create_campaign_rpc.sql`.
+- 2026-07-14: Added `202607140004_phase_1_profiles_repair.sql` to repair partially migrated Supabase projects where `public.profiles` is absent from the PostgREST schema cache.
 
 ## Phase Completion Log
 
@@ -863,7 +872,8 @@ Record completed phases and verification results here.
   - Added TypeScript tests for campaign draft validation, invite normalization, and invite state classification.
   - Added callback fixes for both PKCE `code` and implicit `access_token` OAuth redirects.
   - Added campaign creation RPC and shared Supabase error-message extraction after production testing exposed missing database objects and masked errors.
+  - Added `pnpm verify:phase2` to run the live two-user Phase 2 acceptance and RLS checks.
   - Verification: `pnpm lint` passed.
   - Verification: `pnpm test` passed with 11 tests.
   - Verification: `pnpm build` passed.
-  - Pending closeout: Supabase CLI is not installed in this environment, and production/local database credentials are not available here. Apply migrations and run the Phase 2 closeout checklist before marking Phase 2 complete.
+  - Pending closeout: Supabase CLI is not installed in this environment, and production/local database credentials plus two temporary user tokens are not available here. Apply migrations and run `pnpm verify:phase2` before marking Phase 2 complete.
