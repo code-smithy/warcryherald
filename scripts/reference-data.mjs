@@ -4,8 +4,7 @@ import { z } from "zod";
 
 loadDotEnv();
 
-function loadReferenceDataset() {
-  const referenceDir = resolve(process.cwd(), "data", "reference");
+function loadReferenceDataset(referenceDir = resolve(process.cwd(), "data", "reference")) {
   const releases = readJsonFile(resolve(referenceDir, "releases.json"));
   const factions = readJsonFile(resolve(referenceDir, "factions.json"));
   const runemarks = readJsonFile(resolve(referenceDir, "runemarks.json"));
@@ -342,6 +341,7 @@ async function importReferenceDataset(value, validationResult, mode) {
       ability_type: ability.isUniversal ? "universal" : "faction",
       cost: ability.cost,
       effect: ability.effect,
+      mechanics: ability.mechanics,
       source_document_id: nullableId(sourceDocumentIds, ability.sourceDocumentStableKey),
       source_page: ability.sourcePage
     })),
@@ -393,6 +393,7 @@ async function importReferenceDataset(value, validationResult, mode) {
       rules_release_id: releaseIds.get(blessing.rulesReleaseStableKey),
       name: blessing.name,
       effect: blessing.effect,
+      mechanics: blessing.mechanics,
       points: blessing.points,
       source_document_id: nullableId(sourceDocumentIds, blessing.sourceDocumentStableKey),
       source_page: blessing.sourcePage
@@ -665,6 +666,7 @@ const abilitySchema = z.object({
   isUniversal: z.boolean().default(false),
   cost: z.string().default(""),
   effect: z.string().default(""),
+  mechanics: z.record(z.unknown()).default({}),
   runemarkStableKeys: z.array(stableKey).default([]),
   sourceDocumentStableKey: optionalSourceDocumentKey,
   sourcePage: z.string().optional().nullable().transform((value) => value ?? null)
@@ -677,6 +679,7 @@ const blessingSchema = z.object({
   rulesReleaseStableKey: stableKey,
   name: z.string().trim().min(1).max(120),
   effect: z.string().default(""),
+  mechanics: z.record(z.unknown()).default({}),
   points: z.number().int().min(0).optional().nullable().transform((value) => value ?? null),
   sourceDocumentStableKey: optionalSourceDocumentKey,
   sourcePage: z.string().optional().nullable().transform((value) => value ?? null)
@@ -698,7 +701,8 @@ async function main() {
   const command = process.argv[2] ?? "validate";
   const dryRun = process.argv.includes("--dry-run");
   const checkRemote = process.argv.includes("--check-remote");
-  const dataset = loadReferenceDataset();
+  const referenceDir = resolve(process.cwd(), getOptionValue("--dir") ?? "data/reference");
+  const dataset = loadReferenceDataset(referenceDir);
   const validation = validateReferenceDataset(dataset);
 
   if (validation.errors.length > 0) {
@@ -718,10 +722,20 @@ async function main() {
     );
   } else {
     console.error(
-      "Usage: node scripts/reference-data.mjs validate|import [--dry-run|--check-remote]"
+      "Usage: node scripts/reference-data.mjs validate|import [--dir <path>] [--dry-run|--check-remote]"
     );
     process.exit(1);
   }
 }
 
 await main();
+
+function getOptionValue(name) {
+  const index = process.argv.indexOf(name);
+
+  if (index < 0) {
+    return null;
+  }
+
+  return process.argv[index + 1] ?? null;
+}

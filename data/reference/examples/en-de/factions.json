@@ -1,0 +1,30 @@
+{
+  "grandAlliances": [
+    {
+      "stableKey": "sample-order-en",
+      "name": "Order",
+      "displayOrder": 10
+    },
+    {
+      "stableKey": "sample-order-de",
+      "name": "Ordnung",
+      "displayOrder": 10
+    }
+  ],
+  "factions": [
+    {
+      "stableKey": "sample-storm-vanguard-en",
+      "rulesReleaseStableKey": "sample-2026-en",
+      "grandAllianceStableKey": "sample-order-en",
+      "name": "Sample Storm Vanguard",
+      "displayOrder": 10
+    },
+    {
+      "stableKey": "sample-sturm-vorhut-de",
+      "rulesReleaseStableKey": "sample-2026-de",
+      "grandAllianceStableKey": "sample-order-de",
+      "name": "Beispiel Sturm-Vorhut",
+      "displayOrder": 10
+    }
+  ]
+}

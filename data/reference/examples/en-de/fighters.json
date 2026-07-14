@@ -1,0 +1,82 @@
+{
+  "fighters": [
+    {
+      "stableKey": "sample-storm-vanguard-captain-2026-en",
+      "rulesReleaseStableKey": "sample-2026-en",
+      "factionStableKey": "sample-storm-vanguard-en",
+      "name": "Sample Vanguard Captain",
+      "movement": 4,
+      "toughness": 5,
+      "wounds": 22,
+      "points": 185,
+      "baseSizeMm": 32,
+      "isLeader": true,
+      "isCurrent": true,
+      "runemarkStableKeys": [
+        "sample-leader-en",
+        "sample-elite-en",
+        "sample-storm-vanguard-en"
+      ],
+      "sourceDocumentStableKey": "sample-warcry-reference-2026-en",
+      "sourcePage": "12"
+    },
+    {
+      "stableKey": "sample-storm-vanguard-warrior-2026-en",
+      "rulesReleaseStableKey": "sample-2026-en",
+      "factionStableKey": "sample-storm-vanguard-en",
+      "name": "Sample Vanguard Warrior",
+      "movement": 4,
+      "toughness": 4,
+      "wounds": 12,
+      "points": 95,
+      "baseSizeMm": 28,
+      "isLeader": false,
+      "isCurrent": true,
+      "runemarkStableKeys": [
+        "sample-warrior-en",
+        "sample-storm-vanguard-en"
+      ],
+      "sourceDocumentStableKey": "sample-warcry-reference-2026-en",
+      "sourcePage": "12"
+    },
+    {
+      "stableKey": "sample-sturm-vorhut-hauptmann-2026-de",
+      "rulesReleaseStableKey": "sample-2026-de",
+      "factionStableKey": "sample-sturm-vorhut-de",
+      "name": "Beispiel-Vorhut-Hauptmann",
+      "movement": 4,
+      "toughness": 5,
+      "wounds": 22,
+      "points": 185,
+      "baseSizeMm": 32,
+      "isLeader": true,
+      "isCurrent": true,
+      "runemarkStableKeys": [
+        "sample-anfuehrer-de",
+        "sample-elite-de",
+        "sample-sturm-vorhut-de"
+      ],
+      "sourceDocumentStableKey": "sample-warcry-reference-2026-de",
+      "sourcePage": "12"
+    },
+    {
+      "stableKey": "sample-sturm-vorhut-krieger-2026-de",
+      "rulesReleaseStableKey": "sample-2026-de",
+      "factionStableKey": "sample-sturm-vorhut-de",
+      "name": "Beispiel-Vorhut-Krieger",
+      "movement": 4,
+      "toughness": 4,
+      "wounds": 12,
+      "points": 95,
+      "baseSizeMm": 28,
+      "isLeader": false,
+      "isCurrent": true,
+      "runemarkStableKeys": [
+        "sample-krieger-de",
+        "sample-sturm-vorhut-de"
+      ],
+      "sourceDocumentStableKey": "sample-warcry-reference-2026-de",
+      "sourcePage": "12"
+    }
+  ]
+}

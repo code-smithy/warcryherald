@@ -1,0 +1,20 @@
+{
+  "catalogues": [
+    {
+      "stableKey": "warhammer-community-warcry-en-gb",
+      "language": "en",
+      "publisher": "Games Workshop",
+      "title": "Warcry Downloads - UK English",
+      "url": "https://www.warhammer-community.com/en-gb/downloads/warcry/",
+      "priority": 10
+    },
+    {
+      "stableKey": "warhammer-community-warcry-de-de",
+      "language": "de",
+      "publisher": "Games Workshop",
+      "title": "Warcry Downloads - Deutsch",
+      "url": "https://www.warhammer-community.com/de-de/downloads/warcry/",
+      "priority": 20
+    }
+  ]
+}

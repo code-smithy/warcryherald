@@ -854,6 +854,10 @@ Record durable decisions here.
 - 2026-07-14: Phase 3 foundation local verification passed `pnpm validate:reference-data`, `pnpm import:reference-data -- --dry-run`, `pnpm lint`, `pnpm test` with 15 tests, and `pnpm build`.
 - 2026-07-14: Added a manual `Reference Data Import` GitHub Actions workflow with `dry-run` as the default and `import` as an explicit operation using `SUPABASE_SERVICE_ROLE_KEY`.
 - 2026-07-14: Tightened the reference-data workflow dry-run so it also performs a read-only remote configuration check against `rules_releases` with the configured Supabase secret.
+- 2026-07-14: User-provided GitHub Actions log confirmed `Reference Data Import` dry-run passed validation, local dry-run, and the read-only remote Supabase configuration check.
+- 2026-07-14: Added fictional English/German reference-data examples and documented the Phase 3 convention of language-suffixed stable keys until dedicated translation tables exist.
+- 2026-07-14: Added official English and German Warhammer Community source catalogue manifest and a discovery script for source metadata.
+- 2026-07-14: Added `mechanics` JSONB fields for abilities and blessings so reviewed imports can preserve exact operative clauses without relying only on prose summaries.
 
 ## Phase Completion Log
 

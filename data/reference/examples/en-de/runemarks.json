@@ -1,0 +1,64 @@
+{
+  "runemarks": [
+    {
+      "stableKey": "sample-leader-en",
+      "name": "Leader",
+      "category": "fighter",
+      "displayOrder": 10
+    },
+    {
+      "stableKey": "sample-anfuehrer-de",
+      "name": "Anfuehrer",
+      "category": "fighter",
+      "displayOrder": 10
+    },
+    {
+      "stableKey": "sample-warrior-en",
+      "name": "Warrior",
+      "category": "fighter",
+      "displayOrder": 20
+    },
+    {
+      "stableKey": "sample-krieger-de",
+      "name": "Krieger",
+      "category": "fighter",
+      "displayOrder": 20
+    },
+    {
+      "stableKey": "sample-elite-en",
+      "name": "Elite",
+      "category": "fighter",
+      "displayOrder": 30
+    },
+    {
+      "stableKey": "sample-elite-de",
+      "name": "Elite",
+      "category": "fighter",
+      "displayOrder": 30
+    },
+    {
+      "stableKey": "sample-storm-vanguard-en",
+      "name": "Sample Storm Vanguard",
+      "category": "faction",
+      "displayOrder": 100
+    },
+    {
+      "stableKey": "sample-sturm-vorhut-de",
+      "name": "Beispiel Sturm-Vorhut",
+      "category": "faction",
+      "displayOrder": 100
+    },
+    {
+      "stableKey": "sample-triple-en",
+      "name": "Triple",
+      "category": "ability",
+      "displayOrder": 200
+    },
+    {
+      "stableKey": "sample-dreierpasch-de",
+      "name": "Dreierpasch",
+      "category": "ability",
+      "displayOrder": 200
+    }
+  ]
+}

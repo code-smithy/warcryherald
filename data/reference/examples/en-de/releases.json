@@ -1,0 +1,40 @@
+{
+  "sourceDocuments": [
+    {
+      "stableKey": "sample-warcry-reference-2026-en",
+      "title": "Sample Warcry Reference 2026",
+      "publisher": "Games Workshop",
+      "sourceUrl": "https://example.com/sample-warcry-reference-en.pdf",
+      "language": "en",
+      "publishedAt": "2026-07-14"
+    },
+    {
+      "stableKey": "sample-warcry-reference-2026-de",
+      "title": "Beispiel-Warcry-Referenz 2026",
+      "publisher": "Games Workshop",
+      "sourceUrl": "https://example.com/sample-warcry-reference-de.pdf",
+      "language": "de",
+      "publishedAt": "2026-07-14"
+    }
+  ],
+  "releases": [
+    {
+      "stableKey": "sample-2026-en",
+      "sourceDocumentStableKey": "sample-warcry-reference-2026-en",
+      "name": "Sample 2026 English Release",
+      "releaseDate": "2026-07-14",
+      "language": "en",
+      "status": "current",
+      "sourceUrl": "https://example.com/sample-warcry-reference-en.pdf"
+    },
+    {
+      "stableKey": "sample-2026-de",
+      "sourceDocumentStableKey": "sample-warcry-reference-2026-de",
+      "name": "Beispiel 2026 Deutsche Ausgabe",
+      "releaseDate": "2026-07-14",
+      "language": "de",
+      "status": "current",
+      "sourceUrl": "https://example.com/sample-warcry-reference-de.pdf"
+    }
+  ]
+}

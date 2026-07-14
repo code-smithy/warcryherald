@@ -43,6 +43,7 @@ the Supabase Dashboard SQL Editor:
 5. `supabase/migrations/202607140005_phase_2_full_repair.sql`
 6. `supabase/migrations/202607140006_profile_upsert_rpc.sql`
 7. `supabase/migrations/202607140007_phase_3_reference_data.sql`
+8. `supabase/migrations/202607140008_phase_3_reference_mechanics.sql`
 
 Then reload the PostgREST schema cache:
 
@@ -70,6 +71,7 @@ pnpm dev
 pnpm lint
 pnpm test
 pnpm build
+pnpm discover:reference-sources
 pnpm validate:reference-data
 pnpm import:reference-data -- --dry-run
 ```

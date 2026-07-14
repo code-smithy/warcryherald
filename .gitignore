@@ -8,3 +8,5 @@ coverage/
 .env.*.local
 *.log
 .codex-dev-server.*.log
+data/reference/source-catalogue/*.discovered.json
+data/reference/review/**/*.pdf

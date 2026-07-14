@@ -1,0 +1,154 @@
+{
+  "abilities": [
+    {
+      "stableKey": "sample-storm-vanguard-rallying-strike-2026-en",
+      "rulesReleaseStableKey": "sample-2026-en",
+      "factionStableKey": "sample-storm-vanguard-en",
+      "name": "Sample Rallying Strike",
+      "isUniversal": false,
+      "cost": "Triple",
+      "effect": "Short reviewed summary of the ability effect.",
+      "mechanics": {
+        "cost": {
+          "dice": "triple"
+        },
+        "target": {
+          "side": "friendly",
+          "count": 1,
+          "visibilityRequired": true,
+          "maximumDistanceInches": 6
+        },
+        "duration": "end-of-battle-round",
+        "modifiers": [
+          {
+            "characteristic": "attacks",
+            "weaponType": "melee",
+            "operation": "add",
+            "value": 1
+          }
+        ]
+      },
+      "runemarkStableKeys": [
+        "sample-triple-en",
+        "sample-storm-vanguard-en"
+      ],
+      "sourceDocumentStableKey": "sample-warcry-reference-2026-en",
+      "sourcePage": "13"
+    },
+    {
+      "stableKey": "sample-sturm-vorhut-sammelschlag-2026-de",
+      "rulesReleaseStableKey": "sample-2026-de",
+      "factionStableKey": "sample-sturm-vorhut-de",
+      "name": "Beispiel-Sammelschlag",
+      "isUniversal": false,
+      "cost": "Dreierpasch",
+      "effect": "Kurze gepruefte Zusammenfassung des Faehigkeitseffekts.",
+      "mechanics": {
+        "cost": {
+          "dice": "triple"
+        },
+        "target": {
+          "side": "friendly",
+          "count": 1,
+          "visibilityRequired": true,
+          "maximumDistanceInches": 6
+        },
+        "duration": "end-of-battle-round",
+        "modifiers": [
+          {
+            "characteristic": "attacks",
+            "weaponType": "melee",
+            "operation": "add",
+            "value": 1
+          }
+        ]
+      },
+      "runemarkStableKeys": [
+        "sample-dreierpasch-de",
+        "sample-sturm-vorhut-de"
+      ],
+      "sourceDocumentStableKey": "sample-warcry-reference-2026-de",
+      "sourcePage": "13"
+    },
+    {
+      "stableKey": "sample-universal-quick-step-2026-en",
+      "rulesReleaseStableKey": "sample-2026-en",
+      "factionStableKey": null,
+      "name": "Sample Quick Step",
+      "isUniversal": true,
+      "cost": "Double",
+      "effect": "Short reviewed summary of the universal ability effect.",
+      "mechanics": {
+        "cost": {
+          "dice": "double"
+        },
+        "movement": {
+          "operation": "bonus-move",
+          "maximumDistanceInches": 3
+        }
+      },
+      "runemarkStableKeys": [],
+      "sourceDocumentStableKey": "sample-warcry-reference-2026-en",
+      "sourcePage": "6"
+    },
+    {
+      "stableKey": "sample-universal-schneller-schritt-2026-de",
+      "rulesReleaseStableKey": "sample-2026-de",
+      "factionStableKey": null,
+      "name": "Beispiel Schneller Schritt",
+      "isUniversal": true,
+      "cost": "Pasch",
+      "effect": "Kurze gepruefte Zusammenfassung des universellen Faehigkeitseffekts.",
+      "mechanics": {
+        "cost": {
+          "dice": "double"
+        },
+        "movement": {
+          "operation": "bonus-move",
+          "maximumDistanceInches": 3
+        }
+      },
+      "runemarkStableKeys": [],
+      "sourceDocumentStableKey": "sample-warcry-reference-2026-de",
+      "sourcePage": "6"
+    }
+  ],
+  "blessings": [
+    {
+      "stableKey": "sample-blessing-of-endurance-2026-en",
+      "rulesReleaseStableKey": "sample-2026-en",
+      "name": "Sample Blessing of Endurance",
+      "effect": "Short reviewed summary of the blessing effect.",
+      "mechanics": {
+        "modifiers": [
+          {
+            "characteristic": "wounds",
+            "operation": "add",
+            "value": 2
+          }
+        ]
+      },
+      "points": 15,
+      "sourceDocumentStableKey": "sample-warcry-reference-2026-en",
+      "sourcePage": "20"
+    },
+    {
+      "stableKey": "sample-segen-der-ausdauer-2026-de",
+      "rulesReleaseStableKey": "sample-2026-de",
+      "name": "Beispiel Segen der Ausdauer",
+      "effect": "Kurze gepruefte Zusammenfassung des Segenseffekts.",
+      "mechanics": {
+        "modifiers": [
+          {
+            "characteristic": "wounds",
+            "operation": "add",
+            "value": 2
+          }
+        ]
+      },
+      "points": 15,
+      "sourceDocumentStableKey": "sample-warcry-reference-2026-de",
+      "sourcePage": "20"
+    }
+  ]
+}

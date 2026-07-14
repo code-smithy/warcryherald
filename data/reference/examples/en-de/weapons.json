@@ -1,0 +1,48 @@
+{
+  "weapons": [
+    {
+      "stableKey": "sample-storm-vanguard-captain-command-blade-2026-en",
+      "fighterStableKey": "sample-storm-vanguard-captain-2026-en",
+      "name": "Sample command blade",
+      "rangeMin": 1,
+      "rangeMax": 1,
+      "attacks": 4,
+      "strength": 5,
+      "damage": 2,
+      "criticalDamage": 5
+    },
+    {
+      "stableKey": "sample-storm-vanguard-warrior-storm-spear-2026-en",
+      "fighterStableKey": "sample-storm-vanguard-warrior-2026-en",
+      "name": "Sample storm spear",
+      "rangeMin": 2,
+      "rangeMax": 2,
+      "attacks": 3,
+      "strength": 4,
+      "damage": 2,
+      "criticalDamage": 4
+    },
+    {
+      "stableKey": "sample-sturm-vorhut-hauptmann-befehlsklinge-2026-de",
+      "fighterStableKey": "sample-sturm-vorhut-hauptmann-2026-de",
+      "name": "Beispiel-Befehlsklinge",
+      "rangeMin": 1,
+      "rangeMax": 1,
+      "attacks": 4,
+      "strength": 5,
+      "damage": 2,
+      "criticalDamage": 5
+    },
+    {
+      "stableKey": "sample-sturm-vorhut-krieger-sturmspeer-2026-de",
+      "fighterStableKey": "sample-sturm-vorhut-krieger-2026-de",
+      "name": "Beispiel-Sturmspeer",
+      "rangeMin": 2,
+      "rangeMax": 2,
+      "attacks": 3,
+      "strength": 4,
+      "damage": 2,
+      "criticalDamage": 4
+    }
+  ]
+}

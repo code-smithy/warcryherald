@@ -10,6 +10,7 @@
     "lint": "eslint . --max-warnings=0",
     "test": "vitest run",
     "test:watch": "vitest",
+    "discover:reference-sources": "node scripts/reference-sources.mjs discover",
     "validate:reference-data": "node scripts/reference-data.mjs validate",
     "import:reference-data": "node scripts/reference-data.mjs import",
     "verify:phase2": "node scripts/verify-phase2.mjs"

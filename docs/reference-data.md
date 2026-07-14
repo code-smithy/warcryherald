@@ -35,6 +35,34 @@ It must:
 - Support dry-run mode.
 - Avoid runtime scraping.
 
+## Source-To-Import Pipeline
+
+The Phase 3 pipeline separates source discovery, human review, and database
+import:
+
+1. `data/reference/sources/warhammer-community-warcry.json` records the official
+   English and German Warhammer Community catalogue URLs.
+2. `pnpm discover:reference-sources` fetches those catalogue pages and writes
+   discovered source metadata to
+   `data/reference/source-catalogue/warhammer-community-warcry.discovered.json`.
+   This generated file is ignored by git because it includes timestamps and may
+   change whenever Warhammer Community changes its page rendering.
+3. Reviewers download official PDFs manually from the catalogue and extract
+   structured facts into temporary notes under `data/reference/review/`.
+   Do not commit PDFs or substantial copied prose.
+4. Reviewed structured records are entered into the import files under
+   `data/reference/`.
+5. `pnpm validate:reference-data` checks relationships and statistics.
+6. `pnpm import:reference-data -- --dry-run` checks the import without writes.
+7. The GitHub **Reference Data Import** workflow imports reviewed data after a
+   successful dry run.
+
+Warcrier and community JSON can be used for completeness checks, but official
+Warhammer Community PDFs remain the provenance recorded in `sourceDocuments`.
+If the official page renders PDF links dynamically and discovery finds only
+catalogue links, use the browser-visible download buttons to identify the PDFs
+for review.
+
 ## Phase 3 Import Files
 
 Reviewed input lives under `data/reference/`:
@@ -55,6 +83,60 @@ remote writes.
 Actual imports require `SUPABASE_SERVICE_ROLE_KEY` in the process environment.
 Do not place the service-role key in `.env` files that can be used by the
 frontend, and never prefix it with `VITE_`.
+
+## Multilingual Data
+
+Phase 3 supports multiple languages by treating each language as its own source
+document and rules release. Until dedicated translation tables are added, stable
+keys should include the release year and language code so records do not
+collide:
+
+- English example: `sample-storm-vanguard-captain-2026-en`
+- German example: `sample-sturm-vorhut-hauptmann-2026-de`
+
+Use ISO-style language tags such as `en`, `de`, `fr`, `es`, `it`, `ja`, or
+`ko`. The public reference browser currently shows all imported languages
+together; a language filter can be added once real multilingual data exists.
+
+Fictional English and German example files live in
+`data/reference/examples/en-de/`. Validate that example set with:
+
+```bash
+pnpm validate:reference-data -- --dir data/reference/examples/en-de
+```
+
+## Structured Mechanics
+
+Ability and blessing rows have both an `effect` string and a `mechanics` object.
+Use `effect` for a short reviewed human-readable summary. Use `mechanics` for
+unambiguous machine-readable clauses such as targets, distances, visibility,
+durations, caps, dice costs, and characteristic modifiers.
+
+Example:
+
+```json
+{
+  "effect": "Short reviewed summary of the ability effect.",
+  "mechanics": {
+    "cost": { "dice": "triple" },
+    "target": {
+      "side": "friendly",
+      "count": 1,
+      "visibilityRequired": true,
+      "maximumDistanceInches": 6
+    },
+    "duration": "end-of-battle-round",
+    "modifiers": [
+      {
+        "characteristic": "attacks",
+        "weaponType": "melee",
+        "operation": "add",
+        "value": 1
+      }
+    ]
+  }
+}
+```
 
 ## Official Source Discovery
 
