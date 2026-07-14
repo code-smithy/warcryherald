@@ -50,6 +50,7 @@ the Supabase Dashboard SQL Editor:
 2. `supabase/migrations/202607140002_phase_2_campaigns.sql`
 3. `supabase/migrations/202607140003_phase_2_create_campaign_rpc.sql`
 4. `supabase/migrations/202607140004_phase_1_profiles_repair.sql`
+5. `supabase/migrations/202607140005_phase_2_full_repair.sql`
 
 Then reload the PostgREST schema cache:
 
@@ -62,17 +63,15 @@ cache` means the target Supabase project has not received the migrations or the
 PostgREST schema cache has not reloaded after migration.
 
 For a production project that is already partially migrated and reports
-`public.profiles` missing, run this repair migration from the SQL Editor:
+`public.profiles`, `public.campaigns`, or `public.create_campaign(...)` missing,
+run this consolidated repair migration from the SQL Editor:
 
 ```text
-supabase/migrations/202607140004_phase_1_profiles_repair.sql
+supabase/migrations/202607140005_phase_2_full_repair.sql
 ```
 
-For a production project that reports `public.create_campaign(...)` missing, run:
-
-```text
-supabase/migrations/202607140003_phase_2_create_campaign_rpc.sql
-```
+It creates or repairs the Phase 1 profile objects and Phase 2 campaign objects
+in dependency order, then reloads the PostgREST schema cache.
 
 The auth trigger creates or refreshes a profile whenever Supabase receives
 Discord metadata for a user. Frontend clients can update only these profile

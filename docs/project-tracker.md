@@ -340,7 +340,7 @@ Closeout checklist:
   `202607140003_phase_2_create_campaign_rpc.sql` to the target Supabase
   project.
 - If production reports `public.profiles` missing from the schema cache, run
-  `202607140004_phase_1_profiles_repair.sql` from the Supabase SQL Editor.
+  `202607140005_phase_2_full_repair.sql` from the Supabase SQL Editor.
 - Reload the PostgREST schema cache after migration.
 - Confirm Discord login creates or refreshes a profile row.
 - Confirm an authenticated user can create a campaign and becomes owner.
@@ -846,6 +846,7 @@ Record durable decisions here.
 - 2026-07-14: Phase 2 live closeout is verified by `pnpm verify:phase2`, which requires two temporary authenticated user access tokens and a migrated target Supabase project.
 - 2026-07-14: Added a new migration for `create_campaign(...)` rather than relying on edits to an already-applied Phase 2 migration. Applied databases must receive `202607140003_phase_2_create_campaign_rpc.sql`.
 - 2026-07-14: Added `202607140004_phase_1_profiles_repair.sql` to repair partially migrated Supabase projects where `public.profiles` is absent from the PostgREST schema cache.
+- 2026-07-14: Added `202607140005_phase_2_full_repair.sql` after production showed both `public.campaigns` and `public.create_campaign(...)` absent. This is the preferred SQL Editor repair file for partially migrated production projects.
 
 ## Phase Completion Log
 

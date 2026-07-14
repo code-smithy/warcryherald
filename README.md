@@ -42,6 +42,7 @@ the Supabase Dashboard SQL Editor:
 2. `supabase/migrations/202607140002_phase_2_campaigns.sql`
 3. `supabase/migrations/202607140003_phase_2_create_campaign_rpc.sql`
 4. `supabase/migrations/202607140004_phase_1_profiles_repair.sql`
+5. `supabase/migrations/202607140005_phase_2_full_repair.sql`
 
 Then reload the PostgREST schema cache:
 
@@ -51,7 +52,9 @@ notify pgrst, 'reload schema';
 
 For an already-migrated Supabase project that still reports
 `public.profiles` missing from the schema cache, run
-`202607140004_phase_1_profiles_repair.sql` from the SQL Editor.
+`202607140005_phase_2_full_repair.sql` from the SQL Editor. It recreates the
+Phase 1 and Phase 2 database objects in dependency order and reloads the
+PostgREST schema cache.
 
 Configure Discord OAuth in Supabase Auth and allow the app URL as a redirect
 target. The local development callback is:
