@@ -31,7 +31,7 @@ Stay inquisitive. If a rule, table shape, workflow, copyright boundary, or UI be
 
 ## Current Status
 
-- Project stage: Phase 5 implementation ready; Phase 4 warband roster management is locally complete on top of the Phase 3 reference-data foundation.
+- Project stage: Phase 5 implementation in progress; warband progression persistence foundation is underway.
 - Current phase: Phase 5 - Encampment And Warband Progression.
 - Last completed phase: Phase 4 - Warband Roster Management.
 - MVP target: complete after `WH-018 Chronicle and audit history`.
@@ -845,6 +845,7 @@ Record durable decisions here.
 - 2026-07-14: Added `mechanics` JSONB fields for abilities and blessings so reviewed imports can preserve exact operative clauses without relying only on prose summaries.
 - 2026-07-14: Removed automated internet collection, PDF download/extraction, source-catalogue refresh, and Warcrier extraction attempts from the Phase 3 workflow; reviewed data must be entered manually.
 - 2026-07-14: Started Phase 4 with warband, fighter instance, and fighter profile snapshot tables plus roster RPCs and validation.
+- 2026-07-15: Started Phase 5 with warband progression tables, progression definition tables, fighter progression state, and warband journal entries.
 
 ## Phase Completion Log
 

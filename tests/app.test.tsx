@@ -11,6 +11,11 @@ import {
 import { getErrorMessage } from "../src/lib/errors";
 import { normalizeProfileUpdate } from "../src/lib/profiles";
 import {
+  createProgressionDraft,
+  summarizeProgression,
+  validateProgressionDraft
+} from "../src/lib/progression";
+import {
   filterFighterProfiles,
   getNewestRulesRelease,
   getSourceLabel,
@@ -522,6 +527,49 @@ function makeFighter(
     ...overrides
   };
 }
+
+describe("warband progression helpers", () => {
+  it("normalizes valid progression drafts", () => {
+    expect(
+      validateProgressionDraft({
+        glory: " 3 ",
+        reputation: "2",
+        notes: "  Won a convergence. "
+      })
+    ).toEqual({
+      normalized: { glory: 3, reputation: 2, notes: "Won a convergence." },
+      errors: []
+    });
+  });
+
+  it("rejects invalid progression totals and long notes", () => {
+    expect(
+      validateProgressionDraft({
+        glory: "-1",
+        reputation: "1.5",
+        notes: "x".repeat(2001)
+      }).errors
+    ).toEqual([
+      "Glory must be a whole number of 0 or more.",
+      "Reputation must be a whole number of 0 or more.",
+      "Progression notes must be 2000 characters or fewer."
+    ]);
+  });
+
+  it("creates dashboard-friendly progression summaries", () => {
+    expect(createProgressionDraft(null)).toEqual({
+      glory: "0",
+      reputation: "0",
+      notes: ""
+    });
+    expect(summarizeProgression({ glory: 4, reputation: 1, notes: "Hidden camp" })).toEqual({
+      glory: 4,
+      reputation: 1,
+      notes: "Hidden camp",
+      hasProgression: true
+    });
+  });
+});
 
 function makeRulesRelease(overrides: Partial<RulesRelease>): RulesRelease {
   return {

@@ -74,6 +74,19 @@ Use database functions for multi-table or sensitive operations, including:
 - Invalid rosters may remain drafts, but a battle-ready roster must have one
   active leader and stay within point and fighter limits.
 
+
+## Phase 5 Progression Rules
+
+- Warband progression, encampments, quests, artefacts, fighter renown, heroic
+  traits, injuries, and journal entries are readable only by campaign members.
+- Only the warband owner or campaign owners/administrators can maintain
+  progression records.
+- Progression definition tables are public read-only reference data.
+- Every warband progression insert or update creates a warband journal entry
+  with the actor and timestamp.
+- Unique fighter progression assignments are protected with database uniqueness
+  constraints so the same artefact or heroic trait cannot be assigned twice.
+
 ## Required RLS Test Areas
 
 - Non-member reads.
