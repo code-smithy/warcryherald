@@ -115,11 +115,50 @@ export function CampaignDetailPage() {
   const rulesAreLocked = Boolean(campaign?.rules_locked || campaign?.status !== "draft");
   const availableFactions = useMemo(
     () =>
-      factions.filter(
-        (faction) =>
-          effectiveRulesReleaseId &&
-          faction.rules_release_id === effectiveRulesReleaseId
-      ),
+      [...factions]
+        .filter((faction) => getSingle(faction.rules_releases)?.status !== "retired")
+        .sort((left, right) => {
+          const leftRelease = getSingle(left.rules_releases);
+          const rightRelease = getSingle(right.rules_releases);
+
+          if (
+            left.rules_release_id === effectiveRulesReleaseId &&
+            right.rules_release_id !== effectiveRulesReleaseId
+          ) {
+            return -1;
+          }
+
+          if (
+            right.rules_release_id === effectiveRulesReleaseId &&
+            left.rules_release_id !== effectiveRulesReleaseId
+          ) {
+            return 1;
+          }
+
+          const leftAlliance = getSingle(left.grand_alliances);
+          const rightAlliance = getSingle(right.grand_alliances);
+          const allianceDelta = (leftAlliance?.name ?? "").localeCompare(
+            rightAlliance?.name ?? ""
+          );
+
+          if (allianceDelta !== 0) {
+            return allianceDelta;
+          }
+
+          const orderDelta = (left.display_order ?? 0) - (right.display_order ?? 0);
+
+          if (orderDelta !== 0) {
+            return orderDelta;
+          }
+
+          const nameDelta = left.name.localeCompare(right.name);
+
+          if (nameDelta !== 0) {
+            return nameDelta;
+          }
+
+          return (leftRelease?.name ?? "").localeCompare(rightRelease?.name ?? "");
+        }),
     [effectiveRulesReleaseId, factions]
   );
   const availableFighterProfiles = useMemo(
@@ -570,6 +609,9 @@ export function CampaignDetailPage() {
                 {availableFactions.map((faction) => (
                   <option key={faction.id} value={faction.id}>
                     {faction.name}
+                    {getSingle(faction.rules_releases)?.name
+                      ? ` - ${getSingle(faction.rules_releases)?.name}`
+                      : ""}
                   </option>
                 ))}
               </select>
@@ -580,7 +622,9 @@ export function CampaignDetailPage() {
           </form>
 
           {availableFactions.length === 0 && effectiveRulesReleaseId ? (
-            <p className="muted">No factions are available for the configured rules release.</p>
+            <p className="muted">
+              No current factions are available from the imported reference data.
+            </p>
           ) : null}
 
           <WarbandRoster

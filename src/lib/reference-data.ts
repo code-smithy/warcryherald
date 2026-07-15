@@ -33,7 +33,9 @@ export type Faction = {
   rules_release_id?: string;
   grand_alliance_id?: string;
   name: string;
+  display_order?: number;
   grand_alliances?: GrandAlliance | GrandAlliance[] | null;
+  rules_releases?: RulesRelease | RulesRelease[] | null;
 };
 
 export type Runemark = {
@@ -130,7 +132,9 @@ export function getNewestRulesRelease(releases: RulesRelease[]) {
 export async function listFactions(client: SupabaseClient) {
   const { data, error } = await client
     .from("factions")
-    .select("*, grand_alliances(id, stable_key, name)")
+    .select(
+      "*, grand_alliances(id, stable_key, name), rules_releases(id, stable_key, name, release_date, language, status)"
+    )
     .order("display_order", { ascending: true })
     .order("name", { ascending: true });
 
