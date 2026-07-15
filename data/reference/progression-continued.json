@@ -1,6 +1,31 @@
 {
   "encampmentDefinitions": [
     {
+      "stableKey": "warcry-askurgan-trueblades-encampment-askurgan-monastery-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Askurgan Monastery",
+      "description": "A sanctuary built from the remains of hunted monsters, where the Trueblades train and store their trophies.",
+      "mechanics": {
+        "category": "encampment",
+        "pointsLimit": 1150,
+        "reputationModifier": 3,
+        "effects": [
+          {
+            "type": "campaign_modifier",
+            "target": "warband",
+            "summary": "Add 1 to renown rolls for fighters with the Hero runemark."
+          },
+          {
+            "type": "exploration_table",
+            "target": "warband",
+            "summary": "During step 5 of the aftermath sequence, one fighter can be sent forth to roll on the Askurgan Trueblades Lesser Artefacts table."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Encampment Location: Askurgan Monastery"
+    },
+    {
       "stableKey": "warcry-core-encampment-chaotic-nexus-2026-en",
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
       "name": "Chaotic Nexus",
@@ -139,10 +164,97 @@
   ],
   "questDefinitions": [
     {
+      "stableKey": "warcry-askurgan-trueblades-quest-hone-your-crimson-craft-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-death-askurgan-trueblades",
+      "name": "Hone Your Crimson Craft",
+      "description": "A nominated Askurgan Exemplar perfects the martial disciplines of the Askurga Renkai.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 6,
+          "label": "Perfection score",
+          "increments": [
+            "Add 1 for each enemy fighter taken down by that fighter's attack action or ability.",
+            "Add 1 for each critical hit scored by that fighter."
+          ]
+        },
+        "completion": {
+          "summary": "Complete once the nominated fighter's perfection score is 6 or more."
+        },
+        "reward": {
+          "summary": "Give the nominated fighter one Askurgan Trueblades heroic trait."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Hone Your Crimson Craft"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-quest-hunt-a-mighty-predator-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-death-askurgan-trueblades",
+      "name": "Hunt a Mighty Predator",
+      "description": "Track a worthy monster through the Gnarlwood and defeat the rival warband encountered at its lair.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 7,
+          "label": "Hunt score",
+          "increments": [
+            "Add 1 after each battle.",
+            "Add 5 whenever the warband relocates its encampment."
+          ]
+        },
+        "completion": {
+          "summary": "At a hunt score of 7 or more, win the Worthy Blood quest battle and complete the quest in the aftermath sequence."
+        },
+        "reward": {
+          "summary": "Relocate to the Askurgan Monastery without spending glory."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Hunt a Mighty Predator"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-quest-relics-of-the-immortal-order-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-death-askurgan-trueblades",
+      "name": "Relics of the Immortal Order",
+      "description": "Recover one selected relic by gaining progress through controlling objectives, carrying treasure and winning battles.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 5,
+          "label": "Progress score",
+          "increments": [
+            "Add 1 after a battle if the warband controlled any objectives or a friendly fighter carried treasure.",
+            "Add 1 after a battle if the warband won."
+          ]
+        },
+        "completion": {
+          "summary": "Complete once the progress score is 5 or more."
+        },
+        "reward": {
+          "summary": "Obtain the selected artefact of power from the Relics of the Immortal Order table."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Relics of the Immortal Order"
+    },
+    {
       "stableKey": "warcry-chaos-grand-alliance-quest-champion-of-chaos-2026-en",
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
       "scope": "grand_alliance",
-      "grandAllianceStableKey": "en-chaos",
+      "grandAllianceStableKey": "chaos-grand-alliance",
       "factionStableKey": null,
       "name": "Champion of Chaos",
       "description": "A nominated hero proves their worth through slaughter.",
@@ -166,7 +278,7 @@
       "stableKey": "warcry-chaos-grand-alliance-quest-desecrate-the-land-2026-en",
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
       "scope": "grand_alliance",
-      "grandAllianceStableKey": "en-chaos",
+      "grandAllianceStableKey": "chaos-grand-alliance",
       "factionStableKey": null,
       "name": "Desecrate the Land",
       "description": "Find and corrupt a powerful site.",
@@ -191,7 +303,7 @@
       "stableKey": "warcry-chaos-grand-alliance-quest-gifts-of-the-dark-gods-2026-en",
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
       "scope": "grand_alliance",
-      "grandAllianceStableKey": "en-chaos",
+      "grandAllianceStableKey": "chaos-grand-alliance",
       "factionStableKey": null,
       "name": "Gifts of the Dark Gods",
       "description": "Recover a selected Chaos artefact of power.",
@@ -216,7 +328,7 @@
       "stableKey": "warcry-death-grand-alliance-quest-lord-of-death-2026-en",
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
       "scope": "grand_alliance",
-      "grandAllianceStableKey": "en-death",
+      "grandAllianceStableKey": "death-grand-alliance",
       "factionStableKey": null,
       "name": "Lord of Death",
       "description": "A nominated hero destroys an enemy hero.",
@@ -240,7 +352,7 @@
       "stableKey": "warcry-death-grand-alliance-quest-treasures-of-the-grave-2026-en",
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
       "scope": "grand_alliance",
-      "grandAllianceStableKey": "en-death",
+      "grandAllianceStableKey": "death-grand-alliance",
       "factionStableKey": null,
       "name": "Treasures of the Grave",
       "description": "Recover a selected Death artefact of power.",
@@ -265,7 +377,7 @@
       "stableKey": "warcry-death-grand-alliance-quest-what-lies-below-2026-en",
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
       "scope": "grand_alliance",
-      "grandAllianceStableKey": "en-death",
+      "grandAllianceStableKey": "death-grand-alliance",
       "factionStableKey": null,
       "name": "What Lies Below",
       "description": "Discover and seize an ancient crypt.",
@@ -290,7 +402,7 @@
       "stableKey": "warcry-destruction-grand-alliance-quest-avatar-of-destruction-2026-en",
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
       "scope": "grand_alliance",
-      "grandAllianceStableKey": "en-destruction",
+      "grandAllianceStableKey": "destruction-grand-alliance",
       "factionStableKey": null,
       "name": "Avatar of Destruction",
       "description": "A nominated hero defeats an enemy hero.",
@@ -314,7 +426,7 @@
       "stableKey": "warcry-destruction-grand-alliance-quest-bring-the-wild-2026-en",
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
       "scope": "grand_alliance",
-      "grandAllianceStableKey": "en-destruction",
+      "grandAllianceStableKey": "destruction-grand-alliance",
       "factionStableKey": null,
       "name": "Bring the Wild",
       "description": "Destroy an enemy foothold and restore the wild.",
@@ -339,7 +451,7 @@
       "stableKey": "warcry-destruction-grand-alliance-quest-treasures-of-gorkamorka-2026-en",
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
       "scope": "grand_alliance",
-      "grandAllianceStableKey": "en-destruction",
+      "grandAllianceStableKey": "destruction-grand-alliance",
       "factionStableKey": null,
       "name": "Treasures of Gorkamorka",
       "description": "Recover a selected Destruction artefact of power.",
@@ -676,7 +788,7 @@
       "stableKey": "warcry-order-grand-alliance-quest-establish-trade-route-2026-en",
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
       "scope": "grand_alliance",
-      "grandAllianceStableKey": "en-order",
+      "grandAllianceStableKey": "order-grand-alliance",
       "factionStableKey": null,
       "name": "Establish Trade Route",
       "description": "Secure a route through the Gnarlwood.",
@@ -701,7 +813,7 @@
       "stableKey": "warcry-order-grand-alliance-quest-guardian-of-order-2026-en",
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
       "scope": "grand_alliance",
-      "grandAllianceStableKey": "en-order",
+      "grandAllianceStableKey": "order-grand-alliance",
       "factionStableKey": null,
       "name": "Guardian Of Order",
       "description": "A nominated hero proves themselves against an enemy hero.",
@@ -725,7 +837,7 @@
       "stableKey": "warcry-order-grand-alliance-quest-lost-treasures-of-order-2026-en",
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
       "scope": "grand_alliance",
-      "grandAllianceStableKey": "en-order",
+      "grandAllianceStableKey": "order-grand-alliance",
       "factionStableKey": null,
       "name": "Lost Treasures of Order",
       "description": "Recover a selected Order artefact of power.",
@@ -896,6 +1008,314 @@
     }
   ],
   "artefactDefinitions": [
+    {
+      "stableKey": "warcry-askurgan-trueblades-greater-artefact-askurgan-sword-scrolls-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Askurgan Sword-Scrolls",
+      "category": "greater_artefact",
+      "description": "When the bearer is sent forth during the aftermath sequence, the exploration roll can be re-rolled.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "When the bearer is sent forth during the aftermath sequence, the exploration roll can be re-rolled."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Relics of the Immortal Order table"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-greater-artefact-dubak-s-fetter-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Dubak's Fetter",
+      "category": "greater_artefact",
+      "description": "Once per battle, the bearer can use the Lofty Disdain reaction without spending renown.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Once per battle, the bearer can use the Lofty Disdain reaction without spending renown."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Relics of the Immortal Order table"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-greater-artefact-sabres-of-the-great-moradon-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Sabres of the Great Moradon",
+      "category": "greater_artefact",
+      "description": "Add 1 Strength to the bearer's melee attacks and add 1 damage to their melee hits and critical hits.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Add 1 Strength to the bearer's melee attacks and add 1 damage to their melee hits and critical hits."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Relics of the Immortal Order table"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-greater-artefact-the-eternal-burden-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "The Eternal Burden",
+      "category": "greater_artefact",
+      "description": "Once per battle, use a bonus action to add 1 Toughness for the rest of the battle; the bearer is then restricted to Moment of Savagery and Onslaught abilities.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Once per battle, use a bonus action to add 1 Toughness for the rest of the battle; the bearer is then restricted to Moment of Savagery and Onslaught abilities."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Relics of the Immortal Order table"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-greater-artefact-transcendent-cloak-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Transcendent Cloak",
+      "category": "greater_artefact",
+      "description": "Once per battle, the bearer can use a bonus action to gain the Fly runemark until the end of the activation.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Once per battle, the bearer can use a bonus action to gain the Fly runemark until the end of the activation."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Relics of the Immortal Order table"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-greater-artefact-trophy-of-the-nightmare-brood-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Trophy of the Nightmare Brood",
+      "category": "greater_artefact",
+      "description": "Once per battle, use a bonus action to subtract 1 Attack, to a minimum of 1, from attacks targeting the bearer until the end of the round.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Once per battle, use a bonus action to subtract 1 Attack, to a minimum of 1, from attacks targeting the bearer until the end of the round."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Relics of the Immortal Order table"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-lesser-artefact-askurgan-incense-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Askurgan Incense",
+      "category": "lesser_artefact",
+      "description": "Consumable: use a bonus action to subtract 1 Attack, to a minimum of 1, from nearby enemy melee attacks until the end of the round.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Consumable: use a bonus action to subtract 1 Attack, to a minimum of 1, from nearby enemy melee attacks until the end of the round."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Askurgan Trueblades Lesser Artefacts"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-lesser-artefact-chiropteran-scriptures-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Chiropteran Scriptures",
+      "category": "lesser_artefact",
+      "description": "Perishable: add 1 to the bearer's Move characteristic.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Perishable: add 1 to the bearer's Move characteristic."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Askurgan Trueblades Lesser Artefacts"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-lesser-artefact-coating-of-beastblood-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Coating of Beastblood",
+      "category": "lesser_artefact",
+      "description": "Consumable: use a bonus action so the bearer's next melee attack scores critical hits on a 5+ that activation.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Consumable: use a bonus action so the bearer's next melee attack scores critical hits on a 5+ that activation."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Askurgan Trueblades Lesser Artefacts"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-lesser-artefact-grave-sand-amulet-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Grave-sand Amulet",
+      "category": "lesser_artefact",
+      "description": "Perishable: at the end of the bearer's activation, allocate 2 damage to one nearby visible damaged enemy.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Perishable: at the end of the bearer's activation, allocate 2 damage to one nearby visible damaged enemy."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Askurgan Trueblades Lesser Artefacts"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-lesser-artefact-living-whetstone-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Living Whetstone",
+      "category": "lesser_artefact",
+      "description": "Perishable: add 1 damage to each critical hit from the bearer's melee attacks.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Perishable: add 1 damage to each critical hit from the bearer's melee attacks."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Askurgan Trueblades Lesser Artefacts"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-lesser-artefact-rage-ward-charm-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Rage-ward Charm",
+      "category": "lesser_artefact",
+      "description": "Perishable: treat an injury roll of 11-13 as 41-65 instead.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Perishable: treat an injury roll of 11-13 as 41-65 instead."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Askurgan Trueblades Lesser Artefacts"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-lesser-artefact-screeching-familiar-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Screeching Familiar",
+      "category": "lesser_artefact",
+      "description": "Perishable: once per battle, after being targeted but before hit rolls, each critical hit is downgraded to a hit on a 4+.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Perishable: once per battle, after being targeted but before hit rolls, each critical hit is downgraded to a hit on a 4+."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Askurgan Trueblades Lesser Artefacts"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-lesser-artefact-vials-of-bestial-blood-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Vials of Bestial Blood",
+      "category": "lesser_artefact",
+      "description": "Consumable: use a bonus action to remove D6 damage from the bearer.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Consumable: use a bonus action to remove D6 damage from the bearer."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Askurgan Trueblades Lesser Artefacts"
+    },
     {
       "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-greater-artefact-blade-of-the-tallyman-2026-en",
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
@@ -3120,6 +3540,114 @@
     }
   ],
   "heroicTraitDefinitions": [
+    {
+      "stableKey": "warcry-askurgan-trueblades-heroic-trait-acolyte-of-immortal-gloom-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Acolyte of Immortal Gloom",
+      "description": "This fighter can only be targeted by attacks made from within 8 inches.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "This fighter can only be targeted by attacks made from within 8 inches."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Askurgan Trueblades Heroic Traits"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-heroic-trait-dance-of-the-sanguine-sabres-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Dance of the Sanguine Sabres",
+      "description": "For each melee attack hit roll of 1 targeting this fighter, allocate 2 damage to the attacker.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "For each melee attack hit roll of 1 targeting this fighter, allocate 2 damage to the attacker."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Askurgan Trueblades Heroic Traits"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-heroic-trait-disciple-of-the-scarlet-storm-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Disciple of the Scarlet Storm",
+      "description": "After this fighter first takes down an enemy with an attack, add 1 Attack to their melee attacks for the rest of the battle.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "After this fighter first takes down an enemy with an attack, add 1 Attack to their melee attacks for the rest of the battle."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Askurgan Trueblades Heroic Traits"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-heroic-trait-feast-on-glory-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Feast on Glory",
+      "description": "When making an injury roll for this fighter after gaining at least 5 glory, treat the roll as 66.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "When making an injury roll for this fighter after gaining at least 5 glory, treat the roll as 66."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Askurgan Trueblades Heroic Traits"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-heroic-trait-form-of-the-open-grave-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Form of the Open Grave",
+      "description": "When this fighter uses Counter, each miss allocates 3 damage to the attacker.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "When this fighter uses Counter, each miss allocates 3 damage to the attacker."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Askurgan Trueblades Heroic Traits"
+    },
+    {
+      "stableKey": "warcry-askurgan-trueblades-heroic-trait-way-of-the-straining-fetters-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en-release",
+      "name": "Way of the Straining Fetters",
+      "description": "When using Moment of Savagery, this fighter can make a bonus move and then a bonus attack.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "When using Moment of Savagery, this fighter can make a bonus move and then a bonus attack."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-death-askurgan-trueblades-quests-en",
+      "sourcePage": "Askurgan Trueblades Heroic Traits"
+    },
     {
       "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-heroic-trait-eternal-blood-lust-2026-en",
       "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",

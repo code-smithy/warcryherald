@@ -11,6 +11,7 @@ function loadReferenceDataset(referenceDir = resolve(process.cwd(), "data", "ref
   const fighters = readJsonFile(resolve(referenceDir, "fighters.json"));
   const weapons = readJsonFile(resolve(referenceDir, "weapons.json"));
   const abilities = readJsonFile(resolve(referenceDir, "abilities.json"));
+  const progression = readJsonFile(resolve(referenceDir, "progression.json"));
 
   return referenceDatasetSchema.parse({
     sourceDocuments: releases.sourceDocuments,
@@ -21,7 +22,11 @@ function loadReferenceDataset(referenceDir = resolve(process.cwd(), "data", "ref
     fighters: fighters.fighters,
     weapons: weapons.weapons,
     abilities: abilities.abilities,
-    blessings: abilities.blessings
+    blessings: abilities.blessings,
+    encampmentDefinitions: progression.encampmentDefinitions,
+    questDefinitions: progression.questDefinitions,
+    artefactDefinitions: progression.artefactDefinitions,
+    heroicTraitDefinitions: progression.heroicTraitDefinitions
   });
 }
 
@@ -36,6 +41,22 @@ function validateReferenceDataset(value) {
   const weapons = mapByStableKey(value.weapons, "weapon", errors);
   const abilities = mapByStableKey(value.abilities, "ability", errors);
   const blessings = mapByStableKey(value.blessings, "blessing", errors);
+  const encampmentDefinitions = mapByStableKey(
+    value.encampmentDefinitions,
+    "encampment definition",
+    errors
+  );
+  const questDefinitions = mapByStableKey(value.questDefinitions, "quest definition", errors);
+  const artefactDefinitions = mapByStableKey(
+    value.artefactDefinitions,
+    "artefact definition",
+    errors
+  );
+  const heroicTraitDefinitions = mapByStableKey(
+    value.heroicTraitDefinitions,
+    "heroic trait definition",
+    errors
+  );
 
   for (const release of value.releases) {
     requireReference(
@@ -159,6 +180,48 @@ function validateReferenceDataset(value) {
     );
   }
 
+  for (const encampment of value.encampmentDefinitions) {
+    requireProgressionDefinitionReferences(
+      encampment,
+      `encampment definition ${encampment.stableKey}`,
+      { releases, sourceDocuments },
+      errors
+    );
+  }
+
+  for (const quest of value.questDefinitions) {
+    requireProgressionDefinitionReferences(
+      quest,
+      `quest definition ${quest.stableKey}`,
+      { releases, sourceDocuments },
+      errors
+    );
+    requireScopedProgressionReferences(
+      quest,
+      `quest definition ${quest.stableKey}`,
+      { grandAlliances, factions },
+      errors
+    );
+  }
+
+  for (const artefact of value.artefactDefinitions) {
+    requireProgressionDefinitionReferences(
+      artefact,
+      `artefact definition ${artefact.stableKey}`,
+      { releases, sourceDocuments },
+      errors
+    );
+  }
+
+  for (const heroicTrait of value.heroicTraitDefinitions) {
+    requireProgressionDefinitionReferences(
+      heroicTrait,
+      `heroic trait definition ${heroicTrait.stableKey}`,
+      { releases, sourceDocuments },
+      errors
+    );
+  }
+
   return {
     errors,
     maps: {
@@ -170,7 +233,11 @@ function validateReferenceDataset(value) {
       fighters,
       weapons,
       abilities,
-      blessings
+      blessings,
+      encampmentDefinitions,
+      questDefinitions,
+      artefactDefinitions,
+      heroicTraitDefinitions
     },
     summary: {
       sourceDocuments: value.sourceDocuments.length,
@@ -183,7 +250,11 @@ function validateReferenceDataset(value) {
       retiredFighters: value.fighters.filter((fighter) => !fighter.isCurrent).length,
       weapons: value.weapons.length,
       abilities: value.abilities.length,
-      blessings: value.blessings.length
+      blessings: value.blessings.length,
+      encampmentDefinitions: value.encampmentDefinitions.length,
+      questDefinitions: value.questDefinitions.length,
+      artefactDefinitions: value.artefactDefinitions.length,
+      heroicTraitDefinitions: value.heroicTraitDefinitions.length
     }
   };
 }
@@ -401,6 +472,70 @@ async function importReferenceDataset(value, validationResult, mode) {
     importSummary
   );
 
+  await upsertProgressionDefinitionRows(
+    client,
+    "encampment_definitions",
+    value.encampmentDefinitions.map((encampment) => ({
+      stable_key: encampment.stableKey,
+      rules_release_id: releaseIds.get(encampment.rulesReleaseStableKey),
+      name: encampment.name,
+      description: encampment.description,
+      source_document_id: nullableId(sourceDocumentIds, encampment.sourceDocumentStableKey),
+      source_page: encampment.sourcePage,
+      mechanics: encampment.mechanics
+    })),
+    importSummary
+  );
+
+  await upsertProgressionDefinitionRows(
+    client,
+    "quest_definitions",
+    value.questDefinitions.map((quest) => ({
+      stable_key: quest.stableKey,
+      rules_release_id: releaseIds.get(quest.rulesReleaseStableKey),
+      scope: quest.scope,
+      grand_alliance_id: nullableId(grandAllianceIds, quest.grandAllianceStableKey),
+      faction_id: nullableId(factionIds, quest.factionStableKey),
+      name: quest.name,
+      description: quest.description,
+      source_document_id: nullableId(sourceDocumentIds, quest.sourceDocumentStableKey),
+      source_page: quest.sourcePage,
+      mechanics: quest.mechanics
+    })),
+    importSummary
+  );
+
+  await upsertProgressionDefinitionRows(
+    client,
+    "artefact_definitions",
+    value.artefactDefinitions.map((artefact) => ({
+      stable_key: artefact.stableKey,
+      rules_release_id: releaseIds.get(artefact.rulesReleaseStableKey),
+      name: artefact.name,
+      category: artefact.category,
+      description: artefact.description,
+      source_document_id: nullableId(sourceDocumentIds, artefact.sourceDocumentStableKey),
+      source_page: artefact.sourcePage,
+      mechanics: artefact.mechanics
+    })),
+    importSummary
+  );
+
+  await upsertProgressionDefinitionRows(
+    client,
+    "heroic_trait_definitions",
+    value.heroicTraitDefinitions.map((heroicTrait) => ({
+      stable_key: heroicTrait.stableKey,
+      rules_release_id: releaseIds.get(heroicTrait.rulesReleaseStableKey),
+      name: heroicTrait.name,
+      description: heroicTrait.description,
+      source_document_id: nullableId(sourceDocumentIds, heroicTrait.sourceDocumentStableKey),
+      source_page: heroicTrait.sourcePage,
+      mechanics: heroicTrait.mechanics
+    })),
+    importSummary
+  );
+
   for (const line of importSummary) {
     console.log(line);
   }
@@ -429,6 +564,19 @@ async function upsertCompositeRows(client, table, conflictTarget, rows, summary)
   }
 
   const result = await client.upsert(table, conflictTarget, cleanRows);
+  summary.push(`ok - ${table}: upserted ${result.length}`);
+  return result;
+}
+
+async function upsertProgressionDefinitionRows(client, table, rows, summary) {
+  const cleanRows = rows.filter((row) => row.rules_release_id && row.stable_key);
+
+  if (cleanRows.length === 0) {
+    summary.push(`ok - ${table}: upserted 0`);
+    return [];
+  }
+
+  const result = await client.upsert(table, "rules_release_id,stable_key", cleanRows);
   summary.push(`ok - ${table}: upserted ${result.length}`);
   return result;
 }
@@ -495,7 +643,11 @@ function printValidationSummary(result) {
       `retiredFighters=${result.summary.retiredFighters}`,
       `weapons=${result.summary.weapons}`,
       `abilities=${result.summary.abilities}`,
-      `blessings=${result.summary.blessings}`
+      `blessings=${result.summary.blessings}`,
+      `encampmentDefinitions=${result.summary.encampmentDefinitions}`,
+      `questDefinitions=${result.summary.questDefinitions}`,
+      `artefactDefinitions=${result.summary.artefactDefinitions}`,
+      `heroicTraitDefinitions=${result.summary.heroicTraitDefinitions}`
     ].join(" ")
   );
 }
@@ -521,6 +673,53 @@ function mapByStableKey(items, label, errors) {
 function requireReference(map, key, subject, label, errors) {
   if (key && !map.has(key)) {
     errors.push(`${subject} references missing ${label}: ${key}`);
+  }
+}
+
+function requireProgressionDefinitionReferences(definition, subject, maps, errors) {
+  requireReference(
+    maps.releases,
+    definition.rulesReleaseStableKey,
+    subject,
+    "rules release",
+    errors
+  );
+  requireReference(
+    maps.sourceDocuments,
+    definition.sourceDocumentStableKey,
+    subject,
+    "source document",
+    errors
+  );
+}
+
+function requireScopedProgressionReferences(definition, subject, maps, errors) {
+  if (definition.scope === "universal") {
+    if (definition.grandAllianceStableKey || definition.factionStableKey) {
+      errors.push(`${subject} with universal scope must not reference a grand alliance or faction`);
+    }
+    return;
+  }
+
+  if (definition.scope === "grand_alliance") {
+    requireReference(
+      maps.grandAlliances,
+      definition.grandAllianceStableKey,
+      subject,
+      "grand alliance",
+      errors
+    );
+
+    if (definition.factionStableKey) {
+      errors.push(`${subject} with grand_alliance scope must not reference a faction`);
+    }
+    return;
+  }
+
+  requireReference(maps.factions, definition.factionStableKey, subject, "faction", errors);
+
+  if (definition.grandAllianceStableKey) {
+    errors.push(`${subject} with faction scope must not reference a grand alliance`);
   }
 }
 
@@ -687,6 +886,34 @@ const blessingSchema = z.object({
   sourcePage: z.string().optional().nullable().transform((value) => value ?? null)
 });
 
+const progressionMechanicsSchema = z.record(z.unknown()).default({});
+
+const progressionDefinitionBaseSchema = z.object({
+  stableKey,
+  rulesReleaseStableKey: stableKey,
+  name: z.string().trim().min(1).max(160),
+  description: z.string().trim().max(1000).default(""),
+  mechanics: progressionMechanicsSchema,
+  sourceDocumentStableKey: optionalSourceDocumentKey,
+  sourcePage: z.string().optional().nullable().transform((value) => value ?? null)
+});
+
+const encampmentDefinitionSchema = progressionDefinitionBaseSchema;
+
+const questDefinitionSchema = progressionDefinitionBaseSchema.extend({
+  scope: z.enum(["universal", "grand_alliance", "faction"]),
+  grandAllianceStableKey: z.string().optional().nullable().transform((value) => value ?? null),
+  factionStableKey: z.string().optional().nullable().transform((value) => value ?? null)
+});
+
+const artefactDefinitionSchema = progressionDefinitionBaseSchema.extend({
+  category: z
+    .enum(["lesser_artefact", "greater_artefact", "campaign_reward", "other"])
+    .default("other")
+});
+
+const heroicTraitDefinitionSchema = progressionDefinitionBaseSchema;
+
 const referenceDatasetSchema = z.object({
   sourceDocuments: z.array(sourceDocumentSchema),
   releases: z.array(releaseSchema),
@@ -696,7 +923,11 @@ const referenceDatasetSchema = z.object({
   fighters: z.array(fighterSchema),
   weapons: z.array(weaponSchema),
   abilities: z.array(abilitySchema),
-  blessings: z.array(blessingSchema)
+  blessings: z.array(blessingSchema),
+  encampmentDefinitions: z.array(encampmentDefinitionSchema),
+  questDefinitions: z.array(questDefinitionSchema),
+  artefactDefinitions: z.array(artefactDefinitionSchema),
+  heroicTraitDefinitions: z.array(heroicTraitDefinitionSchema)
 });
 
 async function main() {

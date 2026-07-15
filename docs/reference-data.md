@@ -62,10 +62,13 @@ Reviewed input lives under `data/reference/`:
 - `fighters.json` contains `fighters`.
 - `weapons.json` contains `weapons`.
 - `abilities.json` contains `abilities` and `blessings`.
+- `progression.json` contains `encampmentDefinitions`, `questDefinitions`,
+  `artefactDefinitions`, and `heroicTraitDefinitions`.
 
 Run `pnpm validate:reference-data` before import. The validator rejects
 duplicate stable keys, invalid release/faction/runemark references, and
-impossible fighter or weapon statistics. Run
+impossible fighter or weapon statistics. It also rejects invalid progression
+definition release, source-document, grand-alliance, and faction references. Run
 `pnpm import:reference-data -- --dry-run` to check the same files without
 remote writes.
 
@@ -126,6 +129,11 @@ Example:
   }
 }
 ```
+
+Progression definition rows use the same `mechanics` convention. Keep
+encampment, quest, artefact, and heroic-trait descriptions short and reviewed,
+then put machine-readable progress, reward, assignment, and effect details in
+`mechanics`.
 
 ## Copyright Boundary
 
