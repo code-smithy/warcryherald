@@ -21,6 +21,7 @@ import {
 import { parseOAuthCallbackParams } from "../src/lib/supabase";
 import {
   validateWarbandDraft,
+  getWarbandFighterPoints,
   validateWarbandFighterAddition,
   validateWarbandRoster,
   type Warband
@@ -418,6 +419,36 @@ describe("Warcry Herald shell", () => {
     });
   });
 
+  it("falls back to fighter profile points when snapshots are unavailable", () => {
+    expect(
+      validateWarbandRoster(
+        makeWarband({
+          warband_fighters: [
+            makeWarbandFighter({
+              id: "fighter",
+              name: "Morn",
+              points: 80,
+              is_leader: false,
+              includeSnapshot: false
+            })
+          ]
+        })
+      ).totalPoints
+    ).toBe(80);
+
+    expect(
+      getWarbandFighterPoints(
+        makeWarbandFighter({
+          id: "fighter",
+          name: "Morn",
+          points: 80,
+          is_leader: false,
+          includeSnapshot: false
+        })
+      )
+    ).toBe(80);
+  });
+
   it("validates fighter additions against roster limits", () => {
     const warband = makeWarband({
       points_limit: 200,
@@ -528,12 +559,14 @@ function makeWarbandFighter({
   id,
   name,
   points,
-  is_leader
+  is_leader,
+  includeSnapshot = true
 }: {
   id: string;
   name: string;
   points: number;
   is_leader: boolean;
+  includeSnapshot?: boolean;
 }): NonNullable<Warband["warband_fighters"]>[number] {
   return {
     id,
@@ -546,7 +579,16 @@ function makeWarbandFighter({
     sort_order: 0,
     created_at: "2026-07-14T00:00:00.000Z",
     updated_at: "2026-07-14T00:00:00.000Z",
-    fighter_profile_snapshots: {
+    fighter_profiles: {
+      id: `${id}-profile`,
+      name: `${name} Profile`,
+      movement: 4,
+      toughness: 4,
+      wounds: 10,
+      points,
+      is_leader
+    },
+    fighter_profile_snapshots: includeSnapshot ? {
       id: `${id}-snapshot`,
       fighter_profile_id: `${id}-profile`,
       rules_release_id: "release",
@@ -562,6 +604,6 @@ function makeWarbandFighter({
       weapons: [],
       runemarks: [],
       captured_at: "2026-07-14T00:00:00.000Z"
-    }
+    } : null
   };
 }

@@ -49,6 +49,11 @@ export type FighterProfileSnapshot = {
   captured_at: string;
 };
 
+export type WarbandFighterProfile = Pick<
+  FighterProfileSnapshot,
+  "id" | "name" | "movement" | "toughness" | "wounds" | "points" | "is_leader"
+>;
+
 export type WarbandFighter = {
   id: string;
   warband_id: string;
@@ -61,6 +66,7 @@ export type WarbandFighter = {
   created_at: string;
   updated_at: string;
   fighter_profile_snapshots?: FighterProfileSnapshot | FighterProfileSnapshot[] | null;
+  fighter_profiles?: WarbandFighterProfile | WarbandFighterProfile[] | null;
 };
 
 export type Warband = {
@@ -136,7 +142,7 @@ export function validateWarbandRoster(
 ): ValidationResult {
   const activeFighters = getActiveRosterFighters(warband.warband_fighters ?? []);
   const totalPoints = activeFighters.reduce(
-    (sum, fighter) => sum + (getFighterSnapshot(fighter)?.points ?? 0),
+    (sum, fighter) => sum + getWarbandFighterPoints(fighter),
     0
   );
   const fighterCount = activeFighters.length;
@@ -202,7 +208,7 @@ export function validateWarbandFighterAddition(
 ): ValidationIssue[] {
   const activeFighters = getActiveRosterFighters(warband.warband_fighters ?? []);
   const totalPoints = activeFighters.reduce(
-    (sum, fighter) => sum + (getFighterSnapshot(fighter)?.points ?? 0),
+    (sum, fighter) => sum + getWarbandFighterPoints(fighter),
     0
   );
   const nextPoints = totalPoints + (draft.points ?? 0);
@@ -239,6 +245,20 @@ export function getFighterSnapshot(fighter: WarbandFighter) {
   return snapshot ?? null;
 }
 
+export function getFighterProfile(fighter: WarbandFighter) {
+  const profile = fighter.fighter_profiles;
+
+  if (Array.isArray(profile)) {
+    return profile[0] ?? null;
+  }
+
+  return profile ?? null;
+}
+
+export function getWarbandFighterPoints(fighter: WarbandFighter) {
+  return getFighterSnapshot(fighter)?.points ?? getFighterProfile(fighter)?.points ?? 0;
+}
+
 export function getWarbandFaction(warband: Warband) {
   const faction = warband.factions;
 
@@ -264,7 +284,8 @@ export async function listWarbands(client: SupabaseClient, campaignId: string) {
       rules_releases(id, stable_key, name, release_date, language, status),
       warband_fighters(
         *,
-        fighter_profile_snapshots:fighter_profile_snapshots!warband_fighters_fighter_profile_snapshot_id_fkey(*)
+        fighter_profile_snapshots:fighter_profile_snapshots!warband_fighters_fighter_profile_snapshot_id_fkey(*),
+        fighter_profiles(id, name, movement, toughness, wounds, points, is_leader)
       )
     `
     )
