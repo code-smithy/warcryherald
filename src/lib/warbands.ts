@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import type { GrandAlliance } from "./reference-data";
 
 export type WarbandStatus = "draft" | "battle_ready" | "retired";
 export type WarbandFighterStatus = "active" | "recovering" | "missing" | "dead" | "retired";
@@ -20,6 +21,8 @@ export type WarbandFaction = {
   id: string;
   stable_key: string;
   name: string;
+  grand_alliance_id?: string;
+  grand_alliances?: GrandAlliance | GrandAlliance[] | null;
 };
 
 export type WarbandRulesRelease = {
@@ -280,7 +283,7 @@ export async function listWarbands(client: SupabaseClient, campaignId: string) {
     .select(
       `
       *,
-      factions(id, stable_key, name),
+      factions(id, stable_key, name, grand_alliance_id, grand_alliances(id, stable_key, name)),
       rules_releases(id, stable_key, name, release_date, language, status),
       warband_fighters(
         *,

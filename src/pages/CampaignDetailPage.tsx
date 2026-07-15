@@ -37,6 +37,37 @@ import {
   type FighterProfile,
   type RulesRelease
 } from "../lib/reference-data";
+import {
+  abandonWarbandQuest,
+  addFighterHeroicTrait,
+  addFighterInjury,
+  addWarbandArtefact,
+  assignFighterArtefact,
+  completeWarbandQuest,
+  createProgressionDraft,
+  emptyProgressionState,
+  filterProgressionDefinitionsForWarband,
+  getDefinitionName,
+  getWarbandProgressionState,
+  listProgressionDefinitions,
+  recoverFighterInjury,
+  removeFighterHeroicTrait,
+  removeWarbandArtefact,
+  saveFighterRenown,
+  saveWarbandProgress,
+  setWarbandEncampment,
+  startWarbandQuest,
+  updateWarbandArtefactNotes,
+  updateWarbandQuestProgress,
+  type ArtefactDefinition,
+  type FighterInjury,
+  type HeroicTraitDefinition,
+  type ProgressionDefinitions,
+  type ProgressionDraft,
+  type WarbandArtefact,
+  type WarbandProgressionState,
+  type WarbandQuest
+} from "../lib/progression";
 import { getSupabaseClient } from "../lib/supabase";
 import {
   addWarbandFighter,
@@ -635,6 +666,7 @@ export function CampaignDetailPage() {
           ) : null}
 
           <WarbandRoster
+            client={client}
             warbands={warbands}
             selectedWarband={selectedWarband}
             canManage={Boolean(
@@ -651,6 +683,8 @@ export function CampaignDetailPage() {
             onFighterUpdate={handleFighterUpdate}
             onFighterRemove={handleFighterRemove}
             onWarbandStatusChange={handleWarbandStatusChange}
+            onMessage={setMessage}
+            onError={setError}
           />
         </article>
 
@@ -941,6 +975,7 @@ function normalizeRelatedProfile(
 }
 
 function WarbandRoster({
+  client,
   warbands,
   selectedWarband,
   canManage,
@@ -953,8 +988,11 @@ function WarbandRoster({
   onAddFighter,
   onFighterUpdate,
   onFighterRemove,
-  onWarbandStatusChange
+  onWarbandStatusChange,
+  onMessage,
+  onError
 }: {
+  client: ReturnType<typeof getSupabaseClient>;
   warbands: Warband[];
   selectedWarband: Warband | null;
   canManage: boolean;
@@ -971,6 +1009,8 @@ function WarbandRoster({
   ) => void;
   onFighterRemove: (fighterId: string) => void;
   onWarbandStatusChange: (warbandId: string, status: Warband["status"]) => void;
+  onMessage: (message: string | null) => void;
+  onError: (message: string | null) => void;
 }) {
   if (warbands.length === 0) {
     return <p className="muted">No warbands yet.</p>;
@@ -1158,7 +1198,709 @@ function WarbandRoster({
             />
           ))}
         </div>
+
+        <WarbandProgressionPanel
+          client={client}
+          warband={selectedWarband}
+          canManage={canManage}
+          onMessage={onMessage}
+          onError={onError}
+        />
       </div>
+    </div>
+  );
+}
+
+function WarbandProgressionPanel({
+  client,
+  warband,
+  canManage,
+  onMessage,
+  onError
+}: {
+  client: ReturnType<typeof getSupabaseClient>;
+  warband: Warband;
+  canManage: boolean;
+  onMessage: (message: string | null) => void;
+  onError: (message: string | null) => void;
+}) {
+  const [definitions, setDefinitions] = useState<ProgressionDefinitions | null>(null);
+  const [state, setState] = useState<WarbandProgressionState>(emptyProgressionState);
+  const [loading, setLoading] = useState(true);
+  const [progressionDraft, setProgressionDraft] = useState<ProgressionDraft>(
+    createProgressionDraft(null)
+  );
+  const [encampmentDefinitionId, setEncampmentDefinitionId] = useState("");
+  const [questDefinitionId, setQuestDefinitionId] = useState("");
+  const [questProgressDrafts, setQuestProgressDrafts] = useState<Record<string, string>>({});
+  const [artefactDefinitionId, setArtefactDefinitionId] = useState("");
+  const [artefactNotes, setArtefactNotes] = useState("");
+  const [artefactNoteDrafts, setArtefactNoteDrafts] = useState<Record<string, string>>({});
+  const [renownDrafts, setRenownDrafts] = useState<Record<string, string>>({});
+  const [traitDrafts, setTraitDrafts] = useState<Record<string, string>>({});
+  const [injuryDrafts, setInjuryDrafts] = useState<
+    Record<string, { name: string; description: string }>
+  >({});
+
+  const loadProgression = useCallback(async () => {
+    if (!client) {
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const [nextDefinitions, nextState] = await Promise.all([
+        listProgressionDefinitions(client),
+        getWarbandProgressionState(client, warband)
+      ]);
+
+      setDefinitions(nextDefinitions);
+      setState(nextState);
+    } catch (loadError) {
+      onError(getErrorMessage(loadError, "Progression could not be loaded."));
+    } finally {
+      setLoading(false);
+    }
+  }, [client, onError, warband]);
+
+  useEffect(() => {
+    void loadProgression();
+  }, [loadProgression]);
+
+  useEffect(() => {
+    setProgressionDraft(createProgressionDraft(state.progress));
+    setEncampmentDefinitionId(state.encampment?.encampment_definition_id ?? "");
+    setQuestProgressDrafts(
+      Object.fromEntries(state.quests.map((quest) => [quest.id, String(quest.progress)]))
+    );
+    setArtefactNoteDrafts(
+      Object.fromEntries(state.artefacts.map((artefact) => [artefact.id, artefact.notes]))
+    );
+    setRenownDrafts(
+      Object.fromEntries(
+        (warband.warband_fighters ?? []).map((fighter) => [
+          fighter.id,
+          String(state.renown.find((row) => row.warband_fighter_id === fighter.id)?.renown ?? 0)
+        ])
+      )
+    );
+  }, [state, warband.warband_fighters]);
+
+  const availableDefinitions = definitions
+    ? filterProgressionDefinitionsForWarband(definitions, warband)
+    : null;
+  const rosterFighters = [...(warband.warband_fighters ?? [])].sort(
+    (a, b) => a.sort_order - b.sort_order || a.created_at.localeCompare(b.created_at)
+  );
+  const activeQuests = state.quests.filter((quest) => !quest.completed_at);
+  const completedQuests = state.quests.filter((quest) => quest.completed_at);
+
+  async function runProgressionAction(action: () => Promise<unknown>, success: string) {
+    if (!client) {
+      return;
+    }
+
+    onError(null);
+    onMessage(null);
+
+    try {
+      await action();
+      await loadProgression();
+      onMessage(success);
+    } catch (progressionError) {
+      onError(getErrorMessage(progressionError, "Progression could not be saved."));
+    }
+  }
+
+  function getArtefactDefinition(): ArtefactDefinition | null {
+    return (
+      availableDefinitions?.artefacts.find((artefact) => artefact.id === artefactDefinitionId) ??
+      null
+    );
+  }
+
+  function getTraitDefinitionOptions(fighterId: string): HeroicTraitDefinition[] {
+    const assignedTraitIds = new Set(
+      state.heroicTraits
+        .filter((trait) => trait.warband_fighter_id === fighterId)
+        .map((trait) => trait.heroic_trait_definition_id)
+    );
+
+    return (availableDefinitions?.heroicTraits ?? []).filter(
+      (trait) => !assignedTraitIds.has(trait.id)
+    );
+  }
+
+  if (loading) {
+    return (
+      <section className="progression-section">
+        <p className="eyebrow">Progression</p>
+        <p className="muted">Loading progression.</p>
+      </section>
+    );
+  }
+
+  return (
+    <section className="progression-section">
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">Progression</p>
+          <h3>Campaign state</h3>
+        </div>
+      </div>
+
+      <form
+        className="progression-grid"
+        onSubmit={(event) => {
+          event.preventDefault();
+          void runProgressionAction(
+            () => saveWarbandProgress(client!, warband.id, progressionDraft),
+            "Warband progression saved."
+          );
+        }}
+      >
+        <label>
+          Glory
+          <input
+            inputMode="numeric"
+            value={progressionDraft.glory}
+            disabled={!canManage}
+            onChange={(event) =>
+              setProgressionDraft({ ...progressionDraft, glory: event.target.value })
+            }
+          />
+        </label>
+        <label>
+          Reputation
+          <input
+            inputMode="numeric"
+            value={progressionDraft.reputation}
+            disabled={!canManage}
+            onChange={(event) =>
+              setProgressionDraft({ ...progressionDraft, reputation: event.target.value })
+            }
+          />
+        </label>
+        <label className="progression-wide">
+          Notes
+          <textarea
+            rows={3}
+            value={progressionDraft.notes}
+            disabled={!canManage}
+            maxLength={2000}
+            onChange={(event) =>
+              setProgressionDraft({ ...progressionDraft, notes: event.target.value })
+            }
+          />
+        </label>
+        {canManage ? (
+          <button className="button" type="submit">
+            Save progression
+          </button>
+        ) : null}
+      </form>
+
+      <div className="progression-grid">
+        <label>
+          Encampment
+          <select
+            value={encampmentDefinitionId}
+            disabled={!canManage}
+            onChange={(event) => setEncampmentDefinitionId(event.target.value)}
+          >
+            <option value="">No encampment</option>
+            {(availableDefinitions?.encampments ?? []).map((encampment) => (
+              <option key={encampment.id} value={encampment.id}>
+                {encampment.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        {canManage ? (
+          <button
+            className="button"
+            type="button"
+            onClick={() =>
+              void runProgressionAction(
+                () => setWarbandEncampment(client!, warband.id, encampmentDefinitionId),
+                encampmentDefinitionId ? "Encampment saved." : "Encampment cleared."
+              )
+            }
+          >
+            Save encampment
+          </button>
+        ) : null}
+      </div>
+
+      <div className="progression-block">
+        <h4>Quests</h4>
+        {canManage ? (
+          <div className="inline-form">
+            <label>
+              Start quest
+              <select
+                value={questDefinitionId}
+                onChange={(event) => setQuestDefinitionId(event.target.value)}
+              >
+                <option value="">Choose quest</option>
+                {(availableDefinitions?.quests ?? []).map((quest) => (
+                  <option key={quest.id} value={quest.id}>
+                    {quest.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button
+              className="button"
+              type="button"
+              onClick={() =>
+                void runProgressionAction(async () => {
+                  await startWarbandQuest(client!, warband.id, questDefinitionId);
+                  setQuestDefinitionId("");
+                }, "Quest started.")
+              }
+            >
+              Start quest
+            </button>
+          </div>
+        ) : null}
+
+        <div className="progression-list">
+          {[...activeQuests, ...completedQuests].map((quest) => (
+            <QuestProgressRow
+              key={quest.id}
+              quest={quest}
+              progressDraft={questProgressDrafts[quest.id] ?? String(quest.progress)}
+              canManage={canManage}
+              onProgressChange={(value) =>
+                setQuestProgressDrafts({ ...questProgressDrafts, [quest.id]: value })
+              }
+              onSave={() =>
+                runProgressionAction(
+                  () => updateWarbandQuestProgress(client!, quest.id, questProgressDrafts[quest.id] ?? "0"),
+                  "Quest progress saved."
+                )
+              }
+              onComplete={() =>
+                runProgressionAction(() => completeWarbandQuest(client!, quest.id), "Quest completed.")
+              }
+              onAbandon={() =>
+                runProgressionAction(() => abandonWarbandQuest(client!, quest.id), "Quest removed.")
+              }
+            />
+          ))}
+          {state.quests.length === 0 ? <p className="muted">No quests started.</p> : null}
+        </div>
+      </div>
+
+      <div className="progression-block">
+        <h4>Artefacts</h4>
+        {canManage ? (
+          <div className="inline-form">
+            <label>
+              Add artefact
+              <select
+                value={artefactDefinitionId}
+                onChange={(event) => setArtefactDefinitionId(event.target.value)}
+              >
+                <option value="">Choose artefact</option>
+                {(availableDefinitions?.artefacts ?? []).map((artefact) => (
+                  <option key={artefact.id} value={artefact.id}>
+                    {artefact.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Notes
+              <input
+                value={artefactNotes}
+                onChange={(event) => setArtefactNotes(event.target.value)}
+                maxLength={2000}
+              />
+            </label>
+            <button
+              className="button"
+              type="button"
+              onClick={() =>
+                void runProgressionAction(async () => {
+                  await addWarbandArtefact(client!, warband.id, getArtefactDefinition(), artefactNotes);
+                  setArtefactDefinitionId("");
+                  setArtefactNotes("");
+                }, "Artefact added.")
+              }
+            >
+              Add artefact
+            </button>
+          </div>
+        ) : null}
+
+        <div className="progression-list">
+          {state.artefacts.map((artefact) => (
+            <ArtefactProgressRow
+              key={artefact.id}
+              artefact={artefact}
+              fighters={rosterFighters}
+              noteDraft={artefactNoteDrafts[artefact.id] ?? artefact.notes}
+              canManage={canManage}
+              onNoteChange={(value) =>
+                setArtefactNoteDrafts({ ...artefactNoteDrafts, [artefact.id]: value })
+              }
+              onAssign={(fighterId) =>
+                runProgressionAction(
+                  () => assignFighterArtefact(client!, artefact.id, fighterId),
+                  fighterId ? "Artefact assigned." : "Artefact unassigned."
+                )
+              }
+              onSaveNotes={() =>
+                runProgressionAction(
+                  () => updateWarbandArtefactNotes(client!, artefact.id, artefactNoteDrafts[artefact.id] ?? ""),
+                  "Artefact notes saved."
+                )
+              }
+              onRemove={() =>
+                runProgressionAction(
+                  () => removeWarbandArtefact(client!, artefact.id),
+                  "Artefact removed."
+                )
+              }
+            />
+          ))}
+          {state.artefacts.length === 0 ? <p className="muted">No artefacts recorded.</p> : null}
+        </div>
+      </div>
+
+      <div className="progression-block">
+        <h4>Fighters</h4>
+        <div className="progression-list">
+          {rosterFighters.map((fighter) => {
+            const assignedTraits = state.heroicTraits.filter(
+              (trait) => trait.warband_fighter_id === fighter.id
+            );
+            const fighterInjuries = state.injuries.filter(
+              (injury) => injury.warband_fighter_id === fighter.id
+            );
+            const injuryDraft = injuryDrafts[fighter.id] ?? { name: "", description: "" };
+
+            return (
+              <div className="progression-row progression-row--stacked" key={fighter.id}>
+                <div>
+                  <strong>{fighter.name}</strong>
+                  <small>{fighterStatusLabels[fighter.status]}</small>
+                </div>
+
+                <div className="progression-grid">
+                  <label>
+                    Renown
+                    <input
+                      inputMode="numeric"
+                      value={renownDrafts[fighter.id] ?? "0"}
+                      disabled={!canManage}
+                      onChange={(event) =>
+                        setRenownDrafts({ ...renownDrafts, [fighter.id]: event.target.value })
+                      }
+                    />
+                  </label>
+                  {canManage ? (
+                    <button
+                      className="button button--secondary"
+                      type="button"
+                      onClick={() =>
+                        void runProgressionAction(
+                          () => saveFighterRenown(client!, fighter.id, renownDrafts[fighter.id] ?? "0"),
+                          "Renown saved."
+                        )
+                      }
+                    >
+                      Save renown
+                    </button>
+                  ) : null}
+                </div>
+
+                <div className="tag-list">
+                  {assignedTraits.map((trait) => (
+                    <span key={trait.id}>
+                      {getDefinitionName(trait.heroic_trait_definitions)}
+                      {canManage ? (
+                        <button
+                          className="tag-remove"
+                          type="button"
+                          onClick={() =>
+                            void runProgressionAction(
+                              () => removeFighterHeroicTrait(client!, trait.id),
+                              "Heroic trait removed."
+                            )
+                          }
+                        >
+                          Remove
+                        </button>
+                      ) : null}
+                    </span>
+                  ))}
+                </div>
+
+                {canManage ? (
+                  <div className="inline-form">
+                    <label>
+                      Heroic trait
+                      <select
+                        value={traitDrafts[fighter.id] ?? ""}
+                        onChange={(event) =>
+                          setTraitDrafts({ ...traitDrafts, [fighter.id]: event.target.value })
+                        }
+                      >
+                        <option value="">Choose trait</option>
+                        {getTraitDefinitionOptions(fighter.id).map((trait) => (
+                          <option key={trait.id} value={trait.id}>
+                            {trait.name}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <button
+                      className="button button--secondary"
+                      type="button"
+                      onClick={() =>
+                        void runProgressionAction(async () => {
+                          await addFighterHeroicTrait(client!, fighter.id, traitDrafts[fighter.id] ?? "");
+                          setTraitDrafts({ ...traitDrafts, [fighter.id]: "" });
+                        }, "Heroic trait added.")
+                      }
+                    >
+                      Add trait
+                    </button>
+                  </div>
+                ) : null}
+
+                <div className="progression-list">
+                  {fighterInjuries.map((injury) => (
+                    <InjuryRow
+                      key={injury.id}
+                      injury={injury}
+                      canManage={canManage}
+                      onRecover={() =>
+                        runProgressionAction(
+                          () => recoverFighterInjury(client!, injury.id),
+                          "Injury marked recovered."
+                        )
+                      }
+                    />
+                  ))}
+                </div>
+
+                {canManage ? (
+                  <div className="inline-form">
+                    <label>
+                      Injury
+                      <input
+                        value={injuryDraft.name}
+                        onChange={(event) =>
+                          setInjuryDrafts({
+                            ...injuryDrafts,
+                            [fighter.id]: { ...injuryDraft, name: event.target.value }
+                          })
+                        }
+                        maxLength={120}
+                      />
+                    </label>
+                    <label>
+                      Description
+                      <input
+                        value={injuryDraft.description}
+                        onChange={(event) =>
+                          setInjuryDrafts({
+                            ...injuryDrafts,
+                            [fighter.id]: { ...injuryDraft, description: event.target.value }
+                          })
+                        }
+                        maxLength={1000}
+                      />
+                    </label>
+                    <button
+                      className="button button--secondary"
+                      type="button"
+                      onClick={() =>
+                        void runProgressionAction(async () => {
+                          await addFighterInjury(
+                            client!,
+                            fighter.id,
+                            injuryDraft.name,
+                            injuryDraft.description
+                          );
+                          setInjuryDrafts({
+                            ...injuryDrafts,
+                            [fighter.id]: { name: "", description: "" }
+                          });
+                        }, "Injury added.")
+                      }
+                    >
+                      Add injury
+                    </button>
+                  </div>
+                ) : null}
+              </div>
+            );
+          })}
+          {rosterFighters.length === 0 ? <p className="muted">Add fighters before tracking renown.</p> : null}
+        </div>
+      </div>
+
+      <div className="progression-block">
+        <h4>Journal</h4>
+        <div className="progression-list">
+          {state.journal.map((entry) => (
+            <div className="progression-row" key={entry.id}>
+              <span>
+                <strong>{entry.summary}</strong>
+                <small>{entry.event_type}</small>
+              </span>
+              <small>{new Date(entry.created_at).toLocaleString()}</small>
+            </div>
+          ))}
+          {state.journal.length === 0 ? <p className="muted">No progression journal entries yet.</p> : null}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function QuestProgressRow({
+  quest,
+  progressDraft,
+  canManage,
+  onProgressChange,
+  onSave,
+  onComplete,
+  onAbandon
+}: {
+  quest: WarbandQuest;
+  progressDraft: string;
+  canManage: boolean;
+  onProgressChange: (value: string) => void;
+  onSave: () => Promise<unknown>;
+  onComplete: () => Promise<unknown>;
+  onAbandon: () => Promise<unknown>;
+}) {
+  return (
+    <div className="progression-row">
+      <span>
+        <strong>{getDefinitionName(quest.quest_definitions, "Unknown quest")}</strong>
+        <small>{quest.completed_at ? "Completed" : "Active"}</small>
+      </span>
+      <label>
+        Progress
+        <input
+          inputMode="numeric"
+          value={progressDraft}
+          disabled={!canManage || Boolean(quest.completed_at)}
+          onChange={(event) => onProgressChange(event.target.value)}
+        />
+      </label>
+      {canManage ? (
+        <div className="progression-actions">
+          <button className="button button--secondary" type="button" onClick={() => void onSave()}>
+            Save
+          </button>
+          {!quest.completed_at ? (
+            <button className="button button--secondary" type="button" onClick={() => void onComplete()}>
+              Complete
+            </button>
+          ) : null}
+          <button className="link-button" type="button" onClick={() => void onAbandon()}>
+            Remove
+          </button>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function ArtefactProgressRow({
+  artefact,
+  fighters,
+  noteDraft,
+  canManage,
+  onNoteChange,
+  onAssign,
+  onSaveNotes,
+  onRemove
+}: {
+  artefact: WarbandArtefact;
+  fighters: WarbandFighter[];
+  noteDraft: string;
+  canManage: boolean;
+  onNoteChange: (value: string) => void;
+  onAssign: (fighterId: string) => Promise<unknown>;
+  onSaveNotes: () => Promise<unknown>;
+  onRemove: () => Promise<unknown>;
+}) {
+  const assignedFighterId = artefact.fighter_artefacts?.[0]?.warband_fighter_id ?? "";
+
+  return (
+    <div className="progression-row">
+      <span>
+        <strong>{artefact.name || getDefinitionName(artefact.artefact_definitions, "Unknown artefact")}</strong>
+        <small>{getDefinitionName(artefact.artefact_definitions, "Definition unavailable")}</small>
+      </span>
+      <label>
+        Assigned
+        <select
+          value={assignedFighterId}
+          disabled={!canManage}
+          onChange={(event) => void onAssign(event.target.value)}
+        >
+          <option value="">Warband stash</option>
+          {fighters.map((fighter) => (
+            <option key={fighter.id} value={fighter.id}>
+              {fighter.name}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label>
+        Notes
+        <input
+          value={noteDraft}
+          disabled={!canManage}
+          onChange={(event) => onNoteChange(event.target.value)}
+        />
+      </label>
+      {canManage ? (
+        <div className="progression-actions">
+          <button className="button button--secondary" type="button" onClick={() => void onSaveNotes()}>
+            Save
+          </button>
+          <button className="link-button" type="button" onClick={() => void onRemove()}>
+            Remove
+          </button>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function InjuryRow({
+  injury,
+  canManage,
+  onRecover
+}: {
+  injury: FighterInjury;
+  canManage: boolean;
+  onRecover: () => Promise<unknown>;
+}) {
+  return (
+    <div className="progression-row">
+      <span>
+        <strong>{injury.name}</strong>
+        <small>{injury.description || "No description"}</small>
+      </span>
+      <span className="status-pill">{injury.recovered_at ? "Recovered" : "Active"}</span>
+      {canManage && !injury.recovered_at ? (
+        <button className="button button--secondary" type="button" onClick={() => void onRecover()}>
+          Recover
+        </button>
+      ) : null}
     </div>
   );
 }
