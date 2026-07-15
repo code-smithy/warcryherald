@@ -344,12 +344,17 @@ export function CampaignDetailPage() {
     setMessage(null);
 
     try {
-      await addWarbandFighter(client, {
-        warbandId: selectedWarband.id,
-        fighterProfileId: fighterDraft.fighterProfileId,
-        name: fighterDraft.name || selectedFighterProfile?.name || "",
-        isLeader: fighterDraft.isLeader
-      });
+      await addWarbandFighter(
+        client,
+        {
+          warbandId: selectedWarband.id,
+          fighterProfileId: fighterDraft.fighterProfileId,
+          name: fighterDraft.name || selectedFighterProfile?.name || "",
+          isLeader: fighterDraft.isLeader,
+          points: selectedFighterProfile?.points ?? 0
+        },
+        selectedWarband
+      );
       setFighterDraft({ fighterProfileId: "", name: "", isLeader: false });
       await loadCampaign();
       setMessage("Fighter added.");
