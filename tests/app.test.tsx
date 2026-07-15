@@ -21,6 +21,7 @@ import {
 import { parseOAuthCallbackParams } from "../src/lib/supabase";
 import {
   validateWarbandDraft,
+  validateWarbandFighterAddition,
   validateWarbandRoster,
   type Warband
 } from "../src/lib/warbands";
@@ -415,6 +416,25 @@ describe("Warcry Herald shell", () => {
       errors: [],
       warnings: []
     });
+  });
+
+  it("validates fighter additions against roster limits", () => {
+    const warband = makeWarband({
+      points_limit: 200,
+      fighter_limit: 2,
+      warband_fighters: [
+        makeWarbandFighter({ id: "leader", name: "Kara", points: 145, is_leader: true }),
+        makeWarbandFighter({ id: "fighter", name: "Morn", points: 40, is_leader: false })
+      ]
+    });
+
+    expect(validateWarbandFighterAddition(warband, { points: 30 })).toEqual([
+      { code: "fighter-limit", message: "Roster already has the maximum of 2 active fighters." },
+      {
+        code: "points-limit",
+        message: "Adding this fighter would put the roster 15 points over the limit."
+      }
+    ]);
   });
 
 });
