@@ -31,9 +31,9 @@ Stay inquisitive. If a rule, table shape, workflow, copyright boundary, or UI be
 
 ## Current Status
 
-- Project stage: Phase 4 implementation in progress; warband roster management added on top of the Phase 3 reference-data foundation.
-- Current phase: Phase 4 - Warband Roster Management.
-- Last completed phase: Phase 2 - Campaigns, Members, And Invitations.
+- Project stage: Phase 5 implementation ready; Phase 4 warband roster management is locally complete on top of the Phase 3 reference-data foundation.
+- Current phase: Phase 5 - Encampment And Warband Progression.
+- Last completed phase: Phase 4 - Warband Roster Management.
 - MVP target: complete after `WH-018 Chronicle and audit history`.
 - Broader readiness target: complete after `WH-020 Security review and production deployment`.
 
@@ -877,3 +877,11 @@ Record completed phases and verification results here.
   - Verification: `pnpm build` passed.
   - Verification: 2026-07-14 local closeout recheck passed `pnpm lint`, `pnpm test` with 12 tests, and `pnpm build`.
   - Verification: 2026-07-14 user confirmed target Supabase migrations and `pnpm verify:phase2` live two-user RLS checks are complete.
+
+- 2026-07-15: Completed Phase 4 - Warband Roster Management.
+  - Added warband, fighter instance, and fighter profile snapshot persistence with roster RPCs and validation.
+  - Added roster management UI for warband creation, faction selection, fighter recruitment, fighter naming, removal/retirement, leader designation, live totals, validation messaging, summary cards, printable roster output, and mobile-friendly fighter cards.
+  - Documented Phase 4 setup and security expectations for private campaign warbands, owner/admin roster management, fighter rules-release enforcement, roster snapshotting, and battle-ready validation.
+  - Verification: `pnpm lint` passed.
+  - Verification: `pnpm test` passed with 20 tests.
+  - Verification: `pnpm build` passed.
