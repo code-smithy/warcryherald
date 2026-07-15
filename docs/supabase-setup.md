@@ -129,6 +129,13 @@ The Phase 4 warband migration adds:
   recruitment captures a profile snapshot so later reference updates do not
   silently rewrite saved rosters.
 
+
+The Phase 5 progression migration adds warband progression, encampment, quest,
+artefact, heroic trait, renown, injury, and journal tables. Campaign members can
+read progression state, while only warband owners and campaign administrators can
+change it. The migration also records journal entries for progression updates so
+narrative changes have an authoritative history.
+
 Anonymous and authenticated clients receive `select` only. Reference-data
 imports must run from trusted tooling with `SUPABASE_SERVICE_ROLE_KEY` in the
 process environment:
