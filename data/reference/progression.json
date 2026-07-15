@@ -1,0 +1,4060 @@
+{
+  "encampmentDefinitions": [
+    {
+      "stableKey": "warcry-core-encampment-chaotic-nexus-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Chaotic Nexus",
+      "description": "A corrupted site used as a Chaos encampment.",
+      "mechanics": {
+        "category": "encampment",
+        "effects": [
+          {
+            "type": "campaign_modifier",
+            "target": "warband",
+            "summary": "Provides a Chaos-specific encampment bonus and access to a dark-boons exploration table."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Encampment Location: Chaotic Nexus"
+    },
+    {
+      "stableKey": "warcry-core-encampment-proper-bog-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Proper Bog",
+      "description": "Restored wild bogland used as a Destruction encampment.",
+      "mechanics": {
+        "category": "encampment",
+        "effects": [
+          {
+            "type": "campaign_modifier",
+            "target": "warband",
+            "summary": "Adds 1 to renown rolls for heroes."
+          },
+          {
+            "type": "campaign_modifier",
+            "target": "warband",
+            "summary": "Allows one fighter to search the bog during the aftermath sequence."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Encampment Location: Proper Bog"
+    },
+    {
+      "stableKey": "warcry-core-encampment-trade-route-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Trade Route",
+      "description": "A secured trade route supporting the warband.",
+      "mechanics": {
+        "category": "encampment",
+        "effects": [
+          {
+            "type": "campaign_modifier",
+            "target": "warband",
+            "summary": "Provides an Order-specific encampment bonus and access to a trade-route exploration table."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Encampment Location: Trade Route"
+    },
+    {
+      "stableKey": "warcry-core-encampment-unearthed-tomb-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Unearthed Tomb",
+      "description": "An ancient crypt secured as a base of operations.",
+      "mechanics": {
+        "category": "encampment",
+        "effects": [
+          {
+            "type": "campaign_modifier",
+            "target": "warband",
+            "summary": "Adds 1 to renown rolls for heroes."
+          },
+          {
+            "type": "campaign_modifier",
+            "target": "warband",
+            "summary": "Allows one fighter to explore the catacombs during the aftermath sequence."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Encampment Location: Unearthed Tomb"
+    },
+    {
+      "stableKey": "warcry-en-chaos-chaos-legionnaires-encampment-marshal-s-warcamp-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en-release",
+      "name": "Marshal's Warcamp",
+      "description": "Faction encampment for en-chaos-chaos-legionnaires.",
+      "mechanics": {
+        "category": "encampment",
+        "effects": [
+          {
+            "type": "campaign_modifier",
+            "target": "warband",
+            "summary": "Provides the faction-specific encampment benefit and exploration rewards."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en",
+      "sourcePage": "Encampment Location: Marshal's Warcamp"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-encampment-skull-strewn-lair-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "Skull-strewn Lair",
+      "description": "Faction encampment for en-chaos-claws-of-karanak.",
+      "mechanics": {
+        "category": "encampment",
+        "effects": [
+          {
+            "type": "campaign_modifier",
+            "target": "warband",
+            "summary": "Provides the faction-specific encampment benefit and exploration rewards."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Encampment Location: Skull-strewn Lair"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-encampment-grotesque-totem-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Grotesque Totem",
+      "description": "Faction encampment for en-chaos-rotmire-creed.",
+      "mechanics": {
+        "category": "encampment",
+        "effects": [
+          {
+            "type": "campaign_modifier",
+            "target": "warband",
+            "summary": "Provides the faction-specific encampment benefit and exploration rewards."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Encampment Location: Grotesque Totem"
+    }
+  ],
+  "questDefinitions": [
+    {
+      "stableKey": "warcry-chaos-grand-alliance-quest-champion-of-chaos-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "scope": "grand_alliance",
+      "grandAllianceStableKey": "chaos-grand-alliance",
+      "factionStableKey": null,
+      "name": "Champion of Chaos",
+      "description": "A nominated hero proves their worth through slaughter.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Quest condition"
+        },
+        "completion": {
+          "summary": "Satisfy the quest's completion condition."
+        },
+        "reward": {
+          "summary": "Give the nominated fighter a Chaos heroic trait."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Champion of Chaos"
+    },
+    {
+      "stableKey": "warcry-chaos-grand-alliance-quest-desecrate-the-land-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "scope": "grand_alliance",
+      "grandAllianceStableKey": "chaos-grand-alliance",
+      "factionStableKey": null,
+      "name": "Desecrate the Land",
+      "description": "Find and corrupt a powerful site.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 10,
+          "label": "Progress score"
+        },
+        "completion": {
+          "summary": "Satisfy the quest's completion condition."
+        },
+        "reward": {
+          "summary": "Relocate the warband to the Chaotic Nexus encampment."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Desecrate the Land"
+    },
+    {
+      "stableKey": "warcry-chaos-grand-alliance-quest-gifts-of-the-dark-gods-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "scope": "grand_alliance",
+      "grandAllianceStableKey": "chaos-grand-alliance",
+      "factionStableKey": null,
+      "name": "Gifts of the Dark Gods",
+      "description": "Recover a selected Chaos artefact of power.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 15,
+          "label": "Progress score"
+        },
+        "completion": {
+          "summary": "Satisfy the quest's completion condition."
+        },
+        "reward": {
+          "summary": "Gain the selected artefact of power."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Gifts of the Dark Gods"
+    },
+    {
+      "stableKey": "warcry-death-grand-alliance-quest-lord-of-death-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "scope": "grand_alliance",
+      "grandAllianceStableKey": "death-grand-alliance",
+      "factionStableKey": null,
+      "name": "Lord of Death",
+      "description": "A nominated hero destroys an enemy hero.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Quest condition"
+        },
+        "completion": {
+          "summary": "Satisfy the quest's completion condition."
+        },
+        "reward": {
+          "summary": "Give the nominated fighter a Death heroic trait."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Lord of Death"
+    },
+    {
+      "stableKey": "warcry-death-grand-alliance-quest-treasures-of-the-grave-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "scope": "grand_alliance",
+      "grandAllianceStableKey": "death-grand-alliance",
+      "factionStableKey": null,
+      "name": "Treasures of the Grave",
+      "description": "Recover a selected Death artefact of power.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 15,
+          "label": "Progress score"
+        },
+        "completion": {
+          "summary": "Satisfy the quest's completion condition."
+        },
+        "reward": {
+          "summary": "Gain the selected artefact of power."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Treasures of the Grave"
+    },
+    {
+      "stableKey": "warcry-death-grand-alliance-quest-what-lies-below-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "scope": "grand_alliance",
+      "grandAllianceStableKey": "death-grand-alliance",
+      "factionStableKey": null,
+      "name": "What Lies Below",
+      "description": "Discover and seize an ancient crypt.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 10,
+          "label": "Progress score"
+        },
+        "completion": {
+          "summary": "Satisfy the quest's completion condition."
+        },
+        "reward": {
+          "summary": "Relocate the warband to the Unearthed Tomb encampment."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "What Lies Below"
+    },
+    {
+      "stableKey": "warcry-destruction-grand-alliance-quest-avatar-of-destruction-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "scope": "grand_alliance",
+      "grandAllianceStableKey": "destruction-grand-alliance",
+      "factionStableKey": null,
+      "name": "Avatar of Destruction",
+      "description": "A nominated hero defeats an enemy hero.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Quest condition"
+        },
+        "completion": {
+          "summary": "Satisfy the quest's completion condition."
+        },
+        "reward": {
+          "summary": "Give the nominated fighter a Destruction heroic trait."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Avatar of Destruction"
+    },
+    {
+      "stableKey": "warcry-destruction-grand-alliance-quest-bring-the-wild-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "scope": "grand_alliance",
+      "grandAllianceStableKey": "destruction-grand-alliance",
+      "factionStableKey": null,
+      "name": "Bring the Wild",
+      "description": "Destroy an enemy foothold and restore the wild.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 10,
+          "label": "Progress score"
+        },
+        "completion": {
+          "summary": "Satisfy the quest's completion condition."
+        },
+        "reward": {
+          "summary": "Relocate the warband to the Proper Bog encampment."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Bring the Wild"
+    },
+    {
+      "stableKey": "warcry-destruction-grand-alliance-quest-treasures-of-gorkamorka-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "scope": "grand_alliance",
+      "grandAllianceStableKey": "destruction-grand-alliance",
+      "factionStableKey": null,
+      "name": "Treasures of Gorkamorka",
+      "description": "Recover a selected Destruction artefact of power.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 15,
+          "label": "Progress score"
+        },
+        "completion": {
+          "summary": "Satisfy the quest's completion condition."
+        },
+        "reward": {
+          "summary": "Gain the selected artefact of power."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Treasures of Gorkamorka"
+    },
+    {
+      "stableKey": "warcry-en-chaos-chaos-legionnaires-quest-making-the-cut-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-chaos-chaos-legionnaires",
+      "name": "Making The Cut",
+      "description": "Faction quest for en-chaos-chaos-legionnaires.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Faction quest progress"
+        },
+        "completion": {
+          "summary": "Satisfy the quest-specific completion condition."
+        },
+        "reward": {
+          "summary": "Gain the quest-specific faction reward."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en",
+      "sourcePage": "Making The Cut"
+    },
+    {
+      "stableKey": "warcry-en-chaos-chaos-legionnaires-quest-preaching-the-creed-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-chaos-chaos-legionnaires",
+      "name": "Preaching The Creed",
+      "description": "Faction quest for en-chaos-chaos-legionnaires.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Faction quest progress"
+        },
+        "completion": {
+          "summary": "Satisfy the quest-specific completion condition."
+        },
+        "reward": {
+          "summary": "Gain the quest-specific faction reward."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en",
+      "sourcePage": "Preaching The Creed"
+    },
+    {
+      "stableKey": "warcry-en-chaos-chaos-legionnaires-quest-the-dark-master-s-due-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-chaos-chaos-legionnaires",
+      "name": "The Dark Master's Due",
+      "description": "Faction quest for en-chaos-chaos-legionnaires.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Faction quest progress"
+        },
+        "completion": {
+          "summary": "Satisfy the quest-specific completion condition."
+        },
+        "reward": {
+          "summary": "Gain the quest-specific faction reward."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en",
+      "sourcePage": "The Dark Master's Due"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-quest-a-call-to-murder-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-chaos-claws-of-karanak",
+      "name": "A Call To Murder",
+      "description": "Faction quest for en-chaos-claws-of-karanak.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Faction quest progress"
+        },
+        "completion": {
+          "summary": "Satisfy the quest-specific completion condition."
+        },
+        "reward": {
+          "summary": "Gain the quest-specific faction reward."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "A Call To Murder"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-quest-the-blood-god-s-talon-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-chaos-claws-of-karanak",
+      "name": "The Blood God's Talon",
+      "description": "Faction quest for en-chaos-claws-of-karanak.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Faction quest progress"
+        },
+        "completion": {
+          "summary": "Satisfy the quest-specific completion condition."
+        },
+        "reward": {
+          "summary": "Gain the quest-specific faction reward."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "The Blood God's Talon"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-quest-treasure-of-the-hunt-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-chaos-claws-of-karanak",
+      "name": "Treasure of the Hunt",
+      "description": "Faction quest for en-chaos-claws-of-karanak.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Faction quest progress"
+        },
+        "completion": {
+          "summary": "Satisfy the quest-specific completion condition."
+        },
+        "reward": {
+          "summary": "Gain the quest-specific faction reward."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Treasure of the Hunt"
+    },
+    {
+      "stableKey": "warcry-en-chaos-corvus-cabal-quest-a-gift-for-the-gatherer-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-chaos-corvus-cabal",
+      "name": "A Gift For The Gatherer",
+      "description": "Faction quest for en-chaos-corvus-cabal.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Faction quest progress"
+        },
+        "completion": {
+          "summary": "Satisfy the quest-specific completion condition."
+        },
+        "reward": {
+          "summary": "Gain the quest-specific faction reward."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en",
+      "sourcePage": "A Gift For The Gatherer"
+    },
+    {
+      "stableKey": "warcry-en-chaos-corvus-cabal-quest-spoils-of-the-fallen-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-chaos-corvus-cabal",
+      "name": "Spoils Of The Fallen",
+      "description": "Faction quest for en-chaos-corvus-cabal.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Faction quest progress"
+        },
+        "completion": {
+          "summary": "Satisfy the quest-specific completion condition."
+        },
+        "reward": {
+          "summary": "Gain the quest-specific faction reward."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en",
+      "sourcePage": "Spoils Of The Fallen"
+    },
+    {
+      "stableKey": "warcry-en-chaos-horns-of-hashut-quest-black-hearted-ascension-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-chaos-horns-of-hashut",
+      "name": "Black-Hearted Ascension",
+      "description": "Faction quest for en-chaos-horns-of-hashut.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Faction quest progress"
+        },
+        "completion": {
+          "summary": "Satisfy the quest-specific completion condition."
+        },
+        "reward": {
+          "summary": "Gain the quest-specific faction reward."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en",
+      "sourcePage": "Black-Hearted Ascension"
+    },
+    {
+      "stableKey": "warcry-en-chaos-horns-of-hashut-quest-infernal-rewards-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-chaos-horns-of-hashut",
+      "name": "Infernal Rewards",
+      "description": "Faction quest for en-chaos-horns-of-hashut.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Faction quest progress"
+        },
+        "completion": {
+          "summary": "Satisfy the quest-specific completion condition."
+        },
+        "reward": {
+          "summary": "Gain the quest-specific faction reward."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en",
+      "sourcePage": "Infernal Rewards"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-quest-fruits-of-dark-alchemy-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-chaos-rotmire-creed",
+      "name": "Fruits of Dark Alchemy",
+      "description": "Faction quest for en-chaos-rotmire-creed.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Faction quest progress"
+        },
+        "completion": {
+          "summary": "Satisfy the quest-specific completion condition."
+        },
+        "reward": {
+          "summary": "Gain the quest-specific faction reward."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Fruits of Dark Alchemy"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-quest-lord-leech-s-blessings-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-chaos-rotmire-creed",
+      "name": "Lord Leech's Blessings",
+      "description": "Faction quest for en-chaos-rotmire-creed.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Faction quest progress"
+        },
+        "completion": {
+          "summary": "Satisfy the quest-specific completion condition."
+        },
+        "reward": {
+          "summary": "Gain the quest-specific faction reward."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Lord Leech's Blessings"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-quest-the-putrid-transformation-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-chaos-rotmire-creed",
+      "name": "The Putrid Transformation",
+      "description": "Faction quest for en-chaos-rotmire-creed.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Faction quest progress"
+        },
+        "completion": {
+          "summary": "Satisfy the quest-specific completion condition."
+        },
+        "reward": {
+          "summary": "Gain the quest-specific faction reward."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "The Putrid Transformation"
+    },
+    {
+      "stableKey": "warcry-order-grand-alliance-quest-establish-trade-route-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "scope": "grand_alliance",
+      "grandAllianceStableKey": "order-grand-alliance",
+      "factionStableKey": null,
+      "name": "Establish Trade Route",
+      "description": "Secure a route through the Gnarlwood.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 10,
+          "label": "Progress score"
+        },
+        "completion": {
+          "summary": "Satisfy the quest's completion condition."
+        },
+        "reward": {
+          "summary": "Relocate the warband to the Trade Route encampment."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Establish Trade Route"
+    },
+    {
+      "stableKey": "warcry-order-grand-alliance-quest-guardian-of-order-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "scope": "grand_alliance",
+      "grandAllianceStableKey": "order-grand-alliance",
+      "factionStableKey": null,
+      "name": "Guardian Of Order",
+      "description": "A nominated hero proves themselves against an enemy hero.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Quest condition"
+        },
+        "completion": {
+          "summary": "Satisfy the quest's completion condition."
+        },
+        "reward": {
+          "summary": "Give the nominated fighter an Order heroic trait."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Guardian Of Order"
+    },
+    {
+      "stableKey": "warcry-order-grand-alliance-quest-lost-treasures-of-order-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "scope": "grand_alliance",
+      "grandAllianceStableKey": "order-grand-alliance",
+      "factionStableKey": null,
+      "name": "Lost Treasures of Order",
+      "description": "Recover a selected Order artefact of power.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 15,
+          "label": "Progress score"
+        },
+        "completion": {
+          "summary": "Satisfy the quest's completion condition."
+        },
+        "reward": {
+          "summary": "Gain the selected artefact of power."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Lost Treasures of Order"
+    },
+    {
+      "stableKey": "warcry-universal-quest-ascension-to-glory-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "scope": "universal",
+      "grandAllianceStableKey": null,
+      "factionStableKey": null,
+      "name": "Ascension To Glory",
+      "description": "A chosen hero seeks a deed worthy of a new heroic trait.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "condition",
+          "label": "Heroic deed"
+        },
+        "completion": {
+          "summary": "The nominated hero takes down an enemy hero."
+        },
+        "reward": {
+          "summary": "Give the nominated fighter a universal heroic trait."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Ascension To Glory"
+    },
+    {
+      "stableKey": "warcry-universal-quest-explore-the-gnarlwood-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "scope": "universal",
+      "grandAllianceStableKey": null,
+      "factionStableKey": null,
+      "name": "Explore the Gnarlwood",
+      "description": "An ongoing expedition to discover encampment locations.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "ongoing",
+          "label": "Search score"
+        },
+        "completion": {
+          "summary": "Meet the location-specific requirement."
+        },
+        "reward": {
+          "summary": "Relocate to the discovered encampment."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Explore the Gnarlwood"
+    },
+    {
+      "stableKey": "warcry-universal-quest-fight-for-glory-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "scope": "universal",
+      "grandAllianceStableKey": null,
+      "factionStableKey": null,
+      "name": "Fight For Glory",
+      "description": "An ongoing quest focused on winning campaign battles.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "counter",
+          "target": 3,
+          "label": "Victories"
+        },
+        "completion": {
+          "summary": "Win the required number of campaign battles."
+        },
+        "reward": {
+          "summary": "Gain campaign glory and renown rewards."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Fight For Glory"
+    },
+    {
+      "stableKey": "warcry-universal-quest-hunt-the-beast-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "scope": "universal",
+      "grandAllianceStableKey": null,
+      "factionStableKey": null,
+      "name": "Hunt The Beast",
+      "description": "Track and defeat a dangerous monster.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 10,
+          "label": "Hunt score"
+        },
+        "completion": {
+          "summary": "Reach the hunt threshold and win the quest battle."
+        },
+        "reward": {
+          "summary": "Gain the quest reward associated with the slain beast."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Hunt The Beast"
+    },
+    {
+      "stableKey": "warcry-universal-quest-secure-a-powerful-ally-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "scope": "universal",
+      "grandAllianceStableKey": null,
+      "factionStableKey": null,
+      "name": "Secure a Powerful Ally",
+      "description": "Earn the allegiance of an eligible ally.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 10,
+          "label": "Renown score"
+        },
+        "completion": {
+          "summary": "Reach the required score and win the quest battle."
+        },
+        "reward": {
+          "summary": "Add the selected ally to the warband roster."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Secure a Powerful Ally"
+    },
+    {
+      "stableKey": "warcry-universal-quest-treasures-of-the-gnarlwood-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "scope": "universal",
+      "grandAllianceStableKey": null,
+      "factionStableKey": null,
+      "name": "Treasures Of The Gnarlwood",
+      "description": "Search for a selected artefact of power hidden in the Gnarlwood.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 15,
+          "label": "Progress score"
+        },
+        "completion": {
+          "summary": "Reach 15 progress."
+        },
+        "reward": {
+          "summary": "Gain the selected artefact of power."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Treasures Of The Gnarlwood"
+    }
+  ],
+  "artefactDefinitions": [
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-greater-artefact-blade-of-the-tallyman-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Blade of the Tallyman",
+      "category": "greater_artefact",
+      "description": "Chaos artefact of power: Blade of the Tallyman.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Rewards the bearer for taking down enemies."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Blade of the Tallyman"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-greater-artefact-ferrium-plate-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Ferrium Plate",
+      "category": "greater_artefact",
+      "description": "Chaos artefact of power: Ferrium Plate.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Improves the bearer's protection."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Ferrium Plate"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-greater-artefact-fleshrender-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Fleshrender",
+      "category": "greater_artefact",
+      "description": "Chaos artefact of power: Fleshrender.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Enhances melee damage."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Fleshrender"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-greater-artefact-flux-stave-of-ocladius-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Flux Stave of Ocladius",
+      "category": "greater_artefact",
+      "description": "Chaos artefact of power: Flux Stave of Ocladius.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides a magical offensive or control effect."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Flux Stave of Ocladius"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-greater-artefact-the-eight-horned-helm-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "The Eight-horned Helm",
+      "category": "greater_artefact",
+      "description": "Chaos artefact of power: The Eight-horned Helm.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides a blessing associated with the Dark Gods."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "The Eight-horned Helm"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-greater-artefact-the-writhing-torc-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "The Writhing Torc",
+      "category": "greater_artefact",
+      "description": "Chaos artefact of power: The Writhing Torc.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides a mutable or defensive benefit."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "The Writhing Torc"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-lesser-artefact-bullgor-heart-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Bullgor Heart",
+      "category": "lesser_artefact",
+      "description": "Chaos lesser artefact: Bullgor Heart.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Consumable strength-enhancing benefit."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Bullgor Heart"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-lesser-artefact-dark-blessing-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Dark Blessing",
+      "category": "lesser_artefact",
+      "description": "Chaos lesser artefact: Dark Blessing.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides temporary favour of the Dark Gods."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Dark Blessing"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-lesser-artefact-karkadrak-scale-anklet-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Karkadrak Scale Anklet",
+      "category": "lesser_artefact",
+      "description": "Chaos lesser artefact: Karkadrak Scale Anklet.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides a resilience benefit."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Karkadrak Scale Anklet"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-lesser-artefact-raw-spawnflesh-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Raw Spawnflesh",
+      "category": "lesser_artefact",
+      "description": "Chaos lesser artefact: Raw Spawnflesh.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Consumable mutation-derived benefit."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Raw Spawnflesh"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-lesser-artefact-rustcharm-ring-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Rustcharm Ring",
+      "category": "lesser_artefact",
+      "description": "Chaos lesser artefact: Rustcharm Ring.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides a degrading or defensive effect."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Rustcharm Ring"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-lesser-artefact-skaven-deathglobe-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Skaven Deathglobe",
+      "category": "lesser_artefact",
+      "description": "Chaos lesser artefact: Skaven Deathglobe.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Consumable area-damage effect."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Skaven Deathglobe"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-lesser-artefact-soulroil-slime-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Soulroil Slime",
+      "category": "lesser_artefact",
+      "description": "Chaos lesser artefact: Soulroil Slime.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides a corrupting campaign effect."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Soulroil Slime"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-lesser-artefact-the-of-the-gods-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "The of the Gods",
+      "category": "lesser_artefact",
+      "description": "Chaos lesser artefact: The of the Gods.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Warcrier displays this incomplete title; effect retained as a campaign reward."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "The of the Gods"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-greater-artefact-blade-of-the-withered-rose-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Blade of the Withered Rose",
+      "category": "greater_artefact",
+      "description": "Death artefact of power: Blade of the Withered Rose.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Critical hits temporarily reduce the target's Toughness."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Blade of the Withered Rose"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-greater-artefact-grave-sand-phylactery-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Grave-sand Phylactery",
+      "category": "greater_artefact",
+      "description": "Death artefact of power: Grave-sand Phylactery.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Downgrades a limited number of critical hits against the bearer."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Grave-sand Phylactery"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-greater-artefact-ring-of-shadows-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Ring of Shadows",
+      "category": "greater_artefact",
+      "description": "Death artefact of power: Ring of Shadows.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Prevents distant enemies from seeing the bearer."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Ring of Shadows"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-greater-artefact-the-macabre-grimoire-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "The Macabre Grimoire",
+      "category": "greater_artefact",
+      "description": "Death artefact of power: The Macabre Grimoire.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Can return a taken-down friendly fighter to the battlefield."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "The Macabre Grimoire"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-greater-artefact-the-spectral-shield-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "The Spectral Shield",
+      "category": "greater_artefact",
+      "description": "Death artefact of power: The Spectral Shield.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Adds 2 to the bearer's Toughness."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "The Spectral Shield"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-greater-artefact-the-thirsting-blade-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "The Thirsting Blade",
+      "category": "greater_artefact",
+      "description": "Death artefact of power: The Thirsting Blade.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Heals the bearer based on melee damage inflicted."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "The Thirsting Blade"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-lesser-artefact-balemoon-cloak-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Balemoon Cloak",
+      "category": "lesser_artefact",
+      "description": "Death lesser artefact: Balemoon Cloak.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Allows movement through terrain."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Balemoon Cloak"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-lesser-artefact-breath-of-the-grave-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Breath Of The Grave",
+      "category": "lesser_artefact",
+      "description": "Death lesser artefact: Breath Of The Grave.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Consumable aura that improves friendly melee Strength."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Breath Of The Grave"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-lesser-artefact-grave-sand-gem-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Grave-Sand Gem",
+      "category": "lesser_artefact",
+      "description": "Death lesser artefact: Grave-Sand Gem.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Perishable artefact adding 1 Wound."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Grave-Sand Gem"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-lesser-artefact-griefstone-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Griefstone",
+      "category": "lesser_artefact",
+      "description": "Death lesser artefact: Griefstone.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Perishable area-damage artefact."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Griefstone"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-lesser-artefact-scroll-of-abasoth-s-withering-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Scroll Of Abasoth's Withering",
+      "category": "lesser_artefact",
+      "description": "Death lesser artefact: Scroll Of Abasoth's Withering.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Consumable effect reducing an enemy's Toughness."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Scroll Of Abasoth's Withering"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-lesser-artefact-scroll-of-morbid-summonation-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Scroll Of Morbid Summonation",
+      "category": "lesser_artefact",
+      "description": "Death lesser artefact: Scroll Of Morbid Summonation.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Teleports a friendly non-hero fighter to the bearer."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Scroll Of Morbid Summonation"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-lesser-artefact-vial-of-beast-blood-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Vial Of Beast-Blood",
+      "category": "lesser_artefact",
+      "description": "Death lesser artefact: Vial Of Beast-Blood.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Consumable improving melee Attacks and Strength."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Vial Of Beast-Blood"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-lesser-artefact-witchlight-lantern-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Witchlight Lantern",
+      "category": "lesser_artefact",
+      "description": "Death lesser artefact: Witchlight Lantern.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Heals nearby friendly fighters when the bearer activates."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Witchlight Lantern"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-greater-artefact-bloodchompa-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Bloodchompa",
+      "category": "greater_artefact",
+      "description": "Destruction artefact of power: Bloodchompa.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Taking down an enemy permits a bonus move or attack."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Bloodchompa"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-greater-artefact-da-nasty-shiv-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Da Nasty Shiv",
+      "category": "greater_artefact",
+      "description": "Destruction artefact of power: Da Nasty Shiv.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Can prevent the target from activating after a melee attack."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Da Nasty Shiv"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-greater-artefact-gristle-grinder-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Gristle Grinder",
+      "category": "greater_artefact",
+      "description": "Destruction artefact of power: Gristle Grinder.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Adds 3 damage to melee hits and critical hits."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Gristle Grinder"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-greater-artefact-idol-of-mork-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Idol of Mork",
+      "category": "greater_artefact",
+      "description": "Destruction artefact of power: Idol of Mork.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "The warband begins the battle with an additional wild die."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Idol of Mork"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-greater-artefact-the-leering-shield-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "The Leering Shield",
+      "category": "greater_artefact",
+      "description": "Destruction artefact of power: The Leering Shield.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Adds 1 Toughness and prevents nearby enemies from disengaging."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "The Leering Shield"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-greater-artefact-the-scuttlemask-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "The Scuttlemask",
+      "category": "greater_artefact",
+      "description": "Destruction artefact of power: The Scuttlemask.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "The bearer ignores vertical climbing distance."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "The Scuttlemask"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-lesser-artefact-battle-brew-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Battle Brew",
+      "category": "lesser_artefact",
+      "description": "Destruction lesser artefact: Battle Brew.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Consumable setting melee Attacks from a dice roll."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Battle Brew"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-lesser-artefact-glowv-green-tusk-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Glowv Green Tusk",
+      "category": "lesser_artefact",
+      "description": "Destruction lesser artefact: Glowv Green Tusk.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides the campaign effect listed in the Proper Bog table."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Glowv Green Tusk"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-lesser-artefact-squiggly-mascot-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Squiggly Mascot",
+      "category": "lesser_artefact",
+      "description": "Destruction lesser artefact: Squiggly Mascot.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Consumable healing effect."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Squiggly Mascot"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-lesser-artefact-stinkcranny-fungus-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Stinkcranny Fungus",
+      "category": "lesser_artefact",
+      "description": "Destruction lesser artefact: Stinkcranny Fungus.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Reduces melee Attacks targeting the bearer."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Stinkcranny Fungus"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-lesser-artefact-swamp-venom-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Swamp Venom",
+      "category": "lesser_artefact",
+      "description": "Destruction lesser artefact: Swamp Venom.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Consumable increasing critical-hit damage."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Swamp Venom"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-lesser-artefact-troggoth-guts-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Troggoth Guts",
+      "category": "lesser_artefact",
+      "description": "Destruction lesser artefact: Troggoth Guts.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Consumable setting Toughness and healing based on a dice roll."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Troggoth Guts"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-greater-artefact-aetherquartz-ring-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Aetherquartz Ring",
+      "category": "greater_artefact",
+      "description": "Order artefact of power: Aetherquartz Ring.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides an aetherquartz-derived combat benefit."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Aetherquartz Ring"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-greater-artefact-gromril-plate-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Gromril Plate",
+      "category": "greater_artefact",
+      "description": "Order artefact of power: Gromril Plate.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Substantially improves the bearer's protection."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Gromril Plate"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-greater-artefact-stormbringer-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Stormbringer",
+      "category": "greater_artefact",
+      "description": "Order artefact of power: Stormbringer.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Empowers the bearer's attacks with storm energy."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Stormbringer"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-greater-artefact-the-conqueror-s-crown-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "The Conqueror's Crown",
+      "category": "greater_artefact",
+      "description": "Order artefact of power: The Conqueror's Crown.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Improves command and battlefield authority."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "The Conqueror's Crown"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-greater-artefact-tome-of-the-illuminate-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Tome of the Illuminate",
+      "category": "greater_artefact",
+      "description": "Order artefact of power: Tome of the Illuminate.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides knowledge-based or magical utility."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Tome of the Illuminate"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-greater-artefact-xintilian-stone-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Xintilian Stone",
+      "category": "greater_artefact",
+      "description": "Order artefact of power: Xintilian Stone.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides a magical tactical benefit."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Xintilian Stone"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-lesser-artefact-allopex-eye-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Allopex Eye",
+      "category": "lesser_artefact",
+      "description": "Order lesser artefact: Allopex Eye.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides an aquatic predator-derived benefit."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Allopex Eye"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-lesser-artefact-bugman-s-xxxxxx-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Bugman's XXXXXX",
+      "category": "lesser_artefact",
+      "description": "Order lesser artefact: Bugman's XXXXXX.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides the effect listed by Warcrier under this displayed name."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Bugman's XXXXXX"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-lesser-artefact-claw-of-ursricht-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Claw Of Ursricht",
+      "category": "lesser_artefact",
+      "description": "Order lesser artefact: Claw Of Ursricht.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides a beast-derived combat benefit."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Claw Of Ursricht"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-lesser-artefact-excelsian-glimmering-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Excelsian Glimmering",
+      "category": "lesser_artefact",
+      "description": "Order lesser artefact: Excelsian Glimmering.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Consumable or perishable campaign utility."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Excelsian Glimmering"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-lesser-artefact-icon-of-the-ur-phoenix-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Icon Of The Ur-Phoenix",
+      "category": "lesser_artefact",
+      "description": "Order lesser artefact: Icon Of The Ur-Phoenix.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides a protective or restorative benefit."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Icon Of The Ur-Phoenix"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-lesser-artefact-sacred-starwater-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Sacred Starwater",
+      "category": "lesser_artefact",
+      "description": "Order lesser artefact: Sacred Starwater.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides a restorative or sacred benefit."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Sacred Starwater"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-lesser-artefact-starforged-torc-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Starforged Torc",
+      "category": "lesser_artefact",
+      "description": "Order lesser artefact: Starforged Torc.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides a celestial defensive benefit."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Starforged Torc"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-lesser-artefact-stranglebriar-seedling-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Stranglebriar Seedling",
+      "category": "lesser_artefact",
+      "description": "Order lesser artefact: Stranglebriar Seedling.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides a plant-based tactical effect."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Stranglebriar Seedling"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-universal-quests-en-greater-artefact-amethyst-amulet-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "name": "Amethyst Amulet",
+      "category": "greater_artefact",
+      "description": "Universal artefact of power: Amethyst Amulet.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides protection associated with Shyishan magic."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Amethyst Amulet"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-universal-quests-en-greater-artefact-cursed-blade-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "name": "Cursed Blade",
+      "category": "greater_artefact",
+      "description": "Universal artefact of power: Cursed Blade.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Enhances the bearer's melee attacks at a cost or under a condition."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Cursed Blade"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-universal-quests-en-greater-artefact-ghurish-totem-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "name": "Ghurish Totem",
+      "category": "greater_artefact",
+      "description": "Universal artefact of power: Ghurish Totem.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Enhances the bearer's physical combat capability."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Ghurish Totem"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-universal-quests-en-greater-artefact-jade-ring-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "name": "Jade Ring",
+      "category": "greater_artefact",
+      "description": "Universal artefact of power: Jade Ring.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Improves the bearer's resilience against damage."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Jade Ring"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-universal-quests-en-greater-artefact-serpent-tongue-sceptre-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "name": "Serpent-tongue Sceptre",
+      "category": "greater_artefact",
+      "description": "Universal artefact of power: Serpent-tongue Sceptre.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides a special offensive or control effect."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Serpent-tongue Sceptre"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-universal-quests-en-greater-artefact-warding-glyph-stone-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "name": "Warding Glyph-stone",
+      "category": "greater_artefact",
+      "description": "Universal artefact of power: Warding Glyph-stone.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides a defensive warding effect."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Warding Glyph-stone"
+    },
+    {
+      "stableKey": "warcry-en-chaos-chaos-legionnaires-greater-artefact-fiendish-gladius-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en-release",
+      "name": "Fiendish Gladius",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Fiendish Gladius.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en",
+      "sourcePage": "Fiendish Gladius"
+    },
+    {
+      "stableKey": "warcry-en-chaos-chaos-legionnaires-greater-artefact-lorica-sinistrum-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en-release",
+      "name": "Lorica Sinistrum",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Lorica Sinistrum.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en",
+      "sourcePage": "Lorica Sinistrum"
+    },
+    {
+      "stableKey": "warcry-en-chaos-chaos-legionnaires-greater-artefact-mask-of-false-ascension-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en-release",
+      "name": "Mask of False Ascension",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Mask of False Ascension.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en",
+      "sourcePage": "Mask of False Ascension"
+    },
+    {
+      "stableKey": "warcry-en-chaos-chaos-legionnaires-greater-artefact-prism-of-torments-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en-release",
+      "name": "Prism of Torments",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Prism of Torments.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en",
+      "sourcePage": "Prism of Torments"
+    },
+    {
+      "stableKey": "warcry-en-chaos-chaos-legionnaires-greater-artefact-the-coin-malefic-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en-release",
+      "name": "The Coin Malefic",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: The Coin Malefic.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en",
+      "sourcePage": "The Coin Malefic"
+    },
+    {
+      "stableKey": "warcry-en-chaos-chaos-legionnaires-greater-artefact-the-mordikite-mirror-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en-release",
+      "name": "The Mordikite Mirror",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: The Mordikite Mirror.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en",
+      "sourcePage": "The Mordikite Mirror"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-greater-artefact-boots-of-inevitable-vengeance-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "Boots of Inevitable Vengeance",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Boots of Inevitable Vengeance.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Boots of Inevitable Vengeance"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-greater-artefact-cloak-of-scorn-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "Cloak of Scorn",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Cloak of Scorn.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Cloak of Scorn"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-greater-artefact-hatred-s-bite-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "Hatred's Bite",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Hatred's Bite.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Hatred's Bite"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-greater-artefact-spear-of-the-red-moons-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "Spear of the Red Moons",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Spear of the Red Moons.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Spear of the Red Moons"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-greater-artefact-the-incisors-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "The Incisors",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: The Incisors.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "The Incisors"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-greater-artefact-wrath-s-awakener-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "Wrath's Awakener",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Wrath's Awakener.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Wrath's Awakener"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-lesser-artefact-gnarl-ichor-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "Gnarl-ichor",
+      "category": "lesser_artefact",
+      "description": "Faction lesser artefact: Gnarl-ichor.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Gnarl-ichor"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-lesser-artefact-skull-bolas-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "Skull Bolas",
+      "category": "lesser_artefact",
+      "description": "Faction lesser artefact: Skull Bolas.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Skull Bolas"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-lesser-artefact-skulls-of-the-quarry-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "Skulls Of The Quarry",
+      "category": "lesser_artefact",
+      "description": "Faction lesser artefact: Skulls Of The Quarry.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Skulls Of The Quarry"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-lesser-artefact-stranglevine-lash-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "Stranglevine Lash",
+      "category": "lesser_artefact",
+      "description": "Faction lesser artefact: Stranglevine Lash.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Stranglevine Lash"
+    },
+    {
+      "stableKey": "warcry-en-chaos-corvus-cabal-greater-artefact-amulet-of-stolen-sight-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en-release",
+      "name": "Amulet of Stolen Sight",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Amulet of Stolen Sight.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en",
+      "sourcePage": "Amulet of Stolen Sight"
+    },
+    {
+      "stableKey": "warcry-en-chaos-corvus-cabal-greater-artefact-carrion-cuirass-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en-release",
+      "name": "Carrion Cuirass",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Carrion Cuirass.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en",
+      "sourcePage": "Carrion Cuirass"
+    },
+    {
+      "stableKey": "warcry-en-chaos-corvus-cabal-greater-artefact-heartphial-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en-release",
+      "name": "Heartphial",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Heartphial.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en",
+      "sourcePage": "Heartphial"
+    },
+    {
+      "stableKey": "warcry-en-chaos-corvus-cabal-greater-artefact-mask-of-the-gatherer-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en-release",
+      "name": "Mask of the Gatherer",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Mask of the Gatherer.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en",
+      "sourcePage": "Mask of the Gatherer"
+    },
+    {
+      "stableKey": "warcry-en-chaos-corvus-cabal-greater-artefact-plundered-relic-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en-release",
+      "name": "Plundered Relic",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Plundered Relic.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en",
+      "sourcePage": "Plundered Relic"
+    },
+    {
+      "stableKey": "warcry-en-chaos-corvus-cabal-greater-artefact-tangling-tendons-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en-release",
+      "name": "Tangling Tendons",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Tangling Tendons.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en",
+      "sourcePage": "Tangling Tendons"
+    },
+    {
+      "stableKey": "warcry-en-chaos-horns-of-hashut-greater-artefact-blackshard-armour-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en-release",
+      "name": "Blackshard Armour",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Blackshard Armour.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en",
+      "sourcePage": "Blackshard Armour"
+    },
+    {
+      "stableKey": "warcry-en-chaos-horns-of-hashut-greater-artefact-brazen-vambraces-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en-release",
+      "name": "Brazen Vambraces",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Brazen Vambraces.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en",
+      "sourcePage": "Brazen Vambraces"
+    },
+    {
+      "stableKey": "warcry-en-chaos-horns-of-hashut-greater-artefact-darkforged-mace-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en-release",
+      "name": "Darkforged Mace",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Darkforged Mace.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en",
+      "sourcePage": "Darkforged Mace"
+    },
+    {
+      "stableKey": "warcry-en-chaos-horns-of-hashut-greater-artefact-helm-of-the-bull-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en-release",
+      "name": "Helm of the Bull",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Helm of the Bull.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en",
+      "sourcePage": "Helm of the Bull"
+    },
+    {
+      "stableKey": "warcry-en-chaos-horns-of-hashut-greater-artefact-icon-of-hashut-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en-release",
+      "name": "Icon of Hashut",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Icon of Hashut.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en",
+      "sourcePage": "Icon of Hashut"
+    },
+    {
+      "stableKey": "warcry-en-chaos-horns-of-hashut-greater-artefact-ring-of-dominion-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en-release",
+      "name": "Ring of Dominion",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Ring of Dominion.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en",
+      "sourcePage": "Ring of Dominion"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-greater-artefact-cloak-of-mire-mist-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Cloak of Mire-mist",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Cloak of Mire-mist.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Cloak of Mire-mist"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-greater-artefact-icon-of-the-fly-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Icon of the Fly",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Icon of the Fly.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Icon of the Fly"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-greater-artefact-staff-of-the-rotmire-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Staff of the Rotmire",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Staff of the Rotmire.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Staff of the Rotmire"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-greater-artefact-the-seeping-mask-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "The Seeping Mask",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: The Seeping Mask.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "The Seeping Mask"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-greater-artefact-thrice-blessed-blade-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Thrice-blessed Blade",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Thrice-blessed Blade.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Thrice-blessed Blade"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-greater-artefact-vial-of-red-rot-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Vial of Red-rot",
+      "category": "greater_artefact",
+      "description": "Faction artefact of power: Vial of Red-rot.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Vial of Red-rot"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-lesser-artefact-blight-tick-slime-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Blight-Tick Slime",
+      "category": "lesser_artefact",
+      "description": "Faction lesser artefact: Blight-Tick Slime.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Blight-Tick Slime"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-lesser-artefact-death-s-head-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Death's Head",
+      "category": "lesser_artefact",
+      "description": "Faction lesser artefact: Death's Head.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Death's Head"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-lesser-artefact-glimmering-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Glimmering",
+      "category": "lesser_artefact",
+      "description": "Faction lesser artefact: Glimmering.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Glimmering"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-lesser-artefact-gripe-gourd-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Gripe Gourd",
+      "category": "lesser_artefact",
+      "description": "Faction lesser artefact: Gripe Gourd.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Gripe Gourd"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-lesser-artefact-rotten-familiar-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Rotten Familiar",
+      "category": "lesser_artefact",
+      "description": "Faction lesser artefact: Rotten Familiar.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Rotten Familiar"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-lesser-artefact-skull-of-flies-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Skull Of Flies",
+      "category": "lesser_artefact",
+      "description": "Faction lesser artefact: Skull Of Flies.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Skull Of Flies"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-lesser-artefact-tears-of-the-leech-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Tears Of The Leech",
+      "category": "lesser_artefact",
+      "description": "Faction lesser artefact: Tears Of The Leech.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Tears Of The Leech"
+    }
+  ],
+  "heroicTraitDefinitions": [
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-heroic-trait-eternal-blood-lust-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Eternal Blood lust",
+      "description": "Chaos heroic trait: Eternal Blood lust.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Rewards continued aggression."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Eternal Blood lust"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-heroic-trait-master-of-dark-rituals-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Master of Dark Rituals",
+      "description": "Chaos heroic trait: Master of Dark Rituals.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Improves ritual or ability use."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Master of Dark Rituals"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-heroic-trait-merciless-killer-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Merciless Killer",
+      "description": "Chaos heroic trait: Merciless Killer.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Improves lethal combat performance."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Merciless Killer"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-heroic-trait-sharpened-teeth-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Sharpened Teeth",
+      "description": "Chaos heroic trait: Sharpened Teeth.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides a close-combat offensive benefit."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Sharpened Teeth"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-heroic-trait-strength-in-slaughter-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Strength in Slaughter",
+      "description": "Chaos heroic trait: Strength in Slaughter.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Increases power through violence."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Strength in Slaughter"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-chaos-quests-en-heroic-trait-unnatural-vitality-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en-release",
+      "name": "Unnatural Vitality",
+      "description": "Chaos heroic trait: Unnatural Vitality.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Improves durability or recovery."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-chaos-quests-en",
+      "sourcePage": "Unnatural Vitality"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-heroic-trait-gravestench-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Gravestench",
+      "description": "Death heroic trait: Gravestench.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Reduces the Attacks characteristic of melee attacks targeting the fighter."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Gravestench"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-heroic-trait-immortal-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Immortal",
+      "description": "Death heroic trait: Immortal.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "The fighter does not make injury rolls."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Immortal"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-heroic-trait-inescapable-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Inescapable",
+      "description": "Death heroic trait: Inescapable.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Once per battle the fighter can make a bonus move action."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Inescapable"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-heroic-trait-lingering-curse-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Lingering Curse",
+      "description": "Death heroic trait: Lingering Curse.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Damages a nearby enemy when this fighter is taken down."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Lingering Curse"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-heroic-trait-soul-leecher-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Soul-leecher",
+      "description": "Death heroic trait: Soul-leecher.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Drains nearby fighters to heal this fighter."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Soul-leecher"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-death-quests-en-heroic-trait-terrifying-visage-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-death-quests-en-release",
+      "name": "Terrifying Visage",
+      "description": "Death heroic trait: Terrifying Visage.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Once per battle can prevent a nearby enemy from activating."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-death-quests-en",
+      "sourcePage": "Terrifying Visage"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-heroic-trait-belligerent-brute-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Belligerent Brute",
+      "description": "Destruction heroic trait: Belligerent Brute.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Once per battle makes a bonus attack."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Belligerent Brute"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-heroic-trait-big-un-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Big 'Un",
+      "description": "Destruction heroic trait: Big 'Un.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Adds 5 Wounds."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Big 'Un"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-heroic-trait-dead-fighty-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Dead Fighty",
+      "description": "Destruction heroic trait: Dead Fighty.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Makes a bonus attack when taken down."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Dead Fighty"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-heroic-trait-dead-sneaky-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Dead Sneaky",
+      "description": "Destruction heroic trait: Dead Sneaky.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Can make a bonus move when no enemy is visible within 12 inches."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Dead Sneaky"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-heroic-trait-notorious-bully-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Notorious Bully",
+      "description": "Destruction heroic trait: Notorious Bully.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Scores critical hits on 5+ against enemy heroes."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Notorious Bully"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-destruction-quests-en-heroic-trait-unstoppable-rampager-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en-release",
+      "name": "Unstoppable Rampager",
+      "description": "Destruction heroic trait: Unstoppable Rampager.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Adds 2 Attacks after moving in the same activation."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-destruction-quests-en",
+      "sourcePage": "Unstoppable Rampager"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-heroic-trait-chosen-soul-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Chosen Soul",
+      "description": "Order heroic trait: Chosen Soul.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Marks the fighter for exceptional divine favour."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Chosen Soul"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-heroic-trait-holy-might-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Holy Might",
+      "description": "Order heroic trait: Holy Might.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Improves offensive power."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Holy Might"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-heroic-trait-roaring-firebrand-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Roaring Firebrand",
+      "description": "Order heroic trait: Roaring Firebrand.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Improves aggressive leadership."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Roaring Firebrand"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-heroic-trait-unyielding-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Unyielding",
+      "description": "Order heroic trait: Unyielding.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Improves durability or resistance."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Unyielding"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-heroic-trait-veteran-ranger-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Veteran Ranger",
+      "description": "Order heroic trait: Veteran Ranger.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Improves mobility and fieldcraft."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Veteran Ranger"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-order-quests-en-heroic-trait-well-of-strength-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-order-quests-en-release",
+      "name": "Well of Strength",
+      "description": "Order heroic trait: Well of Strength.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides sustained physical power."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-order-quests-en",
+      "sourcePage": "Well of Strength"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-universal-quests-en-heroic-trait-agile-warrior-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "name": "Agile Warrior",
+      "description": "Universal heroic trait: Agile Warrior.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Improves the fighter's mobility."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Agile Warrior"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-universal-quests-en-heroic-trait-ferocious-combatant-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "name": "Ferocious Combatant",
+      "description": "Universal heroic trait: Ferocious Combatant.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Improves the fighter's offensive output in close combat."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Ferocious Combatant"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-universal-quests-en-heroic-trait-hardy-constitution-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "name": "Hardy Constitution",
+      "description": "Universal heroic trait: Hardy Constitution.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Improves the fighter's durability."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Hardy Constitution"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-universal-quests-en-heroic-trait-resourceful-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "name": "Resourceful",
+      "description": "Universal heroic trait: Resourceful.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Provides an additional tactical resource or flexibility."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Resourceful"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-universal-quests-en-heroic-trait-skilled-commander-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "name": "Skilled Commander",
+      "description": "Universal heroic trait: Skilled Commander.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Improves command or warband-support capability."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Skilled Commander"
+    },
+    {
+      "stableKey": "warcry-battles-narrative-play-quests-universal-quests-en-heroic-trait-thick-skinned-2026-en",
+      "rulesReleaseStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en-release",
+      "name": "Thick-skinned",
+      "description": "Universal heroic trait: Thick-skinned.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Reduces or mitigates incoming damage."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-battles-narrative-play-quests-universal-quests-en",
+      "sourcePage": "Thick-skinned"
+    },
+    {
+      "stableKey": "warcry-en-chaos-chaos-legionnaires-heroic-trait-branded-by-the-shadowlord-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en-release",
+      "name": "Branded by the Shadowlord",
+      "description": "Faction heroic trait: Branded by the Shadowlord.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en",
+      "sourcePage": "Branded by the Shadowlord"
+    },
+    {
+      "stableKey": "warcry-en-chaos-chaos-legionnaires-heroic-trait-cautious-and-conniving-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en-release",
+      "name": "Cautious and Conniving",
+      "description": "Faction heroic trait: Cautious and Conniving.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en",
+      "sourcePage": "Cautious and Conniving"
+    },
+    {
+      "stableKey": "warcry-en-chaos-chaos-legionnaires-heroic-trait-legion-enforcer-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en-release",
+      "name": "Legion Enforcer",
+      "description": "Faction heroic trait: Legion Enforcer.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en",
+      "sourcePage": "Legion Enforcer"
+    },
+    {
+      "stableKey": "warcry-en-chaos-chaos-legionnaires-heroic-trait-merciless-opportunist-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en-release",
+      "name": "Merciless Opportunist",
+      "description": "Faction heroic trait: Merciless Opportunist.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en",
+      "sourcePage": "Merciless Opportunist"
+    },
+    {
+      "stableKey": "warcry-en-chaos-chaos-legionnaires-heroic-trait-shadeform-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en-release",
+      "name": "Shadeform",
+      "description": "Faction heroic trait: Shadeform.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en",
+      "sourcePage": "Shadeform"
+    },
+    {
+      "stableKey": "warcry-en-chaos-chaos-legionnaires-heroic-trait-vassal-of-mordikar-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en-release",
+      "name": "Vassal of Mordikar",
+      "description": "Faction heroic trait: Vassal of Mordikar.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-chaos-legionnaires-quests-en",
+      "sourcePage": "Vassal of Mordikar"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-heroic-trait-alpha-predator-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "Alpha Predator",
+      "description": "Faction heroic trait: Alpha Predator.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Alpha Predator"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-heroic-trait-bone-shattering-pounce-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "Bone-shattering Pounce",
+      "description": "Faction heroic trait: Bone-shattering Pounce.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Bone-shattering Pounce"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-heroic-trait-crimson-whirlwind-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "Crimson Whirlwind",
+      "description": "Faction heroic trait: Crimson Whirlwind.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Crimson Whirlwind"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-heroic-trait-harrowing-roar-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "Harrowing Roar",
+      "description": "Faction heroic trait: Harrowing Roar.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Harrowing Roar"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-heroic-trait-leashed-to-the-master-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "Leashed to the Master",
+      "description": "Faction heroic trait: Leashed to the Master.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Leashed to the Master"
+    },
+    {
+      "stableKey": "warcry-en-chaos-claws-of-karanak-heroic-trait-scaled-flesh-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en-release",
+      "name": "Scaled Flesh",
+      "description": "Faction heroic trait: Scaled Flesh.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-claws-of-karanak-quests-en",
+      "sourcePage": "Scaled Flesh"
+    },
+    {
+      "stableKey": "warcry-en-chaos-corvus-cabal-heroic-trait-false-flight-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en-release",
+      "name": "False Flight",
+      "description": "Faction heroic trait: False Flight.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en",
+      "sourcePage": "False Flight"
+    },
+    {
+      "stableKey": "warcry-en-chaos-corvus-cabal-heroic-trait-inhuman-hunger-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en-release",
+      "name": "Inhuman Hunger",
+      "description": "Faction heroic trait: Inhuman Hunger.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-corvus-cabal-quests-en",
+      "sourcePage": "Inhuman Hunger"
+    },
+    {
+      "stableKey": "warcry-en-chaos-horns-of-hashut-heroic-trait-booming-voice-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en-release",
+      "name": "Booming Voice",
+      "description": "Faction heroic trait: Booming Voice.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en",
+      "sourcePage": "Booming Voice"
+    },
+    {
+      "stableKey": "warcry-en-chaos-horns-of-hashut-heroic-trait-contempt-for-weakness-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en-release",
+      "name": "Contempt for Weakness",
+      "description": "Faction heroic trait: Contempt for Weakness.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-horns-of-hashut-quests-en",
+      "sourcePage": "Contempt for Weakness"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-heroic-trait-bilespurter-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Bilespurter",
+      "description": "Faction heroic trait: Bilespurter.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Bilespurter"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-heroic-trait-festerous-stench-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Festerous Stench",
+      "description": "Faction heroic trait: Festerous Stench.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Festerous Stench"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-heroic-trait-grim-harvester-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Grim Harvester",
+      "description": "Faction heroic trait: Grim Harvester.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Grim Harvester"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-heroic-trait-leeches-o-lurgy-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Leeches o' Lurgy",
+      "description": "Faction heroic trait: Leeches o' Lurgy.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Leeches o' Lurgy"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-heroic-trait-master-alchemist-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Master Alchemist",
+      "description": "Faction heroic trait: Master Alchemist.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Master Alchemist"
+    },
+    {
+      "stableKey": "warcry-en-chaos-rotmire-creed-heroic-trait-mucoid-wings-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en-release",
+      "name": "Mucoid Wings",
+      "description": "Faction heroic trait: Mucoid Wings.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Apply the faction-specific fighter effect described by the source."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-chaos-rotmire-creed-quests-en",
+      "sourcePage": "Mucoid Wings"
+    }
+  ]
+}
