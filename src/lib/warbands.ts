@@ -49,6 +49,11 @@ export type FighterProfileSnapshot = {
   captured_at: string;
 };
 
+export type WarbandFighterProfile = Pick<
+  FighterProfileSnapshot,
+  "id" | "name" | "movement" | "toughness" | "wounds" | "points" | "is_leader"
+>;
+
 export type WarbandFighter = {
   id: string;
   warband_id: string;
@@ -61,6 +66,7 @@ export type WarbandFighter = {
   created_at: string;
   updated_at: string;
   fighter_profile_snapshots?: FighterProfileSnapshot | FighterProfileSnapshot[] | null;
+  fighter_profiles?: WarbandFighterProfile | WarbandFighterProfile[] | null;
 };
 
 export type Warband = {
@@ -92,6 +98,7 @@ export type WarbandFighterDraft = {
   fighterProfileId: string;
   name: string;
   isLeader: boolean;
+  points?: number;
 };
 
 export const warbandStatusLabels: Record<WarbandStatus, string> = {
@@ -135,7 +142,7 @@ export function validateWarbandRoster(
 ): ValidationResult {
   const activeFighters = getActiveRosterFighters(warband.warband_fighters ?? []);
   const totalPoints = activeFighters.reduce(
-    (sum, fighter) => sum + (getFighterSnapshot(fighter)?.points ?? 0),
+    (sum, fighter) => sum + getWarbandFighterPoints(fighter),
     0
   );
   const fighterCount = activeFighters.length;
@@ -195,6 +202,35 @@ export function validateWarbandRoster(
   };
 }
 
+export function validateWarbandFighterAddition(
+  warband: Pick<Warband, "points_limit" | "fighter_limit" | "warband_fighters">,
+  draft: Pick<WarbandFighterDraft, "points">
+): ValidationIssue[] {
+  const activeFighters = getActiveRosterFighters(warband.warband_fighters ?? []);
+  const totalPoints = activeFighters.reduce(
+    (sum, fighter) => sum + getWarbandFighterPoints(fighter),
+    0
+  );
+  const nextPoints = totalPoints + (draft.points ?? 0);
+  const errors: ValidationIssue[] = [];
+
+  if (activeFighters.length + 1 > warband.fighter_limit) {
+    errors.push({
+      code: "fighter-limit",
+      message: `Roster already has the maximum of ${warband.fighter_limit} active fighters.`
+    });
+  }
+
+  if (nextPoints > warband.points_limit) {
+    errors.push({
+      code: "points-limit",
+      message: `Adding this fighter would put the roster ${nextPoints - warband.points_limit} points over the limit.`
+    });
+  }
+
+  return errors;
+}
+
 export function getActiveRosterFighters(fighters: WarbandFighter[]) {
   return fighters.filter((fighter) => fighter.status === "active");
 }
@@ -207,6 +243,20 @@ export function getFighterSnapshot(fighter: WarbandFighter) {
   }
 
   return snapshot ?? null;
+}
+
+export function getFighterProfile(fighter: WarbandFighter) {
+  const profile = fighter.fighter_profiles;
+
+  if (Array.isArray(profile)) {
+    return profile[0] ?? null;
+  }
+
+  return profile ?? null;
+}
+
+export function getWarbandFighterPoints(fighter: WarbandFighter) {
+  return getFighterSnapshot(fighter)?.points ?? getFighterProfile(fighter)?.points ?? 0;
 }
 
 export function getWarbandFaction(warband: Warband) {
@@ -234,7 +284,8 @@ export async function listWarbands(client: SupabaseClient, campaignId: string) {
       rules_releases(id, stable_key, name, release_date, language, status),
       warband_fighters(
         *,
-        fighter_profile_snapshots(*)
+        fighter_profile_snapshots:fighter_profile_snapshots!warband_fighters_fighter_profile_snapshot_id_fkey(*),
+        fighter_profiles(id, name, movement, toughness, wounds, points, is_leader)
       )
     `
     )
@@ -287,9 +338,21 @@ export async function updateWarband(
   return data as Warband;
 }
 
-export async function addWarbandFighter(client: SupabaseClient, draft: WarbandFighterDraft) {
+export async function addWarbandFighter(
+  client: SupabaseClient,
+  draft: WarbandFighterDraft,
+  warband?: Pick<Warband, "points_limit" | "fighter_limit" | "warband_fighters">
+) {
   if (!draft.fighterProfileId) {
     throw new Error("Choose a fighter profile to add.");
+  }
+
+  if (warband) {
+    const errors = validateWarbandFighterAddition(warband, draft);
+
+    if (errors.length > 0) {
+      throw new Error(errors.map((issue) => issue.message).join(" "));
+    }
   }
 
   const { data, error } = await client.rpc("add_warband_fighter", {

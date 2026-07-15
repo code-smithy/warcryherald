@@ -42,8 +42,10 @@ import {
   addWarbandFighter,
   createWarband,
   fighterStatusLabels,
+  getFighterProfile,
   getFighterSnapshot,
   getWarbandFaction,
+  getWarbandFighterPoints,
   listWarbands,
   removeWarbandFighter,
   updateWarband,
@@ -344,12 +346,17 @@ export function CampaignDetailPage() {
     setMessage(null);
 
     try {
-      await addWarbandFighter(client, {
-        warbandId: selectedWarband.id,
-        fighterProfileId: fighterDraft.fighterProfileId,
-        name: fighterDraft.name || selectedFighterProfile?.name || "",
-        isLeader: fighterDraft.isLeader
-      });
+      await addWarbandFighter(
+        client,
+        {
+          warbandId: selectedWarband.id,
+          fighterProfileId: fighterDraft.fighterProfileId,
+          name: fighterDraft.name || selectedFighterProfile?.name || "",
+          isLeader: fighterDraft.isLeader,
+          points: selectedFighterProfile?.points ?? 0
+        },
+        selectedWarband
+      );
       setFighterDraft({ fighterProfileId: "", name: "", isLeader: false });
       await loadCampaign();
       setMessage("Fighter added.");
@@ -1173,6 +1180,8 @@ function WarbandFighterCard({
   onRemove: (fighterId: string) => void;
 }) {
   const snapshot = getFighterSnapshot(fighter);
+  const profile = getFighterProfile(fighter);
+  const fighterPoints = getWarbandFighterPoints(fighter);
   const [name, setName] = useState(fighter.name);
 
   useEffect(() => {
@@ -1184,23 +1193,23 @@ function WarbandFighterCard({
       <div>
         <h4>{fighter.name}</h4>
         <p className="muted">
-          {snapshot?.name ?? "Unknown profile"} - {snapshot?.points ?? 0} pts
+          {snapshot?.name ?? profile?.name ?? "Unknown profile"} - {fighterPoints} pts
         </p>
       </div>
 
-      {snapshot ? (
+      {snapshot || profile ? (
         <dl className="mini-stat-grid">
           <div>
             <dt>Move</dt>
-            <dd>{snapshot.movement}</dd>
+            <dd>{snapshot?.movement ?? profile?.movement}</dd>
           </div>
           <div>
             <dt>Tough</dt>
-            <dd>{snapshot.toughness}</dd>
+            <dd>{snapshot?.toughness ?? profile?.toughness}</dd>
           </div>
           <div>
             <dt>Wounds</dt>
-            <dd>{snapshot.wounds}</dd>
+            <dd>{snapshot?.wounds ?? profile?.wounds}</dd>
           </div>
         </dl>
       ) : null}
@@ -1237,7 +1246,7 @@ function WarbandFighterCard({
             <input
               type="checkbox"
               checked={fighter.is_leader}
-              disabled={saving || !snapshot?.is_leader}
+              disabled={saving || !(snapshot?.is_leader ?? profile?.is_leader)}
               onChange={(event) =>
                 onUpdate(fighter.id, { is_leader: event.target.checked })
               }
