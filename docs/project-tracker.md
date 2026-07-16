@@ -31,9 +31,9 @@ Stay inquisitive. If a rule, table shape, workflow, copyright boundary, or UI be
 
 ## Current Status
 
-- Project stage: Phase 8 complete; Phase 9 visual design system is ready to start.
-- Current phase: Phase 9 - Visual Design System.
-- Last completed phase: Phase 8 - Campaign Dashboard And Chronicle.
+- Project stage: Phase 9 complete; Phase 10 security and production hardening is ready to start.
+- Current phase: Phase 10 - Security And Production Hardening.
+- Last completed phase: Phase 9 - Visual Design System.
 - MVP target: reached with `WH-018 Chronicle and audit history`.
 - Broader readiness target: complete after `WH-020 Security review and production deployment`.
 
@@ -850,6 +850,7 @@ Record durable decisions here.
 - 2026-07-16: Completed Phase 6 locally with battle, participant, selected fighter, result, and battle event support.
 - 2026-07-16: Completed Phase 7 locally with aftermath sessions, guided steps, transactional step completion, administrator reopen support, and battle completion gating.
 - 2026-07-16: Completed Phase 8 locally with campaign dashboard summaries, selected-warband chronicle details, and database-generated campaign activity log entries.
+- 2026-07-16: Completed Phase 9 locally with reusable visual design system components, a routed style guide, themed CSS tokens, mobile layout refinements, visible focus preservation, and reduced-motion support.
 
 ## Phase Completion Log
 
@@ -940,4 +941,14 @@ Record completed phases and verification results here.
   - Updated setup, security, README, and domain docs for Phase 8 activity logging.
   - Verification: `pnpm lint` passed.
   - Verification: `pnpm test` passed with 31 tests.
+  - Verification: `pnpm build` passed with the existing Vite chunk-size warning.
+
+- 2026-07-16: Completed Phase 9 - Visual Design System.
+  - Added reusable fantasy-ledger components for herald panels, parchment cards, section banners, wax-seal badges, stat blocks, runemark badges, fighter cards, warband banners, campaign timelines, ledger tables, and confirmation scrolls.
+  - Added the routed visual style guide at `#/style-guide`.
+  - Applied the component layer to reference details, campaign dashboard stats, chronicle timelines, warband banners, and roster fighter cards.
+  - Added themed CSS tokens, parchment and ink surface treatments, faction-tone accents, tighter cards, visible focus preservation, mobile collapse rules, and reduced-motion support.
+  - Updated README and design documentation for the visual design system.
+  - Verification: `pnpm lint` passed.
+  - Verification: `pnpm test` passed with 32 tests.
   - Verification: `pnpm build` passed with the existing Vite chunk-size warning.

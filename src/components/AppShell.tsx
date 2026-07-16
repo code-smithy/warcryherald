@@ -21,6 +21,7 @@ export function AppShell() {
           <NavLink to="/">Home</NavLink>
           <NavLink to="/campaigns">Campaigns</NavLink>
           <NavLink to="/reference">Reference</NavLink>
+          <NavLink to="/style-guide">Style Guide</NavLink>
           {user ? <NavLink to="/profile">Profile</NavLink> : null}
         </nav>
         <div className="user-menu" aria-label="User menu">

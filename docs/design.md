@@ -33,3 +33,35 @@ presentation.
 - No essential information can be conveyed only through color.
 - The app must work at 360 pixels wide without horizontal scrolling.
 - Reduced-motion preferences should be honored when animation is introduced.
+
+## Phase 9 Design System
+
+The Phase 9 component layer lives in `src/components/design-system.tsx` and is
+documented in the app at `#/style-guide`.
+
+Reusable components:
+
+- `HeraldPanel`
+- `ParchmentCard`
+- `SectionBanner`
+- `WaxSealBadge`
+- `StatBlock`
+- `RunemarkBadge`
+- `FighterCard`
+- `WarbandBanner`
+- `CampaignTimeline`
+- `LedgerTable`
+- `ConfirmationScroll`
+
+Implementation notes:
+
+- Fantasy cues are original CSS treatments: parchment texture, ink borders,
+  wax-seal badges, timeline markers, and faction-tone accent bands.
+- Body copy stays on the system sans-serif stack; decorative serif type is used
+  for headings and banners only.
+- Existing workflow surfaces keep their dense layouts and collapse to one
+  column on small screens.
+- Tables use an internal scroll container when the data shape is wider than a
+  phone viewport, so forms and page-level layout remain usable at 360 pixels.
+- Motion is limited to small button feedback and is disabled through
+  `prefers-reduced-motion`.

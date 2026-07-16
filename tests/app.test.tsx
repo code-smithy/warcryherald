@@ -107,6 +107,19 @@ describe("Warcry Herald shell", () => {
     ).toBeInTheDocument();
   });
 
+  it("documents the visual design system route without Supabase", () => {
+    vi.stubEnv("VITE_SUPABASE_URL", "");
+    vi.stubEnv("VITE_SUPABASE_ANON_KEY", "");
+
+    renderRoute("/style-guide");
+
+    expect(
+      screen.getByRole("heading", { name: /campaign ledger system/i })
+    ).toBeInTheDocument();
+    expect(screen.getByText(/HeraldPanel/i)).toBeInTheDocument();
+    expect(screen.getByText(/ConfirmationScroll/i)).toBeInTheDocument();
+  });
+
   it("rejects a Supabase REST endpoint instead of the project root", () => {
     vi.stubEnv("VITE_SUPABASE_URL", "https://example.supabase.co/rest/v1");
     vi.stubEnv("VITE_SUPABASE_ANON_KEY", "test-anon-key");

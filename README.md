@@ -2,7 +2,7 @@
 
 Warcry Herald is a campaign manager for Warcry narrative play.
 
-The project has completed Phase 8: campaign dashboard and chronicle.
+The project has completed Phase 9: visual design system.
 
 ## Prerequisites
 
@@ -106,6 +106,10 @@ pnpm import:reference-data -- --dry-run
   administrator reopen support, and journal/audit entries.
 - Campaign dashboard and chronicle, including campaign-wide activity generated
   from member, warband, fighter, battle, aftermath, and progression changes.
+- Fantasy campaign-ledger visual design system, including reusable parchment,
+  heraldic panel, seal badge, stat block, runemark badge, fighter card,
+  warband banner, timeline, ledger table, and confirmation scroll components.
+- Visual style guide at `#/style-guide`.
 
 These features require the database migrations above. A production app connected
 to a Supabase project without those migrations will sign in successfully but

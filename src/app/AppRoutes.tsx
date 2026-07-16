@@ -11,6 +11,7 @@ import { JoinInvitePage } from "../pages/JoinInvitePage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { ProfilePage } from "../pages/ProfilePage";
 import { ReferencePage } from "../pages/ReferencePage";
+import { StyleGuidePage } from "../pages/StyleGuidePage";
 
 export function AppRoutes() {
   return (
@@ -79,6 +80,7 @@ export function AppRoutes() {
             </ConfigGate>
           }
         />
+        <Route path="style-guide" element={<StyleGuidePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

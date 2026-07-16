@@ -1,5 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import {
+  HeraldPanel,
+  LedgerTable,
+  RunemarkBadge,
+  StatBlock
+} from "../components/design-system";
+import {
   filterFighterProfiles,
   formatWeaponRange,
   getFighterRunemarks,
@@ -236,10 +242,10 @@ export function ReferencePage() {
 function FighterDetail({ fighter }: { fighter: FighterProfile | null }) {
   if (!fighter) {
     return (
-      <section className="panel">
+      <HeraldPanel>
         <h2>Fighter details</h2>
         <p className="muted">Select a fighter to inspect its profile.</p>
-      </section>
+      </HeraldPanel>
     );
   }
 
@@ -249,73 +255,45 @@ function FighterDetail({ fighter }: { fighter: FighterProfile | null }) {
   const weapons = fighter.weapon_profiles ?? [];
 
   return (
-    <section className="panel reference-detail">
+    <HeraldPanel className="reference-detail" tone="steel">
       <div>
         <p className="eyebrow">{faction?.name ?? "Unknown faction"}</p>
         <h2>{fighter.name}</h2>
         <p className="muted">{getSourceLabel(fighter)}</p>
       </div>
 
-      <dl className="stat-grid">
-        <div>
-          <dt>Move</dt>
-          <dd>{fighter.movement}</dd>
-        </div>
-        <div>
-          <dt>Toughness</dt>
-          <dd>{fighter.toughness}</dd>
-        </div>
-        <div>
-          <dt>Wounds</dt>
-          <dd>{fighter.wounds}</dd>
-        </div>
-        <div>
-          <dt>Points</dt>
-          <dd>{fighter.points}</dd>
-        </div>
-      </dl>
+      <StatBlock
+        stats={[
+          { label: "Move", value: fighter.movement },
+          { label: "Toughness", value: fighter.toughness },
+          { label: "Wounds", value: fighter.wounds },
+          { label: "Points", value: fighter.points }
+        ]}
+      />
 
       <div className="tag-list" aria-label="Runemarks">
-        {alliance ? <span>{alliance.name}</span> : null}
-        {fighter.is_leader ? <span>Leader</span> : null}
+        {alliance ? <RunemarkBadge tone="steel">{alliance.name}</RunemarkBadge> : null}
+        {fighter.is_leader ? <RunemarkBadge tone="ember">Leader</RunemarkBadge> : null}
         {runemarks.map((runemark) => (
-          <span key={runemark.id}>{runemark.name}</span>
+          <RunemarkBadge key={runemark.id}>{runemark.name}</RunemarkBadge>
         ))}
       </div>
 
-      <div className="reference-table-wrap">
-        <table className="reference-table">
-          <caption>Weapon profiles</caption>
-          <thead>
-            <tr>
-              <th scope="col">Weapon</th>
-              <th scope="col">Range</th>
-              <th scope="col">Attacks</th>
-              <th scope="col">Strength</th>
-              <th scope="col">Damage</th>
-            </tr>
-          </thead>
-          <tbody>
-            {weapons.length > 0 ? (
-              weapons.map((weapon) => (
-                <tr key={weapon.id}>
-                  <th scope="row">{weapon.name}</th>
-                  <td>{formatWeaponRange(weapon)}</td>
-                  <td>{weapon.attacks}</td>
-                  <td>{weapon.strength}</td>
-                  <td>
-                    {weapon.damage}/{weapon.critical_damage}
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={5}>No weapon profiles imported.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-    </section>
+      <LedgerTable
+        caption="Weapon profiles"
+        columns={["Weapon", "Range", "Attacks", "Strength", "Damage"]}
+        emptyMessage="No weapon profiles imported."
+        rows={weapons.map((weapon) => ({
+          id: weapon.id,
+          cells: [
+            weapon.name,
+            formatWeaponRange(weapon),
+            weapon.attacks,
+            weapon.strength,
+            `${weapon.damage}/${weapon.critical_damage}`
+          ]
+        }))}
+      />
+    </HeraldPanel>
   );
 }

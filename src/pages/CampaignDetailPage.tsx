@@ -1,6 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
+  CampaignTimeline,
+  FighterCard,
+  RunemarkBadge,
+  StatBlock,
+  WarbandBanner,
+  WaxSealBadge
+} from "../components/design-system";
+import {
   aftermathStepInstructions,
   aftermathStepLabels,
   buildAftermathStepPayload,
@@ -1212,24 +1220,15 @@ function CampaignDashboardPanel({
         </span>
       </div>
 
-      <dl className="stat-grid dashboard-stats">
-        <div>
-          <dt>Members</dt>
-          <dd>{members.length}</dd>
-        </div>
-        <div>
-          <dt>Warbands</dt>
-          <dd>{activeWarbands.length}</dd>
-        </div>
-        <div>
-          <dt>Glory</dt>
-          <dd>{progressTotals.glory}</dd>
-        </div>
-        <div>
-          <dt>Reputation</dt>
-          <dd>{progressTotals.reputation}</dd>
-        </div>
-      </dl>
+      <StatBlock
+        className="dashboard-stats"
+        stats={[
+          { label: "Members", value: members.length },
+          { label: "Warbands", value: activeWarbands.length },
+          { label: "Glory", value: progressTotals.glory },
+          { label: "Reputation", value: progressTotals.reputation }
+        ]}
+      />
 
       <div className="dashboard-columns">
         <section>
@@ -1385,17 +1384,15 @@ function ActivityList({
   }
 
   return (
-    <div className="activity-feed">
-      {entries.map((entry) => (
-        <article className="activity-entry" key={entry.id}>
-          <span>
-            <strong>{entry.summary}</strong>
-            <small>{getActivityEventLabel(entry.event_type)}</small>
-          </span>
-          <time dateTime={entry.created_at}>{new Date(entry.created_at).toLocaleString()}</time>
-        </article>
-      ))}
-    </div>
+    <CampaignTimeline
+      emptyMessage={emptyMessage}
+      entries={entries.map((entry) => ({
+        id: entry.id,
+        title: entry.summary,
+        meta: getActivityEventLabel(entry.event_type),
+        time: entry.created_at
+      }))}
+    />
   );
 }
 
@@ -2354,36 +2351,26 @@ function WarbandRoster({
       </div>
 
       <div className="warband-detail">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">{faction?.name ?? "Unknown faction"}</p>
-            <h3>{selectedWarband.name}</h3>
-          </div>
-          <span className="status-pill">{warbandStatusLabels[selectedWarband.status]}</span>
-        </div>
+        <WarbandBanner
+          faction={faction?.name ?? "Unknown faction"}
+          name={selectedWarband.name}
+          status={<WaxSealBadge tone="steel">{warbandStatusLabels[selectedWarband.status]}</WaxSealBadge>}
+        />
 
-        <dl className="stat-grid">
-          <div>
-            <dt>Points</dt>
-            <dd>
-              {validation.totalPoints}/{selectedWarband.points_limit}
-            </dd>
-          </div>
-          <div>
-            <dt>Fighters</dt>
-            <dd>
-              {validation.fighterCount}/{selectedWarband.fighter_minimum}-{selectedWarband.fighter_limit}
-            </dd>
-          </div>
-          <div>
-            <dt>Leader</dt>
-            <dd>{validation.errors.some((issue) => issue.code === "missing-leader") ? "No" : "Yes"}</dd>
-          </div>
-          <div>
-            <dt>Roster</dt>
-            <dd>{validation.valid ? "Valid" : "Draft"}</dd>
-          </div>
-        </dl>
+        <StatBlock
+          stats={[
+            { label: "Points", value: `${validation.totalPoints}/${selectedWarband.points_limit}` },
+            {
+              label: "Fighters",
+              value: `${validation.fighterCount}/${selectedWarband.fighter_minimum}-${selectedWarband.fighter_limit}`
+            },
+            {
+              label: "Leader",
+              value: validation.errors.some((issue) => issue.code === "missing-leader") ? "No" : "Yes"
+            },
+            { label: "Roster", value: validation.valid ? "Valid" : "Draft" }
+          ]}
+        />
 
         <WarbandDashboardSummary
           warband={selectedWarband}
@@ -3347,31 +3334,25 @@ function WarbandFighterCard({
   }, [fighter.name]);
 
   return (
-    <article className="fighter-card">
-      <div>
-        <h4>{fighter.name}</h4>
-        <p className="muted">
-          {snapshot?.name ?? profile?.name ?? "Unknown profile"} - {fighterPoints} pts
-        </p>
-      </div>
-
-      {snapshot || profile ? (
-        <dl className="mini-stat-grid">
-          <div>
-            <dt>Move</dt>
-            <dd>{snapshot?.movement ?? profile?.movement}</dd>
-          </div>
-          <div>
-            <dt>Tough</dt>
-            <dd>{snapshot?.toughness ?? profile?.toughness}</dd>
-          </div>
-          <div>
-            <dt>Wounds</dt>
-            <dd>{snapshot?.wounds ?? profile?.wounds}</dd>
-          </div>
-        </dl>
-      ) : null}
-
+    <FighterCard
+      name={fighter.name}
+      subtitle={`${snapshot?.name ?? profile?.name ?? "Unknown profile"} - ${fighterPoints} pts`}
+      badges={
+        <>
+          {fighter.is_leader ? <RunemarkBadge tone="ember">Leader</RunemarkBadge> : null}
+          <RunemarkBadge tone="steel">{fighterStatusLabels[fighter.status]}</RunemarkBadge>
+        </>
+      }
+      stats={
+        snapshot || profile
+          ? [
+              { label: "Move", value: snapshot?.movement ?? profile?.movement },
+              { label: "Tough", value: snapshot?.toughness ?? profile?.toughness },
+              { label: "Wounds", value: snapshot?.wounds ?? profile?.wounds }
+            ]
+          : undefined
+      }
+    >
       {canManage ? (
         <div className="fighter-card-controls">
           <label>
@@ -3439,6 +3420,6 @@ function WarbandFighterCard({
       ) : (
         <p className="muted">{fighterStatusLabels[fighter.status]}</p>
       )}
-    </article>
+    </FighterCard>
   );
 }
