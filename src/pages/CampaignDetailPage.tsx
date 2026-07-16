@@ -116,6 +116,16 @@ function createInviteDraft(): InviteDraft {
   };
 }
 
+type CampaignTab = "warbands" | "battles" | "members" | "invites" | "settings";
+
+const campaignTabs: Array<{ id: CampaignTab; label: string }> = [
+  { id: "warbands", label: "Warbands" },
+  { id: "battles", label: "Battles" },
+  { id: "members", label: "Members" },
+  { id: "invites", label: "Invites" },
+  { id: "settings", label: "Settings" }
+];
+
 export function CampaignDetailPage() {
   const { campaignId } = useParams();
   const client = getSupabaseClient();
@@ -147,6 +157,7 @@ export function CampaignDetailPage() {
   });
   const [battleDraft, setBattleDraft] = useState<BattleDraft>(createBattleDraft);
   const [inviteDraft, setInviteDraft] = useState(createInviteDraft);
+  const [activeCampaignTab, setActiveCampaignTab] = useState<CampaignTab>("warbands");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -669,8 +680,22 @@ export function CampaignDetailPage() {
       {message ? <p className="form-success">{message}</p> : null}
       {error ? <p className="form-error">{error}</p> : null}
 
+      <nav className="tab-list" aria-label="Campaign sections">
+        {campaignTabs.map((tab) => (
+          <button
+            key={tab.id}
+            type="button"
+            className="tab-button"
+            aria-selected={activeCampaignTab === tab.id}
+            onClick={() => setActiveCampaignTab(tab.id)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </nav>
+
       <section className="dashboard-grid">
-        <article className="panel warband-panel">
+        <article className="panel warband-panel" hidden={activeCampaignTab !== "warbands"}>
           <div className="section-heading">
             <div>
               <p className="eyebrow">Warbands</p>
@@ -761,52 +786,54 @@ export function CampaignDetailPage() {
           />
         </article>
 
-        <BattlePanel
-          battles={battles}
-          warbands={warbands}
-          selectedBattle={selectedBattle}
-          battleDraft={battleDraft}
-          canManageCampaign={isAdmin}
-          saving={saving}
-          onSelect={setSelectedBattleId}
-          onDraftChange={setBattleDraft}
-          onCreateBattle={handleBattleCreate}
-          onAddParticipant={(battleId, warbandId) =>
-            runBattleAction(
-              () => addBattleParticipant(client!, battleId, warbandId),
-              "Battle participant added."
-            )
-          }
-          onRemoveParticipant={(participantId) =>
-            runBattleAction(
-              () => removeBattleParticipant(client!, participantId),
-              "Battle participant removed."
-            )
-          }
-          onAddFighter={(participantId, fighterId, allowUnavailable) =>
-            runBattleAction(
-              () => addBattleFighter(client!, participantId, fighterId, allowUnavailable),
-              "Battle fighter added."
-            )
-          }
-          onRemoveFighter={(battleFighterId) =>
-            runBattleAction(
-              () => removeBattleFighter(client!, battleFighterId),
-              "Battle fighter removed."
-            )
-          }
-          onRecordResults={(battleId, results) =>
-            runBattleAction(
-              () => recordBattleResults(client!, battleId, results),
-              "Battle results recorded."
-            )
-          }
-          onCompleteBattle={(battle) =>
-            runBattleAction(() => completeBattle(client!, battle), "Battle completed.")
-          }
-        />
+        {activeCampaignTab === "battles" ? (
+          <BattlePanel
+            battles={battles}
+            warbands={warbands}
+            selectedBattle={selectedBattle}
+            battleDraft={battleDraft}
+            canManageCampaign={isAdmin}
+            saving={saving}
+            onSelect={setSelectedBattleId}
+            onDraftChange={setBattleDraft}
+            onCreateBattle={handleBattleCreate}
+            onAddParticipant={(battleId, warbandId) =>
+              runBattleAction(
+                () => addBattleParticipant(client!, battleId, warbandId),
+                "Battle participant added."
+              )
+            }
+            onRemoveParticipant={(participantId) =>
+              runBattleAction(
+                () => removeBattleParticipant(client!, participantId),
+                "Battle participant removed."
+              )
+            }
+            onAddFighter={(participantId, fighterId, allowUnavailable) =>
+              runBattleAction(
+                () => addBattleFighter(client!, participantId, fighterId, allowUnavailable),
+                "Battle fighter added."
+              )
+            }
+            onRemoveFighter={(battleFighterId) =>
+              runBattleAction(
+                () => removeBattleFighter(client!, battleFighterId),
+                "Battle fighter removed."
+              )
+            }
+            onRecordResults={(battleId, results) =>
+              runBattleAction(
+                () => recordBattleResults(client!, battleId, results),
+                "Battle results recorded."
+              )
+            }
+            onCompleteBattle={(battle) =>
+              runBattleAction(() => completeBattle(client!, battle), "Battle completed.")
+            }
+          />
+        ) : null}
 
-        <article className="panel">
+        <article className="panel tab-panel" hidden={activeCampaignTab !== "members"}>
           <p className="eyebrow">Roster access</p>
           <h2>Members</h2>
           <div className="member-list">
@@ -853,7 +880,7 @@ export function CampaignDetailPage() {
           </div>
         </article>
 
-        <article className="panel">
+        <article className="panel tab-panel" hidden={activeCampaignTab !== "invites"}>
           <p className="eyebrow">Invitations</p>
           <h2>Invite management</h2>
           {isAdmin ? (
@@ -913,7 +940,7 @@ export function CampaignDetailPage() {
           )}
         </article>
 
-        <article className="panel">
+        <article className="panel tab-panel" hidden={activeCampaignTab !== "settings"}>
           <p className="eyebrow">Settings</p>
           <h2>Campaign settings</h2>
           {isAdmin ? (
@@ -1405,8 +1432,9 @@ function BattlePanel({
               </div>
 
               {selectedBattle.battle_events && selectedBattle.battle_events.length > 0 ? (
-                <div className="progression-block">
-                  <h4>Battle events</h4>
+                <details className="collapsible-section">
+                  <summary>Battle events</summary>
+                  <div className="progression-block">
                   <div className="progression-list">
                     {selectedBattle.battle_events.slice(0, 5).map((event) => (
                       <div className="progression-row" key={event.id}>
@@ -1418,7 +1446,8 @@ function BattlePanel({
                       </div>
                     ))}
                   </div>
-                </div>
+                  </div>
+                </details>
               ) : null}
 
               <div className="hero-actions">
@@ -1645,69 +1674,72 @@ function WarbandRoster({
           </div>
         ) : null}
 
-        {canManage ? (
-          <form className="inline-form" onSubmit={onAddFighter}>
-            <label>
-              Fighter profile
-              <select
-                value={fighterDraft.fighterProfileId}
-                onChange={(event) =>
-                  onFighterDraftChange({
-                    fighterProfileId: event.target.value,
-                    name: "",
-                    isLeader: false
-                  })
-                }
-              >
-                <option value="">Choose fighter</option>
-                {fighterProfiles.map((fighter) => (
-                  <option key={fighter.id} value={fighter.id}>
-                    {fighter.name} - {fighter.points} pts
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              Name
-              <input
-                value={fighterDraft.name}
-                onChange={(event) =>
-                  onFighterDraftChange({ ...fighterDraft, name: event.target.value })
-                }
-                placeholder={selectedFighterProfile?.name ?? "Fighter name"}
-                maxLength={80}
-              />
-            </label>
-            <label className="checkbox-label">
-              <input
-                type="checkbox"
-                checked={fighterDraft.isLeader}
-                disabled={!selectedFighterProfile?.is_leader}
-                onChange={(event) =>
-                  onFighterDraftChange({ ...fighterDraft, isLeader: event.target.checked })
-                }
-              />
-              Leader
-            </label>
-            <button className="button" type="submit" disabled={saving || !fighterDraft.fighterProfileId}>
-              Add fighter
-            </button>
-          </form>
-        ) : null}
+        <details className="collapsible-section" open>
+          <summary>Roster fighters</summary>
+          {canManage ? (
+            <form className="inline-form" onSubmit={onAddFighter}>
+              <label>
+                Fighter profile
+                <select
+                  value={fighterDraft.fighterProfileId}
+                  onChange={(event) =>
+                    onFighterDraftChange({
+                      fighterProfileId: event.target.value,
+                      name: "",
+                      isLeader: false
+                    })
+                  }
+                >
+                  <option value="">Choose fighter</option>
+                  {fighterProfiles.map((fighter) => (
+                    <option key={fighter.id} value={fighter.id}>
+                      {fighter.name} - {fighter.points} pts
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Name
+                <input
+                  value={fighterDraft.name}
+                  onChange={(event) =>
+                    onFighterDraftChange({ ...fighterDraft, name: event.target.value })
+                  }
+                  placeholder={selectedFighterProfile?.name ?? "Fighter name"}
+                  maxLength={80}
+                />
+              </label>
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={fighterDraft.isLeader}
+                  disabled={!selectedFighterProfile?.is_leader}
+                  onChange={(event) =>
+                    onFighterDraftChange({ ...fighterDraft, isLeader: event.target.checked })
+                  }
+                />
+                Leader
+              </label>
+              <button className="button" type="submit" disabled={saving || !fighterDraft.fighterProfileId}>
+                Add fighter
+              </button>
+            </form>
+          ) : null}
 
-        <div className="fighter-card-list">
-          {rosterFighters.length === 0 ? <p className="muted">No fighters in this roster.</p> : null}
-          {rosterFighters.map((fighter) => (
-            <WarbandFighterCard
-              key={fighter.id}
-              fighter={fighter}
-              canManage={canManage}
-              saving={saving}
-              onUpdate={onFighterUpdate}
-              onRemove={onFighterRemove}
-            />
-          ))}
-        </div>
+          <div className="fighter-card-list">
+            {rosterFighters.length === 0 ? <p className="muted">No fighters in this roster.</p> : null}
+            {rosterFighters.map((fighter) => (
+              <WarbandFighterCard
+                key={fighter.id}
+                fighter={fighter}
+                canManage={canManage}
+                saving={saving}
+                onUpdate={onFighterUpdate}
+                onRemove={onFighterRemove}
+              />
+            ))}
+          </div>
+        </details>
 
         <WarbandProgressionPanel
           client={client}
@@ -1943,8 +1975,9 @@ function WarbandProgressionPanel({
         ) : null}
       </div>
 
-      <div className="progression-block">
-        <h4>Quests</h4>
+      <details className="collapsible-section">
+        <summary>Quests</summary>
+        <div className="progression-block">
         {canManage ? (
           <div className="inline-form">
             <label>
@@ -2002,10 +2035,12 @@ function WarbandProgressionPanel({
           ))}
           {state.quests.length === 0 ? <p className="muted">No quests started.</p> : null}
         </div>
-      </div>
+        </div>
+      </details>
 
-      <div className="progression-block">
-        <h4>Artefacts</h4>
+      <details className="collapsible-section">
+        <summary>Artefacts</summary>
+        <div className="progression-block">
         {canManage ? (
           <div className="inline-form">
             <label>
@@ -2079,10 +2114,12 @@ function WarbandProgressionPanel({
           ))}
           {state.artefacts.length === 0 ? <p className="muted">No artefacts recorded.</p> : null}
         </div>
-      </div>
+        </div>
+      </details>
 
-      <div className="progression-block">
-        <h4>Fighters</h4>
+      <details className="collapsible-section">
+        <summary>Fighter progression</summary>
+        <div className="progression-block">
         <div className="progression-list">
           {rosterFighters.map((fighter) => {
             const assignedTraits = state.heroicTraits.filter(
@@ -2254,10 +2291,12 @@ function WarbandProgressionPanel({
           })}
           {rosterFighters.length === 0 ? <p className="muted">Add fighters before tracking renown.</p> : null}
         </div>
-      </div>
+        </div>
+      </details>
 
-      <div className="progression-block">
-        <h4>Journal</h4>
+      <details className="collapsible-section">
+        <summary>Progression journal</summary>
+        <div className="progression-block">
         <div className="progression-list">
           {state.journal.map((entry) => (
             <div className="progression-row" key={entry.id}>
@@ -2270,7 +2309,8 @@ function WarbandProgressionPanel({
           ))}
           {state.journal.length === 0 ? <p className="muted">No progression journal entries yet.</p> : null}
         </div>
-      </div>
+        </div>
+      </details>
     </section>
   );
 }
