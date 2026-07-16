@@ -2,8 +2,8 @@
 
 Warcry Herald is a campaign manager for Warcry narrative play.
 
-The project currently has the Phase 3 reference-data foundation in progress.
-Phase 2 campaign, member, and invitation work is complete.
+The project has completed Phase 5: encampments and warband progression.
+Phase 6 battle creation and results is the next implementation phase.
 
 ## Prerequisites
 
@@ -45,6 +45,12 @@ the Supabase Dashboard SQL Editor:
 7. `supabase/migrations/202607140007_phase_3_reference_data.sql`
 8. `supabase/migrations/202607140008_phase_3_reference_mechanics.sql`
 9. `supabase/migrations/202607140009_phase_4_warbands.sql`
+10. `supabase/migrations/202607140010_expand_runemark_categories.sql`
+11. `supabase/migrations/202607150001_allow_warbands_across_imported_releases.sql`
+12. `supabase/migrations/202607150002_enforce_warband_roster_limits.sql`
+13. `supabase/migrations/202607150003_phase_5_progression.sql`
+14. `supabase/migrations/202607150004_progression_definition_metadata.sql`
+15. `supabase/migrations/202607150005_progression_journal_triggers.sql`
 
 Then reload the PostgREST schema cache:
 
@@ -88,10 +94,13 @@ pnpm import:reference-data -- --dry-run
 - Public reference browser shell at `#/reference`.
 - Versioned reference-data migration and validated JSON import scaffolding.
 - Campaign warband roster management with fighter snapshots and draft validation.
+- Warband progression tracking for glory, reputation, encampments, quests,
+  artefacts, fighter renown, heroic traits, injuries, and recent journal
+  entries.
 
 These features require the database migrations above. A production app connected
 to a Supabase project without those migrations will sign in successfully but
-fail when loading profiles or campaigns.
+fail when loading profile, campaign, roster, or progression data.
 
 Reference-data mutation is intentionally not available through frontend
 credentials. To import reviewed data, run the import script with

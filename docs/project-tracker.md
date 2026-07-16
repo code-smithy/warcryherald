@@ -31,9 +31,9 @@ Stay inquisitive. If a rule, table shape, workflow, copyright boundary, or UI be
 
 ## Current Status
 
-- Project stage: Phase 5 implementation in progress; warband progression persistence foundation is underway.
-- Current phase: Phase 5 - Encampment And Warband Progression.
-- Last completed phase: Phase 4 - Warband Roster Management.
+- Project stage: Phase 5 complete; Phase 6 battle recording is ready to start.
+- Current phase: Phase 6 - Battle Creation And Results.
+- Last completed phase: Phase 5 - Encampment And Warband Progression.
 - MVP target: complete after `WH-018 Chronicle and audit history`.
 - Broader readiness target: complete after `WH-020 Security review and production deployment`.
 
@@ -846,6 +846,7 @@ Record durable decisions here.
 - 2026-07-14: Removed automated internet collection, PDF download/extraction, source-catalogue refresh, and Warcrier extraction attempts from the Phase 3 workflow; reviewed data must be entered manually.
 - 2026-07-14: Started Phase 4 with warband, fighter instance, and fighter profile snapshot tables plus roster RPCs and validation.
 - 2026-07-15: Started Phase 5 with warband progression tables, progression definition tables, fighter progression state, and warband journal entries.
+- 2026-07-16: User confirmed Phase 5 target Supabase migrations and closeout checks are complete.
 
 ## Phase Completion Log
 
@@ -879,10 +880,32 @@ Record completed phases and verification results here.
   - Verification: 2026-07-14 local closeout recheck passed `pnpm lint`, `pnpm test` with 12 tests, and `pnpm build`.
   - Verification: 2026-07-14 user confirmed target Supabase migrations and `pnpm verify:phase2` live two-user RLS checks are complete.
 
+- 2026-07-14: Completed Phase 3 - Versioned Warcry Reference Data.
+  - Added public read-only reference tables for source documents, rules releases, factions, runemarks, fighter profiles, weapon profiles, abilities, and blessings.
+  - Added deterministic JSON validation and import tooling with dry-run support and service-role-only mutation.
+  - Added the public reference browser with search, filters, fighter details, and source/release labels.
+  - Added progression definition import support for encampments, quests, artefacts, and heroic traits.
+  - Verification: `pnpm validate:reference-data` passed.
+  - Verification: `pnpm import:reference-data -- --dry-run` passed.
+  - Verification: `pnpm lint` passed.
+  - Verification: `pnpm test` passed with 15 tests.
+  - Verification: `pnpm build` passed.
+
 - 2026-07-15: Completed Phase 4 - Warband Roster Management.
   - Added warband, fighter instance, and fighter profile snapshot persistence with roster RPCs and validation.
   - Added roster management UI for warband creation, faction selection, fighter recruitment, fighter naming, removal/retirement, leader designation, live totals, validation messaging, summary cards, printable roster output, and mobile-friendly fighter cards.
   - Documented Phase 4 setup and security expectations for private campaign warbands, owner/admin roster management, fighter rules-release enforcement, roster snapshotting, and battle-ready validation.
   - Verification: `pnpm lint` passed.
   - Verification: `pnpm test` passed with 20 tests.
+  - Verification: `pnpm build` passed.
+
+- 2026-07-16: Completed Phase 5 - Encampment And Warband Progression.
+  - Added warband progression, encampment, quest, artefact, heroic trait, fighter renown, fighter injury, and warband journal persistence.
+  - Added progression definition metadata for source attribution, scoped quests, artefact categories, and structured mechanics.
+  - Added journal triggers for progression, encampment, quest, artefact, fighter artefact, renown, heroic trait, and injury changes.
+  - Added campaign detail progression UI for glory, reputation, notes, encampments, quests, artefact inventory and assignment, fighter renown, heroic traits, injuries, and recent journal entries.
+  - Updated setup, security, and README documentation for Phase 5 migration and feature coverage.
+  - Verification: 2026-07-16 user confirmed target Supabase Phase 5 migrations and closeout checks are complete.
+  - Verification: `pnpm lint` passed.
+  - Verification: `pnpm test` passed with 23 tests.
   - Verification: `pnpm build` passed.

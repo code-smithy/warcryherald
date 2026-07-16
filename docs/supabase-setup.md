@@ -55,6 +55,12 @@ the Supabase Dashboard SQL Editor:
 7. `supabase/migrations/202607140007_phase_3_reference_data.sql`
 8. `supabase/migrations/202607140008_phase_3_reference_mechanics.sql`
 9. `supabase/migrations/202607140009_phase_4_warbands.sql`
+10. `supabase/migrations/202607140010_expand_runemark_categories.sql`
+11. `supabase/migrations/202607150001_allow_warbands_across_imported_releases.sql`
+12. `supabase/migrations/202607150002_enforce_warband_roster_limits.sql`
+13. `supabase/migrations/202607150003_phase_5_progression.sql`
+14. `supabase/migrations/202607150004_progression_definition_metadata.sql`
+15. `supabase/migrations/202607150005_progression_journal_triggers.sql`
 
 Then reload the PostgREST schema cache:
 
