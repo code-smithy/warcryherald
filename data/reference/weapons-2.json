@@ -1,0 +1,191 @@
+{
+  "weapons": [
+    {
+      "stableKey": "en-fighter-8cb98abe-weapon-1",
+      "fighterStableKey": "en-fighter-8cb98abe",
+      "name": "Dagger",
+      "rangeMin": 1,
+      "rangeMax": 1,
+      "attacks": 2,
+      "strength": 3,
+      "damage": 1,
+      "criticalDamage": 2
+    },
+    {
+      "stableKey": "en-fighter-8cb98abe-weapon-2",
+      "fighterStableKey": "en-fighter-8cb98abe",
+      "name": "Ranged",
+      "rangeMin": 6,
+      "rangeMax": 20,
+      "attacks": 2,
+      "strength": 4,
+      "damage": 4,
+      "criticalDamage": 8
+    },
+    {
+      "stableKey": "en-fighter-1e46811e-weapon-1",
+      "fighterStableKey": "en-fighter-1e46811e",
+      "name": "Sword",
+      "rangeMin": 1,
+      "rangeMax": 1,
+      "attacks": 4,
+      "strength": 3,
+      "damage": 2,
+      "criticalDamage": 4
+    },
+    {
+      "stableKey": "en-fighter-1e46811e-weapon-2",
+      "fighterStableKey": "en-fighter-1e46811e",
+      "name": "Ranged",
+      "rangeMin": 8,
+      "rangeMax": 8,
+      "attacks": 2,
+      "strength": 3,
+      "damage": 1,
+      "criticalDamage": 3
+    },
+    {
+      "stableKey": "en-fighter-c07e5e4d-weapon-1",
+      "fighterStableKey": "en-fighter-c07e5e4d",
+      "name": "Ranged",
+      "rangeMin": 8,
+      "rangeMax": 8,
+      "attacks": 4,
+      "strength": 3,
+      "damage": 1,
+      "criticalDamage": 3
+    },
+    {
+      "stableKey": "en-fighter-4dec3bd0-weapon-1",
+      "fighterStableKey": "en-fighter-4dec3bd0",
+      "name": "Fangs",
+      "rangeMin": 1,
+      "rangeMax": 1,
+      "attacks": 2,
+      "strength": 3,
+      "damage": 2,
+      "criticalDamage": 3
+    },
+    {
+      "stableKey": "en-fighter-93a3a07a-weapon-1",
+      "fighterStableKey": "en-fighter-93a3a07a",
+      "name": "Axe",
+      "rangeMin": 1,
+      "rangeMax": 1,
+      "attacks": 2,
+      "strength": 3,
+      "damage": 1,
+      "criticalDamage": 3
+    },
+    {
+      "stableKey": "en-fighter-93a3a07a-weapon-2",
+      "fighterStableKey": "en-fighter-93a3a07a",
+      "name": "Ranged",
+      "rangeMin": 3,
+      "rangeMax": 15,
+      "attacks": 2,
+      "strength": 3,
+      "damage": 1,
+      "criticalDamage": 3
+    },
+    {
+      "stableKey": "en-fighter-e8f540bc-weapon-1",
+      "fighterStableKey": "en-fighter-e8f540bc",
+      "name": "Spear",
+      "rangeMin": 2,
+      "rangeMax": 2,
+      "attacks": 3,
+      "strength": 4,
+      "damage": 2,
+      "criticalDamage": 4
+    },
+    {
+      "stableKey": "en-fighter-fcab23e7-weapon-1",
+      "fighterStableKey": "en-fighter-fcab23e7",
+      "name": "Axe",
+      "rangeMin": 1,
+      "rangeMax": 1,
+      "attacks": 2,
+      "strength": 3,
+      "damage": 1,
+      "criticalDamage": 3
+    },
+    {
+      "stableKey": "en-fighter-fcab23e7-weapon-2",
+      "fighterStableKey": "en-fighter-fcab23e7",
+      "name": "Ranged",
+      "rangeMin": 3,
+      "rangeMax": 15,
+      "attacks": 2,
+      "strength": 3,
+      "damage": 1,
+      "criticalDamage": 3
+    },
+    {
+      "stableKey": "en-fighter-32d49466-weapon-1",
+      "fighterStableKey": "en-fighter-32d49466",
+      "name": "Axe",
+      "rangeMin": 1,
+      "rangeMax": 1,
+      "attacks": 4,
+      "strength": 3,
+      "damage": 1,
+      "criticalDamage": 3
+    },
+    {
+      "stableKey": "en-fighter-32d49466-weapon-2",
+      "fighterStableKey": "en-fighter-32d49466",
+      "name": "Axe",
+      "rangeMin": 8,
+      "rangeMax": 8,
+      "attacks": 2,
+      "strength": 3,
+      "damage": 1,
+      "criticalDamage": 3
+    },
+    {
+      "stableKey": "en-fighter-2359254e-weapon-1",
+      "fighterStableKey": "en-fighter-2359254e",
+      "name": "Axe",
+      "rangeMin": 1,
+      "rangeMax": 1,
+      "attacks": 3,
+      "strength": 4,
+      "damage": 2,
+      "criticalDamage": 4
+    },
+    {
+      "stableKey": "en-fighter-605b1c5c-weapon-1",
+      "fighterStableKey": "en-fighter-605b1c5c",
+      "name": "Fangs",
+      "rangeMin": 1,
+      "rangeMax": 1,
+      "attacks": 4,
+      "strength": 3,
+      "damage": 2,
+      "criticalDamage": 3
+    },
+    {
+      "stableKey": "en-fighter-bde180a8-weapon-1",
+      "fighterStableKey": "en-fighter-bde180a8",
+      "name": "Fangs",
+      "rangeMin": 1,
+      "rangeMax": 1,
+      "attacks": 2,
+      "strength": 3,
+      "damage": 2,
+      "criticalDamage": 3
+    },
+    {
+      "stableKey": "en-fighter-bde180a8-weapon-2",
+      "fighterStableKey": "en-fighter-bde180a8",
+      "name": "Ranged",
+      "rangeMin": 3,
+      "rangeMax": 15,
+      "attacks": 2,
+      "strength": 3,
+      "damage": 1,
+      "criticalDamage": 3
+    }
+  ]
+}

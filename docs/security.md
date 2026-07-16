@@ -87,6 +87,19 @@ Use database functions for multi-table or sensitive operations, including:
 - Unique fighter progression assignments are protected with database uniqueness
   constraints so the same artefact or heroic trait cannot be assigned twice.
 
+## Phase 6 Battle Rules
+
+- Battles, participants, selected fighters, and battle events are readable only
+  by members of the owning campaign.
+- Any campaign member may create a battle in that campaign.
+- Battle creators, campaign administrators, and participating warband managers
+  can maintain battle drafts and record results.
+- Selected battle fighters store copied names, statuses, leadership flags, and
+  point values from roster snapshots so battle records remain historical.
+- Unavailable fighters cannot be selected unless a campaign administrator uses
+  the override path.
+- Updating a previously confirmed participant result records a battle event.
+
 ## Required RLS Test Areas
 
 - Non-member reads.

@@ -55,6 +55,9 @@ Player data is campaign-specific state:
 - Quests.
 - Encampments.
 - Battles.
+- Battle participants.
+- Battle fighter snapshots.
+- Battle events.
 - Results.
 - Aftermath decisions.
 - Campaign journal entries.

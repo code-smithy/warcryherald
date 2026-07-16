@@ -1,0 +1,223 @@
+{
+  "fighters": [
+    {
+      "stableKey": "en-fighter-8cb98abe",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-en-release",
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Arbalester",
+      "movement": 3,
+      "toughness": 3,
+      "wounds": 12,
+      "points": 175,
+      "baseSizeMm": null,
+      "isLeader": false,
+      "isCurrent": true,
+      "runemarkStableKeys": [
+        "en-order-wildercorps-hunters",
+        "en-runemark-warrior"
+      ],
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-en",
+      "sourcePage": "Arbalester"
+    },
+    {
+      "stableKey": "en-fighter-1e46811e",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-en-release",
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Trailblazer with Duelling Sabre",
+      "movement": 4,
+      "toughness": 3,
+      "wounds": 12,
+      "points": 90,
+      "baseSizeMm": null,
+      "isLeader": false,
+      "isCurrent": true,
+      "runemarkStableKeys": [
+        "en-order-wildercorps-hunters",
+        "en-runemark-trapper",
+        "en-runemark-warrior"
+      ],
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-en",
+      "sourcePage": "Trailblazer with Duelling Sabre"
+    },
+    {
+      "stableKey": "en-fighter-c07e5e4d",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-en-release",
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Trailblazer with Twin Crossbows",
+      "movement": 4,
+      "toughness": 3,
+      "wounds": 12,
+      "points": 100,
+      "baseSizeMm": null,
+      "isLeader": false,
+      "isCurrent": true,
+      "runemarkStableKeys": [
+        "en-order-wildercorps-hunters",
+        "en-runemark-trapper",
+        "en-runemark-warrior"
+      ],
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-en",
+      "sourcePage": "Trailblazer with Twin Crossbows"
+    },
+    {
+      "stableKey": "en-fighter-4dec3bd0",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-en-release",
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Trailhound",
+      "movement": 6,
+      "toughness": 3,
+      "wounds": 6,
+      "points": 60,
+      "baseSizeMm": null,
+      "isLeader": false,
+      "isCurrent": true,
+      "runemarkStableKeys": [
+        "en-order-wildercorps-hunters",
+        "en-runemark-beast"
+      ],
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-en",
+      "sourcePage": "Trailhound"
+    },
+    {
+      "stableKey": "en-fighter-93a3a07a",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-en-release",
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Wildercorps Leatherhide with Hunting Crossbow",
+      "movement": 4,
+      "toughness": 3,
+      "wounds": 12,
+      "points": 100,
+      "baseSizeMm": null,
+      "isLeader": false,
+      "isCurrent": true,
+      "runemarkStableKeys": [
+        "en-order-wildercorps-hunters",
+        "en-runemark-champion",
+        "en-runemark-warrior"
+      ],
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-en",
+      "sourcePage": "Wildercorps Leatherhide with Hunting Crossbow"
+    },
+    {
+      "stableKey": "en-fighter-e8f540bc",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-en-release",
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Wildercorps Leatherhide with Troggslayer Spear",
+      "movement": 4,
+      "toughness": 3,
+      "wounds": 12,
+      "points": 100,
+      "baseSizeMm": null,
+      "isLeader": false,
+      "isCurrent": true,
+      "runemarkStableKeys": [
+        "en-order-wildercorps-hunters",
+        "en-runemark-champion",
+        "en-runemark-warrior"
+      ],
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-en",
+      "sourcePage": "Wildercorps Leatherhide with Troggslayer Spear"
+    },
+    {
+      "stableKey": "en-fighter-fcab23e7",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-en-release",
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Wildercorps Scout with Hunting Crossbow",
+      "movement": 4,
+      "toughness": 3,
+      "wounds": 10,
+      "points": 75,
+      "baseSizeMm": null,
+      "isLeader": false,
+      "isCurrent": true,
+      "runemarkStableKeys": [
+        "en-order-wildercorps-hunters",
+        "en-runemark-warrior"
+      ],
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-en",
+      "sourcePage": "Wildercorps Scout with Hunting Crossbow"
+    },
+    {
+      "stableKey": "en-fighter-32d49466",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-en-release",
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Wildercorps Scout with Paired Hatchets",
+      "movement": 4,
+      "toughness": 3,
+      "wounds": 10,
+      "points": 75,
+      "baseSizeMm": null,
+      "isLeader": false,
+      "isCurrent": true,
+      "runemarkStableKeys": [
+        "en-order-wildercorps-hunters",
+        "en-runemark-warrior"
+      ],
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-en",
+      "sourcePage": "Wildercorps Scout with Paired Hatchets"
+    },
+    {
+      "stableKey": "en-fighter-2359254e",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-en-release",
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Wildercorps Warden with Double-bitted Axe",
+      "movement": 4,
+      "toughness": 3,
+      "wounds": 20,
+      "points": 115,
+      "baseSizeMm": null,
+      "isLeader": true,
+      "isCurrent": true,
+      "runemarkStableKeys": [
+        "en-order-wildercorps-hunters",
+        "en-runemark-hero",
+        "en-runemark-champion",
+        "en-runemark-warrior"
+      ],
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-en",
+      "sourcePage": "Wildercorps Warden with Double-bitted Axe"
+    },
+    {
+      "stableKey": "en-fighter-605b1c5c",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-en-release",
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Wildercorps Warden with Grizzled Trailhound",
+      "movement": 4,
+      "toughness": 3,
+      "wounds": 20,
+      "points": 115,
+      "baseSizeMm": null,
+      "isLeader": true,
+      "isCurrent": true,
+      "runemarkStableKeys": [
+        "en-order-wildercorps-hunters",
+        "en-runemark-hero",
+        "en-runemark-sentience",
+        "en-runemark-warrior"
+      ],
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-en",
+      "sourcePage": "Wildercorps Warden with Grizzled Trailhound"
+    },
+    {
+      "stableKey": "en-fighter-bde180a8",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-en-release",
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Wildercorps Warden with Hunting Crossbow",
+      "movement": 4,
+      "toughness": 3,
+      "wounds": 20,
+      "points": 120,
+      "baseSizeMm": null,
+      "isLeader": true,
+      "isCurrent": true,
+      "runemarkStableKeys": [
+        "en-order-wildercorps-hunters",
+        "en-runemark-hero",
+        "en-runemark-champion",
+        "en-runemark-warrior"
+      ],
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-en",
+      "sourcePage": "Wildercorps Warden with Hunting Crossbow"
+    }
+  ]
+}

@@ -1,6 +1,26 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
+  addBattleFighter,
+  addBattleParticipant,
+  battleResultLabels,
+  battleStatusLabels,
+  completeBattle,
+  createBattle,
+  createBattleDraft,
+  getBattleParticipantName,
+  getBattleParticipantPoints,
+  getEligibleBattleFighters,
+  listBattles,
+  recordBattleResults,
+  removeBattleFighter,
+  removeBattleParticipant,
+  type Battle,
+  type BattleDraft,
+  type BattleParticipantResult,
+  type BattleResultDraft
+} from "../lib/battles";
+import {
   archiveCampaign,
   campaignRoleLabels,
   campaignStatusLabels,
@@ -104,10 +124,12 @@ export function CampaignDetailPage() {
   const [members, setMembers] = useState<CampaignMember[]>([]);
   const [invites, setInvites] = useState<CampaignInvite[]>([]);
   const [warbands, setWarbands] = useState<Warband[]>([]);
+  const [battles, setBattles] = useState<Battle[]>([]);
   const [rulesReleases, setRulesReleases] = useState<RulesRelease[]>([]);
   const [factions, setFactions] = useState<Faction[]>([]);
   const [fighterProfiles, setFighterProfiles] = useState<FighterProfile[]>([]);
   const [selectedWarbandId, setSelectedWarbandId] = useState<string | null>(null);
+  const [selectedBattleId, setSelectedBattleId] = useState<string | null>(null);
   const [campaignDraft, setCampaignDraft] = useState<CampaignDraft>({
     name: "",
     description: "",
@@ -123,6 +145,7 @@ export function CampaignDetailPage() {
     name: "",
     isLeader: false
   });
+  const [battleDraft, setBattleDraft] = useState<BattleDraft>(createBattleDraft);
   const [inviteDraft, setInviteDraft] = useState(createInviteDraft);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -137,6 +160,8 @@ export function CampaignDetailPage() {
   const isAdmin = currentMember?.role === "owner" || currentMember?.role === "campaign_admin";
   const selectedWarband =
     warbands.find((warband) => warband.id === selectedWarbandId) ?? warbands[0] ?? null;
+  const selectedBattle =
+    battles.find((battle) => battle.id === selectedBattleId) ?? battles[0] ?? null;
   const selectedFighterProfile =
     fighterProfiles.find((fighter) => fighter.id === fighterDraft.fighterProfileId) ?? null;
   const defaultRulesRelease = useMemo(
@@ -224,6 +249,7 @@ export function CampaignDetailPage() {
         nextCampaign,
         nextMembers,
         nextWarbands,
+        nextBattles,
         nextReleases,
         nextFactions,
         nextFighterProfiles
@@ -231,6 +257,7 @@ export function CampaignDetailPage() {
         getCampaign(client, campaignId),
         listCampaignMembers(client, campaignId),
         listWarbands(client, campaignId),
+        listBattles(client, campaignId),
         listRulesReleases(client),
         listFactions(client),
         listFighterProfiles(client)
@@ -248,10 +275,12 @@ export function CampaignDetailPage() {
       setMembers(nextMembers);
       setInvites(nextInvites);
       setWarbands(nextWarbands);
+      setBattles(nextBattles);
       setRulesReleases(nextReleases);
       setFactions(nextFactions);
       setFighterProfiles(nextFighterProfiles);
       setSelectedWarbandId((current) => current ?? nextWarbands[0]?.id ?? null);
+      setSelectedBattleId((current) => current ?? nextBattles[0]?.id ?? null);
       const defaultReleaseId = nextCampaign.rules_release_id ?? getNewestRulesRelease(nextReleases)?.id ?? "";
       setCampaignDraft({
         name: nextCampaign.name,
@@ -458,6 +487,50 @@ export function CampaignDetailPage() {
       setError(
         getErrorMessage(archiveError, "Campaign could not be archived.")
       );
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleBattleCreate(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!client || !campaign) {
+      return;
+    }
+
+    setSaving(true);
+    setError(null);
+    setMessage(null);
+
+    try {
+      const battle = await createBattle(client, campaign.id, battleDraft);
+      setBattleDraft(createBattleDraft());
+      setSelectedBattleId(battle.id);
+      await loadCampaign();
+      setMessage("Battle created.");
+    } catch (battleError) {
+      setError(getErrorMessage(battleError, "Battle could not be created."));
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function runBattleAction(action: () => Promise<unknown>, success: string) {
+    if (!client) {
+      return;
+    }
+
+    setSaving(true);
+    setError(null);
+    setMessage(null);
+
+    try {
+      await action();
+      await loadCampaign();
+      setMessage(success);
+    } catch (battleError) {
+      setError(getErrorMessage(battleError, "Battle could not be updated."));
     } finally {
       setSaving(false);
     }
@@ -687,6 +760,51 @@ export function CampaignDetailPage() {
             onError={setError}
           />
         </article>
+
+        <BattlePanel
+          battles={battles}
+          warbands={warbands}
+          selectedBattle={selectedBattle}
+          battleDraft={battleDraft}
+          canManageCampaign={isAdmin}
+          saving={saving}
+          onSelect={setSelectedBattleId}
+          onDraftChange={setBattleDraft}
+          onCreateBattle={handleBattleCreate}
+          onAddParticipant={(battleId, warbandId) =>
+            runBattleAction(
+              () => addBattleParticipant(client!, battleId, warbandId),
+              "Battle participant added."
+            )
+          }
+          onRemoveParticipant={(participantId) =>
+            runBattleAction(
+              () => removeBattleParticipant(client!, participantId),
+              "Battle participant removed."
+            )
+          }
+          onAddFighter={(participantId, fighterId, allowUnavailable) =>
+            runBattleAction(
+              () => addBattleFighter(client!, participantId, fighterId, allowUnavailable),
+              "Battle fighter added."
+            )
+          }
+          onRemoveFighter={(battleFighterId) =>
+            runBattleAction(
+              () => removeBattleFighter(client!, battleFighterId),
+              "Battle fighter removed."
+            )
+          }
+          onRecordResults={(battleId, results) =>
+            runBattleAction(
+              () => recordBattleResults(client!, battleId, results),
+              "Battle results recorded."
+            )
+          }
+          onCompleteBattle={(battle) =>
+            runBattleAction(() => completeBattle(client!, battle), "Battle completed.")
+          }
+        />
 
         <article className="panel">
           <p className="eyebrow">Roster access</p>
@@ -936,6 +1054,398 @@ export function CampaignDetailPage() {
         </article>
       </section>
     </main>
+  );
+}
+
+function BattlePanel({
+  battles,
+  warbands,
+  selectedBattle,
+  battleDraft,
+  canManageCampaign,
+  saving,
+  onSelect,
+  onDraftChange,
+  onCreateBattle,
+  onAddParticipant,
+  onRemoveParticipant,
+  onAddFighter,
+  onRemoveFighter,
+  onRecordResults,
+  onCompleteBattle
+}: {
+  battles: Battle[];
+  warbands: Warband[];
+  selectedBattle: Battle | null;
+  battleDraft: BattleDraft;
+  canManageCampaign: boolean;
+  saving: boolean;
+  onSelect: (battleId: string) => void;
+  onDraftChange: (draft: BattleDraft) => void;
+  onCreateBattle: (event: React.FormEvent<HTMLFormElement>) => void;
+  onAddParticipant: (battleId: string, warbandId: string) => Promise<unknown>;
+  onRemoveParticipant: (participantId: string) => Promise<unknown>;
+  onAddFighter: (
+    participantId: string,
+    fighterId: string,
+    allowUnavailable: boolean
+  ) => Promise<unknown>;
+  onRemoveFighter: (battleFighterId: string) => Promise<unknown>;
+  onRecordResults: (battleId: string, results: BattleResultDraft[]) => Promise<unknown>;
+  onCompleteBattle: (battle: Battle) => Promise<unknown>;
+}) {
+  const [participantWarbandId, setParticipantWarbandId] = useState("");
+  const [resultDrafts, setResultDrafts] = useState<Record<string, BattleResultDraft>>({});
+  const [fighterDrafts, setFighterDrafts] = useState<Record<string, string>>({});
+
+  const participants = useMemo(
+    () => selectedBattle?.battle_participants ?? [],
+    [selectedBattle?.battle_participants]
+  );
+  const participantWarbandIds = new Set(participants.map((participant) => participant.warband_id));
+  const availableWarbands = warbands.filter((warband) => !participantWarbandIds.has(warband.id));
+  const canChangeBattle =
+    Boolean(selectedBattle) &&
+    selectedBattle?.status !== "completed" &&
+    selectedBattle?.status !== "cancelled";
+
+  useEffect(() => {
+    setResultDrafts(
+      Object.fromEntries(
+        participants.map((participant) => [
+          participant.id,
+          {
+            participantId: participant.id,
+            result: participant.result,
+            score: String(participant.score),
+            notes: participant.notes
+          }
+        ])
+      )
+    );
+    setFighterDrafts({});
+  }, [selectedBattle?.id, participants]);
+
+  return (
+    <article className="panel battle-panel">
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">Battles</p>
+          <h2>Battle records</h2>
+        </div>
+      </div>
+
+      <form className="inline-form" onSubmit={onCreateBattle}>
+        <label>
+          Battleplan
+          <input
+            value={battleDraft.battleplanName}
+            maxLength={120}
+            onChange={(event) =>
+              onDraftChange({ ...battleDraft, battleplanName: event.target.value })
+            }
+          />
+        </label>
+        <label>
+          Location
+          <input
+            value={battleDraft.locationName}
+            maxLength={120}
+            onChange={(event) =>
+              onDraftChange({ ...battleDraft, locationName: event.target.value })
+            }
+          />
+        </label>
+        <label>
+          Scheduled
+          <input
+            type="datetime-local"
+            value={battleDraft.scheduledAt}
+            onChange={(event) =>
+              onDraftChange({ ...battleDraft, scheduledAt: event.target.value })
+            }
+          />
+        </label>
+        <label className="progression-wide">
+          Notes
+          <input
+            value={battleDraft.notes}
+            maxLength={2000}
+            onChange={(event) => onDraftChange({ ...battleDraft, notes: event.target.value })}
+          />
+        </label>
+        <button className="button" type="submit" disabled={saving}>
+          Create battle
+        </button>
+      </form>
+
+      {battles.length === 0 ? <p className="muted">No battles recorded yet.</p> : null}
+
+      {battles.length > 0 ? (
+        <div className="battle-layout">
+          <div className="warband-list">
+            {battles.map((battle) => (
+              <button
+                className="reference-row"
+                key={battle.id}
+                type="button"
+                aria-pressed={battle.id === selectedBattle?.id}
+                onClick={() => onSelect(battle.id)}
+              >
+                <span>
+                  <strong>{battle.battleplan_name || "Untitled battle"}</strong>
+                  <small>
+                    {battle.location_name || "No location"}
+                    {battle.scheduled_at
+                      ? ` - ${new Date(battle.scheduled_at).toLocaleString()}`
+                      : ""}
+                  </small>
+                </span>
+                <span className="status-pill">{battleStatusLabels[battle.status]}</span>
+              </button>
+            ))}
+          </div>
+
+          {selectedBattle ? (
+            <div className="warband-detail">
+              <div className="section-heading">
+                <div>
+                  <p className="eyebrow">{battleStatusLabels[selectedBattle.status]}</p>
+                  <h3>{selectedBattle.battleplan_name || "Untitled battle"}</h3>
+                  <p className="muted">{selectedBattle.notes || "No battle notes."}</p>
+                </div>
+              </div>
+
+              <div className="progression-grid">
+                <label>
+                  Add participant
+                  <select
+                    value={participantWarbandId}
+                    disabled={!canChangeBattle || availableWarbands.length === 0}
+                    onChange={(event) => setParticipantWarbandId(event.target.value)}
+                  >
+                    <option value="">Choose warband</option>
+                    {availableWarbands.map((warband) => (
+                      <option key={warband.id} value={warband.id}>
+                        {warband.name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <button
+                  className="button"
+                  type="button"
+                  disabled={saving || !canChangeBattle || !participantWarbandId}
+                  onClick={() =>
+                    void onAddParticipant(selectedBattle.id, participantWarbandId).then(() =>
+                      setParticipantWarbandId("")
+                    )
+                  }
+                >
+                  Add warband
+                </button>
+              </div>
+
+              <div className="progression-list">
+                {participants.map((participant) => {
+                  const participantWarband =
+                    warbands.find((warband) => warband.id === participant.warband_id) ??
+                    participant.warbands;
+                  const eligibleFighters = getEligibleBattleFighters(
+                    participant,
+                    participantWarband,
+                    canManageCampaign
+                  );
+                  const resultDraft = resultDrafts[participant.id] ?? {
+                    participantId: participant.id,
+                    result: participant.result,
+                    score: String(participant.score),
+                    notes: participant.notes
+                  };
+
+                  return (
+                    <div className="progression-row progression-row--stacked" key={participant.id}>
+                      <div className="section-heading">
+                        <div>
+                          <strong>{getBattleParticipantName(participant)}</strong>
+                          <small>
+                            {getBattleParticipantPoints(participant)} pts selected -{" "}
+                            {(participant.battle_fighters ?? []).length} fighters
+                          </small>
+                        </div>
+                        {canChangeBattle ? (
+                          <button
+                            className="link-button"
+                            type="button"
+                            disabled={saving}
+                            onClick={() => void onRemoveParticipant(participant.id)}
+                          >
+                            Remove participant
+                          </button>
+                        ) : null}
+                      </div>
+
+                      <div className="progression-grid">
+                        <label>
+                          Result
+                          <select
+                            value={resultDraft.result}
+                            disabled={!canChangeBattle}
+                            onChange={(event) =>
+                              setResultDrafts({
+                                ...resultDrafts,
+                                [participant.id]: {
+                                  ...resultDraft,
+                                  result: event.target.value as BattleParticipantResult
+                                }
+                              })
+                            }
+                          >
+                            {Object.entries(battleResultLabels).map(([result, label]) => (
+                              <option key={result} value={result}>
+                                {label}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                        <label>
+                          Score
+                          <input
+                            inputMode="numeric"
+                            value={resultDraft.score}
+                            disabled={!canChangeBattle}
+                            onChange={(event) =>
+                              setResultDrafts({
+                                ...resultDrafts,
+                                [participant.id]: { ...resultDraft, score: event.target.value }
+                              })
+                            }
+                          />
+                        </label>
+                        <label>
+                          Result notes
+                          <input
+                            value={resultDraft.notes}
+                            maxLength={1000}
+                            disabled={!canChangeBattle}
+                            onChange={(event) =>
+                              setResultDrafts({
+                                ...resultDrafts,
+                                [participant.id]: { ...resultDraft, notes: event.target.value }
+                              })
+                            }
+                          />
+                        </label>
+                      </div>
+
+                      <div className="tag-list">
+                        {(participant.battle_fighters ?? []).map((fighter) => (
+                          <span key={fighter.id}>
+                            {fighter.name} ({fighter.points} pts)
+                            {canChangeBattle ? (
+                              <button
+                                className="tag-remove"
+                                type="button"
+                                disabled={saving}
+                                onClick={() => void onRemoveFighter(fighter.id)}
+                              >
+                                Remove
+                              </button>
+                            ) : null}
+                          </span>
+                        ))}
+                      </div>
+
+                      {canChangeBattle ? (
+                        <div className="inline-form">
+                          <label>
+                            Include fighter
+                            <select
+                              value={fighterDrafts[participant.id] ?? ""}
+                              disabled={eligibleFighters.length === 0}
+                              onChange={(event) =>
+                                setFighterDrafts({
+                                  ...fighterDrafts,
+                                  [participant.id]: event.target.value
+                                })
+                              }
+                            >
+                              <option value="">Choose fighter</option>
+                              {eligibleFighters.map((fighter) => (
+                                <option key={fighter.id} value={fighter.id}>
+                                  {fighter.name} - {fighterStatusLabels[fighter.status]}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                          <button
+                            className="button button--secondary"
+                            type="button"
+                            disabled={saving || !fighterDrafts[participant.id]}
+                            onClick={() =>
+                              void onAddFighter(
+                                participant.id,
+                                fighterDrafts[participant.id] ?? "",
+                                canManageCampaign
+                              ).then(() =>
+                                setFighterDrafts({ ...fighterDrafts, [participant.id]: "" })
+                              )
+                            }
+                          >
+                            Include fighter
+                          </button>
+                        </div>
+                      ) : null}
+                    </div>
+                  );
+                })}
+                {participants.length === 0 ? (
+                  <p className="muted">Add participating warbands before recording results.</p>
+                ) : null}
+              </div>
+
+              {selectedBattle.battle_events && selectedBattle.battle_events.length > 0 ? (
+                <div className="progression-block">
+                  <h4>Battle events</h4>
+                  <div className="progression-list">
+                    {selectedBattle.battle_events.slice(0, 5).map((event) => (
+                      <div className="progression-row" key={event.id}>
+                        <span>
+                          <strong>{event.summary}</strong>
+                          <small>{event.event_type}</small>
+                        </span>
+                        <small>{new Date(event.created_at).toLocaleString()}</small>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              <div className="hero-actions">
+                <button
+                  className="button"
+                  type="button"
+                  disabled={saving || !canChangeBattle || participants.length === 0}
+                  onClick={() =>
+                    void onRecordResults(selectedBattle.id, Object.values(resultDrafts))
+                  }
+                >
+                  Record results
+                </button>
+                <button
+                  className="button button--secondary"
+                  type="button"
+                  disabled={saving || selectedBattle.status === "completed"}
+                  onClick={() => void onCompleteBattle(selectedBattle)}
+                >
+                  Complete battle
+                </button>
+              </div>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+    </article>
   );
 }
 

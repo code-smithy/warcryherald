@@ -1,0 +1,805 @@
+{
+  "encampmentDefinitions": [
+    {
+      "stableKey": "warcry-wildercorps-hunters-encampment-forward-base-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Forward Base",
+      "description": "A fortified niche in the Sundered Scales where Gargoylians provide small blessings during periods of rest.",
+      "mechanics": {
+        "category": "encampment",
+        "pointsLimit": 1150,
+        "reputationModifier": 3,
+        "effects": [
+          {
+            "type": "campaign_modifier",
+            "target": "warband",
+            "summary": "Add 2 to recovery rolls made for fighters in the warband."
+          },
+          {
+            "type": "exploration_table",
+            "target": "warband",
+            "summary": "In aftermath step 5, send one fighter forth and roll on the Wildercorps Hunter Lesser Artefacts table."
+          }
+        ],
+        "explorationTable": [
+          {
+            "roll": "11-16",
+            "name": "Cold Trail",
+            "category": "other",
+            "summary": "No effect."
+          },
+          {
+            "roll": "21-26",
+            "name": "Useful Find",
+            "category": "campaign_reward",
+            "summary": "Receive D6 glory."
+          },
+          {
+            "roll": "31-33",
+            "name": "Promising Location",
+            "category": "campaign_reward",
+            "summary": "The next encampment relocation costs 5 less glory; duplicate unused results are re-rolled."
+          },
+          {
+            "roll": "34-36",
+            "name": "Choke Point",
+            "category": "campaign_reward",
+            "summary": "In the next campaign battle as defender, gain 1 additional wild die in each initiative phase; duplicate unused results are re-rolled."
+          },
+          {
+            "roll": "41-43",
+            "name": "Stingshrubs",
+            "category": "campaign_reward",
+            "summary": "In the next campaign battle as attacker, friendly non-Beast attacks deal +1 critical-hit damage; duplicate unused results are re-rolled."
+          },
+          {
+            "roll": "44-46",
+            "name": "Vital Stream",
+            "category": "campaign_reward",
+            "summary": "In the next campaign battle, add 1 Strength to friendly melee attacks; duplicate unused results are re-rolled."
+          },
+          {
+            "roll": "51-53",
+            "name": "Safer Path",
+            "category": "campaign_reward",
+            "summary": "In the next generated campaign battleplan, generate two results for each battleplan component and choose which to use; duplicate unused results are re-rolled."
+          },
+          {
+            "roll": "54-56",
+            "name": "Gristlefruit",
+            "category": "lesser_artefact",
+            "summary": "Consumable bonus action: add 3 Toughness to the bearer until the end of the battle round."
+          },
+          {
+            "roll": "61-62",
+            "name": "Trailhound Treats",
+            "category": "lesser_artefact",
+            "summary": "Perishable, once per battle: each friendly Trailhound within 6 inches makes a bonus move or disengage and ends as close as possible to the bearer."
+          },
+          {
+            "roll": "63-64",
+            "name": "Erstwhile Companion",
+            "category": "lesser_artefact",
+            "summary": "Perishable: enemy fighters within 3 inches of the bearer cannot use abilities or make reactions."
+          },
+          {
+            "roll": "65-66",
+            "name": "Unlucky Hero",
+            "category": "campaign_reward",
+            "summary": "Immediately choose and receive one artefact of power from the Plundered Trophies table."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Encampment Location: Forward Base"
+    }
+  ],
+  "questDefinitions": [
+    {
+      "stableKey": "warcry-wildercorps-hunters-quest-born-survivor-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Born Survivor",
+      "description": "A nominated Wildercorps Warden proves their ability to keep the warband alive.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 12,
+          "label": "Survivor score",
+          "increments": [
+            "At the end of each battle, add 1 for each friendly fighter still on the battlefield."
+          ],
+          "nominatedTarget": "One Wildercorps Warden eligible to gain a heroic trait."
+        },
+        "completion": {
+          "summary": "Complete in step 4 of the aftermath sequence when the survivor score is 12 or more."
+        },
+        "reward": {
+          "summary": "Give the nominated Wildercorps Warden one Wildercorps Hunters heroic trait."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Born Survivor"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-quest-breakout-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Breakout",
+      "description": "Rescue a beleaguered Cities of Sigmar hero from an encircling enemy.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "battle",
+          "label": "Quest battle",
+          "questChain": "Finest Hour",
+          "questChainStep": 3,
+          "requirement": "Hot Pursuit completed; Breakout not yet completed."
+        },
+        "completion": {
+          "summary": "Win the To the Rescue quest battle and complete the quest in aftermath step 4."
+        },
+        "reward": {
+          "summary": "Add the beleaguered hero to the warband roster in aftermath step 6 without spending glory."
+        },
+        "questBattle": {
+          "name": "To the Rescue",
+          "questingPlayerRole": "defender",
+          "adversaryPlayerRole": "attacker",
+          "durationBattleRounds": 4,
+          "beleagueredHero": {
+            "eligibility": "Any fighter with both Hero and Cities of Sigmar runemarks.",
+            "suggestedProfile": "Fusil-Major on Ogor Warhulk",
+            "move": 4,
+            "toughness": 5,
+            "wounds": 32,
+            "points": 245,
+            "weapons": [
+              {
+                "name": "Ranged",
+                "range": "3-20",
+                "attacks": 1,
+                "strength": 4,
+                "damage": "4/10"
+              },
+              {
+                "name": "Mace",
+                "range": "1",
+                "attacks": 3,
+                "strength": 5,
+                "damage": "3/6"
+              }
+            ],
+            "rules": [
+              "The beleaguered hero cannot be activated.",
+              "The attacker's fighters treat the hero as friendly; the defender treats the hero as enemy.",
+              "An attacker fighter using Respite within 1 inch can heal the hero instead if no enemy is within 1 inch.",
+              "Look Out, Sir! reaction redirects all damage from an attack targeting the hero to the reacting fighter."
+            ]
+          },
+          "victory": "The defender wins if the beleaguered hero is taken down; otherwise the attacker wins."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Breakout"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-quest-dead-or-alive-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Dead Or Alive",
+      "description": "Track a randomly selected enemy target across campaign battles and claim a chosen Plundered Trophy.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 3,
+          "label": "Trophy score",
+          "increments": [
+            "Add 1 at battle end if the randomly determined enemy target was taken down.",
+            "Add 1 at battle end if the warband won."
+          ],
+          "setup": "After deployment, randomly select an enemy battle group and then randomly select one fighter in that group as the target."
+        },
+        "completion": {
+          "summary": "Complete once the trophy score is 3 or more."
+        },
+        "reward": {
+          "summary": "Obtain the selected artefact of power from the Plundered Trophies table."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Dead Or Alive"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-quest-distress-signal-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Distress Signal",
+      "description": "Follow a concealed distress signal through the Sundered Scales.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 5,
+          "label": "Tracking score",
+          "increments": [
+            "Add 2 at battle end if a friendly fighter was within 3 inches of the secretly selected battlefield edge at the end of the final round.",
+            "Add 1 each time a fighter is sent forth during the aftermath sequence."
+          ],
+          "questChain": "Finest Hour",
+          "questChainStep": 1,
+          "requirement": "The warband has not completed this quest."
+        },
+        "completion": {
+          "summary": "Complete once the tracking score is 5 or more."
+        },
+        "reward": {
+          "summary": "Roll once on the Core Book lesser artefacts table."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Distress Signal"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-quest-do-or-die-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Do or Die",
+      "description": "Accumulate feats against dangerous enemies, then defeat the warband's fated foe.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 5,
+          "label": "Feats score",
+          "increments": [
+            "Add 1 when an enemy with 20 or more Wounds and/or the Hero runemark is taken down.",
+            "Add 1 when an enemy is taken down by a friendly non-Beast fighter's melee attack.",
+            "Add 1 when a friendly fighter's injury heals in step 6 of the aftermath sequence."
+          ]
+        },
+        "completion": {
+          "summary": "At 5 or more feats, win the Fated Foe quest battle and complete the quest in aftermath step 4."
+        },
+        "reward": {
+          "summary": "Relocate to the Forward Base encampment without spending glory."
+        },
+        "questBattle": {
+          "name": "Fated Foe",
+          "attacker": "questing_player",
+          "defender": "adversary_player",
+          "durationBattleRounds": 4,
+          "specialRules": [
+            "The attacker's dagger arrives in battle round 3 and may deploy from any battlefield-edge point."
+          ],
+          "victory": "The attacker wins if the defender's leader is taken down; otherwise the defender wins."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Do or Die"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-quest-hot-pursuit-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "scope": "faction",
+      "grandAllianceStableKey": null,
+      "factionStableKey": "en-order-wildercorps-hunters",
+      "name": "Hot Pursuit",
+      "description": "Race toward a randomly determined battlefield edge to close on the beleaguered ally.",
+      "mechanics": {
+        "category": "quest",
+        "progress": {
+          "type": "score",
+          "target": 10,
+          "label": "Pursuit score",
+          "increments": [
+            "At battle end, add 1 for each friendly fighter within 3 inches of the randomly determined goal edge."
+          ],
+          "goalTable": {
+            "1-2": "north",
+            "3": "east",
+            "4-5": "south",
+            "6": "west"
+          },
+          "questChain": "Finest Hour",
+          "questChainStep": 2,
+          "requirement": "Distress Signal completed; Hot Pursuit not yet completed."
+        },
+        "completion": {
+          "summary": "Complete once the pursuit score is 10 or more."
+        },
+        "reward": {
+          "summary": "Receive D6 glory."
+        }
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Hot Pursuit"
+    }
+  ],
+  "artefactDefinitions": [
+    {
+      "stableKey": "warcry-wildercorps-hunters-campaign-reward-choke-point-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Choke Point",
+      "category": "campaign_reward",
+      "description": "In the next campaign battle as defender, gain 1 additional wild die in each initiative phase; duplicate unused results are re-rolled.",
+      "mechanics": {
+        "category": "campaign_reward",
+        "assignment": {
+          "target": "warband",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "warband_modifier",
+            "summary": "In the next campaign battle as defender, gain 1 additional wild die in each initiative phase; duplicate unused results are re-rolled."
+          }
+        ],
+        "tableRoll": "34-36"
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Wildercorps Hunter Lesser Artefacts Table"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-campaign-reward-promising-location-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Promising Location",
+      "category": "campaign_reward",
+      "description": "The next encampment relocation costs 5 less glory; duplicate unused results are re-rolled.",
+      "mechanics": {
+        "category": "campaign_reward",
+        "assignment": {
+          "target": "warband",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "warband_modifier",
+            "summary": "The next encampment relocation costs 5 less glory; duplicate unused results are re-rolled."
+          }
+        ],
+        "tableRoll": "31-33"
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Wildercorps Hunter Lesser Artefacts Table"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-campaign-reward-safer-path-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Safer Path",
+      "category": "campaign_reward",
+      "description": "In the next generated campaign battleplan, generate two results for each battleplan component and choose which to use; duplicate unused results are re-rolled.",
+      "mechanics": {
+        "category": "campaign_reward",
+        "assignment": {
+          "target": "warband",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "warband_modifier",
+            "summary": "In the next generated campaign battleplan, generate two results for each battleplan component and choose which to use; duplicate unused results are re-rolled."
+          }
+        ],
+        "tableRoll": "51-53"
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Wildercorps Hunter Lesser Artefacts Table"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-campaign-reward-stingshrubs-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Stingshrubs",
+      "category": "campaign_reward",
+      "description": "In the next campaign battle as attacker, friendly non-Beast attacks deal +1 critical-hit damage; duplicate unused results are re-rolled.",
+      "mechanics": {
+        "category": "campaign_reward",
+        "assignment": {
+          "target": "warband",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "warband_modifier",
+            "summary": "In the next campaign battle as attacker, friendly non-Beast attacks deal +1 critical-hit damage; duplicate unused results are re-rolled."
+          }
+        ],
+        "tableRoll": "41-43"
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Wildercorps Hunter Lesser Artefacts Table"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-campaign-reward-unlucky-hero-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Unlucky Hero",
+      "category": "campaign_reward",
+      "description": "Immediately choose and receive one artefact of power from the Plundered Trophies table.",
+      "mechanics": {
+        "category": "campaign_reward",
+        "assignment": {
+          "target": "warband",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "warband_modifier",
+            "summary": "Immediately choose and receive one artefact of power from the Plundered Trophies table."
+          }
+        ],
+        "tableRoll": "65-66"
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Wildercorps Hunter Lesser Artefacts Table"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-campaign-reward-useful-find-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Useful Find",
+      "category": "campaign_reward",
+      "description": "Receive D6 glory.",
+      "mechanics": {
+        "category": "campaign_reward",
+        "assignment": {
+          "target": "warband",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "warband_modifier",
+            "summary": "Receive D6 glory."
+          }
+        ],
+        "tableRoll": "21-26"
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Wildercorps Hunter Lesser Artefacts Table"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-campaign-reward-vital-stream-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Vital Stream",
+      "category": "campaign_reward",
+      "description": "In the next campaign battle, add 1 Strength to friendly melee attacks; duplicate unused results are re-rolled.",
+      "mechanics": {
+        "category": "campaign_reward",
+        "assignment": {
+          "target": "warband",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "warband_modifier",
+            "summary": "In the next campaign battle, add 1 Strength to friendly melee attacks; duplicate unused results are re-rolled."
+          }
+        ],
+        "tableRoll": "44-46"
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Wildercorps Hunter Lesser Artefacts Table"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-greater-artefact-cloak-of-shielding-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Cloak of Shielding",
+      "category": "greater_artefact",
+      "description": "When the bearer would be allocated one or more damage points by an ability, allocate only 1 damage point instead.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "When the bearer would be allocated one or more damage points by an ability, allocate only 1 damage point instead."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Plundered Trophies"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-greater-artefact-hallowed-edge-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Hallowed Edge",
+      "category": "greater_artefact",
+      "description": "The bearer's melee attacks score critical hits on a roll of 5+.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "The bearer's melee attacks score critical hits on a roll of 5+."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Plundered Trophies"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-greater-artefact-insignia-of-valour-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Insignia of Valour",
+      "category": "greater_artefact",
+      "description": "After the bearer makes a melee attack, one visible friendly fighter can make a bonus melee attack against the same target.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "After the bearer makes a melee attack, one visible friendly fighter can make a bonus melee attack against the same target."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Plundered Trophies"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-greater-artefact-soul-lighter-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Soul Lighter",
+      "category": "greater_artefact",
+      "description": "Add 1 damage to each critical hit from the bearer's missile attacks.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Add 1 damage to each critical hit from the bearer's missile attacks."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Plundered Trophies"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-greater-artefact-stalwart-helm-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Stalwart Helm",
+      "category": "greater_artefact",
+      "description": "Add 1 to the bearer's Toughness.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Add 1 to the bearer's Toughness."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Plundered Trophies"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-greater-artefact-tracker-s-boots-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Tracker's Boots",
+      "category": "greater_artefact",
+      "description": "Add 1 to the bearer's Move; enemies cannot react to the bearer's move actions; the bearer ignores deadly terrain.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Add 1 to the bearer's Move; enemies cannot react to the bearer's move actions; the bearer ignores deadly terrain."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Plundered Trophies"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-lesser-artefact-erstwhile-companion-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Erstwhile Companion",
+      "category": "lesser_artefact",
+      "description": "Perishable: enemy fighters within 3 inches of the bearer cannot use abilities or make reactions.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Perishable: enemy fighters within 3 inches of the bearer cannot use abilities or make reactions."
+          }
+        ],
+        "tableRoll": "63-64"
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Wildercorps Hunter Lesser Artefacts Table"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-lesser-artefact-gristlefruit-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Gristlefruit",
+      "category": "lesser_artefact",
+      "description": "Consumable bonus action: add 3 Toughness to the bearer until the end of the battle round.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Consumable bonus action: add 3 Toughness to the bearer until the end of the battle round."
+          }
+        ],
+        "tableRoll": "54-56"
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Wildercorps Hunter Lesser Artefacts Table"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-lesser-artefact-trailhound-treats-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Trailhound Treats",
+      "category": "lesser_artefact",
+      "description": "Perishable, once per battle: each friendly Trailhound within 6 inches makes a bonus move or disengage and ends as close as possible to the bearer.",
+      "mechanics": {
+        "category": "artefact",
+        "assignment": {
+          "target": "fighter",
+          "optional": true
+        },
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Perishable, once per battle: each friendly Trailhound within 6 inches makes a bonus move or disengage and ends as close as possible to the bearer."
+          }
+        ],
+        "tableRoll": "61-62"
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Wildercorps Hunter Lesser Artefacts Table"
+    }
+  ],
+  "heroicTraitDefinitions": [
+    {
+      "stableKey": "warcry-wildercorps-hunters-heroic-trait-can-t-keep-em-down-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Can't Keep 'Em Down",
+      "description": "This fighter can use Smart Step Backwards without forfeiting an action or spending renown; injury rolls when sent forth count as Flesh Wound.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "This fighter can use Smart Step Backwards without forfeiting an action or spending renown; injury rolls when sent forth count as Flesh Wound."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Wildercorps Hunters Heroic Traits Table"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-heroic-trait-leads-from-the-front-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Leads from the Front",
+      "description": "After this fighter's attack takes down an enemy, this fighter can use Inspiring Presence without ability dice.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "After this fighter's attack takes down an enemy, this fighter can use Inspiring Presence without ability dice."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Wildercorps Hunters Heroic Traits Table"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-heroic-trait-seen-it-all-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Seen It All",
+      "description": "If this fighter is on the battlefield, add 1 to the number of initiative singles after rolling initiative dice.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "If this fighter is on the battlefield, add 1 to the number of initiative singles after rolling initiative dice."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Wildercorps Hunters Heroic Traits Table"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-heroic-trait-survivalist-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Survivalist",
+      "description": "When sent forth, roll 3 dice for the D66 result, discard 1, then choose which remaining die is the tens digit and which is the units digit.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "When sent forth, roll 3 dice for the D66 result, discard 1, then choose which remaining die is the tens digit and which is the units digit."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Wildercorps Hunters Heroic Traits Table"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-heroic-trait-trailhound-s-best-friend-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Trailhound's Best Friend",
+      "description": "Add 1 Attack to melee attacks made by friendly Trailhounds within 3 inches.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Add 1 Attack to melee attacks made by friendly Trailhounds within 3 inches."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Wildercorps Hunters Heroic Traits Table"
+    },
+    {
+      "stableKey": "warcry-wildercorps-hunters-heroic-trait-untarished-spirit-2026-en",
+      "rulesReleaseStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en-release",
+      "name": "Untarished Spirit",
+      "description": "Subtract 1 damage, to a minimum of 1, from each melee hit and critical hit targeting this fighter.",
+      "mechanics": {
+        "category": "heroic_trait",
+        "target": "fighter",
+        "effects": [
+          {
+            "type": "fighter_modifier",
+            "summary": "Subtract 1 damage, to a minimum of 1, from each melee hit and critical hit targeting this fighter."
+          }
+        ]
+      },
+      "sourceDocumentStableKey": "warcrier-warbands-order-wildercorps-hunters-quests-en",
+      "sourcePage": "Wildercorps Hunters Heroic Traits Table"
+    }
+  ]
+}

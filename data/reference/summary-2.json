@@ -1,0 +1,18 @@
+{
+  "factionStableKey": "en-order-wildercorps-hunters",
+  "fighterCount": 11,
+  "weaponProfileCount": 17,
+  "fighterNames": [
+    "Arbalester",
+    "Trailblazer with Duelling Sabre",
+    "Trailblazer with Twin Crossbows",
+    "Trailhound",
+    "Wildercorps Leatherhide with Hunting Crossbow",
+    "Wildercorps Leatherhide with Troggslayer Spear",
+    "Wildercorps Scout with Hunting Crossbow",
+    "Wildercorps Scout with Paired Hatchets",
+    "Wildercorps Warden with Double-bitted Axe",
+    "Wildercorps Warden with Grizzled Trailhound",
+    "Wildercorps Warden with Hunting Crossbow"
+  ]
+}

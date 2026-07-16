@@ -309,6 +309,10 @@ textarea:focus-visible {
   grid-column: 1 / -1;
 }
 
+.battle-panel {
+  grid-column: 1 / -1;
+}
+
 .section-heading {
   display: flex;
   align-items: flex-start;
@@ -324,6 +328,14 @@ textarea:focus-visible {
 }
 
 .warband-layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.55fr) minmax(0, 1.45fr);
+  gap: 1rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+.battle-layout {
   display: grid;
   grid-template-columns: minmax(240px, 0.55fr) minmax(0, 1.45fr);
   gap: 1rem;
@@ -935,6 +947,7 @@ textarea:focus-visible {
     .reference-row,
     .stat-grid,
     .warband-layout,
+    .battle-layout,
     .fighter-card-controls,
     .mini-stat-grid,
     .progression-grid,

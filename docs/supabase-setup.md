@@ -61,6 +61,7 @@ the Supabase Dashboard SQL Editor:
 13. `supabase/migrations/202607150003_phase_5_progression.sql`
 14. `supabase/migrations/202607150004_progression_definition_metadata.sql`
 15. `supabase/migrations/202607150005_progression_journal_triggers.sql`
+16. `supabase/migrations/202607160001_phase_6_battles.sql`
 
 Then reload the PostgREST schema cache:
 
@@ -141,6 +142,13 @@ artefact, heroic trait, renown, injury, and journal tables. Campaign members can
 read progression state, while only warband owners and campaign administrators can
 change it. The migration also records journal entries for progression updates so
 narrative changes have an authoritative history.
+
+The Phase 6 battle migration adds battle, participant, selected fighter, and
+battle event tables. Campaign members can read battles in their campaigns.
+Battle creators, campaign administrators, and participating warband managers can
+maintain draft battle records. Battle fighter rows copy roster snapshot details
+and points at selection time so historical battle totals remain stable after
+later roster or reference-data changes.
 
 Anonymous and authenticated clients receive `select` only. Reference-data
 imports must run from trusted tooling with `SUPABASE_SERVICE_ROLE_KEY` in the

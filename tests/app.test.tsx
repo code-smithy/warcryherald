@@ -3,6 +3,16 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { AppRoutes } from "../src/app/AppRoutes";
 import {
+  createBattleDraft,
+  getBattleParticipantPoints,
+  getEligibleBattleFighters,
+  normalizeBattleResultDrafts,
+  validateBattleCompletion,
+  validateBattleDraft,
+  type Battle,
+  type BattleParticipant
+} from "../src/lib/battles";
+import {
   getDefaultInviteExpiresAt,
   getInviteState,
   normalizeInviteDraft,
@@ -571,6 +581,112 @@ describe("warband progression helpers", () => {
   });
 });
 
+describe("battle helpers", () => {
+  it("creates and validates battle drafts", () => {
+    expect(createBattleDraft(new Date("2026-07-16T08:02:00")).scheduledAt).toBe(
+      "2026-07-16T08:15"
+    );
+
+    expect(
+      validateBattleDraft({
+        battleplanName: "  The Prize  ",
+        locationName: "  Gnarlwood  ",
+        scheduledAt: "2026-07-16T19:00",
+        notes: "  Rival claimants. "
+      })
+    ).toEqual({
+      normalized: {
+        battleplanName: "The Prize",
+        locationName: "Gnarlwood",
+        scheduledAt: "2026-07-16T19:00",
+        notes: "Rival claimants."
+      },
+      errors: []
+    });
+
+    expect(
+      validateBattleDraft({
+        battleplanName: "x".repeat(121),
+        locationName: "x".repeat(121),
+        scheduledAt: "not-a-date",
+        notes: "x".repeat(2001)
+      }).errors
+    ).toEqual([
+      "Battleplan name must be 120 characters or fewer.",
+      "Location name must be 120 characters or fewer.",
+      "Scheduled time must be a valid date and time.",
+      "Battle notes must be 2000 characters or fewer."
+    ]);
+  });
+
+  it("normalizes battle results and validates completion", () => {
+    expect(
+      normalizeBattleResultDrafts([
+        { participantId: "one", result: "winner", score: " 3 ", notes: " Claimed objective. " },
+        { participantId: "two", result: "loss", score: "", notes: "" }
+      ])
+    ).toEqual({
+      normalized: [
+        { participantId: "one", result: "winner", score: 3, notes: "Claimed objective." },
+        { participantId: "two", result: "loss", score: 0, notes: "" }
+      ],
+      errors: []
+    });
+
+    expect(
+      normalizeBattleResultDrafts([
+        { participantId: "one", result: "winner", score: "-1", notes: "" }
+      ]).errors
+    ).toEqual(["Participant scores must be whole numbers of 0 or more."]);
+
+    expect(validateBattleCompletion(makeBattle({ battle_participants: [] })).errors).toEqual([
+      "Add at least one participating warband before completing the battle."
+    ]);
+
+    expect(
+      validateBattleCompletion(
+        makeBattle({
+          battle_participants: [makeBattleParticipant({ id: "one", result: "unknown" })]
+        })
+      ).errors
+    ).toEqual(["Record a result for every participating warband before completing the battle."]);
+
+    expect(
+      validateBattleCompletion(
+        makeBattle({
+          battle_participants: [makeBattleParticipant({ id: "one", result: "draw" })]
+        })
+      ).valid
+    ).toBe(true);
+  });
+
+  it("summarizes selected fighter points and filters unavailable fighters", () => {
+    const active = makeWarbandFighter({ id: "active", name: "Kara", points: 145, is_leader: true });
+    const recovering = {
+      ...makeWarbandFighter({ id: "recovering", name: "Morn", points: 80, is_leader: false }),
+      status: "recovering" as const
+    };
+    const selected = makeWarbandFighter({ id: "selected", name: "Ash", points: 65, is_leader: false });
+    const participant = makeBattleParticipant({
+      id: "participant",
+      battle_fighters: [
+        { id: "bf-selected", warband_fighter_id: selected.id, points: 65 },
+        { id: "bf-extra", warband_fighter_id: "extra", points: 40 }
+      ]
+    });
+    const warband = makeWarband({ warband_fighters: [active, recovering, selected] });
+
+    expect(getBattleParticipantPoints(participant)).toBe(105);
+    expect(getEligibleBattleFighters(participant, warband, false).map((fighter) => fighter.id)).toEqual([
+      "active"
+    ]);
+    expect(getEligibleBattleFighters(participant, warband, true).map((fighter) => fighter.id)).toEqual([
+      "active",
+      "recovering"
+    ]);
+  });
+});
+
 function makeRulesRelease(overrides: Partial<RulesRelease>): RulesRelease {
   return {
     id: "release",
@@ -653,5 +769,61 @@ function makeWarbandFighter({
       runemarks: [],
       captured_at: "2026-07-14T00:00:00.000Z"
     } : null
+  };
+}
+
+function makeBattle(overrides: Partial<Battle>): Battle {
+  return {
+    id: "battle",
+    campaign_id: "campaign",
+    status: "draft",
+    battleplan_name: "The Prize",
+    location_name: "Gnarlwood",
+    scheduled_at: null,
+    played_at: null,
+    notes: "",
+    confirmed_at: null,
+    created_by: "user",
+    created_at: "2026-07-16T00:00:00.000Z",
+    updated_at: "2026-07-16T00:00:00.000Z",
+    battle_participants: [],
+    battle_events: [],
+    ...overrides
+  };
+}
+
+function makeBattleParticipant(
+  overrides: Omit<Partial<BattleParticipant>, "battle_fighters"> & {
+    battle_fighters?: Array<Partial<NonNullable<BattleParticipant["battle_fighters"]>[number]>>;
+  }
+): BattleParticipant {
+  const { battle_fighters, ...rest } = overrides;
+
+  return {
+    id: overrides.id ?? "participant",
+    battle_id: "battle",
+    warband_id: "warband",
+    result: overrides.result ?? "unknown",
+    score: overrides.score ?? 0,
+    notes: overrides.notes ?? "",
+    confirmed_at: overrides.confirmed_at ?? null,
+    created_at: "2026-07-16T00:00:00.000Z",
+    updated_at: "2026-07-16T00:00:00.000Z",
+    ...rest,
+    battle_fighters: (battle_fighters ?? []).map((fighter, index) => ({
+      id: fighter.id ?? `battle-fighter-${index}`,
+      battle_id: "battle",
+      battle_participant_id: overrides.id ?? "participant",
+      warband_fighter_id: fighter.warband_fighter_id ?? `fighter-${index}`,
+      fighter_profile_snapshot_id: "snapshot",
+      name: fighter.name ?? `Fighter ${index}`,
+      status_at_battle: fighter.status_at_battle ?? "active",
+      is_leader: fighter.is_leader ?? false,
+      points: fighter.points ?? 0,
+      outcome: fighter.outcome ?? "unharmed",
+      casualty_notes: fighter.casualty_notes ?? "",
+      created_at: "2026-07-16T00:00:00.000Z",
+      updated_at: "2026-07-16T00:00:00.000Z"
+    }))
   };
 }
