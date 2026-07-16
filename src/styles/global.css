@@ -330,6 +330,28 @@ textarea:focus-visible {
   grid-column: 1 / -1;
 }
 
+.dashboard-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+.dashboard-columns h3,
+.warband-summary h3 {
+  margin: 0 0 0.75rem;
+  color: var(--accent-dark);
+}
+
+.dashboard-stats {
+  margin-bottom: 1rem;
+}
+
+.dashboard-actions {
+  margin-top: 1rem;
+}
+
 .warband-panel {
   grid-column: 1 / -1;
 }
@@ -925,6 +947,11 @@ textarea:focus-visible {
   align-items: stretch;
 }
 
+.progression-row--compact {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
 .progression-row span:first-child {
   display: grid;
   gap: 0.2rem;
@@ -997,6 +1024,37 @@ textarea:focus-visible {
   cursor: pointer;
 }
 
+.warband-summary {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.activity-feed {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.activity-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+  border: 1px solid var(--line);
+  background: #fffdf7;
+  padding: 0.85rem;
+}
+
+.activity-entry span {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.activity-entry small,
+.activity-entry time {
+  color: var(--muted);
+}
+
 @media print {
   .site-header,
   .invite-form,
@@ -1055,10 +1113,12 @@ textarea:focus-visible {
     .stat-grid,
     .warband-layout,
     .battle-layout,
+    .dashboard-columns,
     .aftermath-progress,
     .fighter-card-controls,
     .mini-stat-grid,
     .progression-grid,
+    .activity-entry,
     .progression-row {
     grid-template-columns: 1fr;
   }

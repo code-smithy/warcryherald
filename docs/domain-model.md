@@ -61,6 +61,7 @@ Player data is campaign-specific state:
 - Results.
 - Aftermath decisions.
 - Campaign journal entries.
+- Campaign activity log entries.
 
 A warband fighter is a named campaign instance of a fighter profile.
 

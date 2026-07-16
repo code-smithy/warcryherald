@@ -31,10 +31,10 @@ Stay inquisitive. If a rule, table shape, workflow, copyright boundary, or UI be
 
 ## Current Status
 
-- Project stage: Phase 7 complete; Phase 8 campaign dashboard and chronicle is ready to start.
-- Current phase: Phase 8 - Campaign Dashboard And Chronicle.
-- Last completed phase: Phase 7 - Guided Aftermath Workflow.
-- MVP target: complete after `WH-018 Chronicle and audit history`.
+- Project stage: Phase 8 complete; Phase 9 visual design system is ready to start.
+- Current phase: Phase 9 - Visual Design System.
+- Last completed phase: Phase 8 - Campaign Dashboard And Chronicle.
+- MVP target: reached with `WH-018 Chronicle and audit history`.
 - Broader readiness target: complete after `WH-020 Security review and production deployment`.
 
 ## Delivery Approach
@@ -849,6 +849,7 @@ Record durable decisions here.
 - 2026-07-16: User confirmed Phase 5 target Supabase migrations and closeout checks are complete.
 - 2026-07-16: Completed Phase 6 locally with battle, participant, selected fighter, result, and battle event support.
 - 2026-07-16: Completed Phase 7 locally with aftermath sessions, guided steps, transactional step completion, administrator reopen support, and battle completion gating.
+- 2026-07-16: Completed Phase 8 locally with campaign dashboard summaries, selected-warband chronicle details, and database-generated campaign activity log entries.
 
 ## Phase Completion Log
 
@@ -931,3 +932,12 @@ Record completed phases and verification results here.
   - Verification: `pnpm lint` passed.
   - Verification: `pnpm test` passed with 28 tests.
   - Verification: `pnpm build` passed.
+
+- 2026-07-16: Completed Phase 8 - Campaign Dashboard And Chronicle.
+  - Added `activity_log` with RLS and triggers from campaign members, warbands, warband fighters, battle events, and warband journal entries.
+  - Added campaign dashboard summaries for members, active warbands, recent battles, pending aftermath, glory, reputation, quests, injuries, deaths, quick actions, and recent activity.
+  - Added a chronicle tab backed by database-generated activity and expanded selected-warband summaries for roster status, progression, encampment, quests, artefacts, battle record, and fighter histories.
+  - Updated setup, security, README, and domain docs for Phase 8 activity logging.
+  - Verification: `pnpm lint` passed.
+  - Verification: `pnpm test` passed with 31 tests.
+  - Verification: `pnpm build` passed with the existing Vite chunk-size warning.

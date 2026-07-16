@@ -17,6 +17,20 @@ import {
   type AftermathStepDraft
 } from "../lib/aftermath";
 import {
+  emptyCampaignProgressionSnapshot,
+  getActivityEventLabel,
+  getCampaignProgressTotals,
+  getPendingAftermathSessions,
+  getWarbandBattleRecord,
+  getWarbandCurrentPoints,
+  getWarbandFighterStatusCounts,
+  getWarbandProgress,
+  listCampaignActivityLog,
+  listCampaignProgressionSnapshot,
+  type CampaignActivityLogEntry,
+  type CampaignProgressionSnapshot
+} from "../lib/activity";
+import {
   addBattleFighter,
   addBattleParticipant,
   battleResultLabels,
@@ -132,11 +146,13 @@ function createInviteDraft(): InviteDraft {
   };
 }
 
-type CampaignTab = "warbands" | "battles" | "members" | "invites" | "settings";
+type CampaignTab = "dashboard" | "warbands" | "battles" | "chronicle" | "members" | "invites" | "settings";
 
 const campaignTabs: Array<{ id: CampaignTab; label: string }> = [
+  { id: "dashboard", label: "Dashboard" },
   { id: "warbands", label: "Warbands" },
   { id: "battles", label: "Battles" },
+  { id: "chronicle", label: "Chronicle" },
   { id: "members", label: "Members" },
   { id: "invites", label: "Invites" },
   { id: "settings", label: "Settings" }
@@ -151,6 +167,10 @@ export function CampaignDetailPage() {
   const [invites, setInvites] = useState<CampaignInvite[]>([]);
   const [warbands, setWarbands] = useState<Warband[]>([]);
   const [battles, setBattles] = useState<Battle[]>([]);
+  const [activityLog, setActivityLog] = useState<CampaignActivityLogEntry[]>([]);
+  const [campaignProgression, setCampaignProgression] = useState<CampaignProgressionSnapshot>(
+    emptyCampaignProgressionSnapshot
+  );
   const [rulesReleases, setRulesReleases] = useState<RulesRelease[]>([]);
   const [factions, setFactions] = useState<Faction[]>([]);
   const [fighterProfiles, setFighterProfiles] = useState<FighterProfile[]>([]);
@@ -173,7 +193,7 @@ export function CampaignDetailPage() {
   });
   const [battleDraft, setBattleDraft] = useState<BattleDraft>(createBattleDraft);
   const [inviteDraft, setInviteDraft] = useState(createInviteDraft);
-  const [activeCampaignTab, setActiveCampaignTab] = useState<CampaignTab>("warbands");
+  const [activeCampaignTab, setActiveCampaignTab] = useState<CampaignTab>("dashboard");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -277,6 +297,7 @@ export function CampaignDetailPage() {
         nextMembers,
         nextWarbands,
         nextBattles,
+        nextActivityLog,
         nextReleases,
         nextFactions,
         nextFighterProfiles
@@ -285,10 +306,12 @@ export function CampaignDetailPage() {
         listCampaignMembers(client, campaignId),
         listWarbands(client, campaignId),
         listBattles(client, campaignId),
+        listCampaignActivityLog(client, campaignId),
         listRulesReleases(client),
         listFactions(client),
         listFighterProfiles(client)
       ]);
+      const nextProgression = await listCampaignProgressionSnapshot(client, nextWarbands);
       const nextInvites =
         nextMembers.some(
           (member) =>
@@ -303,6 +326,8 @@ export function CampaignDetailPage() {
       setInvites(nextInvites);
       setWarbands(nextWarbands);
       setBattles(nextBattles);
+      setActivityLog(nextActivityLog);
+      setCampaignProgression(nextProgression);
       setRulesReleases(nextReleases);
       setFactions(nextFactions);
       setFighterProfiles(nextFighterProfiles);
@@ -711,6 +736,17 @@ export function CampaignDetailPage() {
       </nav>
 
       <section className="dashboard-grid">
+        <CampaignDashboardPanel
+          campaign={campaign}
+          members={members}
+          warbands={warbands}
+          battles={battles}
+          progression={campaignProgression}
+          activityLog={activityLog}
+          hidden={activeCampaignTab !== "dashboard"}
+          onTabChange={setActiveCampaignTab}
+        />
+
         <article className="panel warband-panel" hidden={activeCampaignTab !== "warbands"}>
           <div className="section-heading">
             <div>
@@ -787,6 +823,8 @@ export function CampaignDetailPage() {
               selectedWarband &&
                 (isAdmin || selectedWarband.owner_id === user?.id)
             )}
+            progression={campaignProgression}
+            battles={battles}
             fighterProfiles={availableFighterProfiles}
             fighterDraft={fighterDraft}
             selectedFighterProfile={selectedFighterProfile}
@@ -866,6 +904,17 @@ export function CampaignDetailPage() {
             }
           />
         ) : null}
+
+        <article className="panel tab-panel" hidden={activeCampaignTab !== "chronicle"}>
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Chronicle</p>
+              <h2>Campaign activity</h2>
+            </div>
+            <span className="status-pill">{activityLog.length} entries</span>
+          </div>
+          <ActivityList entries={activityLog} emptyMessage="No campaign activity recorded yet." />
+        </article>
 
         <article className="panel tab-panel" hidden={activeCampaignTab !== "members"}>
           <p className="eyebrow">Roster access</p>
@@ -1115,6 +1164,238 @@ export function CampaignDetailPage() {
         </article>
       </section>
     </main>
+  );
+}
+
+function CampaignDashboardPanel({
+  campaign,
+  members,
+  warbands,
+  battles,
+  progression,
+  activityLog,
+  hidden,
+  onTabChange
+}: {
+  campaign: Campaign;
+  members: CampaignMember[];
+  warbands: Warband[];
+  battles: Battle[];
+  progression: CampaignProgressionSnapshot;
+  activityLog: CampaignActivityLogEntry[];
+  hidden: boolean;
+  onTabChange: (tab: CampaignTab) => void;
+}) {
+  const activeWarbands = warbands.filter((warband) => warband.status !== "retired");
+  const recentBattles = battles.slice(0, 4);
+  const pendingAftermath = getPendingAftermathSessions(battles);
+  const progressTotals = getCampaignProgressTotals(progression);
+  const activeQuests = progression.quests.filter((quest) => !quest.completed_at);
+  const recentInjuries = progression.injuries
+    .filter((injury) => !injury.recovered_at)
+    .slice(0, 5);
+  const deadFighters = warbands.flatMap((warband) =>
+    (warband.warband_fighters ?? [])
+      .filter((fighter) => fighter.status === "dead")
+      .map((fighter) => ({ fighter, warband }))
+  );
+
+  return (
+    <article className="panel tab-panel" hidden={hidden}>
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">Dashboard</p>
+          <h2>Campaign at a glance</h2>
+        </div>
+        <span className={`status-pill status-pill--${campaign.status}`}>
+          {campaignStatusLabels[campaign.status]}
+        </span>
+      </div>
+
+      <dl className="stat-grid dashboard-stats">
+        <div>
+          <dt>Members</dt>
+          <dd>{members.length}</dd>
+        </div>
+        <div>
+          <dt>Warbands</dt>
+          <dd>{activeWarbands.length}</dd>
+        </div>
+        <div>
+          <dt>Glory</dt>
+          <dd>{progressTotals.glory}</dd>
+        </div>
+        <div>
+          <dt>Reputation</dt>
+          <dd>{progressTotals.reputation}</dd>
+        </div>
+      </dl>
+
+      <div className="dashboard-columns">
+        <section>
+          <div className="section-heading">
+            <h3>Warbands</h3>
+            <button className="link-button" type="button" onClick={() => onTabChange("warbands")}>
+              Manage
+            </button>
+          </div>
+          <div className="progression-list">
+            {activeWarbands.slice(0, 5).map((warband) => {
+              const progress = getWarbandProgress(progression, warband.id);
+              const statusCounts = getWarbandFighterStatusCounts(warband);
+
+              return (
+                <div className="progression-row progression-row--compact" key={warband.id}>
+                  <span>
+                    <strong>{warband.name}</strong>
+                    <small>
+                      {getWarbandCurrentPoints(warband)} pts - {statusCounts.active} active
+                      {statusCounts.recovering + statusCounts.missing > 0
+                        ? ` - ${statusCounts.recovering + statusCounts.missing} unavailable`
+                        : ""}
+                    </small>
+                  </span>
+                  <small>
+                    Glory {progress?.glory ?? 0} / Rep {progress?.reputation ?? 0}
+                  </small>
+                </div>
+              );
+            })}
+            {activeWarbands.length === 0 ? <p className="muted">No active warbands yet.</p> : null}
+          </div>
+        </section>
+
+        <section>
+          <div className="section-heading">
+            <h3>Pending actions</h3>
+            <button className="link-button" type="button" onClick={() => onTabChange("battles")}>
+              Battles
+            </button>
+          </div>
+          <div className="progression-list">
+            {pendingAftermath.map((session) => {
+              const warband = warbands.find((candidate) => candidate.id === session.warband_id);
+
+              return (
+                <div className="progression-row progression-row--compact" key={session.id}>
+                  <span>
+                    <strong>{warband?.name ?? "Warband aftermath"}</strong>
+                    <small>{session.status.replace("_", " ")}</small>
+                  </span>
+                  <span className="status-pill">Aftermath</span>
+                </div>
+              );
+            })}
+            {pendingAftermath.length === 0 ? <p className="muted">No pending aftermath sessions.</p> : null}
+          </div>
+        </section>
+
+        <section>
+          <h3>Recent battles</h3>
+          <div className="progression-list">
+            {recentBattles.map((battle) => (
+              <div className="progression-row progression-row--compact" key={battle.id}>
+                <span>
+                  <strong>{battle.battleplan_name || "Untitled battle"}</strong>
+                  <small>{battle.location_name || "No location"}</small>
+                </span>
+                <span className="status-pill">{battleStatusLabels[battle.status]}</span>
+              </div>
+            ))}
+            {recentBattles.length === 0 ? <p className="muted">No battles recorded yet.</p> : null}
+          </div>
+        </section>
+
+        <section>
+          <h3>Quests and casualties</h3>
+          <div className="progression-list">
+            {activeQuests.slice(0, 3).map((quest) => (
+              <div className="progression-row progression-row--compact" key={quest.id}>
+                <span>
+                  <strong>{getDefinitionName(quest.quest_definitions, "Unknown quest")}</strong>
+                  <small>Progress {quest.progress}</small>
+                </span>
+                <span className="status-pill">Quest</span>
+              </div>
+            ))}
+            {recentInjuries.map((injury) => {
+              const fighter = warbands
+                .flatMap((warband) => warband.warband_fighters ?? [])
+                .find((candidate) => candidate.id === injury.warband_fighter_id);
+
+              return (
+                <div className="progression-row progression-row--compact" key={injury.id}>
+                  <span>
+                    <strong>{fighter?.name ?? "Fighter injury"}</strong>
+                    <small>{injury.name}</small>
+                  </span>
+                  <span className="status-pill">Injury</span>
+                </div>
+              );
+            })}
+            {deadFighters.slice(0, 3).map(({ fighter, warband }) => (
+              <div className="progression-row progression-row--compact" key={fighter.id}>
+                <span>
+                  <strong>{fighter.name}</strong>
+                  <small>{warband.name}</small>
+                </span>
+                <span className="status-pill">Dead</span>
+              </div>
+            ))}
+            {activeQuests.length === 0 && recentInjuries.length === 0 && deadFighters.length === 0 ? (
+              <p className="muted">No active quests, injuries, or deaths recorded.</p>
+            ) : null}
+          </div>
+        </section>
+      </div>
+
+      <div className="section-heading dashboard-actions">
+        <div className="hero-actions">
+          <button className="button" type="button" onClick={() => onTabChange("warbands")}>
+            New warband
+          </button>
+          <button className="button button--secondary" type="button" onClick={() => onTabChange("battles")}>
+            Record battle
+          </button>
+          <button className="button button--secondary" type="button" onClick={() => onTabChange("invites")}>
+            Invite players
+          </button>
+        </div>
+      </div>
+
+      <details className="collapsible-section" open>
+        <summary>Recent activity</summary>
+        <div className="progression-block">
+          <ActivityList entries={activityLog.slice(0, 8)} emptyMessage="No campaign activity recorded yet." />
+        </div>
+      </details>
+    </article>
+  );
+}
+
+function ActivityList({
+  entries,
+  emptyMessage
+}: {
+  entries: CampaignActivityLogEntry[];
+  emptyMessage: string;
+}) {
+  if (entries.length === 0) {
+    return <p className="muted">{emptyMessage}</p>;
+  }
+
+  return (
+    <div className="activity-feed">
+      {entries.map((entry) => (
+        <article className="activity-entry" key={entry.id}>
+          <span>
+            <strong>{entry.summary}</strong>
+            <small>{getActivityEventLabel(entry.event_type)}</small>
+          </span>
+          <time dateTime={entry.created_at}>{new Date(entry.created_at).toLocaleString()}</time>
+        </article>
+      ))}
+    </div>
   );
 }
 
@@ -1994,6 +2275,8 @@ function WarbandRoster({
   warbands,
   selectedWarband,
   canManage,
+  progression,
+  battles,
   fighterProfiles,
   fighterDraft,
   selectedFighterProfile,
@@ -2011,6 +2294,8 @@ function WarbandRoster({
   warbands: Warband[];
   selectedWarband: Warband | null;
   canManage: boolean;
+  progression: CampaignProgressionSnapshot;
+  battles: Battle[];
   fighterProfiles: FighterProfile[];
   fighterDraft: { fighterProfileId: string; name: string; isLeader: boolean };
   selectedFighterProfile: FighterProfile | null;
@@ -2099,6 +2384,12 @@ function WarbandRoster({
             <dd>{validation.valid ? "Valid" : "Draft"}</dd>
           </div>
         </dl>
+
+        <WarbandDashboardSummary
+          warband={selectedWarband}
+          progression={progression}
+          battles={battles}
+        />
 
         {validation.errors.length > 0 || validation.warnings.length > 0 ? (
           <div className="validation-list" aria-live="polite">
@@ -2226,6 +2517,105 @@ function WarbandRoster({
         />
       </div>
     </div>
+  );
+}
+
+function WarbandDashboardSummary({
+  warband,
+  progression,
+  battles
+}: {
+  warband: Warband;
+  progression: CampaignProgressionSnapshot;
+  battles: Battle[];
+}) {
+  const fighters = [...(warband.warband_fighters ?? [])].sort(
+    (a, b) => a.sort_order - b.sort_order || a.created_at.localeCompare(b.created_at)
+  );
+  const leader = fighters.find((fighter) => fighter.is_leader && fighter.status !== "dead");
+  const statusCounts = getWarbandFighterStatusCounts(warband);
+  const progress = getWarbandProgress(progression, warband.id);
+  const encampment = progression.encampments.find((row) => row.warband_id === warband.id);
+  const quests = progression.quests.filter((quest) => quest.warband_id === warband.id);
+  const activeQuests = quests.filter((quest) => !quest.completed_at);
+  const artefacts = progression.artefacts.filter((artefact) => artefact.warband_id === warband.id);
+  const battleRecord = getWarbandBattleRecord(battles, warband.id);
+
+  return (
+    <section className="warband-summary">
+      <div className="progression-list">
+        <div className="progression-row progression-row--compact">
+          <span>
+            <strong>{leader?.name ?? "No active leader"}</strong>
+            <small>
+              {statusCounts.active} active /{" "}
+              {statusCounts.recovering + statusCounts.missing} unavailable /{" "}
+              {statusCounts.dead + statusCounts.retired} historical
+            </small>
+          </span>
+          <small>
+            Glory {progress?.glory ?? 0} / Rep {progress?.reputation ?? 0}
+          </small>
+        </div>
+        <div className="progression-row progression-row--compact">
+          <span>
+            <strong>
+              {getDefinitionName(encampment?.encampment_definitions, "No encampment")}
+            </strong>
+            <small>
+              {activeQuests.length > 0
+                ? activeQuests
+                    .map((quest) => getDefinitionName(quest.quest_definitions, "Unknown quest"))
+                    .join(", ")
+                : "No active quest"}
+            </small>
+          </span>
+          <small>
+            {battleRecord.played} battles: {battleRecord.wins}W / {battleRecord.draws}D /{" "}
+            {battleRecord.losses}L
+          </small>
+        </div>
+      </div>
+
+      <details className="collapsible-section">
+        <summary>Warband history</summary>
+        <div className="progression-block">
+          <div className="progression-list">
+            {fighters.map((fighter) => {
+              const renown =
+                progression.renown.find((row) => row.warband_fighter_id === fighter.id)?.renown ??
+                0;
+              const injuries = progression.injuries.filter(
+                (injury) => injury.warband_fighter_id === fighter.id
+              );
+
+              return (
+                <div className="progression-row progression-row--compact" key={fighter.id}>
+                  <span>
+                    <strong>{fighter.name}</strong>
+                    <small>
+                      {fighterStatusLabels[fighter.status]} - {getWarbandFighterPoints(fighter)} pts
+                      {injuries.length > 0 ? ` - ${injuries.length} injuries` : ""}
+                    </small>
+                  </span>
+                  <small>Renown {renown}</small>
+                </div>
+              );
+            })}
+            {fighters.length === 0 ? <p className="muted">No fighter history yet.</p> : null}
+          </div>
+
+          <div className="tag-list">
+            {artefacts.map((artefact) => (
+              <span key={artefact.id}>
+                {artefact.name || getDefinitionName(artefact.artefact_definitions, "Artefact")}
+              </span>
+            ))}
+            {artefacts.length === 0 ? <span>No artefacts</span> : null}
+          </div>
+        </div>
+      </details>
+    </section>
   );
 }
 

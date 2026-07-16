@@ -3,6 +3,14 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { AppRoutes } from "../src/app/AppRoutes";
 import {
+  getActivityEventLabel,
+  getCampaignProgressTotals,
+  getPendingAftermathSessions,
+  getWarbandBattleRecord,
+  getWarbandCurrentPoints,
+  getWarbandFighterStatusCounts
+} from "../src/lib/activity";
+import {
   buildAftermathStepPayload,
   createAftermathStepDraft,
   summarizeAftermathConsequences
@@ -749,6 +757,103 @@ describe("aftermath helpers", () => {
         []
       )
     ).toThrow("Glory change must be a whole number.");
+  });
+});
+
+describe("campaign dashboard helpers", () => {
+  it("summarizes warband availability and points", () => {
+    const warband = makeWarband({
+      warband_fighters: [
+        makeWarbandFighter({ id: "leader", name: "Kara", points: 145, is_leader: true }),
+        {
+          ...makeWarbandFighter({ id: "scarred", name: "Morn", points: 80, is_leader: false }),
+          status: "recovering" as const
+        },
+        {
+          ...makeWarbandFighter({ id: "fallen", name: "Ash", points: 65, is_leader: false }),
+          status: "dead" as const
+        }
+      ]
+    });
+
+    expect(getWarbandFighterStatusCounts(warband)).toEqual({
+      active: 1,
+      recovering: 1,
+      missing: 0,
+      dead: 1,
+      retired: 0
+    });
+    expect(getWarbandCurrentPoints(warband)).toBe(145);
+  });
+
+  it("derives battle records and pending aftermath from stored results", () => {
+    const battles = [
+      makeBattle({
+        id: "won",
+        status: "completed",
+        battle_participants: [makeBattleParticipant({ warband_id: "warband", result: "winner" })]
+      }),
+      makeBattle({
+        id: "drawn",
+        status: "aftermath_pending",
+        battle_participants: [makeBattleParticipant({ warband_id: "warband", result: "draw" })],
+        aftermath_sessions: [
+          {
+            id: "session",
+            battle_id: "drawn",
+            battle_participant_id: "participant",
+            warband_id: "warband",
+            status: "in_progress",
+            completed_at: null,
+            created_by: null,
+            updated_by: null,
+            created_at: "2026-07-16T00:00:00.000Z",
+            updated_at: "2026-07-16T00:00:00.000Z",
+            aftermath_steps: []
+          }
+        ]
+      }),
+      makeBattle({
+        id: "draft",
+        status: "draft",
+        battle_participants: [makeBattleParticipant({ warband_id: "warband", result: "loss" })]
+      })
+    ];
+
+    expect(getWarbandBattleRecord(battles, "warband")).toEqual({
+      played: 2,
+      wins: 1,
+      draws: 1,
+      losses: 0
+    });
+    expect(getPendingAftermathSessions(battles).map((session) => session.id)).toEqual(["session"]);
+  });
+
+  it("labels activity and totals campaign progress", () => {
+    expect(getActivityEventLabel("fighter_killed")).toBe("Fighter killed");
+    expect(getActivityEventLabel("custom_event_type")).toBe("Custom Event Type");
+    expect(
+      getCampaignProgressTotals({
+        progress: [
+          {
+            id: "one",
+            warband_id: "warband-one",
+            glory: 3,
+            reputation: 1,
+            notes: "",
+            updated_at: "2026-07-16T00:00:00.000Z"
+          },
+          {
+            id: "two",
+            warband_id: "warband-two",
+            glory: 2,
+            reputation: 4,
+            notes: "",
+            updated_at: "2026-07-16T00:00:00.000Z"
+          }
+        ]
+      })
+    ).toEqual({ glory: 5, reputation: 5 });
   });
 });
 

@@ -118,6 +118,17 @@ Use database functions for multi-table or sensitive operations, including:
 - A battle with pending aftermath sessions cannot be completed until all
   sessions are complete.
 
+## Phase 8 Activity Rules
+
+- Campaign activity is stored in `activity_log` and readable only by members of
+  the owning campaign.
+- Activity rows are created by database triggers from authoritative campaign,
+  warband, fighter, battle, aftermath, and progression changes.
+- Authenticated frontend clients receive `select` only on `activity_log`; they
+  cannot insert or edit chronicle entries directly.
+- Activity entries may reference a warband, battle, actor profile, and source
+  row so dashboard and chronicle views can explain where a change came from.
+
 ## Required RLS Test Areas
 
 - Non-member reads.
