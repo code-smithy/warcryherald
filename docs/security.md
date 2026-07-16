@@ -100,6 +100,24 @@ Use database functions for multi-table or sensitive operations, including:
   the override path.
 - Updating a previously confirmed participant result records a battle event.
 
+## Phase 7 Aftermath Rules
+
+- Aftermath sessions and steps are readable only by members of the owning
+  campaign.
+- Battle result recording initializes one aftermath session per participant.
+- A warband manager or campaign administrator can complete that warband's
+  aftermath steps.
+- Step completion runs through `complete_aftermath_step(...)` so confirmed
+  inputs, applied consequences, session progress, battle completion checks, and
+  journal entries happen atomically.
+- Completing an already completed step returns the stored step instead of
+  applying rewards twice.
+- Campaign administrators can reopen a step through `reopen_aftermath_step(...)`;
+  reopening logs battle and warband journal events but does not automatically
+  reverse previously applied consequences.
+- A battle with pending aftermath sessions cannot be completed until all
+  sessions are complete.
+
 ## Required RLS Test Areas
 
 - Non-member reads.

@@ -31,9 +31,9 @@ Stay inquisitive. If a rule, table shape, workflow, copyright boundary, or UI be
 
 ## Current Status
 
-- Project stage: Phase 6 complete; Phase 7 guided aftermath is ready to start.
-- Current phase: Phase 7 - Guided Aftermath Workflow.
-- Last completed phase: Phase 6 - Battle Creation And Results.
+- Project stage: Phase 7 complete; Phase 8 campaign dashboard and chronicle is ready to start.
+- Current phase: Phase 8 - Campaign Dashboard And Chronicle.
+- Last completed phase: Phase 7 - Guided Aftermath Workflow.
 - MVP target: complete after `WH-018 Chronicle and audit history`.
 - Broader readiness target: complete after `WH-020 Security review and production deployment`.
 
@@ -848,6 +848,7 @@ Record durable decisions here.
 - 2026-07-15: Started Phase 5 with warband progression tables, progression definition tables, fighter progression state, and warband journal entries.
 - 2026-07-16: User confirmed Phase 5 target Supabase migrations and closeout checks are complete.
 - 2026-07-16: Completed Phase 6 locally with battle, participant, selected fighter, result, and battle event support.
+- 2026-07-16: Completed Phase 7 locally with aftermath sessions, guided steps, transactional step completion, administrator reopen support, and battle completion gating.
 
 ## Phase Completion Log
 
@@ -920,4 +921,13 @@ Record completed phases and verification results here.
   - Added TypeScript battle helpers and unit coverage for draft validation, result normalization, completion validation, selected fighter point totals, and unavailable fighter filtering.
   - Verification: `pnpm lint` passed.
   - Verification: `pnpm test` passed with 26 tests.
+  - Verification: `pnpm build` passed.
+
+- 2026-07-16: Completed Phase 7 - Guided Aftermath Workflow.
+  - Added aftermath session and step persistence with one session per battle participant.
+  - Added transactional aftermath RPCs for session initialization, idempotent step completion, progression consequence application, administrator reopen/correction logging, and battle completion after all sessions are complete.
+  - Added guided battle-tab UI for current-step resume, manual dice/result notes, glory and reputation changes, injury/status handling, fighter renown changes, completion preview, step confirmation, and administrator reopen.
+  - Updated setup and security documentation for the Phase 7 migration and aftermath authorization rules.
+  - Verification: `pnpm lint` passed.
+  - Verification: `pnpm test` passed with 28 tests.
   - Verification: `pnpm build` passed.

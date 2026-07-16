@@ -1,5 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { toDateTimeLocalValue } from "./campaigns";
+import type { AftermathSession } from "./aftermath";
 import type { Warband, WarbandFighter } from "./warbands";
 
 export type BattleStatus =
@@ -83,6 +84,7 @@ export type Battle = {
   updated_at: string;
   battle_participants?: BattleParticipant[];
   battle_events?: BattleEvent[];
+  aftermath_sessions?: AftermathSession[];
 };
 
 export const battleStatusLabels: Record<BattleStatus, string> = {
@@ -219,6 +221,10 @@ export async function listBattles(client: SupabaseClient, campaignId: string) {
         *,
         warbands(id, name, status, warband_fighters(*)),
         battle_fighters(*)
+      ),
+      aftermath_sessions(
+        *,
+        aftermath_steps(*)
       ),
       battle_events(*)
     `

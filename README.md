@@ -2,8 +2,8 @@
 
 Warcry Herald is a campaign manager for Warcry narrative play.
 
-The project has completed Phase 6: battle creation and results.
-Phase 7 guided aftermath workflow is the next implementation phase.
+The project has completed Phase 7: guided aftermath workflow.
+Phase 8 campaign dashboard and chronicle is the next implementation phase.
 
 ## Prerequisites
 
@@ -52,6 +52,7 @@ the Supabase Dashboard SQL Editor:
 14. `supabase/migrations/202607150004_progression_definition_metadata.sql`
 15. `supabase/migrations/202607150005_progression_journal_triggers.sql`
 16. `supabase/migrations/202607160001_phase_6_battles.sql`
+17. `supabase/migrations/202607160002_phase_7_aftermath.sql`
 
 Then reload the PostgREST schema cache:
 
@@ -100,6 +101,9 @@ pnpm import:reference-data -- --dry-run
   entries.
 - Battle creation and result recording with participants, selected fighters,
   score/result capture, fighter point snapshots, and battle event history.
+- Guided aftermath sessions for each battle participant, with manual dice/result
+  entry, confirmed progression consequences, injury and renown application,
+  administrator reopen support, and journal/audit entries.
 
 These features require the database migrations above. A production app connected
 to a Supabase project without those migrations will sign in successfully but

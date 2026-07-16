@@ -62,6 +62,7 @@ the Supabase Dashboard SQL Editor:
 14. `supabase/migrations/202607150004_progression_definition_metadata.sql`
 15. `supabase/migrations/202607150005_progression_journal_triggers.sql`
 16. `supabase/migrations/202607160001_phase_6_battles.sql`
+17. `supabase/migrations/202607160002_phase_7_aftermath.sql`
 
 Then reload the PostgREST schema cache:
 
@@ -149,6 +150,13 @@ Battle creators, campaign administrators, and participating warband managers can
 maintain draft battle records. Battle fighter rows copy roster snapshot details
 and points at selection time so historical battle totals remain stable after
 later roster or reference-data changes.
+
+The Phase 7 aftermath migration adds aftermath session and step tables plus
+transactional RPCs for initializing sessions, completing steps, and reopening
+steps for correction. Recording battle results starts one session per
+participant. Completing a step stores the manual input, applies confirmed
+progression consequences, writes warband journal and battle event rows, and
+closes the battle only after every participant's session is complete.
 
 Anonymous and authenticated clients receive `select` only. Reference-data
 imports must run from trusted tooling with `SUPABASE_SERVICE_ROLE_KEY` in the

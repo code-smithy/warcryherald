@@ -3,6 +3,11 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { AppRoutes } from "../src/app/AppRoutes";
 import {
+  buildAftermathStepPayload,
+  createAftermathStepDraft,
+  summarizeAftermathConsequences
+} from "../src/lib/aftermath";
+import {
   createBattleDraft,
   getBattleParticipantPoints,
   getEligibleBattleFighters,
@@ -684,6 +689,66 @@ describe("battle helpers", () => {
       "active",
       "recovering"
     ]);
+  });
+});
+
+describe("aftermath helpers", () => {
+  it("builds confirmed aftermath consequences from manual entries", () => {
+    const fighter = makeBattleParticipant({
+      id: "participant",
+      battle_fighters: [{ id: "battle-fighter", warband_fighter_id: "fighter", name: "Kara" }]
+    }).battle_fighters![0];
+
+    const payload = buildAftermathStepPayload(
+      {
+        diceResult: "  6, 4  ",
+        notes: "  Claimed the relic. ",
+        gloryDelta: "2",
+        reputationDelta: "-1",
+        fighterChanges: {
+          fighter: {
+            renownDelta: "1",
+            status: "recovering",
+            injuryName: "Gouged arm",
+            injuryDescription: "Misses the next battle."
+          }
+        }
+      },
+      [fighter]
+    );
+
+    expect(payload.input).toEqual({
+      diceResult: "6, 4",
+      notes: "Claimed the relic."
+    });
+    expect(payload.consequences).toMatchObject({
+      gloryDelta: 2,
+      reputationDelta: -1,
+      renown: [{ fighterId: "fighter", delta: 1, name: "Kara" }],
+      fighterStatuses: [{ fighterId: "fighter", status: "recovering", name: "Kara" }],
+      injuries: [
+        {
+          fighterId: "fighter",
+          name: "Gouged arm",
+          description: "Misses the next battle."
+        }
+      ]
+    });
+    expect(summarizeAftermathConsequences(payload.consequences)).toBe(
+      "Glory +2, Reputation -1, 1 renown change, 1 fighter status change, 1 injury"
+    );
+  });
+
+  it("rejects invalid aftermath number drafts", () => {
+    expect(() =>
+      buildAftermathStepPayload(
+        {
+          ...createAftermathStepDraft(null),
+          gloryDelta: "1.5"
+        },
+        []
+      )
+    ).toThrow("Glory change must be a whole number.");
   });
 });
 

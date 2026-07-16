@@ -1,6 +1,22 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
+  aftermathStepInstructions,
+  aftermathStepLabels,
+  buildAftermathStepPayload,
+  completeAftermathStep,
+  createAftermathStepDraft,
+  createEmptyFighterChangeDraft,
+  getCurrentAftermathStep,
+  getSortedAftermathSteps,
+  initializeAftermathSessions,
+  reopenAftermathStep,
+  summarizeAftermathConsequences,
+  type AftermathSession,
+  type AftermathStep,
+  type AftermathStepDraft
+} from "../lib/aftermath";
+import {
   addBattleFighter,
   addBattleParticipant,
   battleResultLabels,
@@ -827,6 +843,24 @@ export function CampaignDetailPage() {
                 "Battle results recorded."
               )
             }
+            onInitializeAftermath={(battleId) =>
+              runBattleAction(
+                () => initializeAftermathSessions(client!, battleId),
+                "Aftermath sessions started."
+              )
+            }
+            onCompleteAftermathStep={(stepId, draft, battleFighters) =>
+              runBattleAction(
+                () => completeAftermathStep(client!, stepId, draft, battleFighters),
+                "Aftermath step completed."
+              )
+            }
+            onReopenAftermathStep={(stepId, correctionReason) =>
+              runBattleAction(
+                () => reopenAftermathStep(client!, stepId, correctionReason),
+                "Aftermath step reopened."
+              )
+            }
             onCompleteBattle={(battle) =>
               runBattleAction(() => completeBattle(client!, battle), "Battle completed.")
             }
@@ -1099,6 +1133,9 @@ function BattlePanel({
   onAddFighter,
   onRemoveFighter,
   onRecordResults,
+  onInitializeAftermath,
+  onCompleteAftermathStep,
+  onReopenAftermathStep,
   onCompleteBattle
 }: {
   battles: Battle[];
@@ -1119,6 +1156,15 @@ function BattlePanel({
   ) => Promise<unknown>;
   onRemoveFighter: (battleFighterId: string) => Promise<unknown>;
   onRecordResults: (battleId: string, results: BattleResultDraft[]) => Promise<unknown>;
+  onInitializeAftermath: (battleId: string) => Promise<unknown>;
+  onCompleteAftermathStep: (
+    stepId: string,
+    draft: AftermathStepDraft,
+    battleFighters: NonNullable<
+      NonNullable<Battle["battle_participants"]>[number]["battle_fighters"]
+    >
+  ) => Promise<unknown>;
+  onReopenAftermathStep: (stepId: string, correctionReason: string) => Promise<unknown>;
   onCompleteBattle: (battle: Battle) => Promise<unknown>;
 }) {
   const [participantWarbandId, setParticipantWarbandId] = useState("");
@@ -1131,10 +1177,17 @@ function BattlePanel({
   );
   const participantWarbandIds = new Set(participants.map((participant) => participant.warband_id));
   const availableWarbands = warbands.filter((warband) => !participantWarbandIds.has(warband.id));
+  const aftermathSessions = selectedBattle?.aftermath_sessions ?? [];
+  const hasIncompleteAftermath = aftermathSessions.some((session) => session.status !== "completed");
   const canChangeBattle =
     Boolean(selectedBattle) &&
     selectedBattle?.status !== "completed" &&
     selectedBattle?.status !== "cancelled";
+  const canCompleteSelectedBattle =
+    Boolean(selectedBattle) &&
+    selectedBattle?.status !== "completed" &&
+    selectedBattle?.status !== "cancelled" &&
+    !hasIncompleteAftermath;
 
   useEffect(() => {
     setResultDrafts(
@@ -1450,6 +1503,21 @@ function BattlePanel({
                 </details>
               ) : null}
 
+              {selectedBattle.status === "aftermath_pending" ||
+              selectedBattle.status === "completed" ||
+              aftermathSessions.length > 0 ? (
+                <AftermathPanel
+                  battle={selectedBattle}
+                  participants={participants}
+                  sessions={aftermathSessions}
+                  saving={saving}
+                  canManageCampaign={canManageCampaign}
+                  onInitializeAftermath={onInitializeAftermath}
+                  onCompleteStep={onCompleteAftermathStep}
+                  onReopenStep={onReopenAftermathStep}
+                />
+              ) : null}
+
               <div className="hero-actions">
                 <button
                   className="button"
@@ -1464,17 +1532,425 @@ function BattlePanel({
                 <button
                   className="button button--secondary"
                   type="button"
-                  disabled={saving || selectedBattle.status === "completed"}
+                  disabled={saving || !canCompleteSelectedBattle}
                   onClick={() => void onCompleteBattle(selectedBattle)}
                 >
                   Complete battle
                 </button>
+                {hasIncompleteAftermath ? (
+                  <p className="muted">Complete all aftermath sessions before closing the battle.</p>
+                ) : null}
               </div>
             </div>
           ) : null}
         </div>
       ) : null}
     </article>
+  );
+}
+
+function AftermathPanel({
+  battle,
+  participants,
+  sessions,
+  saving,
+  canManageCampaign,
+  onInitializeAftermath,
+  onCompleteStep,
+  onReopenStep
+}: {
+  battle: Battle;
+  participants: NonNullable<Battle["battle_participants"]>;
+  sessions: AftermathSession[];
+  saving: boolean;
+  canManageCampaign: boolean;
+  onInitializeAftermath: (battleId: string) => Promise<unknown>;
+  onCompleteStep: (
+    stepId: string,
+    draft: AftermathStepDraft,
+    battleFighters: NonNullable<
+      NonNullable<Battle["battle_participants"]>[number]["battle_fighters"]
+    >
+  ) => Promise<unknown>;
+  onReopenStep: (stepId: string, correctionReason: string) => Promise<unknown>;
+}) {
+  if (sessions.length === 0) {
+    return (
+      <details className="collapsible-section" open>
+        <summary>Aftermath</summary>
+        <div className="progression-block">
+          <p className="muted">No aftermath sessions have been started for this battle.</p>
+          <button
+            className="button"
+            type="button"
+            disabled={saving || battle.status !== "aftermath_pending"}
+            onClick={() => void onInitializeAftermath(battle.id)}
+          >
+            Start aftermath sessions
+          </button>
+        </div>
+      </details>
+    );
+  }
+
+  return (
+    <details className="collapsible-section" open>
+      <summary>Aftermath</summary>
+      <div className="progression-block">
+        <div className="progression-list">
+          {sessions.map((session) => {
+            const participant = participants.find(
+              (candidate) => candidate.id === session.battle_participant_id
+            );
+            const battleFighters = participant?.battle_fighters ?? [];
+
+            return (
+              <AftermathSessionCard
+                key={session.id}
+                session={session}
+                participantName={participant ? getBattleParticipantName(participant) : "Warband"}
+                battleFighters={battleFighters}
+                saving={saving}
+                canManageCampaign={canManageCampaign}
+                onCompleteStep={onCompleteStep}
+                onReopenStep={onReopenStep}
+              />
+            );
+          })}
+        </div>
+      </div>
+    </details>
+  );
+}
+
+function AftermathSessionCard({
+  session,
+  participantName,
+  battleFighters,
+  saving,
+  canManageCampaign,
+  onCompleteStep,
+  onReopenStep
+}: {
+  session: AftermathSession;
+  participantName: string;
+  battleFighters: NonNullable<
+    NonNullable<Battle["battle_participants"]>[number]["battle_fighters"]
+  >;
+  saving: boolean;
+  canManageCampaign: boolean;
+  onCompleteStep: (
+    stepId: string,
+    draft: AftermathStepDraft,
+    battleFighters: NonNullable<
+      NonNullable<Battle["battle_participants"]>[number]["battle_fighters"]
+    >
+  ) => Promise<unknown>;
+  onReopenStep: (stepId: string, correctionReason: string) => Promise<unknown>;
+}) {
+  const steps = getSortedAftermathSteps(session);
+  const currentStep = getCurrentAftermathStep(session);
+
+  return (
+    <section className="progression-row progression-row--stacked">
+      <div className="section-heading">
+        <div>
+          <strong>{participantName}</strong>
+          <small>
+            {session.status === "completed"
+              ? `Completed ${session.completed_at ? new Date(session.completed_at).toLocaleString() : ""}`
+              : currentStep
+                ? `Current step: ${aftermathStepLabels[currentStep.step_key]}`
+                : "Aftermath pending"}
+          </small>
+        </div>
+        <span className="status-pill">{session.status.replace("_", " ")}</span>
+      </div>
+
+      <ol className="aftermath-progress">
+        {steps.map((step) => (
+          <li key={step.id} data-state={step.status}>
+            <span>{step.position}</span>
+            {aftermathStepLabels[step.step_key]}
+          </li>
+        ))}
+      </ol>
+
+      <div className="progression-list">
+        {steps.map((step) => {
+          const isCurrent = currentStep?.id === step.id;
+
+          if (step.status === "completed") {
+            return (
+              <CompletedAftermathStep
+                key={step.id}
+                step={step}
+                saving={saving}
+                canManageCampaign={canManageCampaign}
+                onReopenStep={onReopenStep}
+              />
+            );
+          }
+
+          if (!isCurrent) {
+            return null;
+          }
+
+          return (
+            <AftermathStepForm
+              key={step.id}
+              step={step}
+              battleFighters={battleFighters}
+              saving={saving}
+              onCompleteStep={onCompleteStep}
+            />
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function CompletedAftermathStep({
+  step,
+  saving,
+  canManageCampaign,
+  onReopenStep
+}: {
+  step: AftermathStep;
+  saving: boolean;
+  canManageCampaign: boolean;
+  onReopenStep: (stepId: string, correctionReason: string) => Promise<unknown>;
+}) {
+  const [reason, setReason] = useState("");
+
+  return (
+    <div className="progression-row progression-row--stacked">
+      <div className="section-heading">
+        <div>
+          <strong>{aftermathStepLabels[step.step_key]}</strong>
+          <small>
+            {summarizeAftermathConsequences(step.consequences)}
+            {step.completed_at ? ` - ${new Date(step.completed_at).toLocaleString()}` : ""}
+          </small>
+        </div>
+        <span className="status-pill">Completed</span>
+      </div>
+      {canManageCampaign ? (
+        <div className="inline-form">
+          <label>
+            Correction reason
+            <input
+              value={reason}
+              onChange={(event) => setReason(event.target.value)}
+              maxLength={500}
+            />
+          </label>
+          <button
+            className="button button--secondary"
+            type="button"
+            disabled={saving}
+            onClick={() => void onReopenStep(step.id, reason).then(() => setReason(""))}
+          >
+            Reopen step
+          </button>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function AftermathStepForm({
+  step,
+  battleFighters,
+  saving,
+  onCompleteStep
+}: {
+  step: AftermathStep;
+  battleFighters: NonNullable<
+    NonNullable<Battle["battle_participants"]>[number]["battle_fighters"]
+  >;
+  saving: boolean;
+  onCompleteStep: (
+    stepId: string,
+    draft: AftermathStepDraft,
+    battleFighters: NonNullable<
+      NonNullable<Battle["battle_participants"]>[number]["battle_fighters"]
+    >
+  ) => Promise<unknown>;
+}) {
+  const [draft, setDraft] = useState<AftermathStepDraft>(() => createAftermathStepDraft(step));
+
+  useEffect(() => {
+    setDraft(createAftermathStepDraft(step));
+  }, [step]);
+
+  const preview = useMemo(() => {
+    try {
+      return summarizeAftermathConsequences(
+        buildAftermathStepPayload(draft, battleFighters).consequences
+      );
+    } catch (previewError) {
+      return getErrorMessage(previewError, "Consequences cannot be previewed yet.");
+    }
+  }, [battleFighters, draft]);
+
+  const showTotals = step.step_key === "award_glory" || step.step_key === "exploration";
+  const showFighterRenown = step.step_key === "resolve_renown";
+  const showFighterInjuries = step.step_key === "resolve_injuries";
+
+  function updateFighterChange(
+    fighterId: string,
+    fields: Partial<ReturnType<typeof createEmptyFighterChangeDraft>>
+  ) {
+    const current = draft.fighterChanges[fighterId] ?? createEmptyFighterChangeDraft();
+
+    setDraft({
+      ...draft,
+      fighterChanges: {
+        ...draft.fighterChanges,
+        [fighterId]: { ...current, ...fields }
+      }
+    });
+  }
+
+  return (
+    <form
+      className="progression-row progression-row--stacked"
+      onSubmit={(event) => {
+        event.preventDefault();
+        void onCompleteStep(step.id, draft, battleFighters);
+      }}
+    >
+      <div>
+        <strong>{aftermathStepLabels[step.step_key]}</strong>
+        <p className="muted">{step.instructions || aftermathStepInstructions[step.step_key]}</p>
+      </div>
+
+      <div className="progression-grid">
+        <label>
+          Dice or result
+          <input
+            value={draft.diceResult}
+            maxLength={120}
+            onChange={(event) => setDraft({ ...draft, diceResult: event.target.value })}
+          />
+        </label>
+        <label className="progression-wide">
+          Notes
+          <input
+            value={draft.notes}
+            maxLength={2000}
+            onChange={(event) => setDraft({ ...draft, notes: event.target.value })}
+          />
+        </label>
+        {showTotals ? (
+          <>
+            <label>
+              Glory change
+              <input
+                inputMode="numeric"
+                value={draft.gloryDelta}
+                onChange={(event) => setDraft({ ...draft, gloryDelta: event.target.value })}
+              />
+            </label>
+            <label>
+              Reputation change
+              <input
+                inputMode="numeric"
+                value={draft.reputationDelta}
+                onChange={(event) => setDraft({ ...draft, reputationDelta: event.target.value })}
+              />
+            </label>
+          </>
+        ) : null}
+      </div>
+
+      {showFighterRenown || showFighterInjuries ? (
+        <div className="progression-list">
+          {battleFighters.map((fighter) => {
+            const change =
+              draft.fighterChanges[fighter.warband_fighter_id] ?? createEmptyFighterChangeDraft();
+
+            return (
+              <div className="progression-row" key={fighter.id}>
+                <span>
+                  <strong>{fighter.name}</strong>
+                  <small>{fighterStatusLabels[fighter.status_at_battle]}</small>
+                </span>
+                {showFighterRenown ? (
+                  <label>
+                    Renown change
+                    <input
+                      inputMode="numeric"
+                      value={change.renownDelta}
+                      onChange={(event) =>
+                        updateFighterChange(fighter.warband_fighter_id, {
+                          renownDelta: event.target.value
+                        })
+                      }
+                    />
+                  </label>
+                ) : null}
+                {showFighterInjuries ? (
+                  <>
+                    <label>
+                      Status change
+                      <select
+                        value={change.status}
+                        onChange={(event) =>
+                          updateFighterChange(fighter.warband_fighter_id, {
+                            status: event.target.value as AftermathStepDraft["fighterChanges"][string]["status"]
+                          })
+                        }
+                      >
+                        <option value="">No status change</option>
+                        {Object.entries(fighterStatusLabels).map(([status, label]) => (
+                          <option key={status} value={status}>
+                            {label}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <label>
+                      Injury
+                      <input
+                        value={change.injuryName}
+                        maxLength={120}
+                        onChange={(event) =>
+                          updateFighterChange(fighter.warband_fighter_id, {
+                            injuryName: event.target.value
+                          })
+                        }
+                      />
+                    </label>
+                    <label>
+                      Description
+                      <input
+                        value={change.injuryDescription}
+                        maxLength={1000}
+                        onChange={(event) =>
+                          updateFighterChange(fighter.warband_fighter_id, {
+                            injuryDescription: event.target.value
+                          })
+                        }
+                      />
+                    </label>
+                  </>
+                ) : null}
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
+
+      <div className="section-heading">
+        <p className="muted">Preview: {preview}</p>
+        <button className="button" type="submit" disabled={saving}>
+          Confirm step
+        </button>
+      </div>
+    </form>
   );
 }
 
