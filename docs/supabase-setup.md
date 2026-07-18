@@ -64,6 +64,7 @@ the Supabase Dashboard SQL Editor:
 16. `supabase/migrations/202607160001_phase_6_battles.sql`
 17. `supabase/migrations/202607160002_phase_7_aftermath.sql`
 18. `supabase/migrations/202607160003_phase_8_activity_log.sql`
+19. `supabase/migrations/202607180001_campaign_delete_rpc.sql`
 
 Then reload the PostgREST schema cache:
 
@@ -95,6 +96,16 @@ supabase/migrations/202607140006_profile_upsert_rpc.sql
 
 Then redeploy the frontend that calls `update_current_profile(...)`.
 
+If a campaign owner sees `Could not find the function public.delete_campaign`
+or `PGRST202` while deleting a campaign, run:
+
+```text
+supabase/migrations/202607180001_campaign_delete_rpc.sql
+```
+
+Then reload the PostgREST schema cache. The migration creates the
+`delete_campaign(target_campaign_id uuid)` RPC used by the frontend.
+
 The auth trigger creates or refreshes a profile whenever Supabase receives
 Discord metadata for a user. Frontend clients can update only these profile
 columns:
@@ -115,6 +126,7 @@ The Phase 2 migration adds:
 - campaign membership and administrator helper functions
 - `accept_campaign_invite(invite_token text)`
 - `create_campaign(campaign_name text, campaign_description text, campaign_status text)`
+- `delete_campaign(target_campaign_id uuid)`
 
 Invitation acceptance should call `accept_campaign_invite()` through Supabase
 RPC. Do not insert campaign membership directly from the frontend.

@@ -223,7 +223,7 @@ await check("the sole owner cannot leave or be removed", async () => {
   );
 });
 
-await check("campaign switching does not leak data", async () => {
+const campaignB = await check("campaign switching does not leak data", async () => {
   const campaign = await rpc("create_campaign", userBToken, {
     campaign_name: `Phase 2 isolation ${runId}`,
     campaign_description: "Temporary isolation campaign created by scripts/verify-phase2.mjs.",
@@ -235,6 +235,26 @@ await check("campaign switching does not leak data", async () => {
   if (rows.length !== 0) {
     throw new Error("user A could read user B's unrelated campaign.");
   }
+
+  return row;
+});
+
+await check("campaign owner can permanently delete a campaign", async () => {
+  await rpc("delete_campaign", userAToken, {
+    target_campaign_id: campaignA.id
+  });
+
+  const rows = await request("GET", `/campaigns?select=id&id=eq.${campaignA.id}`, userAToken);
+
+  if (rows.length !== 0) {
+    throw new Error("deleted campaign was still visible to the owner.");
+  }
+});
+
+await check("isolation campaign owner can clean up their campaign", async () => {
+  await rpc("delete_campaign", userBToken, {
+    target_campaign_id: campaignB.id
+  });
 });
 
 console.log(`\nPhase 2 verification passed: ${results.length} checks.`);

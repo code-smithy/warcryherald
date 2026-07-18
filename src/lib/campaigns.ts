@@ -316,8 +316,28 @@ export async function deleteCampaign(client: SupabaseClient, campaignId: string)
   });
 
   if (error) {
+    if (isMissingDeleteCampaignFunction(error)) {
+      throw new Error(
+        "Campaign deletion is not installed in this Supabase project yet. Apply supabase/migrations/202607180001_campaign_delete_rpc.sql, then reload the PostgREST schema cache."
+      );
+    }
+
     throw error;
   }
+}
+
+function isMissingDeleteCampaignFunction(error: unknown) {
+  if (typeof error !== "object" || error === null) {
+    return false;
+  }
+
+  const maybeError = error as { code?: unknown; message?: unknown };
+
+  return (
+    maybeError.code === "PGRST202" ||
+    (typeof maybeError.message === "string" &&
+      maybeError.message.includes("public.delete_campaign"))
+  );
 }
 
 export async function listCampaignMembers(client: SupabaseClient, campaignId: string) {
