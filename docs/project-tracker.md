@@ -835,6 +835,7 @@ Record durable decisions here.
 - 2026-07-14: Added `202607140005_phase_2_full_repair.sql` after production showed both `public.campaigns` and `public.create_campaign(...)` absent. This is the preferred SQL Editor repair file for partially migrated production projects.
 - 2026-07-14: Added `202607140006_profile_upsert_rpc.sql` and switched profile load/save to RPCs so existing auth users without a `profiles` row can recover without direct frontend inserts.
 - 2026-07-18: Added `202607180001_campaign_delete_rpc.sql` for owner-only permanent campaign deletion. Production projects must apply this migration and reload the PostgREST schema cache before the frontend delete action can succeed.
+- 2026-07-18: Added `202607180002_allow_campaign_delete_member_cleanup.sql` after production showed the sole-owner member trigger blocking campaign delete cascades. The repair keeps normal sole-owner self-removal blocked while allowing `delete_campaign(...)` cleanup.
 - 2026-07-14: Updated `pnpm verify:phase2` to load frontend-safe Supabase project values from `.env`; temporary user access tokens must still be passed through the process environment.
 - 2026-07-14: User confirmed Phase 2 target migrations and live two-user RLS verification are complete.
 - 2026-07-14: Started Phase 3 with public read-only reference tables, empty reviewed-input JSON scaffolds, and service-role-only import tooling.

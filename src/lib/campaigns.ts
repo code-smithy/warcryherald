@@ -322,6 +322,12 @@ export async function deleteCampaign(client: SupabaseClient, campaignId: string)
       );
     }
 
+    if (isSoleOwnerDeleteGuard(error)) {
+      throw new Error(
+        "Campaign deletion needs the latest owner-cleanup migration. Apply supabase/migrations/202607180002_allow_campaign_delete_member_cleanup.sql, then reload the PostgREST schema cache."
+      );
+    }
+
     throw error;
   }
 }
@@ -337,6 +343,20 @@ function isMissingDeleteCampaignFunction(error: unknown) {
     maybeError.code === "PGRST202" ||
     (typeof maybeError.message === "string" &&
       maybeError.message.includes("public.delete_campaign"))
+  );
+}
+
+function isSoleOwnerDeleteGuard(error: unknown) {
+  if (typeof error !== "object" || error === null) {
+    return false;
+  }
+
+  const maybeError = error as { code?: unknown; message?: unknown };
+
+  return (
+    maybeError.code === "P0001" &&
+    typeof maybeError.message === "string" &&
+    maybeError.message.includes("The sole campaign owner cannot leave or be removed")
   );
 }
 

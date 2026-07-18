@@ -65,6 +65,7 @@ the Supabase Dashboard SQL Editor:
 17. `supabase/migrations/202607160002_phase_7_aftermath.sql`
 18. `supabase/migrations/202607160003_phase_8_activity_log.sql`
 19. `supabase/migrations/202607180001_campaign_delete_rpc.sql`
+20. `supabase/migrations/202607180002_allow_campaign_delete_member_cleanup.sql`
 
 Then reload the PostgREST schema cache:
 
@@ -105,6 +106,17 @@ supabase/migrations/202607180001_campaign_delete_rpc.sql
 
 Then reload the PostgREST schema cache. The migration creates the
 `delete_campaign(target_campaign_id uuid)` RPC used by the frontend.
+
+If deleting a campaign reports `The sole campaign owner cannot leave or be
+removed` with `P0001`, run:
+
+```text
+supabase/migrations/202607180002_allow_campaign_delete_member_cleanup.sql
+```
+
+Then reload the PostgREST schema cache. Normal owner self-removal is still
+blocked; this repair only allows the owner-only delete RPC to clean up campaign
+members as part of deleting the whole campaign.
 
 The auth trigger creates or refreshes a profile whenever Supabase receives
 Discord metadata for a user. Frontend clients can update only these profile
