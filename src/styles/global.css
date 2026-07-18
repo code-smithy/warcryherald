@@ -154,6 +154,20 @@ textarea:focus-visible {
   cursor: pointer;
 }
 
+.link-button--danger {
+  color: #9f2f32;
+}
+
+.danger-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+}
+
 .page {
   width: min(1120px, 100%);
   margin: 0 auto;

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   CampaignTimeline,
   FighterCard,
@@ -64,6 +64,7 @@ import {
   campaignStatusLabels,
   createCampaignInvite,
   deactivateCampaignInvite,
+  deleteCampaign,
   editableCampaignStatuses,
   getCampaign,
   getDefaultInviteExpiresAt,
@@ -168,6 +169,7 @@ const campaignTabs: Array<{ id: CampaignTab; label: string }> = [
 
 export function CampaignDetailPage() {
   const { campaignId } = useParams();
+  const navigate = useNavigate();
   const client = getSupabaseClient();
   const { profile, user } = useAuth();
   const [campaign, setCampaign] = useState<Campaign | null>(null);
@@ -546,6 +548,35 @@ export function CampaignDetailPage() {
     } catch (archiveError) {
       setError(
         getErrorMessage(archiveError, "Campaign could not be archived.")
+      );
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleDelete() {
+    if (!client || !campaign) {
+      return;
+    }
+
+    const confirmed = window.confirm(
+      `Permanently delete ${campaign.name}? This removes the campaign, members, invites, warbands, battles, and chronicle records.`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setSaving(true);
+    setError(null);
+    setMessage(null);
+
+    try {
+      await deleteCampaign(client, campaign.id);
+      navigate("/campaigns");
+    } catch (deleteError) {
+      setError(
+        getErrorMessage(deleteError, "Campaign could not be deleted.")
       );
     } finally {
       setSaving(false);
@@ -1159,15 +1190,27 @@ export function CampaignDetailPage() {
           ) : (
             <p className="muted">Only campaign owners and administrators can change settings.</p>
           )}
-          {isOwner && campaign.status !== "archived" ? (
-            <button
-              className="button button--secondary"
-              type="button"
-              disabled={saving}
-              onClick={() => void handleArchive()}
-            >
-              Archive campaign
-            </button>
+          {isOwner ? (
+            <div className="danger-actions">
+              {campaign.status !== "archived" ? (
+                <button
+                  className="button button--secondary"
+                  type="button"
+                  disabled={saving}
+                  onClick={() => void handleArchive()}
+                >
+                  Archive campaign
+                </button>
+              ) : null}
+              <button
+                className="link-button link-button--danger"
+                type="button"
+                disabled={saving}
+                onClick={() => void handleDelete()}
+              >
+                Delete campaign
+              </button>
+            </div>
           ) : null}
         </article>
       </section>

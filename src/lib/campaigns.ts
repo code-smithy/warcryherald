@@ -310,6 +310,16 @@ export async function archiveCampaign(client: SupabaseClient, campaignId: string
   return data as Campaign;
 }
 
+export async function deleteCampaign(client: SupabaseClient, campaignId: string) {
+  const { error } = await client.rpc("delete_campaign", {
+    target_campaign_id: campaignId
+  });
+
+  if (error) {
+    throw error;
+  }
+}
+
 export async function listCampaignMembers(client: SupabaseClient, campaignId: string) {
   const { data, error } = await client
     .from("campaign_members")

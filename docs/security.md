@@ -29,7 +29,7 @@ functions where appropriate.
 - Any authenticated user may insert a campaign where `created_by = auth.uid()`.
 - A trigger adds the creator as the `owner` member.
 - Campaign owners and campaign administrators can update campaign settings.
-- Only owners may archive or restore a campaign.
+- Only owners may archive, restore, or permanently delete a campaign.
 - `campaign_members` are readable only by members of the same campaign.
 - Campaign owners and administrators can remove members, and users can remove
   themselves, but the sole owner cannot leave or be removed.
